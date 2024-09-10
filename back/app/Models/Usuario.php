@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Usuario extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'nombreUsuario',
+        'contrasenia',
+        'avatar',
+        'fechaRegistro',
+        'fechaBaja'
+    ];
+
+    public function personas(): BelongsTo
+    {
+        return $this->belongsTo(Persona::class);
+    }
+
+    public function reservas(): HasMany
+    {
+        return $this->hasMany(Reserva::class);
+    }
+
+    public function resenias(): HasMany
+    {
+        return $this->hasMany(Resenia::class);
+    }
+
+    public function notificaciones(): HasMany
+    {
+        return $this->hasMany(Notificacion::class);
+    }
+}
