@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-     <h1 className='text-3xl font-bold underline'>HOLA</h1>
+     <h1 className='text-3xl font-bold underline text-teal-600'>.GOURMET-RESERVAS</h1>
     </>
   )
 }
