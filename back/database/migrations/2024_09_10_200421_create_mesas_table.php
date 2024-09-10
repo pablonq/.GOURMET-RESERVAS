@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mesa', function (Blueprint $table) {
+        Schema::create('mesas', function (Blueprint $table) {
             $table->id();
             $table->BigInteger('idRestaurante')->unsigned()->nullable();
             $table->integer('numeroMesa');
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('estado');
             $table->timestamps();
 
-            $table->foreign('idRestaurante')->references('id')->on('restaurante')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mesa');
+        Schema::dropIfExists('mesas');
     }
 };

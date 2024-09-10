@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('duenio', function (Blueprint $table) {
+        Schema::create('duenios', function (Blueprint $table) {
             $table->id();
             $table->string('dni');
             $table->unsignedBigInteger('idRestaurante')->unsigned()->nullable();
@@ -19,8 +19,8 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('idRestaurante')->references('id')->on('restaurante')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idPersona')->references('id')->on('persona')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('duenio');
+        Schema::dropIfExists('duenios');
     }
 };

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reserva', function (Blueprint $table) {
+        Schema::create('reservas', function (Blueprint $table) {
             $table->id();
             $table->BigInteger('idUsuario')->unsigned()->nullable();
             $table->BigInteger('idRestaurante')->unsigned()->nullable();
@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('notaEspecial');
             $table->timestamps();
 
-            $table->foreign('idRestaurante')->references('id')->on('restaurante')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idMesa')->references('id')->on('mesa')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idUsuario')->references('id')->on('usuario')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idMesa')->references('id')->on('mesas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idUsuario')->references('id')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
 
 
         });
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reserva');
+        Schema::dropIfExists('reservas');
     }
 };

@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('plato_restaurante', function (Blueprint $table) {
+        Schema::create('platosRestaurantes', function (Blueprint $table) {
           $table->BigInteger('idRestaurante')->unsigned()->nullable();
           $table->BigInteger('idPlato')->unsigned()->nullable();
 
           $table->primary(['idRestaurante', 'idPlato']);
 
-          $table->foreign('idRestaurante')->references('id')->on('restaurante')->onDelete('cascade')->onUpdate('cascade');
-          $table->foreign('idPlato')->references('id')->on('plato')->onDelete('cascade')->onUpdate('cascade');
+          $table->foreign('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
+          $table->foreign('idPlato')->references('id')->on('platos')->onDelete('cascade')->onUpdate('cascade');
 
 
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('plato_restaurante');
+        Schema::dropIfExists('platosRestaurantes');
     }
 };

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pago', function (Blueprint $table) {
+        Schema::create('pagos', function (Blueprint $table) {
             $table->id();
             $table->BigInteger('idReserva')->unsigned()->nullable();
             $table->integer('monto');
@@ -21,8 +21,8 @@ return new class extends Migration
             $table->BigInteger('idUsuario')->unsigned()->nullable();
             $table->timestamps();
 
-            $table->foreign('idUsuario')->references('id')->on('usuario')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idReserva')->references('id')->on('reserva')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idUsuario')->references('id')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idReserva')->references('id')->on('reservas')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pago');
+        Schema::dropIfExists('pagos');
     }
 };

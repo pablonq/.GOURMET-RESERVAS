@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('plato', function (Blueprint $table) {
+        Schema::create('platos', function (Blueprint $table) {
             $table->id();
             $table->BigInteger('idMenu')->unsigned()->nullable();
             $table->string('nombrePlato');
@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('idMenu')->references('id')->on('menu')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idMenu')->references('id')->on('menues')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('plato');
+        Schema::dropIfExists('platos');
     }
 };

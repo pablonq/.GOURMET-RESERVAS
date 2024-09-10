@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notificacion', function (Blueprint $table) {
+        Schema::create('notificaciones', function (Blueprint $table) {
             $table->id();
             $table->string('descripcion');
             $table->BigInteger('idUsuario')->unsigned()->nullable();
@@ -19,8 +19,8 @@ return new class extends Migration
             $table->timestamp('fecha');
             $table->timestamps();
 
-            $table->foreign('idRestaurante')->references('id')->on('restaurante')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idUsuario')->references('id')->on('usuario')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('idUsuario')->references('id')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notificacion');
+        Schema::dropIfExists('notificaciones');
     }
 };
