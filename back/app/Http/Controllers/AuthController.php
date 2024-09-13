@@ -2,69 +2,193 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Persona;
+use App\Models\Usuario;
+use App\Models\Restaurante;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function registerUsuario(Request $request)
     {
         $fields = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed'
+          'nombre' => 'required|max:255',
+          'apellido' => 'required|max:255',
+          'fechaNac' => 'required|date',
+          'email' => 'required|email|unique:usuarios',
+          'telefono' => 'required|max:255',
+          'ciudad' => 'required|max:255',
+          'nombreUsuario' => 'required|max:255',
+          'contrasenia' => 'required|confirmed',
+          'avatar'=> 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            
         ]);
+        try{
+        $persona = Persona::create([
+          'nombre' => $request->nombre,
+          'apellido' => $request->apellido,
+          'fechaNac' => $request->fechaNac,
+          'email' => $request->email,
+          'telefono' => $request->telefono,
+          'ciudad' => $request->ciudad,
+      ]);
 
-        $user = User::create($fields);
+      $usuario = Usuario::create([
+        'idPersona' => $persona->id,
+        'nombreUsuario' => $fields['nombreUsuario'],
+        'contrasenia' => bcrypt($fields['contrasenia']),
+        'avatar' => $fields['avatar'],
+        'fechaRegistro' => now(),
+        
+    ]);
  /* Después de crear el usuario,
  el método genera un token para el usuario utilizando el método createToken del objeto $user. 
  El token se crea con el nombre del usuario como su nombre.
-  */       $token = $user->createToken($request->name);
+  */       $token = $usuario->createToken($usuario->nombreUsuario);
+/* Devuelve una matriz que contiene el objeto de usuario recién creado y la versión de texto sin formato del token.
+ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a recursos protegidos en la aplicación.
+ */        /* return [
+            'noombreUsuario' => $usuario,
+            'token' => $token->plainTextToken
+                    ]; */
+                    return response()->json([
+                      'usuario' => $usuario,
+                      'token' => $token->plainTextToken,
+                  ], 201);
+    }catch (\Exception $e) {
+      Log::error('Error registrando usuario: ' . $e->getMessage());
+      return response()->json(['error' => 'Error al registrar usuario.'], 500);
+  }
+}
+    public function registerRestaurante(Request $request)
+    {
+        $fields = $request->validate([
+            'nombreRes' => 'required|max:255',
+            'direccion' => 'required|max:255',
+            'descripcion' => 'required|max:255',
+            'tipo' => 'required|max:255',
+            'telefono' => 'required|max:255',
+            'email' => 'required|email|unique:restaurantes',
+            'contrasenia' => 'required|confirmed',
+            'capacidadTotal'=> 'required|max:11',
+            'diasAtencion'=> 'required',
+            'horarioApertura'=> 'required', 
+            'horarioCierre'=> 'required',
+            'imagenesPortada'=> 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'latitud'=> 'required',
+            'longitud'=> 'required',
+            'descrpcion'=> 'required',
+            'aceptaEventos'=> 'required',
+            'fechaRegistro' => now(),
+            'fechaBaja' => null, // Inicialmente no tiene fecha de baja
+
+        ]);
+try{
+        $restaurante = Restaurante::create($fields);
+ /* Después de crear el usuario,
+ el método genera un token para el usuario utilizando el método createToken del objeto $user. 
+ El token se crea con el nombre del usuario como su nombre.
+  */       $token = $restaurante->createToken($restaurante->nombreRes);
 /* Devuelve una matriz que contiene el objeto de usuario recién creado y la versión de texto sin formato del token.
  Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a recursos protegidos en la aplicación.
  */        return [
-            'user' => $user,
+            'nombreRes' => $restaurante,
             'token' => $token->plainTextToken
         ];
-    }
-
-    public function login(Request $request)
+    }catch (\Exception $e) {
+      Log::error('Error registrando restaurante: ' . $e->getMessage());
+      return response()->json(['error' => 'Error al registrar restaurante.'], 500);
+  }
+}
+    public function loginUsuarios(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:users',
-            'password' => 'required'
+            'email' => 'required|email|exists:usuarios',
+            'contrasenia' => 'required'
         ]);
 
         // Busca al usuario en la base de datos utilizando el correo electrónico proporcionado en la solicitud.
-        $user = User::where('email', $request->email)->first();
+        $usuario = Usuario::where('email', $fields['email'])->first();
         
         // Si no se encuentra ningún usuario con ese correo electrónico, o si la contraseña proporcionada no coincide
         // con la contraseña almacenada en la base de datos para ese usuario, la función devuelve una matriz de errores.
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return [
+        if (!$usuario || !Hash::check($fields['contrasenia'], $usuario->contrasenia)) {
+            /* return [
                 'errors' => [
-                'email' => ['The provided credentials are incorrect.']
+                'email' => ['Validación incorrecta']
                 ]
-            ];
+            ]; */
+            return response()->json(['error' => 'Credenciales inválidas'], 401);
             
         }
         // Si se encuentra un usuario y la contraseña coincide, la función genera un token para el usuario utilizando el método createToken del objeto $user.
         // El token se crea con el nombre del usuario como su nombre.
-        $token = $user->createToken($user->name);
+        $token = $usuario->createToken($usuario->nombreUsuario);
 
-        return [
-            'user' => $user,
+        /* return [
+            'nombreUsuario' => $usuario,
             'token' => $token->plainTextToken
-        ];
+        ]; */
+        return response()->json([
+          'usuario' => $usuario,
+          'token' => $token->plainTextToken,
+      ]);
     }
 
-    public function logout(Request $request)
+    public function loginRestaurantes(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email|exists:restaurantes',
+            'contrasenia' => 'required'
+        ]);
+
+        // Busca al usuario en la base de datos utilizando el correo electrónico proporcionado en la solicitud.
+        $restaurante = Restaurante::where('email', $fields['email'])->first();
+        
+        // Si no se encuentra ningún usuario con ese correo electrónico, o si la contraseña proporcionada no coincide
+        // con la contraseña almacenada en la base de datos para ese usuario, la función devuelve una matriz de errores.
+        if (!$restaurante || !Hash::check($fields['contrasenia'], $restaurante->contrasenia)) {
+           /*  return [
+                'errors' => [
+                'email' => ['Validación incorrecta']
+                ]
+            ]; */
+            return response()->json(['error' => 'Credenciales inválidas'], 401);
+            
+        }
+        // Si se encuentra un usuario y la contraseña coincide, la función genera un token para el usuario utilizando el método createToken del objeto $user.
+        // El token se crea con el nombre del usuario como su nombre.
+        $token = $restaurante->createToken($restaurante->nombreRes);
+
+        /* return [
+            'nombreRestaurante' => $restaurante,
+            'token' => $token->plainTextToken
+        ]; */
+        return response()->json([
+          'restaurante' => $restaurante,
+          'token' => $token->plainTextToken,
+      ]);
+    }
+
+    public function logoutUsuario(Request $request)
+    {
+        // Revocamos todos los tokens del usuario actual
         $request->user()->tokens()->delete();
 
-        return [
-            'message' => 'You are logged out.' 
-        ];
+        return response()->json([
+            'message' => 'Usuario desconectado exitosamente.'
+        ], 200);
+    }
+
+    public function logoutRestaurante(Request $request)
+    {
+        // Revocamos todos los tokens del restaurante actual
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'message' => 'Restaurante desconectado exitosamente.'
+        ], 200);
     }
 }
