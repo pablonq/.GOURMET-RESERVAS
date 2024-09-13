@@ -1,4 +1,5 @@
 import Title from "../component/Title/Title";
+import MapaMesas from "./restaurante/MapaMesas/MapaMesas";
 
 /**
  * Un breve resumen de la aplicación
@@ -8,8 +9,11 @@ import Title from "../component/Title/Title";
 
 const Home = () => {
   return (
-    <div className="bg-slate-400">
+    <div>
       <Title text=".GourmetReservas" />
+      <div className="p-4">
+        <MapaMesas />
+      </div>
     </div>
   );
 };
