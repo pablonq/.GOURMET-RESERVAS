@@ -8,7 +8,6 @@ import RegistroUsuario from './pages/usuario/RegistroUsuario/RegistroUsuario'
 import Layout from './pages/Layout';
 
 function App() {
-  
   return (
     <BrowserRouter>
     <Routes>
@@ -25,4 +24,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

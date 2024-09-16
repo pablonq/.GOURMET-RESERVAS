@@ -1,9 +1,11 @@
 <?php
 use App\Http\Controllers\AuthController;
 
+use App\Http\Controllers\MesaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+Route::apiResource('mesas', MesaController::class);
 // Rutas accesibles solo con autenticación (usuarios y restaurantes)
 Route::middleware('auth:sanctum')->group(function () {
   Route::get('/user', function (Request $request) {
