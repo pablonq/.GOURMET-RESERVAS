@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('menues', function (Blueprint $table) {
             $table->id();
-            $table->BigInteger('idRestaurante')->unsigned()->nullable();
+            /* $table->BigInteger('idRestaurante')->unsigned()->nullable(); */
             $table->string('nombre');
             $table->string('descripcion');
             $table->string('tipo');
             $table->timestamps();
             $table->string('imagen');
 
-            $table->foreign('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

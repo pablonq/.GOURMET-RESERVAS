@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('duenios', function (Blueprint $table) {
             $table->id();
             $table->string('dni');
-            $table->unsignedBigInteger('idRestaurante')->unsigned()->nullable();
-            $table->unsignedBigInteger('idPersona')->unsigned()->nullable();
+           /*  $table->unsignedBigInteger('idRestaurante')->unsigned()->nullable();
+            $table->unsignedBigInteger('idPersona')->unsigned()->nullable(); */
 
             $table->timestamps();
 
-            $table->foreign('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idPersona')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('nombreUsuario');
             $table->string('contrasenia');
-          $table->string('avatar');
+          $table->string('avatar')->nullable();
           $table->timestamp('fechaRegistro')->nullable();
           $table->timestamp('fechaBaja')->nullable();
             $table->timestamps();
-            $table->BigInteger('idPersona')->unsigned()->nullable();
+            /* $table->BigInteger('idPersona')->unsigned()->nullable(); */
 
-            $table->foreign('idPersona')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idPersona')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

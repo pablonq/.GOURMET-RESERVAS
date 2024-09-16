@@ -13,36 +13,44 @@ class AuthController extends Controller
 {
     public function registerUsuario(Request $request)
     {
+      
         $fields = $request->validate([
           'nombre' => 'required|max:255',
           'apellido' => 'required|max:255',
           'fechaNac' => 'required|date',
-          'email' => 'required|email|unique:usuarios',
+          'email' => 'required|email|unique:personas,email',
           'telefono' => 'required|max:255',
           'ciudad' => 'required|max:255',
-          'nombreUsuario' => 'required|max:255',
-          'contrasenia' => 'required|confirmed',
+          'nombreUsuario' => 'required|max:255|unique:usuarios,nombreUsuario',
+          'contrasenia' => 'required|confirmed|min:4',
           'avatar'=> 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             
         ]);
-        try{
-        $persona = Persona::create([
-          'nombre' => $request->nombre,
-          'apellido' => $request->apellido,
-          'fechaNac' => $request->fechaNac,
-          'email' => $request->email,
-          'telefono' => $request->telefono,
-          'ciudad' => $request->ciudad,
-      ]);
+        //try{
+          $persona = Persona::create([
+            'nombre' => $fields['nombre'],
+            'apellido' => $fields['apellido'],
+            'fechaNac' => $fields['fechaNac'],
+            'email' => $fields['email'],
+            'telefono' => $fields['telefono'],
+            'ciudad' => $fields['ciudad'],
+        ]);
 
       $usuario = Usuario::create([
         'idPersona' => $persona->id,
         'nombreUsuario' => $fields['nombreUsuario'],
         'contrasenia' => bcrypt($fields['contrasenia']),
-        'avatar' => $fields['avatar'],
+        'avatar' => null,
         'fechaRegistro' => now(),
         
     ]);
+    // Si se proporcionó un avatar, lo procesamos y guardamos
+    if ($request->hasFile('avatar')) {
+      $avatarPath = $request->file('avatar')->store('avatars', 'public');
+      $usuario->avatar = $avatarPath;
+      $usuario->save();
+  }
+
  /* Después de crear el usuario,
  el método genera un token para el usuario utilizando el método createToken del objeto $user. 
  El token se crea con el nombre del usuario como su nombre.
@@ -53,14 +61,11 @@ class AuthController extends Controller
             'noombreUsuario' => $usuario,
             'token' => $token->plainTextToken
                     ]; */
-                    return response()->json([
-                      'usuario' => $usuario,
-                      'token' => $token->plainTextToken,
-                  ], 201);
-    }catch (\Exception $e) {
-      Log::error('Error registrando usuario: ' . $e->getMessage());
-      return response()->json(['error' => 'Error al registrar usuario.'], 500);
-  }
+                    return [
+            'usuario' => $usuario,
+            'token' => $token->plainTextToken,
+        ];
+    
 }
     public function registerRestaurante(Request $request)
     {

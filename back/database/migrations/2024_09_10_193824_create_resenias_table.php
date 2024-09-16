@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('resenias', function (Blueprint $table) {
             $table->id();
-            $table->BigInteger('idUsuario')->unsigned()->nullable();
-            $table->BigInteger('idRestaurante')->unsigned()->nullable();
+            /* $table->BigInteger('idUsuario')->unsigned()->nullable();
+            $table->BigInteger('idRestaurante')->unsigned()->nullable(); */
             $table->string('calificacion');
             $table->string('comentario');
             $table->string('respuestaDuenio')->nullable();
@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('imagen')->nullable();
             $table->timestamps();
 
-            $table->foreign('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idUsuario')->references('id')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idUsuario')->references('id')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
 
 
         });

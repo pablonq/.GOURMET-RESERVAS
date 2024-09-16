@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('pagos', function (Blueprint $table) {
             $table->id();
-            $table->BigInteger('idReserva')->unsigned()->nullable();
+            /* $table->BigInteger('idReserva')->unsigned()->nullable(); */
             $table->integer('monto');
             $table->date('fechaPago');
             $table->string('metodoPago');
             $table->string('estado');
-            $table->BigInteger('idUsuario')->unsigned()->nullable();
+            /* $table->BigInteger('idUsuario')->unsigned()->nullable(); */
             $table->timestamps();
 
-            $table->foreign('idUsuario')->references('id')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('idReserva')->references('id')->on('reservas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idUsuario')->references('id')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idReserva')->references('id')->on('reservas')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

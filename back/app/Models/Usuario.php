@@ -14,12 +14,12 @@ class Usuario extends Model
     use HasFactory, Notifiable, HasApiTokens;
 
     protected $fillable = [
-        'nombreUsuario',
-        'contrasenia',
-        'avatar',
-        'fechaRegistro',
-        'fechaBaja'
-    ];
+      'idPersona',
+      'nombreUsuario',
+      'contrasenia',
+      'avatar',
+      'fechaRegistro',
+  ];  
 
     public function personas(): BelongsTo
     {

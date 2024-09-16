@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('platosRestaurantes', function (Blueprint $table) {
-          $table->BigInteger('idRestaurante')->unsigned()->nullable();
-          $table->BigInteger('idPlato')->unsigned()->nullable();
+          /* $table->BigInteger('idRestaurante')->unsigned()->nullable();
+          $table->BigInteger('idPlato')->unsigned()->nullable(); */
 
           $table->primary(['idRestaurante', 'idPlato']);
 
-          $table->foreign('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
-          $table->foreign('idPlato')->references('id')->on('platos')->onDelete('cascade')->onUpdate('cascade');
+          $table->foreignId('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
+          $table->foreignId('idPlato')->references('id')->on('platos')->onDelete('cascade')->onUpdate('cascade');
 
 
 

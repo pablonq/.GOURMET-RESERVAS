@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('mesas', function (Blueprint $table) {
             $table->id();
-            $table->BigInteger('idRestaurante')->unsigned()->nullable();
+           /*  $table->BigInteger('idRestaurante')->unsigned()->nullable(); */
             $table->integer('numeroMesa');
             $table->integer('cantidadPersonas');
             $table->boolean('estado');
             $table->timestamps();
 
-            $table->foreign('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

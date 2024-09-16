@@ -1,6 +1,6 @@
-import Title from "../component/Title/Title";
+import Title from "../../component/Title/Title";
 
-const Login = () => {
+export default function LoginRestaurante (){
   return (
     <div className="bg-slate-400">
       <Title text="Iniciar Seccion" />
@@ -8,4 +8,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+ 

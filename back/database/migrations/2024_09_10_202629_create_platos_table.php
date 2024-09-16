@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('platos', function (Blueprint $table) {
             $table->id();
-            $table->BigInteger('idMenu')->unsigned()->nullable();
+            /* $table->BigInteger('idMenu')->unsigned()->nullable(); */
             $table->string('nombrePlato');
             $table->string('descripcion');
             $table->string('precio');
@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('idMenu')->references('id')->on('menues')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idMenu')->references('id')->on('menues')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }
