@@ -6,6 +6,7 @@ import LoginUsuario from './pages/Login/LoginUsuario';
 import LoginRestaurante from './pages/Login/LoginRestaurante';
 import RegistroUsuario from './pages/usuario/RegistroUsuario/RegistroUsuario'
 import Layout from './pages/Layout';
+import RegistroRestaurante from './pages/restaurante/RegistroRestaurante/RegistroRestaurante';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />} />
       <Route index element={<Home />} /> 
-      <Route path='/loginResturante' element={<LoginRestaurante />} /> 
+      <Route path='/loginResturante' element={<LoginRestaurante />} />
+      <Route path="/registroRestaurante" element={<RegistroRestaurante />} /> 
       <Route path='/loginUsuario' element={<LoginUsuario />} />
       <Route path="/registroUsuario" element={<RegistroUsuario />} />
 

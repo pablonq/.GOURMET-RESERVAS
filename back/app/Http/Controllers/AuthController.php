@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Persona;
 use App\Models\Usuario;
 use App\Models\Restaurante;
+use Illuminate\Support\Facades\DB;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -62,6 +64,7 @@ class AuthController extends Controller
             'token' => $token->plainTextToken
                     ]; */
                     return [
+                      'rol' => 'usuario',
             'usuario' => $usuario,
             'token' => $token->plainTextToken,
         ];
@@ -76,22 +79,51 @@ class AuthController extends Controller
             'tipo' => 'required|max:255',
             'telefono' => 'required|max:255',
             'email' => 'required|email|unique:restaurantes',
-            'contrasenia' => 'required|confirmed',
+            'contrasenia' => 'required|confirmed|min:4',
             'capacidadTotal'=> 'required|max:11',
             'diasAtencion'=> 'required',
-            'horarioApertura'=> 'required', 
-            'horarioCierre'=> 'required',
-            'imagenesPortada'=> 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'latitud'=> 'required',
-            'longitud'=> 'required',
-            'descrpcion'=> 'required',
-            'aceptaEventos'=> 'required',
-            'fechaRegistro' => now(),
-            'fechaBaja' => null, // Inicialmente no tiene fecha de baja
+            'horaApertura'=> 'required', 
+            'horaCierre'=> 'required',
+            'imagen'=> 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'latitud' => 'required|numeric',
+            'longitud' => 'required|numeric',
+            'aceptaEventos'=> 'required|boolean',
+            'fechaBaja' => 'nullable|date', // Inicialmente no tiene fecha de baja
+            'fechaAlta' => now(),
 
         ]);
-try{
-        $restaurante = Restaurante::create($fields);
+
+        $fields['aceptaEventos'] = filter_var($fields['aceptaEventos'], FILTER_VALIDATE_BOOLEAN);
+
+        $coordenadas = "POINT({$fields['longitud']} {$fields['latitud']})";
+
+        
+        $restaurante = Restaurante::create([
+        'nombreRes' => $fields['nombreRes'],
+        'direccion' => $fields['direccion'],
+        'descripcion' => $fields['descripcion'],
+        'tipo' => $fields['tipo'],
+        'telefono' => $fields['telefono'],
+        'email' => $fields['email'],
+        'contrasenia' => bcrypt($fields['contrasenia']),
+        'capacidadTotal' => $fields['capacidadTotal'],
+        'diasAtencion' => is_array($fields['diasAtencion']) ? implode(',', $fields['diasAtencion']) : $fields['diasAtencion'], // Convierte array a string,
+        'horaApertura' => $fields['horaApertura'],
+        'horaCierre' => $fields['horaCierre'],
+        'imagen' => $request->hasFile('imagen') ? $imagenPath : null,
+        'coordenadas' => DB::raw("ST_GeomFromText('$coordenadas', 4326)"),
+        'aceptaEventos' => $fields['aceptaEventos'],
+        'fechaBaja' => null, // Inicialmente no tiene fecha de baja
+        'fechaAlta' => now(),
+    ]);
+
+    if ($request->hasFile('imagen')) {
+      $imagenPath = $request->file('imagen')->store('imagen', 'public');
+      $restaurante->imagen = $imagenPath;
+      $restaurante->save();
+  }
+  
+
  /* Después de crear el usuario,
  el método genera un token para el usuario utilizando el método createToken del objeto $user. 
  El token se crea con el nombre del usuario como su nombre.
@@ -99,35 +131,38 @@ try{
 /* Devuelve una matriz que contiene el objeto de usuario recién creado y la versión de texto sin formato del token.
  Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a recursos protegidos en la aplicación.
  */        return [
+            'rol' => 'restaurante',
             'nombreRes' => $restaurante,
             'token' => $token->plainTextToken
         ];
-    }catch (\Exception $e) {
-      Log::error('Error registrando restaurante: ' . $e->getMessage());
-      return response()->json(['error' => 'Error al registrar restaurante.'], 500);
-  }
+    
 }
     public function loginUsuarios(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:usuarios',
+        $fields = $request->validate([
+            'email' => 'required|email|exists:personas,email',
             'contrasenia' => 'required'
         ]);
 
         // Busca al usuario en la base de datos utilizando el correo electrónico proporcionado en la solicitud.
-        $usuario = Usuario::where('email', $fields['email'])->first();
+        $persona = Persona::where('email', $fields['email'])->first();
+
+        if (!$persona) {
+          return response()->json(['error' => 'Email no encontrado'], 404);
+      }
+      $usuario = Usuario::where('idPersona', $persona->id)->first();
+
+      if (!$usuario) {
+        return response()->json(['error' => 'Usuario no encontrado para este email'], 404);
+    }
+
+    if (!Hash::check($fields['contrasenia'], $usuario->contrasenia)) {
+      return response()->json(['error' => 'Contraseña incorrecta'], 401);
+  }
+
+      
         
-        // Si no se encuentra ningún usuario con ese correo electrónico, o si la contraseña proporcionada no coincide
-        // con la contraseña almacenada en la base de datos para ese usuario, la función devuelve una matriz de errores.
-        if (!$usuario || !Hash::check($fields['contrasenia'], $usuario->contrasenia)) {
-            /* return [
-                'errors' => [
-                'email' => ['Validación incorrecta']
-                ]
-            ]; */
-            return response()->json(['error' => 'Credenciales inválidas'], 401);
-            
-        }
+      
         // Si se encuentra un usuario y la contraseña coincide, la función genera un token para el usuario utilizando el método createToken del objeto $user.
         // El token se crea con el nombre del usuario como su nombre.
         $token = $usuario->createToken($usuario->nombreUsuario);
@@ -137,15 +172,16 @@ try{
             'token' => $token->plainTextToken
         ]; */
         return response()->json([
+          'rol' => 'usuario',
           'usuario' => $usuario,
           'token' => $token->plainTextToken,
       ]);
     }
 
-    public function loginRestaurantes(Request $request)
+    public function loginRestaurante(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:restaurantes',
+        $fields = $request->validate([
+            'email' => 'required|email|exists:restaurantes,email',
             'contrasenia' => 'required'
         ]);
 
@@ -154,13 +190,17 @@ try{
         
         // Si no se encuentra ningún usuario con ese correo electrónico, o si la contraseña proporcionada no coincide
         // con la contraseña almacenada en la base de datos para ese usuario, la función devuelve una matriz de errores.
-        if (!$restaurante || !Hash::check($fields['contrasenia'], $restaurante->contrasenia)) {
+        if (!$restaurante){
+          return response()->json(['error' => 'Email no encontrado'], 404);
+        } 
+        
+        if(!Hash::check($fields['contrasenia'], $restaurante->contrasenia)) {
            /*  return [
                 'errors' => [
                 'email' => ['Validación incorrecta']
                 ]
             ]; */
-            return response()->json(['error' => 'Credenciales inválidas'], 401);
+            return response()->json(['error' => 'Contraseña incorrecta'], 401);
             
         }
         // Si se encuentra un usuario y la contraseña coincide, la función genera un token para el usuario utilizando el método createToken del objeto $user.
@@ -172,6 +212,7 @@ try{
             'token' => $token->plainTextToken
         ]; */
         return response()->json([
+          'rol' => 'restaurante',
           'restaurante' => $restaurante,
           'token' => $token->plainTextToken,
       ]);

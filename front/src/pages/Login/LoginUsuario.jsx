@@ -3,19 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 
 export default function LoginUsuario() {
-  const { setToken } = useContext(AppContext);
+  /* const { setToken } = useContext(AppContext); */
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
+    contrasenia: "",
   });
 
   const [errors, setErrors] = useState({});
 
   async function handleLogin(e) {
     e.preventDefault();
-    const res = await fetch("/api/login", {
+    const res = await fetch("/api/usuarios/login", {
       method: "post",
       body: JSON.stringify(formData),
     });
@@ -24,10 +24,12 @@ export default function LoginUsuario() {
 
     if (data.errors) {
       setErrors(data.errors);
+      console.log(data.errors);
     } else {
-      localStorage.setItem("token", data.token);
+      console.log(data);
+      /* localStorage.setItem("token", data.token);
       setToken(data.token);
-      navigate("/");
+      navigate("/"); */
     }
   }
 
@@ -40,7 +42,7 @@ export default function LoginUsuario() {
           <input
             type="text"
             placeholder="Email"
-            value={formData.email}
+            value={formData.email || ""}
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
@@ -52,12 +54,12 @@ export default function LoginUsuario() {
           <input
             type="password"
             placeholder="Password"
-            value={formData.password}
+            value={formData.contrasenia || ""}
             onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
+              setFormData({ ...formData, contrasenia: e.target.value })
             }
           />
-          {errors.password && <p className="error">{errors.password[0]}</p>}
+          {errors.contrasenia && <p className="error">{errors.contrasenia[0]}</p>}
         </div>
 
         <button className="primary-btn">Login</button>

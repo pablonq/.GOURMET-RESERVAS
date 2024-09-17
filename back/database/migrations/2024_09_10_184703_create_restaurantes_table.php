@@ -21,11 +21,12 @@ return new class extends Migration
             $table->string('email');
             $table->string('contrasenia');
             $table->integer('capacidadTotal');
-            $table->enum('diasAtencion',['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do']);
+            $table->string('diasAtencion'); // O $table->json('diasAtencion')->nullable();
+
             $table->time('horaApertura', precision: 0);
             $table->time('horaCierre', precision: 0);
-            $table->string('imagen');
-            $table->geography('coordenadas', subtype: 'point', srid: 4326);
+            $table->string('imagen')->nullable();
+            $table->geometry('coordenadas')->nullable(); 
             $table->boolean('aceptaEventos');
             $table->timestamp('fechaBaja')->nullable();
             $table->timestamp('fechaAlta')->nullable();
