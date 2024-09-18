@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\MesaController;
+use App\Http\Controllers\RestauranteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::prefix('restaurantes')->group(function () {
   Route::patch('/reservarMesa/{mesa}', [MesaController::class, 'reservarMesa'])->name('reservar.Mesa');
   Route::patch('/habilitarMesa/{mesa}', [MesaController::class, 'habilitarMesa'])->name('habilitar.Mesa');
   Route::delete('/eliminar/{mesa}', [MesaController::class, 'destroyMesa'])->name('eliminar.Mesa');
+  Route::get('/indexRestaurante', [RestauranteController::class, 'indexRestaurante'])->name('index.Restaurante');
   Route::post('/register', [AuthController::class, 'registerRestaurante'])->name('register.restaurante');
   Route::post('/login', [AuthController::class, 'loginRestaurante'])->name('login.restaurante');
 });

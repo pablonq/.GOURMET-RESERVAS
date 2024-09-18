@@ -1,3 +1,4 @@
+import ListaCard from "../component/ListaCard/ListaCard";
 import Title from "../component/Title/Title";
 import MapaMesas from "./restaurante/MapaMesas/MapaMesas";
 
@@ -13,6 +14,7 @@ const Home = () => {
       <Title text=".GourmetReservas" />
       <div className="p-4">
         <MapaMesas />
+        <ListaCard />
       </div>
     </div>
   );
