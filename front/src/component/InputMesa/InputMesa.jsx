@@ -7,6 +7,9 @@ const InputMesa = ({ id, value, onChange, placeholder }) => {
         className="w-10 rounded-md"
         type="number"
         id={id}
+        min="1"
+        max="300"
+        step="1"
         value={value}
         onChange={onChange}
       />
