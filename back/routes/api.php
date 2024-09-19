@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 // Rutas accesibles solo con autenticación (usuarios y restaurantes)
 Route::middleware('auth:sanctum')->group(function () {
-  Route::get('/user', function (Request $request) {
+  Route::get('/user', function (Request $request) {// modificar
     return $request->user();
   })->name('user.details');
 
@@ -26,7 +26,7 @@ Route::prefix('usuarios')->group(function () {
 
 // Rutas de autenticación y registro de restaurantes
 Route::prefix('restaurantes')->group(function () {
-  Route::post('/mesas', [MesaController::class,  'registerMesa'])->name('register.Mesa');;
+  Route::post('/mesas', [MesaController::class,  'registerMesa'])->name('register.Mesa');
   Route::get('/indexMesas', [MesaController::class, 'index'])->name('index.Mesa');
   Route::patch('/reservarMesa/{mesa}', [MesaController::class, 'reservarMesa'])->name('reservar.Mesa');
   Route::patch('/habilitarMesa/{mesa}', [MesaController::class, 'habilitarMesa'])->name('habilitar.Mesa');

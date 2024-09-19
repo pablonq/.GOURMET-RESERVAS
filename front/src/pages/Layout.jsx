@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
 
 export default function Layout() {
+  
   const { user, token, setUser, setToken } = useContext(AppContext);
   const navigate = useNavigate();
 

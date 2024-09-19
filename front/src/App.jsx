@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import LoginUsuario from "./pages/Login/LoginUsuario";
 import LoginRestaurante from "./pages/Login/LoginRestaurante";
 import RegistroUsuario from "./pages/usuario/RegistroUsuario/RegistroUsuario";
-import Layout from "./pages/Layout";
+import Layout from ".pages/Layout";
 import MapaMesas from "./pages/restaurante/MapaMesas/MapaMesas";
 import EditarMapa from "./pages/restaurante/MapaMesas/EditarMapa";
 
@@ -13,7 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />} />
+        <Route path="/" element={<Layout />}/>
         <Route index element={<Home />} />
         <Route path="/registerMesa" element={<MapaMesas />} />
         <Route path="/editarMapa" element={<EditarMapa />} />
