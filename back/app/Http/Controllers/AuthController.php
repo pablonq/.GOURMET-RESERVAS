@@ -87,17 +87,23 @@ class AuthController extends Controller
             'imagen'=> 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'latitud' => 'required|numeric',
             'longitud' => 'required|numeric',
-            'aceptaEventos'=> 'required|boolean',
+            'aceptaEventos'=> 'required|in:si,no',
             'fechaBaja' => 'nullable|date', // Inicialmente no tiene fecha de baja
             'fechaAlta' => now(),
 
         ]);
-
-        $fields['aceptaEventos'] = filter_var($fields['aceptaEventos'], FILTER_VALIDATE_BOOLEAN);
-
-        $coordenadas = "POINT({$fields['longitud']} {$fields['latitud']})";
-
         
+        
+        /* \Log::info('Campo aceptaEventos: ' . $fields['aceptaEventos']); */
+        
+        
+        $coordenadas = "POINT({$fields['longitud']} {$fields['latitud']})";
+    
+        $imagenPath = null;
+        if ($request->hasFile('imagen')) {
+            $imagenPath = $request->file('imagen')->store('imagen', 'public');
+        }
+      
         $restaurante = Restaurante::create([
         'nombreRes' => $fields['nombreRes'],
         'direccion' => $fields['direccion'],
@@ -117,24 +123,18 @@ class AuthController extends Controller
         'fechaAlta' => now(),
     ]);
 
-    if ($request->hasFile('imagen')) {
-      $imagenPath = $request->file('imagen')->store('imagen', 'public');
-      $restaurante->imagen = $imagenPath;
-      $restaurante->save();
-  }
-  
+ 
+        $token = $restaurante->createToken($restaurante->nombreRes);
+      
+/* \Log::info('Token creado para el restaurante: ' . $restaurante->nombreRes); */
 
- /* Después de crear el usuario,
- el método genera un token para el usuario utilizando el método createToken del objeto $user. 
- El token se crea con el nombre del usuario como su nombre.
-  */       $token = $restaurante->createToken($restaurante->nombreRes);
-/* Devuelve una matriz que contiene el objeto de usuario recién creado y la versión de texto sin formato del token.
- Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a recursos protegidos en la aplicación.
- */        return [
-            'rol' => 'restaurante',
-            'nombreRes' => $restaurante,
-            'token' => $token->plainTextToken
-        ];
+
+return [
+  'rol' => 'restaurante',
+'restaurante' => $restaurante,
+'token' => $token->plainTextToken,
+];
+  
     
 }
     public function loginUsuarios(Request $request)

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             /* $table->BigInteger('idUsuario')->unsigned()->nullable();
             $table->BigInteger('idRestaurante')->unsigned()->nullable(); */
-            $table->string('calificacion');
+            $table->integer('calificacion');
             $table->string('comentario');
             $table->string('respuestaDuenio')->nullable();
             $table->timestamp('fechaResenia');
