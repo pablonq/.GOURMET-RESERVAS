@@ -21,7 +21,7 @@ export default function RegistroRestaurante() {
     imagen:null,
     latitud:"",
     longitud:"",
-    aceptaEventos:false,
+    aceptaEventos:"",
   });
 
   const [errors, setErrors] = useState({});
@@ -48,6 +48,7 @@ export default function RegistroRestaurante() {
 
       /* if (!res.ok)  */
         const data = await res.json();
+        console.log(data);
         if (data.errors) {
           setErrors(data.errors); 
           console.log(data);
@@ -237,21 +238,30 @@ export default function RegistroRestaurante() {
         </div>
 
         <div>
-          <label htmlFor="aceptaEventos">¿Acepta eventos?</label>
-          <select
-            id="aceptaEventos"
-            value={formData.aceptaEventos || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, aceptaEventos: e.target.value})
-            }
-          >
-            <option value="true">Sí</option>
-            <option value="false">No</option>
-          </select>
-          {errors.aceptaEventos && (
-            <p className="error">{errors.aceptaEventos[0]}</p>
-          )}
-        </div>
+  <label>¿Acepta eventos?</label>
+  <div>
+    <input
+      type="radio"
+      id="aceptaSi"
+      name="aceptaEventos"
+      value="si"
+      checked={formData.aceptaEventos === "si"}
+      onChange={(e) => setFormData({ ...formData, aceptaEventos: e.target.value })}
+    />
+    <label htmlFor="aceptaSi">Sí</label>
+
+    <input
+      type="radio"
+      id="aceptaNo"
+      name="aceptaEventos"
+      value="no"
+      checked={formData.aceptaEventos === "no"}
+      onChange={(e) => setFormData({ ...formData, aceptaEventos: e.target.value })}
+    />
+    <label htmlFor="aceptaNo">No</label>
+  </div>
+  {errors.aceptaEventos && <p className="error">{errors.aceptaEventos[0]}</p>}
+</div>
         <button className="primary-btn">Registrarme</button>
       </form>
     </>

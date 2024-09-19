@@ -27,7 +27,7 @@ return new class extends Migration
             $table->time('horaCierre', precision: 0);
             $table->string('imagen')->nullable();
             $table->geometry('coordenadas')->nullable(); 
-            $table->boolean('aceptaEventos');
+            $table->string('aceptaEventos');
             $table->timestamp('fechaBaja')->nullable();
             $table->timestamp('fechaAlta')->nullable();
 
