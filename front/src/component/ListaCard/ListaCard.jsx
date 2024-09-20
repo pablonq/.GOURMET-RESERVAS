@@ -10,7 +10,7 @@ const ListaCard = () => {
 
     if (res.ok) {
       setCards(data);
-     // console.log(data);
+      // console.log(data);
     }
     console.log(data);
   }
@@ -23,14 +23,14 @@ const ListaCard = () => {
     <div>
       {cards.map((restaurante) => {
         return (
-          <li key={restaurante.id}>
+          <div key={restaurante.id}>
             <CardRestaurante
-            nombreRes={restaurante.nombreRes}
-            descripcion={restaurante.descripcion}
-             direccion={restaurante.direccion}
-             tipo={restaurante.tipo}
+              nombreRes={restaurante.nombreRes}
+              descripcion={restaurante.descripcion}
+              direccion={restaurante.direccion}
+              tipo={restaurante.tipo}
             />
-          </li>
+          </div>
         );
       })}
     </div>

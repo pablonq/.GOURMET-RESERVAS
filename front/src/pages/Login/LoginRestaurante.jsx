@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 
 export default function LoginRestaurante() {
-  /* const { setToken } = useContext(AppContext); */
+  const { setToken, setUser } = useContext(AppContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -16,23 +16,26 @@ export default function LoginRestaurante() {
   async function handleLogin(e) {
     e.preventDefault();
     const res = await fetch("/api/restaurantes/login", {
-      method: "post",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(formData),
     });
 
     const data = await res.json();
 
-    if (data.errors) {
-      setErrors(data.errors);
-      console.log(data.errors);
-    } else {
-      console.log(data);
-      /* localStorage.setItem("token", data.token);
+    if (res.ok) {
+      localStorage.setItem("token", data.token);
       setToken(data.token);
-      navigate("/"); */
+      setUser({ rol: data.rol, ...data.restaurante });
+      // console.log (data);
+      navigate("/");
+    } else {
+      console.log(data.error);
+      setErrors(data.errors);
     }
   }
-
   return (
     <>
       <h1 className="title">Accedé a tu Cuenta</h1>
@@ -59,7 +62,9 @@ export default function LoginRestaurante() {
               setFormData({ ...formData, contrasenia: e.target.value })
             }
           />
-          {errors.contrasenia && <p className="error">{errors.contrasenia[0]}</p>}
+          {errors.contrasenia && (
+            <p className="error">{errors.contrasenia[0]}</p>
+          )}
         </div>
 
         <button className="primary-btn">Login</button>

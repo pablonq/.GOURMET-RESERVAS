@@ -3,22 +3,24 @@ import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
 
 export default function Layout() {
-  
   const { user, token, setUser, setToken } = useContext(AppContext);
   const navigate = useNavigate();
-
+ console.log(user);
   async function handleLogout(e) {
     e.preventDefault();
 
-    const res = await fetch("/api/logout", {
+    const logoutEndpoint =
+      user.rol === "restaurante"
+        ? "/api/logout/restaurante"
+        : "/api/logout/usuario";
+
+    const res = await fetch(logoutEndpoint, {
       method: "post",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    const data = await res.json();
-    console.log(data);
 
     if (res.ok) {
       setUser(null);
@@ -37,18 +39,26 @@ export default function Layout() {
           </Link>
 
           {user ? (
-            <div className="flex items-center space-x-4">
-              <p className="text-slate-400 text-xs">Welcome back {user.name}</p>
-              <Link to="/create" className="nav-link">
-                New Post
-              </Link>
+            <div className="flex items-center text-orange-400 space-x-4">
+             Bienvenido {user.nombreRes ? user.nombreRes : user.nombreUsuario}
+
+              {user.nombreRes  ? (
+                <Link to="/dashboardRestaurante" className="nav-link">
+                  Dashboard Restaurante
+                </Link>
+              ) : (
+                <Link to="/dashboardUsuario" className="nav-link">
+                  Dashboard Usuario
+                </Link>
+              )}
+
               <form onSubmit={handleLogout}>
                 <button className="nav-link">Logout</button>
               </form>
             </div>
           ) : (
             <div className="space-x-4">
-              <Link to="/loginRestaurante" className="nav-link">
+              <Link to="/loginResturante" className="nav-link">
                 Restaurantes
               </Link>
               <Link to="/loginUsuario" className="nav-link">

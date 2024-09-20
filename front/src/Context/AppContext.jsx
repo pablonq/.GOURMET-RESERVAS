@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
 
 export const AppContext = createContext();
@@ -16,6 +17,7 @@ export default function AppProvider({ children }) {
 
     if (res.ok) {
       setUser(data);
+      //console.log(data);
     }
   }
 
@@ -23,6 +25,7 @@ export default function AppProvider({ children }) {
     if (token) {
       getUser();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   return (
