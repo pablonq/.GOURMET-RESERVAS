@@ -15,27 +15,37 @@ export default function RegistroRestaurante() {
     contrasenia: "",
     contrasenia_confirmation: "",
     capacidadTotal: "",
-    diasAtencion: [],
+    /* diasAtencion: [],
     horaApertura: "",
-    horaCierre: "",
+    horaCierre: "", */
     imagen:null,
-    latitud:"",
-    longitud:"",
+    /* latitud:"",
+    longitud:"", */
     aceptaEventos:"",
   });
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
+  const handleImageChange = (e) => {
+    setFormData(prev => ({ ...prev, imagen: e.target.files[0] }));
+  };
+
   async function handleRegister(e) {
     e.preventDefault();
 
     
-    /* Object.keys(formData).forEach(key => {
-      if (key !== 'avatar' || formData[key]) {
-        form.append(key, formData[key]);
+    const formDataToSend = new FormData();
+    
+    Object.keys(formData).forEach(key => {
+      if (key === 'imagen') {
+        if (formData[key]) {
+          formDataToSend.append('imagen', formData[key]);
+        }
+      } else {
+        formDataToSend.append(key, formData[key]);
       }
-    }); */
+    });
 
     /* try { */
       const res = await fetch("/api/restaurantes/register", {
@@ -167,12 +177,12 @@ export default function RegistroRestaurante() {
           {errors.capacidadTotal && <p className="error">{errors.capacidadTotal[0]}</p>}
         </div>
             
-        <InputDiasAtencion 
+        {/*  <InputDiasAtencion 
         onChange={handleDiasAtencionChange}
         value={formData.diasAtencion}
-      />    
+      />  */}  
         
-        <div>
+        {/* <div>
           <input
             type="time"
             name="horaApertura"
@@ -196,7 +206,7 @@ export default function RegistroRestaurante() {
             }
           />
           {errors.horaCierre && <p className="error">{errors.horaCierre[0]}</p>}
-        </div>
+        </div> */}
 
         <div>
           <input
@@ -209,7 +219,7 @@ export default function RegistroRestaurante() {
           />
           {errors.imagen && <p className="error">{errors.imagen[0]}</p>}
         </div> 
-        <div>
+        {/* <div>
           <input
             type="number"
             name="latitud"
@@ -235,7 +245,7 @@ export default function RegistroRestaurante() {
             }
           />
           {errors.longitud && <p className="error">{errors.longitud[0]}</p>}
-        </div>
+        </div> */}
 
         <div>
   <label>¿Acepta eventos?</label>

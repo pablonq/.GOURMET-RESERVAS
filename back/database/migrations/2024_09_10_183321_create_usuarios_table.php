@@ -19,6 +19,7 @@ return new class extends Migration
           $table->timestamp('fechaRegistro')->nullable();
           $table->timestamp('fechaBaja')->nullable();
             $table->timestamps();
+            $table->string('rol')->default('usuario');
             /* $table->BigInteger('idPersona')->unsigned()->nullable(); */
 
             $table->foreignId('idPersona')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');

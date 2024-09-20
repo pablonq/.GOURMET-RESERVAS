@@ -24,15 +24,16 @@ class Restaurante extends Model
         'email',
         'contrasenia',
         'capacidadTotal',
-        'diasAtencion',
+        /* 'diasAtencion',
         'horaApertura',
         'horaCierre',
-        'imagen',
+        'imagen', */
         'latitud',
         'longitud',
         'aceptaEventos',
         'fechaBaja',
         'fechaAlta'
+        
     ];
 
 
@@ -69,6 +70,16 @@ class Restaurante extends Model
     public function platos(): BelongsToMany
     {
         return $this->belongsToMany(Plato::class, 'platosRestaurantes');
+    }
+
+    public function atencionRestaurantes(): HasMany
+    {
+      return $this->hasMany(AtencionRestaurante::class);
+    }
+
+    public function imagenesRestaurantes(): HasMany
+    {
+      return $this->hasMany(ImagenesRestaurante::class);
     }
 
 }

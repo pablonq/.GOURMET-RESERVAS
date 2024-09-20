@@ -13,62 +13,63 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function registerUsuario(Request $request)
-    {
-      
-        $fields = $request->validate([
-          'nombre' => 'required|max:255',
-          'apellido' => 'required|max:255',
-          'fechaNac' => 'required|date',
-          'email' => 'required|email|unique:personas,email',
-          'telefono' => 'required|max:255',
-          'ciudad' => 'required|max:255',
-          'nombreUsuario' => 'required|max:255|unique:usuarios,nombreUsuario',
-          'contrasenia' => 'required|confirmed|min:4',
-          'avatar'=> 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            
-        ]);
-        //try{
-          $persona = Persona::create([
-            'nombre' => $fields['nombre'],
-            'apellido' => $fields['apellido'],
-            'fechaNac' => $fields['fechaNac'],
-            'email' => $fields['email'],
-            'telefono' => $fields['telefono'],
-            'ciudad' => $fields['ciudad'],
-        ]);
-
-      $usuario = Usuario::create([
-        'idPersona' => $persona->id,
-        'nombreUsuario' => $fields['nombreUsuario'],
-        'contrasenia' => bcrypt($fields['contrasenia']),
-        'avatar' => null,
-        'fechaRegistro' => now(),
-        
-    ]);
-    // Si se proporcionó un avatar, lo procesamos y guardamos
-    if ($request->hasFile('avatar')) {
-      $avatarPath = $request->file('avatar')->store('avatars', 'public');
-      $usuario->avatar = $avatarPath;
-      $usuario->save();
-  }
-
- /* Después de crear el usuario,
- el método genera un token para el usuario utilizando el método createToken del objeto $user. 
- El token se crea con el nombre del usuario como su nombre.
-  */       $token = $usuario->createToken($usuario->nombreUsuario);
-/* Devuelve una matriz que contiene el objeto de usuario recién creado y la versión de texto sin formato del token.
- Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a recursos protegidos en la aplicación.
- */        /* return [
-            'noombreUsuario' => $usuario,
-            'token' => $token->plainTextToken
-                    ]; */
-                    return [
-                      'rol' => 'usuario',
-            'usuario' => $usuario,
-            'token' => $token->plainTextToken,
-        ];
+  public function registerUsuario(Request $request)
+  {
     
+      $fields = $request->validate([
+        'nombre' => 'required|max:255',
+        'apellido' => 'required|max:255',
+        'fechaNac' => 'required|date',
+        'email' => 'required|email|unique:personas,email',
+        'telefono' => 'required|max:255',
+        'ciudad' => 'required|max:255',
+        'nombreUsuario' => 'required|max:255|unique:usuarios,nombreUsuario',
+        'contrasenia' => 'required|confirmed|min:4',
+        'avatar'=> 'reuired',
+          
+      ]);
+      //try{
+        $persona = Persona::create([
+          'nombre' => $fields['nombre'],
+          'apellido' => $fields['apellido'],
+          'fechaNac' => $fields['fechaNac'],
+          'email' => $fields['email'],
+          'telefono' => $fields['telefono'],
+          'ciudad' => $fields['ciudad'],
+      ]);
+
+    $usuario = Usuario::create([
+      'idPersona' => $persona->id,
+      'nombreUsuario' => $fields['nombreUsuario'],
+      'contrasenia' => bcrypt($fields['contrasenia']),
+      'avatar' => $fields['avatar'],
+      'fechaRegistro' => now(),
+      
+      
+  ]);
+  // Si se proporcionó un avatar, lo procesamos y guardamos
+  /* if ($request->hasFile('avatar')) {
+    $avatarPath = $request->file('avatar')->store('avatars', 'public');
+    $usuario->avatar = $avatarPath;
+    $usuario->save();
+} */
+
+/* Después de crear el usuario,
+el método genera un token para el usuario utilizando el método createToken del objeto $user. 
+El token se crea con el nombre del usuario como su nombre.
+*/       $token = $usuario->createToken($usuario->nombreUsuario);
+/* Devuelve una matriz que contiene el objeto de usuario recién creado y la versión de texto sin formato del token.
+Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a recursos protegidos en la aplicación.
+*/        /* return [
+          'noombreUsuario' => $usuario,
+          'token' => $token->plainTextToken
+                  ]; */
+                  return [
+                    
+          'usuario' => $usuario,
+          'token' => $token->plainTextToken,
+      ];
+  
 }
     public function registerRestaurante(Request $request)
     {
@@ -81,12 +82,12 @@ class AuthController extends Controller
             'email' => 'required|email|unique:restaurantes',
             'contrasenia' => 'required|confirmed|min:4',
             'capacidadTotal'=> 'required|max:11',
-            'diasAtencion'=> 'required',
+            /* 'diasAtencion'=> 'required',
             'horaApertura'=> 'required', 
-            'horaCierre'=> 'required',
-            'imagen'=> 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'latitud' => 'required|numeric',
-            'longitud' => 'required|numeric',
+            'horaCierre'=> 'required', */
+            'imagen'=> 'required',
+            /* 'latitud' => 'required|numeric',
+            'longitud' => 'required|numeric', */
             'aceptaEventos'=> 'required|in:si,no',
             'fechaBaja' => 'nullable|date', // Inicialmente no tiene fecha de baja
             'fechaAlta' => now(),
@@ -97,12 +98,14 @@ class AuthController extends Controller
         /* \Log::info('Campo aceptaEventos: ' . $fields['aceptaEventos']); */
         
         
-        $coordenadas = "POINT({$fields['longitud']} {$fields['latitud']})";
+        /* $coordenadas = "POINT({$fields['longitud']} {$fields['latitud']})"; */
     
-        $imagenPath = null;
-        if ($request->hasFile('imagen')) {
-            $imagenPath = $request->file('imagen')->store('imagen', 'public');
-        }
+        
+        /* if ($request->hasFile('imagen')) {
+          $imagenPath = $request->file('imagen')->store('imagen', 'public');
+          $restaurante->imagen = $imagenPath;
+          $restaurante->save();
+      } */
       
         $restaurante = Restaurante::create([
         'nombreRes' => $fields['nombreRes'],
@@ -113,14 +116,15 @@ class AuthController extends Controller
         'email' => $fields['email'],
         'contrasenia' => bcrypt($fields['contrasenia']),
         'capacidadTotal' => $fields['capacidadTotal'],
-        'diasAtencion' => is_array($fields['diasAtencion']) ? implode(',', $fields['diasAtencion']) : $fields['diasAtencion'], // Convierte array a string,
+        /* 'diasAtencion' => is_array($fields['diasAtencion']) ? implode(',', $fields['diasAtencion']) : $fields['diasAtencion'], // Convierte array a string,
         'horaApertura' => $fields['horaApertura'],
-        'horaCierre' => $fields['horaCierre'],
-        'imagen' => $request->hasFile('imagen') ? $imagenPath : null,
-        'coordenadas' => DB::raw("ST_GeomFromText('$coordenadas', 4326)"),
+        'horaCierre' => $fields['horaCierre'], */
+        'imagen' => $fields['imagen'],
+        /* 'coordenadas' => DB::raw("ST_GeomFromText('$coordenadas', 4326)"), */
         'aceptaEventos' => $fields['aceptaEventos'],
         'fechaBaja' => null, // Inicialmente no tiene fecha de baja
         'fechaAlta' => now(),
+       
     ]);
 
  
@@ -130,7 +134,7 @@ class AuthController extends Controller
 
 
 return [
-  'rol' => 'restaurante',
+  
 'restaurante' => $restaurante,
 'token' => $token->plainTextToken,
 ];
@@ -172,7 +176,7 @@ return [
             'token' => $token->plainTextToken
         ]; */
         return response()->json([
-          'rol' => 'usuario',
+          
           'usuario' => $usuario,
           'token' => $token->plainTextToken,
       ]);
@@ -212,7 +216,7 @@ return [
             'token' => $token->plainTextToken
         ]; */
         return response()->json([
-          'rol' => 'restaurante',
+          
           'restaurante' => $restaurante,
           'token' => $token->plainTextToken,
       ]);

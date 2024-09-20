@@ -21,15 +21,16 @@ return new class extends Migration
             $table->string('email');
             $table->string('contrasenia');
             $table->integer('capacidadTotal');
-            $table->string('diasAtencion'); // O $table->json('diasAtencion')->nullable();
+           /*  $table->string('diasAtencion'); */ // O $table->json('diasAtencion')->nullable();
 
-            $table->time('horaApertura', precision: 0);
-            $table->time('horaCierre', precision: 0);
+            /* $table->time('horaApertura', precision: 0);
+            $table->time('horaCierre', precision: 0); */
             $table->string('imagen')->nullable();
             $table->geometry('coordenadas')->nullable(); 
             $table->string('aceptaEventos');
             $table->timestamp('fechaBaja')->nullable();
             $table->timestamp('fechaAlta')->nullable();
+            $table->string('rol')->default('restaurante');
 
             $table->timestamps();
         });
