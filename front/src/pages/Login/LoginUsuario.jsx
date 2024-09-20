@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../Context/AppContext";
 
 export default function LoginUsuario() {
-  /* const { setToken } = useContext(AppContext); */
+  const { setToken, setUser } = useContext(AppContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -17,6 +17,9 @@ export default function LoginUsuario() {
     e.preventDefault();
     const res = await fetch("/api/usuarios/login", {
       method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(formData),
     });
 
@@ -27,9 +30,10 @@ export default function LoginUsuario() {
       console.log(data.errors);
     } else {
       console.log(data);
-      /* localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.token);
       setToken(data.token);
-      navigate("/"); */
+      setUser({ rol: data.rol, ...data.usuario});
+      navigate("/");
     }
   }
 
@@ -59,7 +63,9 @@ export default function LoginUsuario() {
               setFormData({ ...formData, contrasenia: e.target.value })
             }
           />
-          {errors.contrasenia && <p className="error">{errors.contrasenia[0]}</p>}
+          {errors.contrasenia && (
+            <p className="error">{errors.contrasenia[0]}</p>
+          )}
         </div>
 
         <button className="primary-btn">Login</button>

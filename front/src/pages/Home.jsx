@@ -1,7 +1,7 @@
+//import { useContext } from "react";
 import ListaCard from "../component/ListaCard/ListaCard";
 import Title from "../component/Title/Title";
-import MapaMesas from "./restaurante/MapaMesas/MapaMesas";
-
+//import { AppContext } from "../Context/AppContext";
 /**
  * Un breve resumen de la aplicación
  * Un formulario de búsqueda para que los usuarios encuentren restaurantes por nombre, comida, ubicación, etc.
@@ -9,13 +9,12 @@ import MapaMesas from "./restaurante/MapaMesas/MapaMesas";
  */
 
 const Home = () => {
+  // const {name} = useContext(AppContext)
   return (
     <div>
       <Title text=".GourmetReservas" />
-      <div className="p-4">
-        <MapaMesas />
-        <ListaCard />
-      </div>
+      <div className="p-4"></div>
+       <ListaCard/>
     </div>
   );
 };
