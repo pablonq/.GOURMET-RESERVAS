@@ -1,8 +1,9 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-import InputDiasAtencion from "../../../component/Inputs/InputDiasAtencion";
+/* import InputDiasAtencion from "../../../component/Inputs/InputDiasAtencion"; */
+import { uploadFileRestaurantes } from "../../../firebase/config";
 
 export default function RegistroRestaurante() {
   const [formData, setFormData] = useState({
@@ -18,56 +19,75 @@ export default function RegistroRestaurante() {
     /* diasAtencion: [],
     horaApertura: "",
     horaCierre: "", */
-    imagen:null,
+    imagenUrl:null,
     /* latitud:"",
     longitud:"", */
     aceptaEventos:"",
   });
 
+  const [file, setFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false); // Indicador de subida de archivo
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  const handleImageChange = (e) => {
-    setFormData(prev => ({ ...prev, imagen: e.target.files[0] }));
-  };
+  
 
-  async function handleRegister(e) {
+  const handleRegister= async(e) => {
     e.preventDefault();
+    setIsUploading(true); // Establecer el indicador de subida de archivo en verdadero
+   
+    try{
+    let imagenUrl = formData.imagenUrl;
+    if(file){
+      imagenUrl = await uploadFileRestaurantes(file); // Inicializar la URL de la imagen con el valor actual del estado
+    console.log(imagenUrl);
+    setFormData((prev) => ({ ...prev, imagenUrl }));
+     
+    }
 
+    const data = {
+      nombreRes: formData.nombreRes,
+      direccion: formData.direccion,
+      descripcion: formData.descripcion,
+      tipo: formData.tipo,
+      telefono: formData.telefono,
+      email: formData.email,
+      contrasenia: formData.contrasenia,
+      contrasenia_confirmation: formData.contrasenia_confirmation,
+      capacidadTotal: formData.capacidadTotal,
+      imagenUrl: imagenUrl,
+      aceptaEventos: formData.aceptaEventos
+    };
     
-    const formDataToSend = new FormData();
-    
-    Object.keys(formData).forEach(key => {
-      if (key === 'imagen') {
-        if (formData[key]) {
-          formDataToSend.append('imagen', formData[key]);
-        }
-      } else {
-        formDataToSend.append(key, formData[key]);
-      }
-    });
-
     /* try { */
       const res = await fetch("/api/restaurantes/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Asegúrate de que el servidor sepa que estás enviando JSON
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
 
       /* if (!res.ok)  */
-        const data = await res.json();
-        console.log(data);
+        const result = await res.json();
+        console.log(result);
         if (data.errors) {
           setErrors(data.errors); 
           console.log(data);
 
+        } else{
+          console.log("Registro exitoso:", result)
+          navigate("/")
         }
   }
-  const handleDiasAtencionChange = useCallback((dias) => {
-    setFormData(prev => ({ ...prev, diasAtencion: dias }));
-  }, []);
+  
+  catch (error) {
+    console.error("Error al registrar el usuario", error);
+  } finally{
+    setIsUploading(false); // Restablecer el indicador de subida de archivo en falso
+  }
+
+};
 
   
 
@@ -213,11 +233,9 @@ export default function RegistroRestaurante() {
             type="file"
             accept="image/*"
             
-            onChange={(e) =>
-              setFormData({ ...formData, imagen: e.target.files[0] })
-            }
+            onChange={(e) => setFile( e.target.files[0] )}
           />
-          {errors.imagen && <p className="error">{errors.imagen[0]}</p>}
+          {errors.imagenUrl && <p className="error">{errors.imagenUrl[0]}</p>}
         </div> 
         {/* <div>
           <input
@@ -272,7 +290,9 @@ export default function RegistroRestaurante() {
   </div>
   {errors.aceptaEventos && <p className="error">{errors.aceptaEventos[0]}</p>}
 </div>
-        <button className="primary-btn">Registrarme</button>
+<button className="primary-btn" disabled={isUploading}>
+          {isUploading ? "Guardando....." : "Registrar"}
+        </button>
       </form>
     </>
   );

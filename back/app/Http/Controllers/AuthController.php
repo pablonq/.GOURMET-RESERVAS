@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Persona;
 use App\Models\Usuario;
 use App\Models\Restaurante;
+use App\Models\ImagenesRestaurante;
 use Illuminate\Support\Facades\DB;
 
 
@@ -25,7 +26,7 @@ class AuthController extends Controller
         'ciudad' => 'required|max:255',
         'nombreUsuario' => 'required|max:255|unique:usuarios,nombreUsuario',
         'contrasenia' => 'required|confirmed|min:4',
-        'avatar'=> 'reuired',
+        'avatarUrl'=> 'required',
           
       ]);
       //try{
@@ -42,7 +43,7 @@ class AuthController extends Controller
       'idPersona' => $persona->id,
       'nombreUsuario' => $fields['nombreUsuario'],
       'contrasenia' => bcrypt($fields['contrasenia']),
-      'avatar' => $fields['avatar'],
+      'avatarUrl' => $fields['avatarUrl'],
       'fechaRegistro' => now(),
       
       
@@ -85,7 +86,7 @@ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a re
             /* 'diasAtencion'=> 'required',
             'horaApertura'=> 'required', 
             'horaCierre'=> 'required', */
-            'imagen'=> 'required',
+            'imagenUrl'=> 'required',
             /* 'latitud' => 'required|numeric',
             'longitud' => 'required|numeric', */
             'aceptaEventos'=> 'required|in:si,no',
@@ -119,12 +120,17 @@ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a re
         /* 'diasAtencion' => is_array($fields['diasAtencion']) ? implode(',', $fields['diasAtencion']) : $fields['diasAtencion'], // Convierte array a string,
         'horaApertura' => $fields['horaApertura'],
         'horaCierre' => $fields['horaCierre'], */
-        'imagen' => $fields['imagen'],
+        
         /* 'coordenadas' => DB::raw("ST_GeomFromText('$coordenadas', 4326)"), */
         'aceptaEventos' => $fields['aceptaEventos'],
         'fechaBaja' => null, // Inicialmente no tiene fecha de baja
         'fechaAlta' => now(),
        
+    ]);
+    $imagenRestaurante = ImagenesRestaurante::create([
+      'imagenUrl' => $fields['imagenUrl'],
+       'idRestaurante' => $restaurante->id,
+
     ]);
 
  

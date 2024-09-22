@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombreUsuario');
             $table->string('contrasenia');
-          $table->string('avatar')->nullable();
+          $table->string('avatarUrl')->nullable();
           $table->timestamp('fechaRegistro')->nullable();
           $table->timestamp('fechaBaja')->nullable();
             $table->timestamps();

@@ -17,7 +17,7 @@ class Usuario extends Model
       'idPersona',
       'nombreUsuario',
       'contrasenia',
-      'avatar',
+      'avatarUrl',
       'fechaRegistro',
   ];  
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { uploadFileUsuarios } from "../../../firebase/config";
 
 export default function RegistroUsuario() {
   const [formData, setFormData] = useState({
@@ -12,39 +13,95 @@ export default function RegistroUsuario() {
     nombreUsuario: "",
     contrasenia: "",
     contrasenia_confirmation: "",
-    avatar: null,
+    avatarUrl: null,
   });
 
+  const [file, setFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false); // Indicador de subida de archivo
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  async function handleRegister(e) {
+  const handleRegister = async (e) => {
     e.preventDefault();
+    setIsUploading(true); // Establecer el indicador de subida de archivo en verdadero
+    try{
+      let avatarUrl = formData.avatarUrl; // URL del avatar predeterminado o la URL existente
+      if (file) {
+      avatarUrl = await uploadFileUsuarios(file);
+      console.log(avatarUrl);
+      // Actualizar la URL del avatar en el estado del formulario
+      setFormData((prev) => ({ ...prev, avatarUrl }));
+      
+      
+    } 
+    const data = {
+      nombre: formData.nombre,
+      apellido: formData.apellido,
+      fechaNac: formData.fechaNac,
+      email: formData.email,
+      telefono: formData.telefono,
+      ciudad: formData.ciudad,
+      nombreUsuario: formData.nombreUsuario,
+      contrasenia: formData.contrasenia,
+      contrasenia_confirmation: formData.contrasenia_confirmation,
+      avatarUrl: avatarUrl, // Añadir la URL del avatar si está disponible
+    };
 
     
-    /* Object.keys(formData).forEach(key => {
-      if (key !== 'avatar' || formData[key]) {
-        form.append(key, formData[key]);
-      }
-    }); */
+    
+    /* const form = new FormData();
+    form.append("nombre", formData.nombre);
+    form.append("apellido", formData.apellido);
+    form.append("fechaNac", formData.fechaNac);
+    form.append("email", formData.email);
+    form.append("telefono", formData.telefono);
+    form.append("ciudad", formData.ciudad);
+    form.append("nombreUsuario", formData.nombreUsuario);
+    form.append("contrasenia", formData.contrasenia);
+    form.append("contrasenia_confirmation", formData.contrasenia_confirmation);
+    if(avatarUrl) form.append("avatarUrl", avatarUrl); // Agregar el archivo de imagen al objeto FormData
+     */
+    /* for (let pair of form.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    } */
 
-    /* try { */
-      const res = await fetch("/api/usuarios/register", {
-        method: "POST",
-        body: JSON.stringify(formData),
-      });
+    const res = await fetch("/api/usuarios/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Establecer el encabezado JSON
+      },
+      body: JSON.stringify(data), // Convertir los datos a JSON
+    });
 
-      /* if (!res.ok)  */
-        const data = await res.json();
-        if (data.errors) {
-          setErrors(data.errors); 
-          console.log(data);
-
-        }
+    const result = await res.json();
+    if (result.errors) {
+      setErrors(result.errors);
+      console.log(result);
+    } else {
+      console.log(result);
+      navigate("/");
+    }
   }
+    
+    
+    catch (error) {
+      console.error("Error al registrar el usuario", error);
+    } finally{
+      setIsUploading(false); // Restablecer el indicador de subida de archivo en falso
+    }
+
+
+
+    
+
+      
+    
+  
 
   
 
+    
+    };
   return (
     <>
       <h1 className="title">Registrar nueva cuenta</h1>:
@@ -156,14 +213,17 @@ export default function RegistroUsuario() {
             type="file"
             accept="image/*"
             
-            onChange={(e) =>
-              setFormData({ ...formData, avatar: e.target.files[0] })
-            }
+            onChange={(e) => setFile( e.target.files[0] )}
           />
-          {errors.avatar && <p className="error">{errors.avatar[0]}</p>}
+          {/* {previewUrl && (
+            <img src={previewUrl} alt="Vista previa" className="mt-2 w-32 h-32 object-cover" />
+          )} */}
+          {errors.avatarUrl && <p className="error">{errors.avatarUrl[0]}</p>}
         </div> 
 
-        <button className="primary-btn">Registrarme</button>
+        <button className="primary-btn" disabled={isUploading}>
+          {isUploading ? "Guardando....." : "Registrarme"}
+        </button>
       </form>
     </>
   );

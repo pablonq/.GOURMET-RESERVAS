@@ -9,7 +9,7 @@ class ImagenesRestaurante extends Model
 {
     use HasFactory;
     protected $fillable = [
-     'imagen',
+     'imagenUrl',
      'idRestaurante'
      ];
 

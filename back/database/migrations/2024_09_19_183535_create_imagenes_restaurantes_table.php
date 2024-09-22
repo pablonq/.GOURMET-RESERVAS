@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('imagenes_restaurantes', function (Blueprint $table) {
             $table->id();
-            $table->string('imagen')->nullable();
+            $table->string('imagenUrl')->nullable();
             $table->foreignId('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
