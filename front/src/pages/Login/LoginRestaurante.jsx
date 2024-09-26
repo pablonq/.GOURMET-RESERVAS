@@ -28,7 +28,7 @@ export default function LoginRestaurante() {
     if (res.ok) {
       localStorage.setItem("token", data.token);
       setToken(data.token);
-      setUser({ rol: data.rol, ...data.restaurante });
+      setUser(data.user);
       // console.log (data);
       navigate("/");
     } else {
@@ -69,6 +69,7 @@ export default function LoginRestaurante() {
 
         <button className="primary-btn">Login</button>
       </form>
+      <div className="flex w-1/2 mx-auto space-y-6 m-4 justify-end"><a href="/registroRestaurante" className="text-gray-800 font-semibold hover:text-blue-600 text-sm"> Registrate tu resaturante Aqui</a></div>
     </>
   );
 }

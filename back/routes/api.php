@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\ImagenesRestauranteController;
 use App\Http\Controllers\MesaController;
 use App\Http\Controllers\RestauranteController;
 use Illuminate\Http\Request;
@@ -26,12 +26,14 @@ Route::prefix('usuarios')->group(function () {
 
 // Rutas de autenticación y registro de restaurantes
 Route::prefix('restaurantes')->group(function () {
-  Route::post('/mesas', [MesaController::class,  'registerMesa'])->name('register.Mesa');
+  Route::post('/mesas', [MesaController::class,  'registerMesa'])->name('register.Mesa')->middleware('auth:sanctum');
   Route::get('/indexMesas', [MesaController::class, 'index'])->name('index.Mesa')->middleware('auth:sanctum');
   Route::patch('/reservarMesa/{mesa}', [MesaController::class, 'reservarMesa'])->name('reservar.Mesa');
   Route::patch('/habilitarMesa/{mesa}', [MesaController::class, 'habilitarMesa'])->name('habilitar.Mesa');
   Route::delete('/eliminar/{mesa}', [MesaController::class, 'destroyMesa'])->name('eliminar.Mesa');
+  Route::get('/ultimaMesa/{id}',  [MesaController::class, 'getUltimaMesa'])->name('ultima.Mesa');
   Route::get('/indexRestaurante', [RestauranteController::class, 'indexRestaurante'])->name('index.Restaurante');
+  Route::get('/indexImagenesRestaurante', [ImagenesRestauranteController::class, 'indexImagenesRestaurante'])->name('imagenes.Restaurante');
   Route::post('/register', [AuthController::class, 'registerRestaurante'])->name('register.restaurante');
   Route::post('/login', [AuthController::class, 'loginRestaurante'])->name('login.restaurante');
 });

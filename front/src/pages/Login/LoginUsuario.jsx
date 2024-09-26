@@ -32,13 +32,13 @@ export default function LoginUsuario() {
       console.log(data);
       localStorage.setItem("token", data.token);
       setToken(data.token);
-      setUser({ rol: data.rol, ...data.usuario});
+      setUser(data.user);
       navigate("/");
     }
   }
 
   return (
-    <>
+    <div>
       <h1 className="title">Accedé a tu Cuenta</h1>
 
       <form onSubmit={handleLogin} className="w-1/2 mx-auto space-y-6">
@@ -70,6 +70,12 @@ export default function LoginUsuario() {
 
         <button className="primary-btn">Login</button>
       </form>
-    </>
+      <div className="flex w-1/2 mx-auto space-y-6 m-4 justify-end">
+        <a href="/registroUsuario" className="text-gray-800 font-semibold hover:text-blue-600 text-sm">
+          {" "}
+          Registrate Aqui
+        </a>
+      </div>
+    </div>
   );
 }

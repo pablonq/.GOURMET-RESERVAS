@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Mesa;
 
@@ -9,7 +10,18 @@ class MesaController extends Controller
 {
     public function index()
     {
-        return Mesa::all();
+
+        if (Auth::check()) {
+
+            $user = Auth::user();
+            $restauranteId = $user->id;
+
+            $mesas = Mesa::where('idRestaurante', $restauranteId)->get();
+
+            return response()->json($mesas);
+        }
+
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     public function registerMesa(Request $request)
@@ -90,6 +102,14 @@ class MesaController extends Controller
         }
 
         return response()->json(['message' => 'Mesa Habilitada', 'mesa' => $mesa], 200);
+    }
+
+    public function getUltimaMesa($id)
+    {
+        $ultimaMesa = Mesa::where('idRestaurante', $id)
+            ->max('numeroMesa');
+
+        return response()->json(['ultimaMesa' => $ultimaMesa ? : 0]);
     }
 
     public function destroyMesa(Mesa $mesa)

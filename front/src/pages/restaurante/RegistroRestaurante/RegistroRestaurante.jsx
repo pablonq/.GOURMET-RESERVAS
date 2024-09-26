@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 /* import InputDiasAtencion from "../../../component/Inputs/InputDiasAtencion"; */
 import { uploadFileRestaurantes } from "../../../firebase/config";
 
@@ -19,10 +18,10 @@ export default function RegistroRestaurante() {
     /* diasAtencion: [],
     horaApertura: "",
     horaCierre: "", */
-    imagenUrl:null,
+    imagenUrl: null,
     /* latitud:"",
     longitud:"", */
-    aceptaEventos:"",
+    aceptaEventos: "",
   });
 
   const [file, setFile] = useState(null);
@@ -30,36 +29,33 @@ export default function RegistroRestaurante() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  
-
-  const handleRegister= async(e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setIsUploading(true); // Establecer el indicador de subida de archivo en verdadero
-   
-    try{
-    let imagenUrl = formData.imagenUrl;
-    if(file){
-      imagenUrl = await uploadFileRestaurantes(file); // Inicializar la URL de la imagen con el valor actual del estado
-    console.log(imagenUrl);
-    setFormData((prev) => ({ ...prev, imagenUrl }));
-     
-    }
 
-    const data = {
-      nombreRes: formData.nombreRes,
-      direccion: formData.direccion,
-      descripcion: formData.descripcion,
-      tipo: formData.tipo,
-      telefono: formData.telefono,
-      email: formData.email,
-      contrasenia: formData.contrasenia,
-      contrasenia_confirmation: formData.contrasenia_confirmation,
-      capacidadTotal: formData.capacidadTotal,
-      imagenUrl: imagenUrl,
-      aceptaEventos: formData.aceptaEventos
-    };
-    
-    /* try { */
+    try {
+      let imagenUrl = formData.imagenUrl;
+      if (file) {
+        imagenUrl = await uploadFileRestaurantes(file); // Inicializar la URL de la imagen con el valor actual del estado
+        console.log(imagenUrl);
+        setFormData((prev) => ({ ...prev, imagenUrl }));
+      }
+
+      const data = {
+        nombreRes: formData.nombreRes,
+        direccion: formData.direccion,
+        descripcion: formData.descripcion,
+        tipo: formData.tipo,
+        telefono: formData.telefono,
+        email: formData.email,
+        contrasenia: formData.contrasenia,
+        contrasenia_confirmation: formData.contrasenia_confirmation,
+        capacidadTotal: formData.capacidadTotal,
+        imagenUrl: imagenUrl,
+        aceptaEventos: formData.aceptaEventos,
+      };
+
+      /* try { */
       const res = await fetch("/api/restaurantes/register", {
         method: "POST",
         headers: {
@@ -69,39 +65,34 @@ export default function RegistroRestaurante() {
       });
 
       /* if (!res.ok)  */
-        const result = await res.json();
-        console.log(result);
-        if (data.errors) {
-          setErrors(data.errors); 
-          console.log(data);
-
-        } else{
-          console.log("Registro exitoso:", result)
-          navigate("/")
-        }
-  }
-  
-  catch (error) {
-    console.error("Error al registrar el usuario", error);
-  } finally{
-    setIsUploading(false); // Restablecer el indicador de subida de archivo en falso
-  }
-
-};
-
-  
+      const result = await res.json();
+      console.log(result);
+      if (data.errors) {
+        setErrors(data.errors);
+        console.log(data);
+      } else {
+        console.log("Registro exitoso:", result);
+        navigate("/LoginRestaurante");
+      }
+    } catch (error) {
+      console.error("Error al registrar el usuario", error);
+    } finally {
+      setIsUploading(false); // Restablecer el indicador de subida de archivo en falso
+    }
+  };
 
   return (
-    <>
+    <div>
       <h1 className="title">Registre su Restaurante</h1>:
-
       <form onSubmit={handleRegister} className="w-1/2 mx-auto space-y-6">
         <div>
           <input
             type="text"
             placeholder="Nombre del Restaurante"
             value={formData.nombreRes || ""}
-            onChange={(e) => setFormData({ ...formData, nombreRes: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, nombreRes: e.target.value })
+            }
           />
           {errors.nombreRes && <p className="error">{errors.nombreRes[0]}</p>}
         </div>
@@ -110,7 +101,9 @@ export default function RegistroRestaurante() {
             type="text"
             placeholder="Direccion del Restaurante"
             value={formData.direccion || ""}
-            onChange={(e) => setFormData({ ...formData, direccion: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, direccion: e.target.value })
+            }
           />
           {errors.direccion && <p className="error">{errors.direccion[0]}</p>}
         </div>
@@ -119,9 +112,13 @@ export default function RegistroRestaurante() {
             type="text"
             placeholder="Descripcion del Restaurante"
             value={formData.descripcion || ""}
-            onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, descripcion: e.target.value })
+            }
           />
-          {errors.descripcion && <p className="error">{errors.descripcion[0]}</p>}
+          {errors.descripcion && (
+            <p className="error">{errors.descripcion[0]}</p>
+          )}
         </div>
 
         <div>
@@ -158,7 +155,6 @@ export default function RegistroRestaurante() {
           {errors.email && <p className="error">{errors.email[0]}</p>}
         </div>
 
-
         <div>
           <input
             type="password"
@@ -168,7 +164,9 @@ export default function RegistroRestaurante() {
               setFormData({ ...formData, contrasenia: e.target.value })
             }
           />
-          {errors.contrasenia && <p className="error">{errors.contrasenia[0]}</p>}
+          {errors.contrasenia && (
+            <p className="error">{errors.contrasenia[0]}</p>
+          )}
         </div>
 
         <div>
@@ -194,14 +192,16 @@ export default function RegistroRestaurante() {
               setFormData({ ...formData, capacidadTotal: e.target.value })
             }
           />
-          {errors.capacidadTotal && <p className="error">{errors.capacidadTotal[0]}</p>}
+          {errors.capacidadTotal && (
+            <p className="error">{errors.capacidadTotal[0]}</p>
+          )}
         </div>
-            
+
         {/*  <InputDiasAtencion 
         onChange={handleDiasAtencionChange}
         value={formData.diasAtencion}
-      />  */}  
-        
+      />  */}
+
         {/* <div>
           <input
             type="time"
@@ -232,11 +232,10 @@ export default function RegistroRestaurante() {
           <input
             type="file"
             accept="image/*"
-            
-            onChange={(e) => setFile( e.target.files[0] )}
+            onChange={(e) => setFile(e.target.files[0])}
           />
           {errors.imagenUrl && <p className="error">{errors.imagenUrl[0]}</p>}
-        </div> 
+        </div>
         {/* <div>
           <input
             type="number"
@@ -266,34 +265,40 @@ export default function RegistroRestaurante() {
         </div> */}
 
         <div>
-  <label>¿Acepta eventos?</label>
-  <div>
-    <input
-      type="radio"
-      id="aceptaSi"
-      name="aceptaEventos"
-      value="si"
-      checked={formData.aceptaEventos === "si"}
-      onChange={(e) => setFormData({ ...formData, aceptaEventos: e.target.value })}
-    />
-    <label htmlFor="aceptaSi">Sí</label>
+          <label>¿Acepta eventos?</label>
+          <div>
+            <input
+              type="radio"
+              id="aceptaSi"
+              name="aceptaEventos"
+              value="si"
+              checked={formData.aceptaEventos === "si"}
+              onChange={(e) =>
+                setFormData({ ...formData, aceptaEventos: e.target.value })
+              }
+            />
+            <label htmlFor="aceptaSi">Sí</label>
 
-    <input
-      type="radio"
-      id="aceptaNo"
-      name="aceptaEventos"
-      value="no"
-      checked={formData.aceptaEventos === "no"}
-      onChange={(e) => setFormData({ ...formData, aceptaEventos: e.target.value })}
-    />
-    <label htmlFor="aceptaNo">No</label>
-  </div>
-  {errors.aceptaEventos && <p className="error">{errors.aceptaEventos[0]}</p>}
-</div>
-<button className="primary-btn" disabled={isUploading}>
+            <input
+              type="radio"
+              id="aceptaNo"
+              name="aceptaEventos"
+              value="no"
+              checked={formData.aceptaEventos === "no"}
+              onChange={(e) =>
+                setFormData({ ...formData, aceptaEventos: e.target.value })
+              }
+            />
+            <label htmlFor="aceptaNo">No</label>
+          </div>
+          {errors.aceptaEventos && (
+            <p className="error">{errors.aceptaEventos[0]}</p>
+          )}
+        </div>
+        <button className="primary-btn" disabled={isUploading}>
           {isUploading ? "Guardando....." : "Registrar"}
         </button>
       </form>
-    </>
+    </div>
   );
 }

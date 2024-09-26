@@ -24,32 +24,28 @@ export default function RegistroUsuario() {
   const handleRegister = async (e) => {
     e.preventDefault();
     setIsUploading(true); // Establecer el indicador de subida de archivo en verdadero
-    try{
+    try {
       let avatarUrl = formData.avatarUrl; // URL del avatar predeterminado o la URL existente
       if (file) {
-      avatarUrl = await uploadFileUsuarios(file);
-      console.log(avatarUrl);
-      // Actualizar la URL del avatar en el estado del formulario
-      setFormData((prev) => ({ ...prev, avatarUrl }));
-      
-      
-    } 
-    const data = {
-      nombre: formData.nombre,
-      apellido: formData.apellido,
-      fechaNac: formData.fechaNac,
-      email: formData.email,
-      telefono: formData.telefono,
-      ciudad: formData.ciudad,
-      nombreUsuario: formData.nombreUsuario,
-      contrasenia: formData.contrasenia,
-      contrasenia_confirmation: formData.contrasenia_confirmation,
-      avatarUrl: avatarUrl, // Añadir la URL del avatar si está disponible
-    };
+        avatarUrl = await uploadFileUsuarios(file);
+        console.log(avatarUrl);
+        // Actualizar la URL del avatar en el estado del formulario
+        setFormData((prev) => ({ ...prev, avatarUrl }));
+      }
+      const data = {
+        nombre: formData.nombre,
+        apellido: formData.apellido,
+        fechaNac: formData.fechaNac,
+        email: formData.email,
+        telefono: formData.telefono,
+        ciudad: formData.ciudad,
+        nombreUsuario: formData.nombreUsuario,
+        contrasenia: formData.contrasenia,
+        contrasenia_confirmation: formData.contrasenia_confirmation,
+        avatarUrl: avatarUrl, // Añadir la URL del avatar si está disponible
+      };
 
-    
-    
-    /* const form = new FormData();
+      /* const form = new FormData();
     form.append("nombre", formData.nombre);
     form.append("apellido", formData.apellido);
     form.append("fechaNac", formData.fechaNac);
@@ -61,58 +57,44 @@ export default function RegistroUsuario() {
     form.append("contrasenia_confirmation", formData.contrasenia_confirmation);
     if(avatarUrl) form.append("avatarUrl", avatarUrl); // Agregar el archivo de imagen al objeto FormData
      */
-    /* for (let pair of form.entries()) {
+      /* for (let pair of form.entries()) {
       console.log(`${pair[0]}: ${pair[1]}`);
     } */
 
-    const res = await fetch("/api/usuarios/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // Establecer el encabezado JSON
-      },
-      body: JSON.stringify(data), // Convertir los datos a JSON
-    });
+      const res = await fetch("/api/usuarios/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Establecer el encabezado JSON
+        },
+        body: JSON.stringify(data), // Convertir los datos a JSON
+      });
 
-    const result = await res.json();
-    if (result.errors) {
-      setErrors(result.errors);
-      console.log(result);
-    } else {
-      console.log(result);
-      navigate("/");
-    }
-  }
-    
-    
-    catch (error) {
+      const result = await res.json();
+      if (result.errors) {
+        setErrors(result.errors);
+        console.log(result);
+      } else {
+        console.log(result);
+        navigate("/LoginUsuario");
+      }
+    } catch (error) {
       console.error("Error al registrar el usuario", error);
-    } finally{
+    } finally {
       setIsUploading(false); // Restablecer el indicador de subida de archivo en falso
     }
-
-
-
-    
-
-      
-    
-  
-
-  
-
-    
-    };
+  };
   return (
-    <>
+    <div>
       <h1 className="title">Registrar nueva cuenta</h1>:
-
       <form onSubmit={handleRegister} className="w-1/2 mx-auto space-y-6">
         <div>
           <input
             type="text"
             placeholder="Nombre"
             value={formData.nombre || ""}
-            onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, nombre: e.target.value })
+            }
           />
           {errors.nombre && <p className="error">{errors.nombre[0]}</p>}
         </div>
@@ -121,7 +103,9 @@ export default function RegistroUsuario() {
             type="text"
             placeholder="Apellido"
             value={formData.apellido || ""}
-            onChange={(e) => setFormData({ ...formData, apellido: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, apellido: e.target.value })
+            }
           />
           {errors.apellido && <p className="error">{errors.apellido[0]}</p>}
         </div>
@@ -130,7 +114,9 @@ export default function RegistroUsuario() {
             type="date"
             placeholder="Fecha de Nacimiento (DD/MM/AAAA)"
             value={formData.fechaNac || ""}
-            onChange={(e) => setFormData({ ...formData, fechaNac: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, fechaNac: e.target.value })
+            }
           />
           {errors.fechaNac && <p className="error">{errors.fechaNac[0]}</p>}
         </div>
@@ -170,8 +156,8 @@ export default function RegistroUsuario() {
           />
           {errors.ciudad && <p className="error">{errors.ciudad[0]}</p>}
         </div>
-            <div>
-        <input
+        <div>
+          <input
             type="text"
             placeholder="Nombre de Usuario"
             value={formData.nombreUsuario || ""}
@@ -179,7 +165,9 @@ export default function RegistroUsuario() {
               setFormData({ ...formData, nombreUsuario: e.target.value })
             }
           />
-          {errors.nombreUsuario && <p className="error">{errors.nombreUsuario[0]}</p>}
+          {errors.nombreUsuario && (
+            <p className="error">{errors.nombreUsuario[0]}</p>
+          )}
         </div>
 
         <div>
@@ -191,7 +179,9 @@ export default function RegistroUsuario() {
               setFormData({ ...formData, contrasenia: e.target.value })
             }
           />
-          {errors.contrasenia && <p className="error">{errors.contrasenia[0]}</p>}
+          {errors.contrasenia && (
+            <p className="error">{errors.contrasenia[0]}</p>
+          )}
         </div>
 
         <div>
@@ -212,19 +202,18 @@ export default function RegistroUsuario() {
           <input
             type="file"
             accept="image/*"
-            
-            onChange={(e) => setFile( e.target.files[0] )}
+            onChange={(e) => setFile(e.target.files[0])}
           />
           {/* {previewUrl && (
             <img src={previewUrl} alt="Vista previa" className="mt-2 w-32 h-32 object-cover" />
           )} */}
           {errors.avatarUrl && <p className="error">{errors.avatarUrl[0]}</p>}
-        </div> 
+        </div>
 
         <button className="primary-btn" disabled={isUploading}>
           {isUploading ? "Guardando....." : "Registrarme"}
         </button>
       </form>
-    </>
+    </div>
   );
 }

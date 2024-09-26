@@ -5,7 +5,8 @@ import { AppContext } from "../Context/AppContext";
 export default function Layout() {
   const { user, token, setUser, setToken } = useContext(AppContext);
   const navigate = useNavigate();
- console.log(user);
+
+  //console.log(user);
   async function handleLogout(e) {
     e.preventDefault();
 
@@ -21,7 +22,6 @@ export default function Layout() {
       },
     });
 
-
     if (res.ok) {
       setUser(null);
       setToken(null);
@@ -34,31 +34,24 @@ export default function Layout() {
     <>
       <header>
         <nav>
-          <Link to="/" className="nav-link">
-            Home
+          <Link
+            to="/"
+            className="nav-link font-semibold text-lg text-orange-400"
+          >
+            .GourmetReservas
           </Link>
 
           {user ? (
-            <div className="flex items-center text-orange-400 space-x-4">
-             Bienvenido {user.nombreRes ? user.nombreRes : user.nombreUsuario}
-
-              {user.nombreRes  ? (
-                <Link to="/dashboardRestaurante" className="nav-link">
-                  Dashboard Restaurante
-                </Link>
-              ) : (
-                <Link to="/dashboardUsuario" className="nav-link">
-                  Dashboard Usuario
-                </Link>
-              )}
-
+            <div className="flex items-center font-light text-orange-400 space-x-4">
+              Bienvenido{" "}
+              {user.rol === "restaurante" ? user.nombreRes : user.nombreUsuario}
               <form onSubmit={handleLogout}>
                 <button className="nav-link">Logout</button>
               </form>
             </div>
           ) : (
             <div className="space-x-4">
-              <Link to="/loginResturante" className="nav-link">
+              <Link to="/loginRestaurante" className="nav-link">
                 Restaurantes
               </Link>
               <Link to="/loginUsuario" className="nav-link">
@@ -69,9 +62,14 @@ export default function Layout() {
         </nav>
       </header>
 
-      <main>
-        <Outlet />
+      <main className="flex-1 w-full min-h-screen">
+        <div className="p-4">
+          <Outlet />
+        </div>
       </main>
+      <footer className="bg-gray-800 text-white p-4 text-center">
+        <p>© 2024 .GourmetReservas Todos los derechos reservados.</p>
+      </footer>
     </>
   );
 }

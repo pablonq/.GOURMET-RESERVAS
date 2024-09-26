@@ -7,8 +7,14 @@
 @tailwind utilities;
 
 @layer base {
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
     body {
         font-family: "Poppins", sans-serif;
+    
     }
 }
 
@@ -30,9 +36,7 @@
     nav {
         @apply p-5 max-w-screen-lg mx-auto flex items-center justify-between;
     }
-    main {
-        @apply max-w-screen-lg mx-auto;
-    }
+
     .primary-btn {
         @apply flex w-full justify-center rounded-md bg-blue-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-400 disabled:cursor-wait;
     }
@@ -43,7 +47,7 @@
         @apply text-slate-200 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium;
     }
     .title {
-        @apply my-6 text-center text-3xl font-bold leading-9 text-slate-900;
+        @apply my-6 text-center text-xl font-bold leading-9 text-slate-900;
     }
     .error {
         @apply text-xs text-red-500 mt-1;

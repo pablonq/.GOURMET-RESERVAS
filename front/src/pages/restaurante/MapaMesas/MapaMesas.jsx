@@ -1,8 +1,9 @@
 import Title from "../../../component/Title/Title";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useContext } from "react";
 import InputMesa from "../../../component/InputMesa/InputMesa";
 import PlanoMesa from "../../../component/PlanoMesa/PlanoMesa";
-import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../../Context/AppContext";
 
 /**
  * crear ,  Visualizar gráficamente de la distribución de las mesas . y editar  disponibilidad?.
@@ -16,8 +17,48 @@ const MapaMesas = () => {
     mesaMas6: "",
   });
 
+  const { user, token } = useContext(AppContext);
+ // const navigate = useNavigate();
+  const idRestaurante = user ? user.id : null;
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
+  const [numeroMesa, setNumeroMesa] = useState(1);
+  const [successMessage, setSuccessMessage] = useState("");
+
+
+  // Función para obtener el último número de mesa
+  const getUltimaMesaNumber = async () => {
+    try {
+      const res = await fetch(`/api/restaurantes/ultimaMesa/${idRestaurante}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        console.error("Error al obtener el último número de mesa.");
+        return;
+      }
+
+      const data = await res.json();
+      //console.log("Datos de la respuesta:", data);
+
+      if (data.ultimaMesa !== undefined) {
+        setNumeroMesa(data.ultimaMesa + 1);
+      } else {
+        console.error("La propiedad 'ultimaMesa' no existe en la respuesta.");
+      }
+    } catch (error) {
+      console.error("Error al obtener el último número de mesa:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (idRestaurante) {
+      getUltimaMesaNumber();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idRestaurante]);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -41,8 +82,10 @@ const MapaMesas = () => {
 
     // console.log(mesas)
     // console.log(mesas.mesa2);
-
-    const idRestaurante = 1; //ver
+    if (!idRestaurante) {
+      console.error("No se pudo obtener el ID del restaurante.");
+      return;
+    }
 
     const tiposMesas = [
       { cantidadPersonas: 2, cantidad: mesas.mesa2 },
@@ -51,17 +94,17 @@ const MapaMesas = () => {
       { cantidadPersonas: 8, cantidad: mesas.mesaMas6 },
     ];
 
-    let numeroMesa = 1;
     let mesasData = [];
-
+    let temporalNumeroMesa = numeroMesa;
     for (const tipo of tiposMesas) {
       for (let i = 0; i < tipo.cantidad; i++) {
         mesasData.push({
-          numeroMesa: numeroMesa++,
+          numeroMesa: temporalNumeroMesa,
           cantidadPersonas: tipo.cantidadPersonas,
           estado: 1,
           idRestaurante,
         });
+        temporalNumeroMesa++;
       }
     }
 
@@ -69,6 +112,10 @@ const MapaMesas = () => {
     try {
       const res = await fetch("/api/restaurantes/mesas", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ mesasData }),
       });
 
@@ -77,18 +124,20 @@ const MapaMesas = () => {
       if (!res.ok) {
         console.error("Error en la respuesta:", data);
         setErrors(data.errors || { general: "Error al guardar los datos." });
+        setSuccessMessage("")
       } else {
         console.log("Datos guardados exitosamente:", data);
         clearInput();
-        navigate("/editarMapa");
+        setSuccessMessage("Mesas cargadas exitosamente");;
       }
     } catch (error) {
       console.error("Error al enviar la solicitud:", error);
+      setSuccessMessage("")
     }
   };
 
   return (
-    <div className="">
+    <div className="max-w-screen-lg mx-auto">
       <Title text="Mapa de Mesas" />
 
       <div className="flex">
@@ -135,6 +184,8 @@ const MapaMesas = () => {
         />
       </div>
       <p className="error">{errors.general}</p>
+
+      {successMessage && <div className="text-green-600 p-4  text-center">{successMessage}</div>}
     </div>
   );
 };

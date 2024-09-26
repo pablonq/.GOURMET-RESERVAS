@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import AgruparMesa from "../AgruparMesa/AgruparMesa";
 import Subtitulo from "../Subtitulo/Subtitulo";
-import Title from "../Title/Title";
 
 const PlanoEditable = ({ mesas = [], setMesas }) => {
   if (!Array.isArray(mesas)) {
@@ -69,7 +68,6 @@ const PlanoEditable = ({ mesas = [], setMesas }) => {
 
   return (
     <div>
-      <Title text="Menu Editable" />
       <Subtitulo text="Hacer click sobre la mesa para desabilitarla" />
 
       <div className="flex flex-col space-y-1">
