@@ -4,9 +4,10 @@ import { useContext } from "react";
 import InputMesa from "../../../component/InputMesa/InputMesa";
 import PlanoMesa from "../../../component/PlanoMesa/PlanoMesa";
 import { AppContext } from "../../../Context/AppContext";
+import { obtenerMesasExistentes } from "../../../api/mesasAPI";
 
 /**
- * crear ,  Visualizar gráficamente de la distribución de las mesas . y editar  disponibilidad?.
+ * cargar mesas para la creacion del plano editable.
  */
 
 const MapaMesas = () => {
@@ -18,12 +19,13 @@ const MapaMesas = () => {
   });
 
   const { user, token } = useContext(AppContext);
- // const navigate = useNavigate();
   const idRestaurante = user ? user.id : null;
   const [errors, setErrors] = useState({});
   const [numeroMesa, setNumeroMesa] = useState(1);
   const [successMessage, setSuccessMessage] = useState("");
+  const [mesasExistentes, setMesasExistentes] = useState([]);
 
+  const CAPACIDAD_MAXIMA = user?.capacidadTotal;
 
   // Función para obtener el último número de mesa
   const getUltimaMesaNumber = async () => {
@@ -56,9 +58,19 @@ const MapaMesas = () => {
   useEffect(() => {
     if (idRestaurante) {
       getUltimaMesaNumber();
+      obtenerMesasExistentes(token, setMesasExistentes);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idRestaurante]);
+  }, [idRestaurante, token]);
+
+  const calcularTotalPersonasExistentes = () => {
+    console.log("Mesas existentes:", mesasExistentes);
+    let total = 0;
+    for (let i = 0; i < mesasExistentes.length; i++) {
+      total += mesasExistentes[i].cantidadPersonas || 0;
+    }
+    return total;
+  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -95,8 +107,11 @@ const MapaMesas = () => {
     ];
 
     let mesasData = [];
+    let totalPersonas = calcularTotalPersonasExistentes();
     let temporalNumeroMesa = numeroMesa;
+
     for (const tipo of tiposMesas) {
+      totalPersonas += tipo.cantidadPersonas * tipo.cantidad;
       for (let i = 0; i < tipo.cantidad; i++) {
         mesasData.push({
           numeroMesa: temporalNumeroMesa,
@@ -105,6 +120,14 @@ const MapaMesas = () => {
           idRestaurante,
         });
         temporalNumeroMesa++;
+      }
+      if (totalPersonas > CAPACIDAD_MAXIMA) {
+        setErrors({
+          general: `La capacidad máxima de su restaurante es de ${CAPACIDAD_MAXIMA} personas. Puede eliminar mesas en Administrar mesas o aumentar su capacidad maxima`,
+        });
+        clearInput();
+        // console.log("supera la cantidad de mesas");
+        return;
       }
     }
 
@@ -124,15 +147,16 @@ const MapaMesas = () => {
       if (!res.ok) {
         console.error("Error en la respuesta:", data);
         setErrors(data.errors || { general: "Error al guardar los datos." });
-        setSuccessMessage("")
+        setSuccessMessage("Error al cargar las mesas");
       } else {
         console.log("Datos guardados exitosamente:", data);
         clearInput();
-        setSuccessMessage("Mesas cargadas exitosamente");;
+        setSuccessMessage("Mesas cargadas exitosamente");
+        obtenerMesasExistentes();
       }
     } catch (error) {
       console.error("Error al enviar la solicitud:", error);
-      setSuccessMessage("")
+      setSuccessMessage("");
     }
   };
 
@@ -183,9 +207,16 @@ const MapaMesas = () => {
           mesasMas6={mesas.mesaMas6}
         />
       </div>
-      <p className="error">{errors.general}</p>
-
-      {successMessage && <div className="text-green-600 p-4  text-center">{successMessage}</div>}
+      {errors.general && (
+        <div className="p-5 bg-amber-200 rounded-md border-2 border-red-600">
+          <p className="error text-center font-semibold">{errors.general}</p>
+        </div>
+      )}
+      {successMessage && (
+        <div className="text-white bg-green-700 p-4 border-2 rounded-md text-center">
+          {successMessage}
+        </div>
+      )}
     </div>
   );
 };
