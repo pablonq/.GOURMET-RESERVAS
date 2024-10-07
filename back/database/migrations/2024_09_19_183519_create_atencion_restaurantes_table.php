@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('atencion_restaurantes', function (Blueprint $table) {
             $table->id();
             $table->string('dia');
-            $table->time('horarioUno', precision: 0);
-            $table->time('horarioDos', precision: 0);
+            $table->time('startTime1', precision: 0)->nullable();
+            $table->time('endTime1', precision: 0)->nullable();
+            $table->time('startTime2', precision: 0)->nullable();
+            $table->time('endTime2', precision: 0)->nullable();
+            
             $table->foreignId('idRestaurante')
             ->references('id')
             ->on('restaurantes')

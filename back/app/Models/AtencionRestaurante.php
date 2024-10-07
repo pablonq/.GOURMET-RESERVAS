@@ -10,8 +10,10 @@ class AtencionRestaurante extends Model
     use HasFactory;
     protected $fillable = [
       'dia',
-      'horarioUno',
-      'horarioDos',
+      'startTime1',
+      'endTime1',
+      'startTime2',
+      'endTime2',
       'idRestaurante'
     ];
 

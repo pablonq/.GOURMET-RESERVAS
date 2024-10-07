@@ -16,6 +16,7 @@ import { AppContext } from "./Context/AppContext";
 import RutasProtegidas from "./component/RutasProtegidas/RutasProtegidas";
 import PanelRestaurante from "./pages/PanelRestaurante";
 import PanelUsuario from "./pages/PanelUsuario";
+import DiasHorarios from "./pages/restaurante/PerfilRestaurante/DiasHorarios";
 
 function App() {
   const { user } = useContext(AppContext);
@@ -81,9 +82,18 @@ function App() {
                 </RutasProtegidas>
               }
             />
+          <Route
+              path="diasHorarios"
+              element={
+                <RutasProtegidas>
+                  <DiasHorarios />
+                </RutasProtegidas>
+              }
+            />
+          </Route>
           </Route>
 
-        </Route>
+        
       </Routes>
     </BrowserRouter>
   );

@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-/* import InputDiasAtencion from "../../../component/Inputs/InputDiasAtencion"; */
 import { uploadFileRestaurantes } from "../../../firebase/config";
 
 export default function RegistroRestaurante() {
@@ -15,12 +13,7 @@ export default function RegistroRestaurante() {
     contrasenia: "",
     contrasenia_confirmation: "",
     capacidadTotal: "",
-    /* diasAtencion: [],
-    horaApertura: "",
-    horaCierre: "", */
     imagenUrl: null,
-    /* latitud:"",
-    longitud:"", */
     aceptaEventos: "",
   });
 
@@ -197,36 +190,6 @@ export default function RegistroRestaurante() {
           )}
         </div>
 
-        {/*  <InputDiasAtencion 
-        onChange={handleDiasAtencionChange}
-        value={formData.diasAtencion}
-      />  */}
-
-        {/* <div>
-          <input
-            type="time"
-            name="horaApertura"
-            placeholder="Hora de Apertura"
-            value={formData.horaApertura || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, horaApertura: e.target.value })
-            }
-          />
-          {errors.horaApertura && <p className="error">{errors.horaApertura[0]}</p>}
-        </div>
-
-        <div>
-          <input
-            type="time"
-            name="horaCierre"
-            placeholder="Hora de Cierre"
-            value={formData.horaCierre || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, horaCierre: e.target.value })
-            }
-          />
-          {errors.horaCierre && <p className="error">{errors.horaCierre[0]}</p>}
-        </div> */}
 
         <div>
           <input
@@ -236,34 +199,7 @@ export default function RegistroRestaurante() {
           />
           {errors.imagenUrl && <p className="error">{errors.imagenUrl[0]}</p>}
         </div>
-        {/* <div>
-          <input
-            type="number"
-            name="latitud"
-            placeholder="Latitud"
-            value={formData.latitud || ""}
-            step="any"
-            onChange={(e) =>
-              setFormData({ ...formData, latitud: e.target.value })
-            }
-          />
-          {errors.latitud && <p className="error">{errors.latitud[0]}</p>}
-        </div>
-
-        <div>
-          <input
-            type="number"
-            name="longitud"
-            placeholder="Longitud"
-            value={formData.longitud || ""}
-            step="any"
-            onChange={(e) =>
-              setFormData({ ...formData, longitud: e.target.value })
-            }
-          />
-          {errors.longitud && <p className="error">{errors.longitud[0]}</p>}
-        </div> */}
-
+        
         <div>
           <label>¿Acepta eventos?</label>
           <div>
