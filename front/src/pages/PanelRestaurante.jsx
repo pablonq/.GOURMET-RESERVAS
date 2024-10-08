@@ -54,9 +54,9 @@ const PanelRestaurante = () => {
               to={"/panelRestaurante/editarMapa"}
               text={"Administar Mesas"}
             />
-            <SiderLink to={"/panelRestaurante/menu"} text={"Gestionar Menú"} />
+            <SiderLink to={"/panelRestaurante/editarMenu"} text={"Gestionar Menú"} />
             <SiderLink to={"/panelRestaurante/diasHorarios"} text={"Dias y Horarios de Atención"} />
-            <SiderLink to={"/panelRestaurante/perfil"} text={"Editar Perfil"} />
+            <SiderLink to={"/panelRestaurante/perfilRestaurante"} text={"Editar Perfil"} />
           </ul>
         </nav>
       </div>

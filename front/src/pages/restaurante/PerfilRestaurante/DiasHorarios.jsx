@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useContext } from 'react'
 import { AppContext } from "../../../Context/AppContext";
+import { useNavigate } from 'react-router-dom'
+import Title from '../../../component/Title/Title';
 
 
 
@@ -126,7 +128,9 @@ export default function DiasHorarios() {
 }
   return (
      <div>
-  <h3>Selecciona los días y las franjas horarias</h3>
+  <div className="bg-slate-400">
+      <Title text="Dias y Horarios de Atención" />
+    </div>
   <form onSubmit={handleSubmit} className="w-1/2 mx-auto space-y-6">
     {daysOfWeek.map((day) => (
       <div key={day}>

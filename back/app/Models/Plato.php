@@ -21,7 +21,7 @@ class Plato extends Model
         'imagen'
     ];
 
-    public function menues(): BelongsToMany
+    public function menus(): BelongsToMany
     {
         return $this->belongsToMany(Menu::class);
     }
