@@ -19,12 +19,12 @@ class Resenia extends Model
         'imagen'
     ];
 
-    public function usuario(): BelongsTo
+    public function usuarios(): BelongsTo
     {
         return $this->belongsTo(Usuario::class);
     }
 
-    public function restaurante(): BelongsTo
+    public function restaurantes(): BelongsTo
     {
         return $this->belongsTo(Restaurante::class);
     }

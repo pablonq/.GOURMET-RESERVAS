@@ -11,7 +11,7 @@ class Plato extends Model
     use HasFactory;
 
     protected $fillable = [
-        'idMenu',
+        
         'nombrePlato',
         'descripcion',
         'precio',
@@ -21,14 +21,16 @@ class Plato extends Model
         'imagen'
     ];
 
-    public function menues(): BelongsToMany
+    public function menus()
     {
         return $this->belongsToMany(Menu::class);
     }
 
-    public function restaurantes(): BelongsToMany
+    public function restaurantes()
     {
-        return $this->belongsToMany(Restaurante::class, 'platosRestaurantes');
+        return $this->belongsToMany(Restaurante::class);
     }
+
+    
 
 }

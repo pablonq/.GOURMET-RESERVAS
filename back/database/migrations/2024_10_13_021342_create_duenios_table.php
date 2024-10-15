@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menues', function (Blueprint $table) {
+        Schema::create('duenios', function (Blueprint $table) {
             $table->id();
-            /* $table->BigInteger('idRestaurante')->unsigned()->nullable(); */
-            $table->string('nombre');
-            $table->string('descripcion');
-            $table->string('tipo');
+            $table->string('dni');
+           
+
             $table->timestamps();
-            $table->string('imagen');
 
             $table->foreignId('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idPersona')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menues');
+        Schema::dropIfExists('duenios');
     }
 };

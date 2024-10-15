@@ -47,7 +47,7 @@ class Restaurante extends Model
         return $this->hasMany(Resenia::class);
     }
 
-    public function menues(): HasMany
+    public function menus(): HasMany
     {
         return $this->hasMany(Menu::class);
     }
@@ -67,9 +67,9 @@ class Restaurante extends Model
         return $this->hasMany(Notificacion::class);
     }
 
-    public function platos(): BelongsToMany
+    public function platos()
     {
-        return $this->belongsToMany(Plato::class, 'platosRestaurantes');
+        return $this->belongsToMany(Plato::class);
     }
 
     public function atencionRestaurantes(): HasMany

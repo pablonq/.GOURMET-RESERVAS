@@ -22,6 +22,11 @@ import ReservarMesa from "./pages/usuario/ReservarMesa/ReservarMesa";
 import DetalleReserva from "./pages/usuario/ReservarMesa/DetalleReserva";
 import DetalleRestaurante from "./pages/DetalleRestaurante";
 import ConfirmacionReserva from "./pages/usuario/ConfirmacionReserva/ConfirmacionReserva";
+import EditarMenu from "./pages/restaurante/EditarMenu/EditarMenu";
+import PerfilRestaurante from "./pages/restaurante/PerfilRestaurante/PerfilRestaurante";
+import MostrarMenu from "./pages/restaurante/EditarMenu/MostrarMenu";
+import CrearMenu from "./pages/restaurante/EditarMenu/CrearMenu";
+import ActualizarMenu from "./pages/restaurante/EditarMenu/ActualizarMenu";
 
 function App() {
   const { user } = useContext(AppContext);
@@ -108,6 +113,46 @@ function App() {
               element={
                 <RutasProtegidas>
                   <DiasHorarios />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="editarMenu"
+              element={
+                <RutasProtegidas>
+                  <EditarMenu />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="crearMenu"
+              element={
+                <RutasProtegidas>
+                  <CrearMenu />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="actualizarMenu/:menuId"
+              element={
+                <RutasProtegidas>
+                  <ActualizarMenu />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="mostrarMenu/:menuId"
+              element={
+                <RutasProtegidas>
+                  <MostrarMenu />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="perfilRestaurante"
+              element={
+                <RutasProtegidas>
+                  <PerfilRestaurante />
                 </RutasProtegidas>
               }
             />

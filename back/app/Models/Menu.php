@@ -5,29 +5,32 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class Menu extends Model
 {
-    use HasFactory;
+  use HasFactory, HasApiTokens, Notifiable;
 
     protected $fillable = [
-        'idMenu',
-        'nombrePlato',
+        'nombre',
         'descripcion',
-        'precio',
-        'informacionNutricional',
-        'tag',
-        'categoria',
-        'imagen'
+        'tipo',
+         
+        'imagen',
+        'idRestaurante',
     ];
 
-    public function restaurante(): BelongsTo
+    public function restaurantes(): BelongsTo
     {
         return $this->belongsTo(Restaurante::class);
     }
 
-    public function platos(): BelongsToMany
+    
+    public function platos()
     {
         return $this->belongsToMany(Plato::class);
     }
