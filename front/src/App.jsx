@@ -27,6 +27,7 @@ import PerfilRestaurante from "./pages/restaurante/PerfilRestaurante/PerfilResta
 import MostrarMenu from "./pages/restaurante/EditarMenu/MostrarMenu";
 import CrearMenu from "./pages/restaurante/EditarMenu/CrearMenu";
 import ActualizarMenu from "./pages/restaurante/EditarMenu/ActualizarMenu";
+import AdministrarPlatos from "./pages/restaurante/AdministrarPlatos/AdministrarPlatos";
 
 function App() {
   const { user } = useContext(AppContext);
@@ -145,6 +146,14 @@ function App() {
               element={
                 <RutasProtegidas>
                   <MostrarMenu />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="administrarPlatos"
+              element={
+                <RutasProtegidas>
+                  <AdministrarPlatos />
                 </RutasProtegidas>
               }
             />
