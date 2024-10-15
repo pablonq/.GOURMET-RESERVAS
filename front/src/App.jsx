@@ -19,6 +19,9 @@ import PanelUsuario from "./pages/PanelUsuario";
 import DiasHorarios from "./pages/restaurante/PerfilRestaurante/DiasHorarios";
 import EditarMenu from "./pages/restaurante/EditarMenu/EditarMenu";
 import PerfilRestaurante from "./pages/restaurante/PerfilRestaurante/PerfilRestaurante";
+import MostrarMenu from "./pages/restaurante/EditarMenu/MostrarMenu";
+import CrearMenu from "./pages/restaurante/EditarMenu/CrearMenu";
+import ActualizarMenu from "./pages/restaurante/EditarMenu/ActualizarMenu";
 
 function App() {
   const { user } = useContext(AppContext);
@@ -97,6 +100,30 @@ function App() {
               element={
                 <RutasProtegidas>
                   <EditarMenu />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="crearMenu"
+              element={
+                <RutasProtegidas>
+                  <CrearMenu />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="actualizarMenu/:menuId"
+              element={
+                <RutasProtegidas>
+                  <ActualizarMenu />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="mostrarMenu/:menuId"
+              element={
+                <RutasProtegidas>
+                  <MostrarMenu />
                 </RutasProtegidas>
               }
             />

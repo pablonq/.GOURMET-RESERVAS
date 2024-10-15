@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreignId('idMenu')->references('id')->on('menus')->onDelete('cascade')->onUpdate('cascade');
+            
 
         });
     }

@@ -21,7 +21,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 1';
         $plato->categoria = 'Categoria 1';
         $plato->imagen = null;
-        $plato->idMenu = 1;
+        
 
         $plato->save();
 
@@ -33,7 +33,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 2';
         $plato->categoria = 'Categoria 2';
         $plato->imagen = null;
-        $plato->idMenu = 1;
+        
 
         $plato->save();
 
@@ -45,7 +45,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 3';
         $plato->categoria = 'Categoria 3';
         $plato->imagen = null;
-        $plato->idMenu = 1;
+        
 
         $plato->save();
 
@@ -57,7 +57,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 1';
         $plato->categoria = 'Categoria 1';
         $plato->imagen = null;
-        $plato->idMenu = 2;
+        
 
         $plato->save();
 
@@ -69,7 +69,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 2';
         $plato->categoria = 'Categoria 2';
         $plato->imagen = null;
-        $plato->idMenu = 2;
+        
 
         $plato->save();
 
@@ -81,7 +81,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 3';
         $plato->categoria = 'Categoria 3';
         $plato->imagen = null;
-        $plato->idMenu = 2;
+        
 
         $plato->save();
 
@@ -93,7 +93,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 1';
         $plato->categoria = 'Categoria 1';
         $plato->imagen = null;
-        $plato->idMenu = 3;
+        
 
         $plato->save();
 
@@ -105,7 +105,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 2';
         $plato->categoria = 'Categoria 2';
         $plato->imagen = null;
-        $plato->idMenu = 3;
+        
 
         $plato->save();
 
@@ -117,7 +117,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 3';
         $plato->categoria = 'Categoria 3';
         $plato->imagen = null;
-        $plato->idMenu = 3;
+        
 
         $plato->save();
 
@@ -129,7 +129,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 1';
         $plato->categoria = 'Categoria 1';
         $plato->imagen = null;
-        $plato->idMenu = 4;
+        
 
         $plato->save();
 
@@ -141,7 +141,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 2';
         $plato->categoria = 'Categoria 2';
         $plato->imagen = null;
-        $plato->idMenu = 4;
+        
 
         $plato->save();
 
@@ -153,7 +153,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 3';
         $plato->categoria = 'Categoria 3';
         $plato->imagen = null;
-        $plato->idMenu = 4;
+        
 
         $plato->save();
 
@@ -165,7 +165,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 1';
         $plato->categoria = 'Categoria 1';
         $plato->imagen = null;
-        $plato->idMenu = 5;
+        
 
         $plato->save();
 
@@ -177,7 +177,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 2';
         $plato->categoria = 'Categoria 2';
         $plato->imagen = null;
-        $plato->idMenu = 5;
+        
 
         $plato->save();
 
@@ -189,7 +189,7 @@ class PlatoSeeder extends Seeder
         $plato->tag = 'tag 3';
         $plato->categoria = 'Categoria 3';
         $plato->imagen = null;
-        $plato->idMenu = 5;
+        
 
         $plato->save();
     }

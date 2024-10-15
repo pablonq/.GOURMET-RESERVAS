@@ -83,10 +83,10 @@ export default function DiasHorarios() {
 
         return {
           day,
-          startTime1: data.startTime1,
-          endTime1: data.endTime1,
-          startTime2: data.startTime2,
-          endTime2: data.endTime2
+          startTime1: data.startTime1 || null,
+          endTime1: data.endTime1 || null,
+          startTime2: data.startTime2 || null,
+          endTime2: data.endTime2 || null
         };
       });
 
@@ -96,11 +96,10 @@ export default function DiasHorarios() {
       return; // No enviar los datos si hay errores
     }
 
-    // Estructurar el cuerpo de la solicitud
-    /* const payload = {
-      idRestaurante,
-      horarios: selectedDays
-    }; */
+    if (selectedDays.length === 0) {
+      alert("Por favor, selecciona al menos un día.");
+      return;
+    }
       try{
     const res = await fetch("/api/restaurantes/diasHorarios", {
       method: "POST",

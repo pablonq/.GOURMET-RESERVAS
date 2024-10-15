@@ -29,7 +29,8 @@ class Menu extends Model
         return $this->belongsTo(Restaurante::class);
     }
 
-    public function platos(): BelongsToMany
+    
+    public function platos()
     {
         return $this->belongsToMany(Plato::class);
     }

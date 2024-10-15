@@ -6,6 +6,7 @@ use App\Http\Controllers\MesaController;
 use App\Http\Controllers\RestauranteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MenuController;
 
 // Rutas accesibles solo con autenticación (usuarios y restaurantes)
 Route::middleware('auth:sanctum')->group(function () {
@@ -37,4 +38,9 @@ Route::prefix('restaurantes')->group(function () {
   Route::post('/register', [AuthController::class, 'registerRestaurante'])->name('register.restaurante');
   Route::post('/login', [AuthController::class, 'loginRestaurante'])->name('login.restaurante');
   Route::post('/diasHorarios', [RestauranteController::class, 'diasHorarios'])->name('diasHorarios.Restaurante')->middleware('auth:sanctum');
+  Route::get('/indexMenu/{id}', [MenuController::class, 'indexMenu'])->name('indexMenu.Restaurante')->middleware('auth:sanctum');
+  Route::get('/mostrarMenu/{id}',[MenuController::class, 'getMenu'])->name('getMenu.Restaurante')->middleware('auth:sanctum');
+  Route::DELETE('/borrarMenu/{id}', [MenuController::class, 'borrarMenu'])->name('borrarMenu.Restaurante')->middleware('auth:sanctum');
+  Route::PUT('/actualizarMenu/{id}', [MenuController::class, 'actualizarMenu'])->name('actualizarMenu.Restaurante')->middleware('auth:sanctum');
+  Route::post('/crearMenu', [MenuController::class, 'crearMenu'])->name('crearMenu.Restaurante')->middleware('auth:sanctum');
 });

@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('duenios', function (Blueprint $table) {
             $table->id();
             $table->string('dni');
-           /*  $table->unsignedBigInteger('idRestaurante')->unsigned()->nullable();
-            $table->unsignedBigInteger('idPersona')->unsigned()->nullable(); */
+           
 
             $table->timestamps();
 
