@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Notificacion;
 use App\Models\Pago;
 use App\Models\Reserva;
 use App\Models\Usuario;
@@ -72,7 +71,7 @@ class PagoController extends Controller
         $reserva->estado = 'procesada';
         $reserva->save();
 
-        Notificacion::create([
+        Notification::create([
             'descripcion' => 'Su reserva ha sido confirmada.',
             'fecha' => now(),
             'idRestaurante' => $reserva->idRestaurante,

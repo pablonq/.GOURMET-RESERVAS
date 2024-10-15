@@ -42,16 +42,13 @@ Route::prefix('restaurantes')->group(function () {
   Route::post('/register', [AuthController::class, 'registerRestaurante'])->name('register.restaurante');
   Route::post('/login', [AuthController::class, 'loginRestaurante'])->name('login.restaurante');
   Route::post('/diasHorarios', [RestauranteController::class, 'diasHorarios'])->name('diasHorarios.Restaurante')->middleware('auth:sanctum');
-<<<<<<< HEAD
   Route::get('/mesasDisponibles', [MesaController::class, 'obtenerMesasDisponiblesEnFecha']);
   Route::get('/diasHorariosRestaurante/{id}', [AtencionRestauranteController::class, 'indexDiasHorarios']);
-=======
   Route::get('/indexMenu/{id}', [MenuController::class, 'indexMenu'])->name('indexMenu.Restaurante')->middleware('auth:sanctum');
   Route::get('/mostrarMenu/{id}',[MenuController::class, 'getMenu'])->name('getMenu.Restaurante')->middleware('auth:sanctum');
   Route::DELETE('/borrarMenu/{id}', [MenuController::class, 'borrarMenu'])->name('borrarMenu.Restaurante')->middleware('auth:sanctum');
   Route::PUT('/actualizarMenu/{id}', [MenuController::class, 'actualizarMenu'])->name('actualizarMenu.Restaurante')->middleware('auth:sanctum');
   Route::post('/crearMenu', [MenuController::class, 'crearMenu'])->name('crearMenu.Restaurante')->middleware('auth:sanctum');
->>>>>>> 2721388d00e8d1e42f29768bff6f58e3ecddb580
 });
 
 Route::get('/pago/exito', [PagoController::class, 'exito'])->name('pago.exito');
