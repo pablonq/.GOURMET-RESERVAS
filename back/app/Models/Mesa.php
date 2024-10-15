@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Mesa extends Model
 {
@@ -25,8 +25,8 @@ class Mesa extends Model
     }
 
 
-    public function reservas(): HasMany
+    public function reservas(): BelongsToMany
     {
-        return $this->hasMany(Reserva::class);
+        return $this->belongsToMany(Reserva::class, 'table_reserva_mesa', 'idMesa', 'idReserva');
     }
 }

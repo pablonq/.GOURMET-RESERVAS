@@ -13,20 +13,16 @@ return new class extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
-           /*  $table->BigInteger('idUsuario')->unsigned()->nullable();
-            $table->BigInteger('idRestaurante')->unsigned()->nullable();
-            $table->BigInteger('idMesa')->unsigned()->nullable(); */
             $table->timestamp('fechaReserva')->nullable();
             $table->time('horaReserva', precision: 0);
+            $table->time('horaFinReserva');
             $table->string('estado');
             $table->string('notaEspecial');
             $table->timestamps();
 
             $table->foreignId('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('idMesa')->references('id')->on('mesas')->onDelete('cascade')->onUpdate('cascade');
+           // $table->foreignId('idMesa')->references('id')->on('mesas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('idUsuario')->references('id')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
-
-
         });
     }
 

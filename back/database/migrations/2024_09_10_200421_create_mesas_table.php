@@ -16,7 +16,7 @@ return new class extends Migration
            /*  $table->BigInteger('idRestaurante')->unsigned()->nullable(); */
             $table->integer('numeroMesa');
             $table->integer('cantidadPersonas');
-            $table->boolean('estado');
+            $table-> enum('estado', ['disponible', 'reservada', 'ocupada']);
             $table->timestamps();
 
             $table->foreignId('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');

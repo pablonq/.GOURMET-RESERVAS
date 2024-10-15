@@ -7,25 +7,30 @@ const PlanoEditable = ({ mesas = [], setMesas }) => {
     console.error("Prop 'mesas' debe ser un array.");
     return null;
   }
+  
 
-  const handleReserve = async (id) => {
+  const handleOcupar = async (id) => {
     try {
-      const res = await fetch(`/api/restaurantes/reservarMesa/${id}`, {
+      const res = await fetch(`/api/restaurantes/ocuparMesa/${id}`, {
         method: "PATCH",
-        body: JSON.stringify({ estado: 0 }),
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({ estado: 'ocupada' }),
       });
 
       if (res.ok) {
         setMesas((prevMesas) =>
           prevMesas.map((mesa) =>
-            mesa.id === id ? { ...mesa, estado: 0 } : mesa
+            mesa.id === id ? { ...mesa, estado: 'ocupada' } : mesa
           )
         );
       } else {
-        console.error("Error reservando la mesa");
+        console.error("Error ocupar la mesa");
+        throw new Error(`Error al ocupar mesa: ${res.statusText}`);
       }
     } catch (error) {
-      console.error("Error al realizar la reserva:", error);
+      console.error("Error al realizar la ocupacion:", error);
     }
   };
 
@@ -49,17 +54,21 @@ const PlanoEditable = ({ mesas = [], setMesas }) => {
     try {
       const res = await fetch(`/api/restaurantes/habilitarMesa/${id}`, {
         method: "PATCH",
-        body: JSON.stringify({ estado: 1 }),
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({ estado: "disponible" }),
       });
 
       if (res.ok) {
         setMesas((prevMesas) =>
           prevMesas.map((mesa) =>
-            mesa.id === id ? { ...mesa, estado: 1 } : mesa
+            mesa.id === id ? { ...mesa, estado: "disponible"} : mesa
           )
         );
       } else {
         console.error("Error al habilitar mesas");
+        throw new Error(`Error al habilitar mesa: ${res.statusText}`);
       }
     } catch (error) {
       console.error("Error al habilitar mesas:", error);
@@ -68,36 +77,40 @@ const PlanoEditable = ({ mesas = [], setMesas }) => {
 
   return (
     <div>
-      <Subtitulo text="Hacer click sobre la mesa para desabilitarla" />
+      <Subtitulo text="Hacer click sobre la mesa para seleccionarla como ocupada" />
 
       <div className="flex flex-col space-y-1">
         <AgruparMesa
           mesas={mesas}
           cantidadPersonas={2}
-          handleReserve={handleReserve}
+          handleReserve={handleOcupar }
           handleDelete={handleDelete}
           handleHabilitar={handleHabilitar}
+          textAcion={"habilitar Mesa"}
         />
         <AgruparMesa
           mesas={mesas}
           cantidadPersonas={4}
-          handleReserve={handleReserve}
+          handleReserve={handleOcupar }
           handleDelete={handleDelete}
           handleHabilitar={handleHabilitar}
+          textAcion={"habilitar Mesa"}
         />
         <AgruparMesa
           mesas={mesas}
           cantidadPersonas={6}
-          handleReserve={handleReserve}
+          handleReserve={handleOcupar }
           handleDelete={handleDelete}
           handleHabilitar={handleHabilitar}
+          textAcion={"habilitar Mesa"}
         />
         <AgruparMesa
           mesas={mesas}
           cantidadPersonas={8}
-          handleReserve={handleReserve}
+          handleReserve={handleOcupar }
           handleDelete={handleDelete}
           handleHabilitar={handleHabilitar}
+          textAcion={"habilitar Mesa"}
         />
       </div>
     </div>

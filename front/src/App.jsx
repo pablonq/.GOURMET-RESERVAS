@@ -14,9 +14,14 @@ import DashboardRestaurante from "./pages/DashboardRestaurante";
 import { useContext } from "react";
 import { AppContext } from "./Context/AppContext";
 import RutasProtegidas from "./component/RutasProtegidas/RutasProtegidas";
+import RutasProtegidasUsuario from "./component/RutasProtegidas/RutasProtegidasUsuario";
 import PanelRestaurante from "./pages/PanelRestaurante";
 import PanelUsuario from "./pages/PanelUsuario";
 import DiasHorarios from "./pages/restaurante/PerfilRestaurante/DiasHorarios";
+import ReservarMesa from "./pages/usuario/ReservarMesa/ReservarMesa";
+import DetalleReserva from "./pages/usuario/ReservarMesa/DetalleReserva";
+import DetalleRestaurante from "./pages/DetalleRestaurante";
+import ConfirmacionReserva from "./pages/usuario/ConfirmacionReserva/ConfirmacionReserva";
 
 function App() {
   const { user } = useContext(AppContext);
@@ -24,10 +29,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-        <Route 
-            index 
-            element={ <Home />} 
-          />
+          <Route index element={<Home />} />
           <Route
             path="/loginRestaurante"
             element={user ? <Home /> : <LoginRestaurante />}
@@ -44,12 +46,31 @@ function App() {
             path="/registroRestaurante"
             element={user ? <Home /> : <RegistroRestaurante />}
           />
-      
+
+          <Route path="/detalleRestaurante" element={<DetalleRestaurante />} />
+
+          <Route
+            path="/reservar"
+            element={
+              <RutasProtegidasUsuario>
+                <ReservarMesa />
+              </RutasProtegidasUsuario>
+            }
+          />
+               <Route
+              path="/detalleReserva"
+              element={
+                <RutasProtegidasUsuario>
+                  <DetalleReserva />
+                </RutasProtegidasUsuario>
+              }
+            />
 
           {/* Anidar aqui rutas hijas del panel usuario */}
           <Route path="/panelUsuario" element={<PanelUsuario />}>
-          <Route index element={<DashboardUsuario />} />
+            <Route index element={<DashboardUsuario />} />
             <Route path="dashboardUsuario" element={<DashboardUsuario />} />
+            <Route path="confirmacionReserva" element={<ConfirmacionReserva/>} />
           </Route>
 
           {/* Anidar aqui rutas hijas del panel Restaurante*/}
@@ -62,10 +83,10 @@ function App() {
             }
           >
             <Route index element={<DashboardRestaurante />} />
-              <Route
-            path="dashboardRestaurante"
-            element={<DashboardRestaurante />}
-          />
+            <Route
+              path="dashboardRestaurante"
+              element={<DashboardRestaurante />}
+            />
             <Route
               path="registerMesa"
               element={
@@ -82,7 +103,7 @@ function App() {
                 </RutasProtegidas>
               }
             />
-          <Route
+            <Route
               path="diasHorarios"
               element={
                 <RutasProtegidas>
@@ -91,9 +112,7 @@ function App() {
               }
             />
           </Route>
-          </Route>
-
-        
+        </Route>
       </Routes>
     </BrowserRouter>
   );

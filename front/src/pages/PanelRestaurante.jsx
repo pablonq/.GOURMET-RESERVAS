@@ -3,6 +3,7 @@ import SiderLink from "../component/SiderLink/SiderLink";
 import ImagenPerfil from "../component/ImagenPerfil/ImagenPerfil";
 import { Navigate, Outlet } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
+import defaultAvatar from "../assets/default-avatar.jpg";
 
 const PanelRestaurante = () => {
   const [imagenes, setImagenes] = useState([]);
@@ -35,7 +36,7 @@ const PanelRestaurante = () => {
         <nav className=" flex flex-col justify-start ">
           {imagenesFiltradas.length > 0 ? (
             <ImagenPerfil
-              src={imagenesFiltradas[0].imagenUrl}
+              src={imagenesFiltradas[0].imagenUrl || defaultAvatar}
               textAlt={"imagen perfil restaurante"}
             />
           ) : (
@@ -55,7 +56,10 @@ const PanelRestaurante = () => {
               text={"Administar Mesas"}
             />
             <SiderLink to={"/panelRestaurante/menu"} text={"Gestionar Menú"} />
-            <SiderLink to={"/panelRestaurante/diasHorarios"} text={"Dias y Horarios de Atención"} />
+            <SiderLink
+              to={"/panelRestaurante/diasHorarios"}
+              text={"Dias y Horarios de Atención"}
+            />
             <SiderLink to={"/panelRestaurante/perfil"} text={"Editar Perfil"} />
           </ul>
         </nav>

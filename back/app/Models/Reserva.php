@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Reserva extends Model
 {
@@ -14,16 +15,15 @@ class Reserva extends Model
     protected $fillable = [
         'idUsuario',
         'idRestaurante',
-        'idMesa',
         'fechaReserva',
         'horaReserva',
         'estado',
         'notaEspecial',
     ];
-
-    public function mesas(): BelongsTo
+  
+    public function mesas():  BelongsToMany
     {
-        return $this->belongsTo(Mesa::class);
+        return $this->belongsToMany(Mesa::class, 'table_reserva_mesa', 'idReserva', 'idMesa');
     }
 
     public function restaurantes(): BelongsTo

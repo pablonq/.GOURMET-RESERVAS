@@ -70,21 +70,21 @@ class MesaController extends Controller
         return [$mesa];
     }
 
-    public function reservarMesa(Request $request, Mesa $mesa)
+    public function ocuparMesa(Request $request, Mesa $mesa)
     {
 
         $fields = $request->validate([
             'estado' => 'required',
         ]);
 
-        if ($fields['estado'] === 0) {
+        if ($fields['estado'] === "ocupada" ) {
             $mesa->estado = $fields['estado'];
             $mesa->save();
         } else {
             return response()->json(['error' => 'El estado debe ser falso para reservar'], 400);
         }
 
-        return response()->json(['message' => 'Mesa reservada', 'mesa' => $mesa], 200);
+        return response()->json(['message' => 'Mesa ocupada', 'mesa' => $mesa], 200);
     }
 
     public function habilitarMesa(Request $request, Mesa $mesa)
@@ -94,11 +94,11 @@ class MesaController extends Controller
             'estado' => 'required',
         ]);
 
-        if ($fields['estado'] === 1) {
+        if ($fields['estado'] === "disponible") {
             $mesa->estado = $fields['estado'];
             $mesa->save();
         } else {
-            return response()->json(['error' => 'El estado debe ser true para habilitar'], 400);
+            return response()->json(['error' => 'El estado debe ser ocupada para habilitar'], 400);
         }
 
         return response()->json(['message' => 'Mesa Habilitada', 'mesa' => $mesa], 200);
@@ -108,8 +108,32 @@ class MesaController extends Controller
     {
         $ultimaMesa = Mesa::where('idRestaurante', $id)
             ->max('numeroMesa');
+        return response()->json(['ultimaMesa' => $ultimaMesa ?: 0]);
+    }
 
-        return response()->json(['ultimaMesa' => $ultimaMesa ? : 0]);
+    public function obtenerMesasDisponiblesEnFecha(Request $request)
+    {
+        
+        $request->validate([
+            'fecha' => 'required|date',
+            'hora' => 'required',
+            'idRestaurante' => 'required|integer',
+        ]);
+
+        $fecha = $request->input('fecha');
+        $hora = $request->input('hora');
+        $idRestaurante = $request->input('idRestaurante');
+
+        // obtener mesas disponibles en tal fecha
+        $mesasDisponibles = Mesa::where('estado', 'disponible')
+            ->where('idRestaurante', $idRestaurante)
+            ->whereDoesntHave('reservas', function ($query) use ($fecha, $hora) {
+                $query->where('fechaReserva', $fecha)
+                    ->where('horaReserva', $hora);
+            })
+            ->get();
+
+        return response()->json($mesasDisponibles);
     }
 
     public function destroyMesa(Mesa $mesa)

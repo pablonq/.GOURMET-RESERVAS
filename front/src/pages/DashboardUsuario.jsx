@@ -1,9 +1,10 @@
-import Title from "../component/Title/Title";
-
+import ListaCard from "../component/ListaCard/ListaCard";
 const DashboardUsuario = () => {
-  return <div>
-    <Title text=" Dashboard Usuario"/>
-  </div>;
+  return (
+    <div>
+      <ListaCard />
+    </div>
+  );
 };
 
 export default DashboardUsuario;

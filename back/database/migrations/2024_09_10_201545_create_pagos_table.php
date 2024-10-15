@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             /* $table->BigInteger('idReserva')->unsigned()->nullable(); */
             $table->integer('monto');
-            $table->date('fechaPago');
+            $table->timestamp('fechaPago');
             $table->string('metodoPago');
             $table->string('estado');
             /* $table->BigInteger('idUsuario')->unsigned()->nullable(); */
+            $table->string('payment_id')->nullable();
             $table->timestamps();
 
             $table->foreignId('idUsuario')->references('id')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
