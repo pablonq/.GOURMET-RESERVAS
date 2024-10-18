@@ -1,17 +1,17 @@
 import { useContext } from "react";
 import Title from "../component/Title/Title";
 import { AppContext } from "../Context/AppContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const DetalleRestaurante = () => {
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
-
+  const { idRestaurante } = useParams();
 
   const handleReservar = () => {
     if (user) {
-      navigate("/reservar");
+      navigate(`/reservar/${idRestaurante}`);
     } else {
-      navigate("/loginRestaurante");
+      navigate("/loginUsuario");
     }
   };
 

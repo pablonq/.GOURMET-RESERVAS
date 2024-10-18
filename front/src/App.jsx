@@ -27,6 +27,7 @@ import PerfilRestaurante from "./pages/restaurante/PerfilRestaurante/PerfilResta
 import MostrarMenu from "./pages/restaurante/EditarMenu/MostrarMenu";
 import CrearMenu from "./pages/restaurante/EditarMenu/CrearMenu";
 import ActualizarMenu from "./pages/restaurante/EditarMenu/ActualizarMenu";
+import InfoReserva from "./pages/usuario/MisReservas/InfoReserva";
 import AdministrarPlatos from "./pages/restaurante/AdministrarPlatos/AdministrarPlatos";
 import CrearPlato from "./pages/restaurante/AdministrarPlatos/CrearPlato";
 import MostrarPlato from "./pages/restaurante/AdministrarPlatos/MostrarPlato";
@@ -56,30 +57,38 @@ function App() {
             element={user ? <Home /> : <RegistroRestaurante />}
           />
 
-          <Route path="/detalleRestaurante" element={<DetalleRestaurante />} />
+          <Route
+            path="/detalleRestaurante/:idRestaurante"
+            element={<DetalleRestaurante />}
+          />
 
           <Route
-            path="/reservar"
+            path="/reservar/:idRestaurante"
             element={
               <RutasProtegidasUsuario>
                 <ReservarMesa />
               </RutasProtegidasUsuario>
             }
           />
-               <Route
-              path="/detalleReserva"
-              element={
-                <RutasProtegidasUsuario>
-                  <DetalleReserva />
-                </RutasProtegidasUsuario>
-              }
-            />
+          <Route
+            path="/detalleReserva"
+            element={
+              <RutasProtegidasUsuario>
+                <DetalleReserva />
+              </RutasProtegidasUsuario>
+            }
+          />
+
+          <Route path="/infoReserva/:id" element={<InfoReserva />} />
 
           {/* Anidar aqui rutas hijas del panel usuario */}
           <Route path="/panelUsuario" element={<PanelUsuario />}>
             <Route index element={<DashboardUsuario />} />
             <Route path="dashboardUsuario" element={<DashboardUsuario />} />
-            <Route path="confirmacionReserva" element={<ConfirmacionReserva/>} />
+            <Route
+              path="confirmacionReserva"
+              element={<ConfirmacionReserva />}
+            />
           </Route>
 
           {/* Anidar aqui rutas hijas del panel Restaurante*/}

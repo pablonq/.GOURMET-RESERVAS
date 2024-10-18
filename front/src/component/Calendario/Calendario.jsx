@@ -1,19 +1,15 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { AppContext } from "../../Context/AppContext";
 
 // eslint-disable-next-line react/prop-types
-const Calendario = ({ onDateSelect }) => {
-  const { user } = useContext(AppContext);
+const Calendario = ({ onDateSelect, idRestaurante }) => {
   const [fecha, setFecha] = useState();
   const [dias, setDias] = useState([]);
   const [diasHorarios, setDiasHorarios] = useState([]);
   const [horariosDisponibles, setHorariosDisponibles] = useState([]);
   const [horaSeleccionada, setHoraSeleccionada] = useState("");
-
-  const idRestaurante = user.id;
 
   async function getDiasHorarios() {
     const res = await fetch(
@@ -105,19 +101,20 @@ const Calendario = ({ onDateSelect }) => {
 
   return (
     <div className="flex  ml-10 border-solid border-2 border-slate-300 rounded-md p-4">
-    
-     <div>
-      <label className="mb-2 text-center font-bold ">Selecciona una fecha y hora</label>
-      <DatePicker
-        selected={fecha}
-        onChange={handleDateSelect}
-        filterDate={isDayDisabled}
-        open={true}
-        dateFormat="dd/MM/yyyy"
-        placeholderText=" Dia "
-        inline
-      />
-     </div>
+      <div>
+        <label className="mb-2 text-center font-bold ">
+          Selecciona una fecha y hora
+        </label>
+        <DatePicker
+          selected={fecha}
+          onChange={handleDateSelect}
+          filterDate={isDayDisabled}
+          open={true}
+          dateFormat="dd/MM/yyyy"
+          placeholderText=" Dia "
+          inline
+        />
+      </div>
       {horariosDisponibles.length > 0 && (
         <div className="ml-4">
           <p className="font-semibold">Horarios disponibles:</p>

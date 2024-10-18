@@ -14,7 +14,7 @@ class notification extends Model
         'descripcion',
         'idUsuario',
         'idRestaurante',
-        'fecha'
+        'fecha',
     ];
 
     public function usuarios(): BelongsTo

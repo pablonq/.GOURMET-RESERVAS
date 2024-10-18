@@ -32,7 +32,7 @@ const PanelRestaurante = () => {
 
   return (
     <div className="flex">
-      <div className="w-1/6 h-screen bg-slate-700  ">
+      <div className="w-1/6 min-h-screen bg-slate-700  ">
         <nav className=" flex flex-col justify-start ">
           {imagenesFiltradas.length > 0 ? (
             <ImagenPerfil
@@ -56,9 +56,18 @@ const PanelRestaurante = () => {
               text={"Administar Mesas"}
             />
             <SiderLink to={"/panelRestaurante/editarMenu"} text={"Menues"} />
-            <SiderLink to={"/panelRestaurante/administrarPlatos"} text={"Platos"} />
-            <SiderLink to={"/panelRestaurante/diasHorarios"} text={"Dias y Horarios de Atención"} />
-            <SiderLink to={"/panelRestaurante/perfilRestaurante"} text={"Editar Perfil"} />
+            <SiderLink
+              to={"/panelRestaurante/administrarPlatos"}
+              text={"Platos"}
+            />
+            <SiderLink
+              to={"/panelRestaurante/diasHorarios"}
+              text={"Dias y Horarios de Atención"}
+            />
+            <SiderLink
+              to={"/panelRestaurante/perfilRestaurante"}
+              text={"Editar Perfil"}
+            />
           </ul>
         </nav>
       </div>

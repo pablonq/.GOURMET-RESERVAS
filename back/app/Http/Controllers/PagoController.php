@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use MercadoPago\Client\Preference\PreferenceClient;
 use MercadoPago\MercadoPagoConfig;
-use Illuminate\Support\Facades\Notification;
+use App\Models\Notification;
+
 
 
 
@@ -52,14 +53,14 @@ class PagoController extends Controller
 
     public function confirmacionPago($paymentId)
     {
-       // Log::info('paymentId recibido:', ['paymentId' => $paymentId]);
+        // Log::info('paymentId recibido:', ['paymentId' => $paymentId]);
         $pago = Pago::where('payment_id', $paymentId)->first();
         if (!$pago) {
             return response()->json(['success' => false, 'message' => 'Pago no encontrado.'], 404);
         }
 
         $idReserva = $pago->idReserva;
-        
+
         $reserva = Reserva::find($idReserva);
         if (!$reserva) {
             return response()->json(['success' => false, 'message' => 'Reserva no encontrada.'], 404);
@@ -71,23 +72,16 @@ class PagoController extends Controller
         $reserva->estado = 'procesada';
         $reserva->save();
 
-        Notification::create([
-            'descripcion' => 'Su reserva ha sido confirmada.',
-            'fecha' => now(),
-            'idRestaurante' => $reserva->idRestaurante,
-            'idUsuario' =>$reserva->idUsuario,
-        ]);
+        // se envia notificacion ala usuario a su mail
+        $reservaController = new ReservaController();
+        $reservaController->confirmReservation($idReserva);
 
-      //  $reservaController = new ReservaController();
-       // $reservaController->confirmReservation($idReserva);
-
-    
         return response()->json(['success' => true, 'message' => 'Reserva generada con éxito.']);
     }
 
     public function exito(Request $request)
     {
-       
+
         $pagoData = $request->query();
         $paymentId = $pagoData['preference_id'];
         Log::info('paymentId enviado:', ['paymentId' => $paymentId]);
@@ -96,10 +90,10 @@ class PagoController extends Controller
     }
 
 
-    public function fallo()
+    public function fallo(Request $request)
     {
         // Lógica para manejar el fallo del pago
-        return view('pago.fallo');
+        return redirect()->away("http://localhost:5173/detalleReserva");
     }
 
     public function pendiente()

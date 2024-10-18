@@ -2,11 +2,13 @@ import Title from "../../../component/Title/Title";
 import Calendario from "../../../component/Calendario/Calendario";
 import { useState } from "react";
 import PlanoCliente from "../../../component/PlanoCliente/PlanoCliente";
+import { useParams } from "react-router-dom";
 
 const ReservarMesa = () => {
   const [mesasDisponibles, setMesasDisponibles] = useState([]);
   const [fechaSeleccionada, setFechaSeleccionada] = useState("");
   const [horaSeleccionada, setHoraSeleccionada] = useState("");
+  const { idRestaurante } = useParams();
 
   const fetchMesasDisponibles = async (fecha, hora, idRestaurante) => {
     const response = await fetch(
@@ -17,18 +19,20 @@ const ReservarMesa = () => {
   };
 
   const handleDateSelect = async (fecha, hora) => {
-    const idRestaurante = 1;
     const mesas = await fetchMesasDisponibles(fecha, hora, idRestaurante);
     setMesasDisponibles(mesas);
     setFechaSeleccionada(fecha);
     setHoraSeleccionada(hora);
-    console.log("Mesas disponibles:", mesas);
+    //console.log("Mesas disponibles:", mesas);
   };
   return (
     <div className="">
       <Title text="Reservar mesa" />
       <div className="flex justify-between p-4 ">
-        <Calendario onDateSelect={handleDateSelect} />
+        <Calendario
+          onDateSelect={handleDateSelect}
+          idRestaurante={idRestaurante}
+        />
         {mesasDisponibles.length > 0 && (
           <div>
             <PlanoCliente

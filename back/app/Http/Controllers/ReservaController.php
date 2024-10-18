@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Notificacion;
+use App\Jobs\SendReservationReminder;
 use App\Models\Reserva;
 use App\Notifications\ReservaNotification;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Log;
+use App\Models\notification;
+use App\Models\Persona;
+use Illuminate\Support\Facades\Mail;
 
 class ReservaController extends Controller
 {
@@ -53,15 +56,70 @@ class ReservaController extends Controller
 
         $idUsuario = $reserva->idUsuario;
 
-        $user = Usuario::find($idUsuario);
+        $user = Persona::find($idUsuario);
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado.'], 404);
         }
 
-        $user->notify(new ReservaNotification($reserva));
+        //El Job enviara la notificación
+        SendReservationReminder::dispatch($reserva, 'confirmation');
 
-        Log::info('Notificación enviada a usuario: ' . $user->email);
+        // Log::info('Notificación enviada a usuario: ' . $user->email);
 
         return response()->json(['message' => 'Notificación enviada y guardada.'], 200);
+    }
+
+
+    public function getReservasPorRestaurante($idRestaurante)
+    {
+        $reservas = Reserva::where('idRestaurante', $idRestaurante)->get();
+
+        if ($reservas->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron reservas para este restaurante.'], 404);
+        }
+
+        return response()->json($reservas, 200);
+    }
+
+
+    public function getReservasPorCliente($idUsuario)
+    {
+        $reservas = Reserva::where('idUsuario', $idUsuario)->get();
+
+        if ($reservas->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron reservas para este cliente.'], 404);
+        }
+
+        return response()->json($reservas, 200);
+    }
+
+
+    public function getReserva($idReserva)
+    {
+        $reserva = Reserva::find($idReserva);
+
+        if (!$reserva) {
+            return response()->json(['error' => 'Reserva no encontrada.'], 404);
+        }
+
+        return response()->json($reserva, 200);
+    }
+
+    public function cancelarReserva($idReserva)
+    {
+        $reserva = Reserva::find($idReserva);
+
+        if (!$reserva) {
+            return response()->json(['error' => 'Reserva no encontrada.'], 404);
+        }
+
+        if ($reserva->estado === "procesada") {
+            $reserva->estado = "cancelada";
+            $reserva->save();
+
+            return response()->json(['message' => 'Reserva cancelada correctamente.', 'reserva' => $reserva], 200);
+        }
+
+        return response()->json(['message' => 'No se puede cancelar la reserva ya que no está en estado procesada.'], 400);
     }
 }

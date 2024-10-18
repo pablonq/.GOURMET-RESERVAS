@@ -10,6 +10,7 @@ const CardRestaurante = ({
   descripcion,
   direccion,
   tipo,
+  idRestaurante,
 }) => {
   const settings = {
     dots: true,
@@ -22,10 +23,8 @@ const CardRestaurante = ({
   const navigate = useNavigate();
 
   const handleVisitar = () => {
-    navigate("/detalleRestaurante");
+    navigate(`/detalleRestaurante/${idRestaurante}`);
   };
-
-
 
   return (
     <div className="relative max-w-64 h-auto overflow-hidden bg-gray-800 rounded-2xl shadow-2xl group">
