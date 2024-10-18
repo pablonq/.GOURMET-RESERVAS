@@ -67,7 +67,7 @@ class RestauranteSeeder extends Seeder
         $restaurante->descripcion = 'Quesería Ventimiglia - Horno a Leña - Eventos & Catering';
         $restaurante->tipo = 'Restaurant';
         $restaurante->telefono = '299234569';
-        $restaurante->email = 'toscana@gmial.com';
+        $restaurante->email = 'toscana@gmail.com';
         $restaurante->contrasenia = bcrypt('1234');
         $restaurante->capacidadTotal = 115;
         $restaurante->coordenadas = null;

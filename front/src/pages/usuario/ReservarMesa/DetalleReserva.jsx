@@ -12,6 +12,7 @@ const DetalleReserva = () => {
     mesasSelecionadas: [],
   };
 
+
   const totalComensales = mesasSelecionadas.reduce(
     (total, mesa) => total + mesa.cantidadPersonas,
     0
@@ -109,14 +110,22 @@ const DetalleReserva = () => {
   return (
     <>
       <Title text={"Detalle Reserva"} />
-      <div className="p-4">
+      <div className="max-w-xl mx-auto mt-6 p-6 bg-white rounded-lg shadow-md">
         <h1 className="font-bold text-lg">Detalles de la Reserva</h1>
         <div>
-          <h2>Mesas Seleccionadas: {mesasSelecionadas.length}</h2>
-          <h2>catidad total de personas:{totalComensales}</h2>
-          <h2>Fecha: {fecha}</h2>
-          <h2>Hora: {hora}</h2>
-          <h2>Precio: $100</h2>
+          <p className="mb-2">
+            Mesas Seleccionadas: <strong>{mesasSelecionadas.length}</strong>
+          </p>
+          <p className="mb-2">
+            Cantidad total de personas: <strong>{totalComensales}</strong>
+          </p>
+          <p className="mb-2">
+            Fecha: <strong>{fecha}</strong>
+          </p>
+          <p className="mb-4">
+            Hora: <strong>{hora}</strong>
+          </p>
+          <h2 className=" font-semibold mb-2">Precio: $100</h2>
           <label>Ingrese notas especiales, como alergias:</label>
           <textarea
             id="notaEspecial"
@@ -124,12 +133,15 @@ const DetalleReserva = () => {
             onChange={(e) => setNotaEspecial(e.target.value)}
           />
         </div>
-        <button
-          onClick={handlePagarReserva}
-          className="text-white text-center m-2 rounded-md bg-slate-400 p-2"
-        >
-          Pagar con Mercado Pago
-        </button>
+        <div className="flex justify-center">
+          <button
+            onClick={handlePagarReserva}
+            className="text-white text-center m-2 rounded-md bg-slate-400  hover:bg-orange-400 p-2"
+          >
+            Pagar con Mercado Pago
+          </button>
+        </div>
+
         {preferenceId && (
           <PagoComponent
             preferenceId={preferenceId}

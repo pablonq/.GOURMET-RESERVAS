@@ -36,8 +36,8 @@ class Usuario extends Model
         return $this->hasMany(Resenia::class);
     }
 
-    public function notificaciones(): HasMany
+    public function notifications(): HasMany
     {
-        return $this->hasMany(Notificacion::class);
+        return $this->hasMany( notification::class);
     }
 }

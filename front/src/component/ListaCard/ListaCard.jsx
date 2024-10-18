@@ -49,6 +49,7 @@ const ListaCard = () => {
                 descripcion={restaurante.descripcion}
                 direccion={restaurante.direccion}
                 tipo={restaurante.tipo}
+                idRestaurante={restaurante.id}
               />
             </div>
           );

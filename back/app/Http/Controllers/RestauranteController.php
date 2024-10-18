@@ -37,4 +37,5 @@ class RestauranteController extends Controller
       return response()->json($fields);
    
 }
+
 }

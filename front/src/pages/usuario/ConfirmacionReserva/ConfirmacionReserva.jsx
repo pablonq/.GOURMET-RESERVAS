@@ -34,7 +34,7 @@ const ConfirmacionReserva = () => {
   return (
     <div>
       <Title text="Informacion de reserva" />
-      <div className="flex items-center justify-center h-64 bg-gray-100">
+      <div className="flex items-center  justify-center h-64 bg-gray-100">
         <div className="bg-white rounded-lg shadow-lg p-6 max-w-md w-full">
           <h2 className="text-lg font-bold">Estado de reserva:</h2>
           {loading ? (
