@@ -32,6 +32,6 @@ class Menu extends Model
     
     public function platos()
     {
-        return $this->belongsToMany(Plato::class);
+        return $this->belongsToMany(Plato::class, 'plato_menu', 'menu_id', 'plato_id');
     }
 }

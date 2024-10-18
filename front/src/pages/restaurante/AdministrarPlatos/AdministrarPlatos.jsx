@@ -2,21 +2,23 @@ import { AppContext } from "../../../Context/AppContext";
 import Title from "../../../component/Title/Title";
 import { useNavigate } from 'react-router-dom';
 import { useContext } from "react";
+import { useState, useEffect } from "react";
+import CardPlato from "../../../component/CardPlato/CardPlato";
 
 export default function AdministrarPlatos() {
   const { user, token } = useContext(AppContext);
-  const [menus, setMenus] = useState([]);
+  const [platos, setPlatos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const idRestaurante = user?.id;
 
-  const handleView = (menuId) => {
-    navigate(`../mostrarMenu/${menuId}`);  // Redirige a la página del menú específico
+  const handleView = (platoId) => {
+    navigate(`../mostrarPlato/${platoId}`);  // Redirige a la página del menú específico
   };
-  async function getMenus() {
+  async function getPlatos() {
     try {
-      const res = await fetch(`/api/restaurantes/indexMenu/${idRestaurante}`, {
+      const res = await fetch(`/api/restaurantes/indexPlatos/${idRestaurante}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -27,9 +29,10 @@ export default function AdministrarPlatos() {
       }
 
       const data = await res.json();
-      setMenus(data);
+      setPlatos(data);
       setLoading(false);
-      console.log("Menus:", data);
+      console.log("Platos:", data);
+      
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -38,7 +41,7 @@ export default function AdministrarPlatos() {
 
   useEffect(() => {
     if (idRestaurante && token) {
-      getMenus();
+      getPlatos();
     }
   }, [idRestaurante, token]);
   return (
@@ -60,20 +63,21 @@ export default function AdministrarPlatos() {
           <p className="text-center font-bold text-rose-700">
             {error}
           </p>
-        ) : menus.length === 0 ? (
+        ) : platos.length === 0 ? (
           <p className="text-center font-bold text-rose-700">
             No hay restaurantes disponibles.
           </p>
         ) : (
-          menus.map((plato) => (
+          platos.map((plato) => (
             <div key={plato.id} className="m-2">
               <CardPlato
                 imagen={plato.imagen}
-                nombre={plato.nombre}
-                descripcion={plato.descripcion}
+                nombre={plato.nombrePlato}
+                
                 informacionNutricional={plato.informacionNutricional}
-                categoria={plato.categoria}
-                onView={() => handleView(menu.id)}
+                precio={plato.precio}
+                menu={plato.menus.length > 0 ? plato.menus[0].nombre : "Sin menú asociado"}
+                onView={() => handleView(plato.id)}
               />
             </div>
           ))

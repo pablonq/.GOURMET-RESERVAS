@@ -28,6 +28,9 @@ import MostrarMenu from "./pages/restaurante/EditarMenu/MostrarMenu";
 import CrearMenu from "./pages/restaurante/EditarMenu/CrearMenu";
 import ActualizarMenu from "./pages/restaurante/EditarMenu/ActualizarMenu";
 import AdministrarPlatos from "./pages/restaurante/AdministrarPlatos/AdministrarPlatos";
+import CrearPlato from "./pages/restaurante/AdministrarPlatos/CrearPlato";
+import MostrarPlato from "./pages/restaurante/AdministrarPlatos/MostrarPlato";
+import EditarPlato from "./pages/restaurante/AdministrarPlatos/EditarPlato";
 
 function App() {
   const { user } = useContext(AppContext);
@@ -154,6 +157,30 @@ function App() {
               element={
                 <RutasProtegidas>
                   <AdministrarPlatos />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="crearPlato"
+              element={
+                <RutasProtegidas>
+                  <CrearPlato />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="mostrarPlato/:platoId"
+              element={
+                <RutasProtegidas>
+                  <MostrarPlato />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="editarPlato/:platoId"
+              element={
+                <RutasProtegidas>
+                  <EditarPlato />
                 </RutasProtegidas>
               }
             />

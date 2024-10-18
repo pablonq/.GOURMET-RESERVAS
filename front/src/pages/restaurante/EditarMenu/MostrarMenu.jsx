@@ -8,6 +8,7 @@ export default function MostrarMenu() {
   const { user, token } = useContext(AppContext);
 
   const [menu, setMenu] = useState(null);
+  const [platos, setPlatos] = useState([]);
 
   async function getMenu() {
     /* e.preventDefault(); */
@@ -24,6 +25,24 @@ export default function MostrarMenu() {
       console.log(menuId);
 
     }
+  }
+  async function getPlatos() {
+    
+      const res = await fetch(`/api/restaurantes/indexPlatosMenus/${menuId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error(`Error: ${res.status}`);
+      }
+
+      const data = await res.json();
+      setPlatos(data);
+      
+      console.log("Platos:", data);
+   
   }
 
   async function handleDelete(e) {
@@ -49,6 +68,7 @@ export default function MostrarMenu() {
 
   useEffect(() => {
     getMenu();
+    getPlatos();
   }, []);
 
   return (
@@ -74,6 +94,17 @@ export default function MostrarMenu() {
         <h1 className="text-xl font-bold">{menu?.nombre}</h1>
         <h2 className="text-lg">{menu?.descripcion}</h2>
         <h3 className="text-md">{menu?.tipo}</h3>
+      </div>
+
+      {/* Contenedor para la lista de platos */}
+      <div className="mt-4">
+        <h2 className="text-lg font-bold">Platos</h2>
+        <Link to={`../mostrarPlato/${platos[0]?.id}`}><ul className="list-disc list-inside">
+          {platos.map((plato) => (
+            <li key={plato.id} className="text-lg text-slate-800">{plato.nombrePlato}</li>
+          ))}
+        </ul>
+        </Link>
       </div>
     </>
   );

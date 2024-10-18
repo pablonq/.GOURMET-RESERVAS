@@ -23,7 +23,7 @@ class Plato extends Model
 
     public function menus()
     {
-        return $this->belongsToMany(Menu::class);
+        return $this->belongsToMany(Menu::class, 'plato_menu', 'plato_id', 'menu_id');
     }
 
     public function restaurantes()

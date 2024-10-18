@@ -10,6 +10,7 @@ use App\Http\Controllers\RestauranteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PlatoController;
 
 // Rutas accesibles solo con autenticación (usuarios y restaurantes)
 Route::middleware('auth:sanctum')->group(function () {
@@ -49,6 +50,12 @@ Route::prefix('restaurantes')->group(function () {
   Route::DELETE('/borrarMenu/{id}', [MenuController::class, 'borrarMenu'])->name('borrarMenu.Restaurante')->middleware('auth:sanctum');
   Route::PUT('/actualizarMenu/{id}', [MenuController::class, 'actualizarMenu'])->name('actualizarMenu.Restaurante')->middleware('auth:sanctum');
   Route::post('/crearMenu', [MenuController::class, 'crearMenu'])->name('crearMenu.Restaurante')->middleware('auth:sanctum');
+  Route::get('/indexPlatos/{id}', [PlatoController::class, 'indexPlatos'])->name('indexPlatos.Restaurante')->middleware('auth:sanctum');
+  Route::get('/indexPlatosMenus/{id}', [PlatoController::class, 'indexPlatosMenus'])->name('indexPlatosMenus.Restaurante')->middleware('auth:sanctum');
+  Route::post('/crearPlato', [PlatoController::class, 'crearPlato'])->name('crearPlato.Restaurante')->middleware('auth:sanctum');
+  Route::get('/mostrarPlato/{id}', [PlatoController::class, 'getPlato'])->name('getPlato.Restaurante')->middleware('auth:sanctum');
+  Route::PUT('/editarPlato/{id}', [PlatoController::class, 'editarPlato'])->name('editarPlato.Restaurante')->middleware('auth:sanctum');
+  Route::DELETE('/borrarPlato/{id}', [PlatoController::class, 'borrarPlato'])->name('borrarPlato.Restaurante')->middleware('auth:sanctum');
 });
 
 Route::get('/pago/exito', [PagoController::class, 'exito'])->name('pago.exito');
