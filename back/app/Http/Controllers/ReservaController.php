@@ -11,6 +11,7 @@ use App\Models\Usuario;
 use Illuminate\Support\Facades\Log;
 use App\Models\notification;
 use App\Models\Persona;
+use App\Models\Restaurante;
 use Illuminate\Support\Facades\Mail;
 
 class ReservaController extends Controller
@@ -61,10 +62,15 @@ class ReservaController extends Controller
             return response()->json(['error' => 'Usuario no encontrado.'], 404);
         }
 
-        //El Job enviara la notificación
+        //El Job enviara la notificación al usuario
         SendReservationReminder::dispatch($reserva, 'confirmation');
 
-        // Log::info('Notificación enviada a usuario: ' . $user->email);
+        // Enviara notificación al restaurante
+        $idRest = $reserva->idRestaurante; 
+        $restaurante = Restaurante::find($idRest);
+        if ($restaurante) {
+            SendReservationReminder::dispatch($reserva, 'warning');;
+        }
 
         return response()->json(['message' => 'Notificación enviada y guardada.'], 200);
     }
@@ -72,7 +78,9 @@ class ReservaController extends Controller
 
     public function getReservasPorRestaurante($idRestaurante)
     {
-        $reservas = Reserva::where('idRestaurante', $idRestaurante)->get();
+        $reservas = Reserva::with('mesas')
+            ->where('idRestaurante', $idRestaurante)->get();
+
 
         if ($reservas->isEmpty()) {
             return response()->json(['message' => 'No se encontraron reservas para este restaurante.'], 404);

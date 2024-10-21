@@ -49,6 +49,17 @@ class ReservaNotification extends notification
                 ->line('¡Esperamos verlo pronto!');
         }
 
+       else if ($this->notificationType === 'warning') {
+            return (new MailMessage)
+                ->subject('Aviso Nueva Reserva')
+                ->greeting('Hola!')
+                ->line('Este es un aviso de una nueva reserva.')
+                ->line('Reserva numero: ' . $this->reservation->id)
+                ->line('Fecha de Reserva: ' . $this->reservation->fechaReserva)
+                ->line('Hora de Reserva: ' . $this->reservation->horaReserva)
+                ->line('Estado Reserva: ' . $this->reservation->estado);
+        }
+
         return (new MailMessage)
             ->subject('Confirmación de su Reserva')
             ->greeting('Hola!')

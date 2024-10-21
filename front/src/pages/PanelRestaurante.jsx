@@ -9,6 +9,7 @@ const PanelRestaurante = () => {
   const [imagenes, setImagenes] = useState([]);
   const { user } = useContext(AppContext);
   const [redirected, setRedirected] = useState(false);
+  const [totalReservas, setTotalReservas] = useState(0);
 
   async function getImagenes() {
     const res = await fetch("/api/restaurantes/indexImagenesRestaurante");
@@ -20,10 +21,22 @@ const PanelRestaurante = () => {
       console.error("Error al obtener imágenes:", data);
     }
   }
+  async function getTotalReservas() {
+    const res = await fetch(`/api/restaurantes/totalReservas/${user.id}`);
+    const data = await res.json();
+
+    if (res.ok) {
+      setTotalReservas(data.total);
+    } else {
+      console.error("Error al obtener total de reservas:", data);
+    }
+  }
 
   useEffect(() => {
     getImagenes();
+    getTotalReservas();
     setRedirected(true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const imagenesFiltradas = imagenes.filter(
@@ -32,7 +45,7 @@ const PanelRestaurante = () => {
 
   return (
     <div className="flex">
-      <div className="w-1/6 min-h-screen bg-slate-700  ">
+      <div className="w-1/6  min-h-screen bg-slate-700  ">
         <nav className=" flex flex-col justify-start ">
           {imagenesFiltradas.length > 0 ? (
             <ImagenPerfil
@@ -66,7 +79,18 @@ const PanelRestaurante = () => {
             />
             <SiderLink
               to={"/panelRestaurante/perfilRestaurante"}
-              text={"Editar Perfil"}
+              text={"Editar Perfil "}
+            />
+            <SiderLink
+              to={"/panelRestaurante/visualizarReservas"}
+              text={
+                <div className="flex items-center">
+                  <span>Visualizar Reservas</span>
+                  <span className="text-white bg-red-600 rounded-full px-2 ml-2">
+                    {totalReservas}
+                  </span>
+                </div>
+              }
             />
           </ul>
         </nav>

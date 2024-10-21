@@ -32,6 +32,7 @@ import AdministrarPlatos from "./pages/restaurante/AdministrarPlatos/Administrar
 import CrearPlato from "./pages/restaurante/AdministrarPlatos/CrearPlato";
 import MostrarPlato from "./pages/restaurante/AdministrarPlatos/MostrarPlato";
 import EditarPlato from "./pages/restaurante/AdministrarPlatos/EditarPlato";
+import Reservas from "./pages/restaurante/Reservas/Reservas";
 
 function App() {
   const { user } = useContext(AppContext);
@@ -198,6 +199,14 @@ function App() {
               element={
                 <RutasProtegidas>
                   <PerfilRestaurante />
+                </RutasProtegidas>
+              }
+            />
+               <Route
+              path="visualizarReservas"
+              element={
+                <RutasProtegidas>
+                  <Reservas/>
                 </RutasProtegidas>
               }
             />

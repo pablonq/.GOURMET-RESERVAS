@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PlatoController;
+use App\Http\Controllers\UsuarioController;
 
 // Rutas accesibles solo con autenticación (usuarios y restaurantes)
 Route::middleware('auth:sanctum')->group(function () {
@@ -28,6 +29,7 @@ Route::prefix('usuarios')->group(function () {
   Route::post('/register', [AuthController::class, 'registerUsuario'])->name('register.usuario');
   Route::post('/login', [AuthController::class, 'loginUsuarios'])->name('login.usuario');
   Route::post('/registerReserva', [ReservaController::class, 'registerReserva'])->name('register.reserva');
+  Route::get('/traerUsuario/{id}', [UsuarioController::class, 'getUsuario']);
 });
 
 // Rutas de autenticación y registro de restaurantes
@@ -60,6 +62,7 @@ Route::prefix('restaurantes')->group(function () {
   Route::get('/reservasRestaurantes/{id}',  [ReservaController::class, 'getReservasPorRestaurante']);
   Route::get('/reservasCliente/{id}',  [ReservaController::class, 'getReservasPorCliente']);
   Route::PUT('/cancelarReserva/{id}',  [ReservaController::class, 'cancelarReserva']);
+  Route::get('/totalReservas/{idRestaurante}', [RestauranteController::class, 'totalReservas']);
 });
 
 Route::get('/pago/exito', [PagoController::class, 'exito'])->name('pago.exito');

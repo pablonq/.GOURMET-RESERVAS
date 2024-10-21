@@ -77,7 +77,7 @@ class MesaController extends Controller
             'estado' => 'required',
         ]);
 
-        if ($fields['estado'] === "ocupada" ) {
+        if ($fields['estado'] === "ocupada") {
             $mesa->estado = $fields['estado'];
             $mesa->save();
         } else {
@@ -113,7 +113,7 @@ class MesaController extends Controller
 
     public function obtenerMesasDisponiblesEnFecha(Request $request)
     {
-        
+
         $request->validate([
             'fecha' => 'required|date',
             'hora' => 'required',
@@ -129,7 +129,10 @@ class MesaController extends Controller
             ->where('idRestaurante', $idRestaurante)
             ->whereDoesntHave('reservas', function ($query) use ($fecha, $hora) {
                 $query->where('fechaReserva', $fecha)
-                    ->where('horaReserva', $hora);
+                    ->where(function ($q) use ($hora) {
+                        $q->where('horaReserva', '<=', $hora) 
+                            ->where('horaFinReserva', '>', $hora); 
+                    });
             })
             ->get();
 
@@ -143,4 +146,5 @@ class MesaController extends Controller
 
         return ['message' => 'Mesa borrada'];
     }
+    
 }
