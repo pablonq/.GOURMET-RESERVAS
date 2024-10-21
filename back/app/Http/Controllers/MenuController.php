@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-  public function indexMenu(Request $requests)
+  public function indexMenu($idRestaurante)
   {
 
     
-      
-          $userId = $requests->user()->id; ;
+    /* $idRestaurante = $request->input('idRestaurante'); */
+          /* $userId = $requests->user()->id; ; */
           
 
-          $menus = Menu::where('idRestaurante', $userId)->get();
+          $menus = Menu::where('idRestaurante', $idRestaurante)->get();
 
           return response()->json($menus);
       

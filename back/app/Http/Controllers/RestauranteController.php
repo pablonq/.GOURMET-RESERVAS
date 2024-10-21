@@ -6,12 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Models\Restaurante;
 use App\Models\AtencionRestaurante;
   use Illuminate\Http\Request;
+  use App\Models\ImagenesRestaurante;
 
 class RestauranteController extends Controller
 {
     public function indexRestaurante()
     {
         return Restaurante::all();
+    }
+
+    public function getRestaurante($id)
+    {
+        $restaurante = Restaurante::find($id);
+        $imagenRestaurante = ImagenesRestaurante::where('idRestaurante', $id)->get();
+        return response()->json([
+            'restaurante' => $restaurante,
+            'imagen' => $imagenRestaurante,
+        ]);
+        
     }
 
     public function diasHorarios(Request $request){
