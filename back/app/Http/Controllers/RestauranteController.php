@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurante;
 use App\Models\AtencionRestaurante;
+  use Illuminate\Http\Request;
+  use App\Models\ImagenesRestaurante;
 use App\Models\Reserva;
-use Illuminate\Http\Request;
 
 class RestauranteController extends Controller
 {
@@ -15,9 +16,19 @@ class RestauranteController extends Controller
     return Restaurante::all();
   }
 
-  public function diasHorarios(Request $request)
-  {
-    $fields = $request->validate([
+    public function getRestaurante($id)
+    {
+        $restaurante = Restaurante::find($id);
+        $imagenRestaurante = ImagenesRestaurante::where('idRestaurante', $id)->get();
+        return response()->json([
+            'restaurante' => $restaurante,
+            'imagen' => $imagenRestaurante,
+        ]);
+        
+    }
+
+    public function diasHorarios(Request $request){
+      $fields = $request->validate([
       'idRestaurante' => 'required|integer',
       'horarios' => 'array',
       'horarios.*.day' => 'nullable|string',

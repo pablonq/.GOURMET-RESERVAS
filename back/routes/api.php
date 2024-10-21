@@ -34,6 +34,7 @@ Route::prefix('usuarios')->group(function () {
 
 // Rutas de autenticación y registro de restaurantes
 Route::prefix('restaurantes')->group(function () {
+  Route::get('/mostrarRestaurante/{id}', [RestauranteController::class, 'getRestaurante'])->name('getRestaurante.restaurante');
   Route::post('/mesas', [MesaController::class,  'registerMesa'])->name('register.Mesa')->middleware('auth:sanctum');
   Route::get('/indexMesas', [MesaController::class, 'index'])->name('index.Mesa')->middleware('auth:sanctum');
   Route::patch('/ocuparMesa/{mesa}', [MesaController::class, 'ocuparMesa'])->name('ocupar.Mesa');

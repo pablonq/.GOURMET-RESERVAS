@@ -58,10 +58,16 @@ function App() {
             element={user ? <Home /> : <RegistroRestaurante />}
           />
 
-          <Route
+          {/* <Route
             path="/detalleRestaurante/:idRestaurante"
-            element={<DetalleRestaurante />}
-          />
+            element={
+              <RutasProtegidasUsuario>
+
+                <DetalleRestaurante />
+
+              </RutasProtegidasUsuario>
+            }
+          /> */}
 
           <Route
             path="/reservar/:idRestaurante"
@@ -83,14 +89,20 @@ function App() {
           <Route path="/infoReserva/:id" element={<InfoReserva />} />
 
           {/* Anidar aqui rutas hijas del panel usuario */}
-          <Route path="/panelUsuario" element={<PanelUsuario />}>
+          <Route
+            path="/panelUsuario"
+            element={
+              <RutasProtegidasUsuario>
+                <PanelUsuario />
+              </RutasProtegidasUsuario>
+            }
+          >
             <Route index element={<DashboardUsuario />} />
             <Route path="dashboardUsuario" element={<DashboardUsuario />} />
-            <Route
-              path="confirmacionReserva"
-              element={<ConfirmacionReserva />}
-            />
+            <Route path="dashboardUsuario/detalleRestaurante/:idRestaurante" element={<DetalleRestaurante />} />
+            <Route path="confirmacionReserva" element={<ConfirmacionReserva />} />
           </Route>
+          
 
           {/* Anidar aqui rutas hijas del panel Restaurante*/}
           <Route
@@ -101,7 +113,9 @@ function App() {
               </RutasProtegidas>
             }
           >
-            <Route index element={<DashboardRestaurante />} />
+            <Route index
+              element={
+                <DashboardRestaurante />} />
             <Route
               path="dashboardRestaurante"
               element={<DashboardRestaurante />}
@@ -210,6 +224,7 @@ function App() {
                 </RutasProtegidas>
               }
             />
+
           </Route>
         </Route>
       </Routes>

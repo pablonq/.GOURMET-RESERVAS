@@ -10,13 +10,10 @@ use App\Models\Menu;
 
 class PlatoController extends Controller
 {
-  public function indexPlatos(Request $request)
+  public function indexPlatos($id)
   {
-        
-    $userId = $request->user()->id;
-
-    // Buscar el restaurante por su ID
-    $restaurante = Restaurante::find($userId);
+   
+    $restaurante = Restaurante::find($id);
 
     // Verificar si el restaurante existe
     if (!$restaurante) {

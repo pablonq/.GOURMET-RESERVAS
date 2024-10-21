@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { Outlet } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Outlet, Navigate } from "react-router-dom";
 import ImagenPerfil from "../component/ImagenPerfil/ImagenPerfil";
 import SiderLink from "../component/SiderLink/SiderLink";
 import { AppContext } from "../Context/AppContext";
@@ -7,7 +7,11 @@ import defaultAvatar from "../assets/default-avatar.jpg";
 
 const PanelUsuario = () => {
   const { user } = useContext(AppContext);
-
+  const [redirected, setRedirected] = useState(false);
+  useEffect(() => {
+    /* getImagenes(); */
+    setRedirected(true);
+  }, []);
   return (
     <div className="flex">
       <div className="w-1/6 min-h-screen bg-slate-700 ">
@@ -30,7 +34,11 @@ const PanelUsuario = () => {
         </nav>
       </div>
       <div className="flex-1 p-4">
-        <Outlet />
+        {redirected ? (
+          <Outlet />
+        ) : (
+          <Navigate to="/panelUsuario/dashboardUsuario" replace />
+        )}
       </div>
     </div>
   );

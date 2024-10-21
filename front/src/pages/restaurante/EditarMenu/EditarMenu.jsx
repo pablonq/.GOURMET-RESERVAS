@@ -2,7 +2,7 @@ import Title from "../../../component/Title/Title";
 import { useState, useContext, useEffect } from 'react';
 import { AppContext } from "../../../Context/AppContext";
 import { CardMenu } from "../../../component/CardMenu/CardMenu";
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function EditarMenu() {
@@ -11,6 +11,7 @@ export default function EditarMenu() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+ 
 
   const idRestaurante = user?.id;
 
