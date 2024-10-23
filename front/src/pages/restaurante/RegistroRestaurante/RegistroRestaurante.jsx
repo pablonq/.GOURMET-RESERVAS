@@ -9,8 +9,8 @@ export default function RegistroRestaurante() {
     direccion: "",
     descripcion: "",
     tipo: "",
-    telefonoRes: "",
-    emailRes: "",
+    telefono: "",
+    email: "",
     contrasenia: "",
     contrasenia_confirmation: "",
     capacidadTotal: "",
@@ -50,8 +50,8 @@ export default function RegistroRestaurante() {
         direccion: formData.direccion,
         descripcion: formData.descripcion,
         tipo: formData.tipo,
-        telefonoRes: formData.telefonoRes,
-        emailRes: formData.emailRes,
+        telefono: formData.telefono,
+        email: formData.email,
         contrasenia: formData.contrasenia,
         contrasenia_confirmation: formData.contrasenia_confirmation,
         capacidadTotal: formData.capacidadTotal,
@@ -59,13 +59,13 @@ export default function RegistroRestaurante() {
         aceptaEventos: formData.aceptaEventos,
 
         // Datos del Dueño
-        nombreDueno: formData.nombreDuenio,
-        apellidoDueno: formData.apellidoDuenio,
-        fechaNacimientoDueno: formData.fechaNacimientoDuenio,
-        dniDueno: formData.dniDuenio,
-        emailDueno: formData.emailDuenio,
-        telefonoDueno: formData.telefonoDuenio,
-        ciudadDueno: formData.ciudadDuenio
+        nombreDuenio: formData.nombreDuenio,
+        apellidoDuenio: formData.apellidoDuenio,
+        fechaNacimientoDuenio: formData.fechaNacimientoDuenio,
+        dniDuenio: formData.dniDuenio,
+        emailDuenio: formData.emailDuenio,
+        telefonoDuenio: formData.telefonoDuenio,
+        ciudadDuenio: formData.ciudadDuenio
       };
 
       /* try { */
@@ -114,6 +114,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, nombreRes: e.target.value })
                 }
               />
+              {errors.nombreRes && <p className="error">{errors.nombreRes[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -126,6 +127,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, direccion: e.target.value })
                 }
               />
+              {errors.direccion && <p className="error">{errors.direccion[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -138,6 +140,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, descripcion: e.target.value })
                 }
               />
+              {errors.descripcion && <p className="error">{errors.descripcion[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -150,6 +153,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, tipo: e.target.value })
                 }
               />
+              {errors.tipo && <p className="error">{errors.tipo[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -157,11 +161,12 @@ export default function RegistroRestaurante() {
                 type="text"
                 className="input-style"
                 placeholder="Teléfono del Restaurante"
-                value={formData.telefonoRes || ""}
+                value={formData.telefono || ""}
                 onChange={(e) =>
-                  setFormData({ ...formData, telefonoRes: e.target.value })
+                  setFormData({ ...formData, telefono: e.target.value })
                 }
               />
+              {errors.telefono && <p className="error">{errors.telefono[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -169,11 +174,12 @@ export default function RegistroRestaurante() {
                 type="email"
                 className="input-style"
                 placeholder="Email del Restaurante"
-                value={formData.emailRes || ""}
+                value={formData.email || ""}
                 onChange={(e) =>
-                  setFormData({ ...formData, emailRes: e.target.value })
+                  setFormData({ ...formData, email: e.target.value })
                 }
               />
+              {errors.email && <p className="error">{errors.email[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -186,6 +192,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, contrasenia: e.target.value })
                 }
               />
+              {errors.contrasenia && <p className="error">{errors.contrasenia[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -213,6 +220,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, capacidadTotal: e.target.value })
                 }
               />
+              {errors.capacidadTotal && <p className="error">{errors.capacidadTotal[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -268,6 +276,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, nombreDuenio: e.target.value })
                 }
               />
+              {errors.nombreDuenio && <p className="error">{errors.nombreDuenio[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -280,6 +289,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, apellidoDuenio: e.target.value })
                 }
               />
+              {errors.apellidoDuenio && <p className="error">{errors.apellidoDuenio[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -295,6 +305,7 @@ export default function RegistroRestaurante() {
                   })
                 }
               />
+              {errors.fechaNacimientoDuenio && <p className="error">{errors.fechaNacimientoDuenio[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -307,6 +318,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, dniDuenio: e.target.value })
                 }
               />
+              {errors.dniDuenio && <p className="error">{errors.dniDuenio[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -319,6 +331,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, emailDuenio: e.target.value })
                 }
               />
+              {errors.emailDuenio && <p className="error">{errors.emailDuenio[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -331,6 +344,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, telefonoDuenio: e.target.value })
                 }
               />
+              {errors.telefonoDuenio && <p className="error">{errors.telefonoDuenio[0]}</p>}
             </div>
 
             <div className="mb-4">
@@ -344,6 +358,7 @@ export default function RegistroRestaurante() {
                   setFormData({ ...formData, ciudadDuenio: e.target.value })
                 }
               />
+              {errors.ciudadDuenio && <p className="error">{errors.ciudadDuenio[0]}</p>}
             </div>
           </div>
         </div>
