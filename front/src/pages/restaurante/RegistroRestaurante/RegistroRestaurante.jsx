@@ -4,17 +4,27 @@ import { uploadFileRestaurantes } from "../../../firebase/config";
 
 export default function RegistroRestaurante() {
   const [formData, setFormData] = useState({
+    // Datos del Restaurante
     nombreRes: "",
     direccion: "",
     descripcion: "",
     tipo: "",
-    telefono: "",
-    email: "",
+    telefonoRes: "",
+    emailRes: "",
     contrasenia: "",
     contrasenia_confirmation: "",
     capacidadTotal: "",
     imagenUrl: null,
     aceptaEventos: "",
+
+    // Datos del Dueño
+    nombreDuenio: "",
+    apellidoDuenio: "",
+    fechaNacimientoDuenio: "",
+    dniDuenio: "",
+    emailDuenio: "",
+    telefonoDuenio: "",
+    ciudadDuenio: ""
   });
 
   const [file, setFile] = useState(null);
@@ -35,17 +45,27 @@ export default function RegistroRestaurante() {
       }
 
       const data = {
+        // Datos del Restaurante
         nombreRes: formData.nombreRes,
         direccion: formData.direccion,
         descripcion: formData.descripcion,
         tipo: formData.tipo,
-        telefono: formData.telefono,
-        email: formData.email,
+        telefonoRes: formData.telefonoRes,
+        emailRes: formData.emailRes,
         contrasenia: formData.contrasenia,
         contrasenia_confirmation: formData.contrasenia_confirmation,
         capacidadTotal: formData.capacidadTotal,
         imagenUrl: imagenUrl,
         aceptaEventos: formData.aceptaEventos,
+
+        // Datos del Dueño
+        nombreDueno: formData.nombreDuenio,
+        apellidoDueno: formData.apellidoDuenio,
+        fechaNacimientoDueno: formData.fechaNacimientoDuenio,
+        dniDueno: formData.dniDuenio,
+        emailDueno: formData.emailDuenio,
+        telefonoDueno: formData.telefonoDuenio,
+        ciudadDueno: formData.ciudadDuenio
       };
 
       /* try { */
@@ -75,166 +95,268 @@ export default function RegistroRestaurante() {
   };
 
   return (
-    <div>
-      <h1 className="title">Registre su Restaurante</h1>:
-      <form onSubmit={handleRegister} className="w-1/2 mx-auto space-y-6">
-        <div>
-          <input
-            type="text"
-            placeholder="Nombre del Restaurante"
-            value={formData.nombreRes || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, nombreRes: e.target.value })
-            }
-          />
-          {errors.nombreRes && <p className="error">{errors.nombreRes[0]}</p>}
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Direccion del Restaurante"
-            value={formData.direccion || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, direccion: e.target.value })
-            }
-          />
-          {errors.direccion && <p className="error">{errors.direccion[0]}</p>}
-        </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Descripcion del Restaurante"
-            value={formData.descripcion || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, descripcion: e.target.value })
-            }
-          />
-          {errors.descripcion && (
-            <p className="error">{errors.descripcion[0]}</p>
-          )}
-        </div>
+    <div className="container mx-auto p-8">
+      <h1 className="text-3xl font-bold text-center mb-8">Registro de Restaurante</h1>
 
-        <div>
-          <input
-            type="text"
-            placeholder="Tipo de Restaurante (Ejemplo: Parrilla, Comida Rapida, etc.)"
-            value={formData.tipo || ""}
-            onChange={(e) => setFormData({ ...formData, tipo: e.target.value })}
-          />
-          {errors.tipo && <p className="error">{errors.tipo[0]}</p>}
-        </div>
+      <form onSubmit={handleRegister} className="space-y-6">
+        <div className="flex justify-between space-x-8">
+          {/* Sección de Datos del Restaurante */}
+          <div className="w-1/2 bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold mb-4">Datos del Restaurante</h2>
 
-        <div>
-          <input
-            type="text"
-            placeholder="Telefono"
-            value={formData.telefono || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, telefono: e.target.value })
-            }
-          />
-          {errors.telefono && <p className="error">{errors.telefono[0]}</p>}
-        </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                className="input-style"
+                placeholder="Nombre del Restaurante"
+                value={formData.nombreRes || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, nombreRes: e.target.value })
+                }
+              />
+            </div>
 
-        <div>
-          <input
-            type="text"
-            placeholder="Email"
-            value={formData.email || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
-          />
-          {errors.email && <p className="error">{errors.email[0]}</p>}
-        </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                className="input-style"
+                placeholder="Dirección del Restaurante"
+                value={formData.direccion || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, direccion: e.target.value })
+                }
+              />
+            </div>
 
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            value={formData.contrasenia || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, contrasenia: e.target.value })
-            }
-          />
-          {errors.contrasenia && (
-            <p className="error">{errors.contrasenia[0]}</p>
-          )}
-        </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                className="input-style"
+                placeholder="Descripción del Restaurante"
+                value={formData.descripcion || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, descripcion: e.target.value })
+                }
+              />
+            </div>
 
-        <div>
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={formData.contrasenia_confirmation || ""}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                contrasenia_confirmation: e.target.value,
-              })
-            }
-          />
-        </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                className="input-style"
+                placeholder="Tipo de Restaurante"
+                value={formData.tipo || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, tipo: e.target.value })
+                }
+              />
+            </div>
 
-        <div>
-          <input
-            type="text"
-            placeholder="Cantidad de Personas que puede atender el Restaurante"
-            value={formData.capacidadTotal || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, capacidadTotal: e.target.value })
-            }
-          />
-          {errors.capacidadTotal && (
-            <p className="error">{errors.capacidadTotal[0]}</p>
-          )}
-        </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                className="input-style"
+                placeholder="Teléfono del Restaurante"
+                value={formData.telefonoRes || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, telefonoRes: e.target.value })
+                }
+              />
+            </div>
 
+            <div className="mb-4">
+              <input
+                type="email"
+                className="input-style"
+                placeholder="Email del Restaurante"
+                value={formData.emailRes || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, emailRes: e.target.value })
+                }
+              />
+            </div>
 
-        <div>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-          {errors.imagenUrl && <p className="error">{errors.imagenUrl[0]}</p>}
-        </div>
-        
-        <div>
-          <label>¿Acepta eventos?</label>
-          <div>
-            <input
-              type="radio"
-              id="aceptaSi"
-              name="aceptaEventos"
-              value="si"
-              checked={formData.aceptaEventos === "si"}
-              onChange={(e) =>
-                setFormData({ ...formData, aceptaEventos: e.target.value })
-              }
-            />
-            <label htmlFor="aceptaSi">Sí</label>
+            <div className="mb-4">
+              <input
+                type="password"
+                className="input-style"
+                placeholder="Contraseña"
+                value={formData.contrasenia || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, contrasenia: e.target.value })
+                }
+              />
+            </div>
 
-            <input
-              type="radio"
-              id="aceptaNo"
-              name="aceptaEventos"
-              value="no"
-              checked={formData.aceptaEventos === "no"}
-              onChange={(e) =>
-                setFormData({ ...formData, aceptaEventos: e.target.value })
-              }
-            />
-            <label htmlFor="aceptaNo">No</label>
+            <div className="mb-4">
+              <input
+                type="password"
+                className="input-style"
+                placeholder="Confirmar Contraseña"
+                value={formData.contrasenia_confirmation || ""}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    contrasenia_confirmation: e.target.value,
+                  })
+                }
+              />
+            </div>
+
+            <div className="mb-4">
+              <input
+                type="text"
+                className="input-style"
+                placeholder="Capacidad Total"
+                value={formData.capacidadTotal || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, capacidadTotal: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="mb-4">
+              <input
+                type="file"
+                className="block w-full text-sm text-gray-500"
+                accept="image/*"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="mr-4">¿Acepta eventos?</label>
+              <div className="inline-flex items-center space-x-4">
+                <input
+                  type="radio"
+                  id="aceptaSi"
+                  name="aceptaEventos"
+                  value="si"
+                  checked={formData.aceptaEventos === "si"}
+                  onChange={(e) =>
+                    setFormData({ ...formData, aceptaEventos: e.target.value })
+                  }
+                />
+                <label htmlFor="aceptaSi" className="mr-4">Sí</label>
+
+                <input
+                  type="radio"
+                  id="aceptaNo"
+                  name="aceptaEventos"
+                  value="no"
+                  checked={formData.aceptaEventos === "no"}
+                  onChange={(e) =>
+                    setFormData({ ...formData, aceptaEventos: e.target.value })
+                  }
+                />
+                <label htmlFor="aceptaNo">No</label>
+              </div>
+            </div>
           </div>
-          {errors.aceptaEventos && (
-            <p className="error">{errors.aceptaEventos[0]}</p>
-          )}
+
+          {/* Sección de Datos del Dueño */}
+          <div className="w-1/2 bg-white p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-semibold mb-4">Datos del Dueño</h2>
+
+            <div className="mb-4">
+              <input
+                type="text"
+                className="input-style"
+                placeholder="Nombre del Dueño"
+                value={formData.nombreDuenio || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, nombreDuenio: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="mb-4">
+              <input
+                type="text"
+                className="input-style"
+                placeholder="Apellido del Dueño"
+                value={formData.apellidoDuenio || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, apellidoDuenio: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="mb-4">
+              <input
+                type="date"
+                className="input-style"
+                placeholder="Fecha de Nacimiento"
+                value={formData.fechaNacimientoDuenio || ""}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    fechaNacimientoDuenio: e.target.value,
+                  })
+                }
+              />
+            </div>
+
+            <div className="mb-4">
+              <input
+                type="text"
+                className="input-style"
+                placeholder="DNI"
+                value={formData.dniDuenio || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, dniDuenio: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="mb-4">
+              <input
+                type="email"
+                className="input-style"
+                placeholder="Email del Dueño"
+                value={formData.emailDuenio || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, emailDuenio: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="mb-4">
+              <input
+                type="text"
+                className="input-style"
+                placeholder="Teléfono del Dueño"
+                value={formData.telefonoDuenio || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, telefonoDuenio: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="mb-4">
+              <input
+                
+                type="text"
+                className="input-style"
+                placeholder="Ciudad del Dueño"
+                value={formData.ciudadDuenio || ""}
+                onChange={(e) =>
+                  setFormData({ ...formData, ciudadDuenio: e.target.value })
+                }
+              />
+            </div>
+          </div>
         </div>
-        <button className="primary-btn" disabled={isUploading}>
-          {isUploading ? "Guardando....." : "Registrar"}
-        </button>
+
+        <div className="flex justify-center mt-6">
+          <button className="bg-blue-500 text-white py-2 px-32 rounded-md text-sm hover:bg-blue-600" disabled={isUploading}>
+            {isUploading ? "Guardando....." : "Registrar"}
+          </button>
+        </div>
       </form>
     </div>
   );
 }
+
+
+

@@ -90,6 +90,7 @@ class PagoController extends Controller
     }
 
 
+
     public function fallo(Request $request)
     {
         // Lógica para manejar el fallo del pago
