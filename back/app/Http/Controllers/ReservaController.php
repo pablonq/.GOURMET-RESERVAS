@@ -65,13 +65,6 @@ class ReservaController extends Controller
         //El Job enviara la notificación al usuario
         SendReservationReminder::dispatch($reserva, 'confirmation');
 
-        // Enviara notificación al restaurante
-        $idRest = $reserva->idRestaurante; 
-        $restaurante = Restaurante::find($idRest);
-        if ($restaurante) {
-            SendReservationReminder::dispatch($reserva, 'warning');;
-        }
-
         return response()->json(['message' => 'Notificación enviada y guardada.'], 200);
     }
 
@@ -92,7 +85,9 @@ class ReservaController extends Controller
 
     public function getReservasPorCliente($idUsuario)
     {
-        $reservas = Reserva::where('idUsuario', $idUsuario)->get();
+        $reservas = Reserva::with(['restaurantes', 'mesas'])
+            ->where('idUsuario', $idUsuario)
+            ->get();
 
         if ($reservas->isEmpty()) {
             return response()->json(['message' => 'No se encontraron reservas para este cliente.'], 404);

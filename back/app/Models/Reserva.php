@@ -20,15 +20,15 @@ class Reserva extends Model
         'estado',
         'notaEspecial',
     ];
-  
-    public function mesas():  BelongsToMany
+
+    public function mesas(): BelongsToMany
     {
         return $this->belongsToMany(Mesa::class, 'table_reserva_mesa', 'idReserva', 'idMesa');
     }
 
     public function restaurantes(): BelongsTo
     {
-        return $this->belongsTo(Restaurante::class);
+        return $this->belongsTo(Restaurante::class, 'idRestaurante');
     }
 
     public function usuarios(): BelongsTo

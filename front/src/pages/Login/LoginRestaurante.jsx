@@ -38,7 +38,7 @@ export default function LoginRestaurante() {
   }
   return (
     <>
-      <h1 className="title">Accedé a tu Cuenta</h1>
+      <h1 className="title">Acceso de RESTAURANTE</h1>
 
       <form onSubmit={handleLogin} className="w-1/2 mx-auto space-y-6">
         <div>
@@ -67,9 +67,9 @@ export default function LoginRestaurante() {
           )}
         </div>
 
-        <button className="primary-btn">Login</button>
+        <button className="primary-btn">Iniciar session</button>
       </form>
-      <div className="flex w-1/2 mx-auto space-y-6 m-4 justify-end"><a href="/registroRestaurante" className="text-gray-800 font-semibold hover:text-blue-600 text-sm"> Registrate tu resaturante Aqui</a></div>
+      <div className="flex w-1/2 mx-auto space-y-6 m-4 justify-end"><a href="/registroRestaurante" className="text-gray-800 font-semibold hover:text-blue-600 text-sm"> Registra tu restaurante Aqui</a></div>
     </>
   );
 }

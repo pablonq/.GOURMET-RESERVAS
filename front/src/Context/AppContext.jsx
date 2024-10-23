@@ -9,6 +9,12 @@ export default function AppProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   async function getUser() {
+
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    try {
     const res = await fetch("/api/user", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -21,16 +27,15 @@ export default function AppProvider({ children }) {
       //console.log(data);
     } else {
       console.error("Error al obtener el usuario:", data);
+    }  } catch (error) {
+      console.error("Error en la comunicación con el servidor:", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   useEffect(() => {
-    if (token) {
-      getUser();
-    } else {
-      setLoading(false);
-    }
+      getUser()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 

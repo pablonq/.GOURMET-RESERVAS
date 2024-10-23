@@ -16,10 +16,13 @@ const CardRestaurante = ({
 }) => {
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true, 
+    autoplaySpeed: 3000, 
+    pauseOnHover: true,
   };
 
   
@@ -51,7 +54,7 @@ const CardRestaurante = ({
             onClick={onView}
             className="text-white text-center rounded-md bg-slate-400 p-2 hover:bg-orange-400"
           >
-            Visitar
+           Reservar
           </button>{" "}
         </div>
       </div>

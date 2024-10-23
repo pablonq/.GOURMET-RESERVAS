@@ -1,10 +1,12 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
 
 export default function Layout() {
   const { user, token, setUser, setToken } = useContext(AppContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isActive = (path) => location.pathname === path;
 
   //console.log(user);
   async function handleLogout(e) {
@@ -51,10 +53,22 @@ export default function Layout() {
             </div>
           ) : (
             <div className="space-x-4">
-              <Link to="/loginRestaurante" className="nav-link">
+              <Link
+                to="/loginRestaurante"
+                className={`hover:text-blue-300 ${
+                  isActive("/loginRestaurante")
+                    ? "text-orange-400"
+                    : "text-white"
+                }`}
+              >
                 Restaurantes
               </Link>
-              <Link to="/loginUsuario" className="nav-link">
+              <Link
+                to="/loginUsuario"
+                className={`hover:text-blue-300 ${
+                  isActive("/loginUsuario") ? "text-orange-400" : "text-white"
+                }`}
+              >
                 Usuarios
               </Link>
             </div>

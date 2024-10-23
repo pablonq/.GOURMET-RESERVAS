@@ -33,7 +33,7 @@ class Restaurante extends Model
         'aceptaEventos',
         'fechaBaja',
         'fechaAlta'
-        
+
     ];
 
 
@@ -59,14 +59,14 @@ class Restaurante extends Model
 
     public function reservas(): HasMany
     {
-        return $this->hasMany(Reserva::class);
+        return $this->hasMany(Reserva::class, 'idRestaurante');
     }
 
     public function notifications(): HasMany
     {
-        return $this->hasMany( notification::class);
+        return $this->hasMany(notification::class);
     }
-  
+
     public function platos()
     {
         return $this->belongsToMany(Plato::class);
@@ -74,12 +74,11 @@ class Restaurante extends Model
 
     public function atencionRestaurantes(): HasMany
     {
-      return $this->hasMany(AtencionRestaurante::class);
+        return $this->hasMany(AtencionRestaurante::class);
     }
 
     public function imagenesRestaurantes(): HasMany
     {
-      return $this->hasMany(ImagenesRestaurante::class);
+        return $this->hasMany(ImagenesRestaurante::class);
     }
-
 }
