@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import CardRestaurante from "../CardRestaurante/CardRestaurante";
+import { useNavigate } from "react-router-dom";
 
 const ListaCard = () => {
   const [cards, setCards] = useState([]);
   const [imagenes, setImagenes] = useState([]);
+  const navigate = useNavigate();
 
   async function getCards() {
     const res = await fetch("/api/restaurantes/indexRestaurante");
@@ -30,6 +32,10 @@ const ListaCard = () => {
     getImagenes();
   }, []);
 
+  const handleView = () => {
+    navigate(`/loginUsuario`); 
+  };
+
   return (
     <div className="flex flex-wrap ">
       {cards.length === 0 ? (
@@ -50,6 +56,7 @@ const ListaCard = () => {
                 direccion={restaurante.direccion}
                 tipo={restaurante.tipo}
                 idRestaurante={restaurante.id}
+                onView={handleView}
               />
             </div>
           );

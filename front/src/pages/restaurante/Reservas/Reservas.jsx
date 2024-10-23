@@ -9,6 +9,13 @@ const Reservas = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filtroNombre, setFiltroNombre] = useState("");
+  const [filtroFecha, setFiltroFecha] = useState("");
+  const [filtroEstado, setFiltroEstado] = useState("");
+
+  // Paginación
+  const [paginaActual, setPaginaActual] = useState(1);
+  const reservasPorPagina = 5;
 
   const idRestaurante = user.id;
   const getReservaRestaurante = async (idRestaurante) => {
@@ -20,7 +27,10 @@ const Reservas = () => {
         throw new Error("Error al cargar la reserva");
       }
       const data = await reservaResponse.json();
-      setReservas(data);
+      const reservasOrdenadas = data.sort(
+        (a, b) => new Date(b.fechaReserva) - new Date(a.fechaReserva)
+      );
+      setReservas(reservasOrdenadas);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -63,6 +73,27 @@ const Reservas = () => {
     }
   }, [reservas]);
 
+  // Filtrar reservas
+  const reservasFiltradas = reservas.filter((reserva) => {
+    const usuario = usuarios.find((user) => user.id === reserva.idUsuario) || {};
+    const nombreUsuario = usuario.nombre || "";
+    const fechaReserva = reserva.fechaReserva.split(" ")[0]; 
+  
+    return (
+      (filtroNombre === "" ||
+        nombreUsuario.toLowerCase().includes(filtroNombre.toLowerCase())) &&
+      (filtroFecha === "" || fechaReserva === filtroFecha) &&
+      (filtroEstado === "" || reserva.estado === filtroEstado)
+      
+    );
+  });
+
+  const indexUltimaReserva = paginaActual * reservasPorPagina;
+  const indexPrimerReserva = indexUltimaReserva - reservasPorPagina;
+  const reservasActuales = reservasFiltradas.slice(indexPrimerReserva, indexUltimaReserva);
+
+  const paginate = (pageNumber) => setPaginaActual(pageNumber);
+
   if (loading) return <p>Cargando reservas...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -70,10 +101,40 @@ const Reservas = () => {
     <div>
       <Title text="Reservas" />
 
-      {reservas.length === 0 ? (
+      {/* Inputs de filtrado */}
+     
+      <div className="flex my-6 ">
+      <div className="text-center items-center w-2/4 font-semibold ">Filtrar Reservas</div>
+        <input
+          type="text"
+          placeholder="Buscar por nombre de Persona"
+          value={filtroNombre}
+          onChange={(e) => setFiltroNombre(e.target.value)}
+          className="border rounded-lg mx-2"
+        />
+        <input
+          type="date"
+          placeholder="Buscar por fecha"
+          value={filtroFecha}
+          onChange={(e) => setFiltroFecha(e.target.value)}
+          className="border rounded-lg mr-2 "
+        />
+        <select
+          value={filtroEstado}
+          onChange={(e) => setFiltroEstado(e.target.value)}
+          className="border rounded-lg "
+        >
+          <option value="">Selecciona un estado</option>
+          <option value="procesada">Procesada</option>
+          <option value="cancelada">Cancelada</option>
+          <option value="pendiente">Pendiente</option>
+        </select>
+      </div>
+
+      {reservasFiltradas.length === 0 ? (
         <p>No hay reservas disponibles.</p>
       ) : (
-        reservas.map((reserva, index) => (
+        reservasActuales.map((reserva, index) => (
           <VistaReserva
             key={reserva.id}
             reserva={reserva}
@@ -82,6 +143,22 @@ const Reservas = () => {
           />
         ))
       )}
+
+      {/* Paginación */}
+      <div className="flex justify-end">
+        {Array.from(
+          { length: Math.ceil(reservas.length / reservasPorPagina) },
+          (_, index) => (
+            <button
+              className="border-2 rounded-md p-2 w-6 text-center"
+              key={index + 1}
+              onClick={() => paginate(index + 1)}
+            >
+              {index + 1}
+            </button>
+          )
+        )}
+      </div>
     </div>
   );
 };

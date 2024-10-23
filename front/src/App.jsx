@@ -33,6 +33,7 @@ import CrearPlato from "./pages/restaurante/AdministrarPlatos/CrearPlato";
 import MostrarPlato from "./pages/restaurante/AdministrarPlatos/MostrarPlato";
 import EditarPlato from "./pages/restaurante/AdministrarPlatos/EditarPlato";
 import Reservas from "./pages/restaurante/Reservas/Reservas";
+import MisReservas from "./pages/usuario/MisReservas/MisReservas";
 
 function App() {
   const { user } = useContext(AppContext);
@@ -58,25 +59,21 @@ function App() {
             element={user ? <Home /> : <RegistroRestaurante />}
           />
 
-          {/* <Route
+           <Route
             path="/detalleRestaurante/:idRestaurante"
             element={
-              <RutasProtegidasUsuario>
-
                 <DetalleRestaurante />
-
-              </RutasProtegidasUsuario>
             }
-          /> */}
+          /> 
 
-          <Route
+         {/* <Route
             path="/reservar/:idRestaurante"
             element={
               <RutasProtegidasUsuario>
                 <ReservarMesa />
               </RutasProtegidasUsuario>
             }
-          />
+          />*/}
           <Route
             path="/detalleReserva"
             element={
@@ -88,19 +85,36 @@ function App() {
 
           <Route path="/infoReserva/:id" element={<InfoReserva />} />
 
+
           {/* Anidar aqui rutas hijas del panel usuario */}
           <Route
             path="/panelUsuario"
             element={
               <RutasProtegidasUsuario>
                 <PanelUsuario />
-              </RutasProtegidasUsuario>
+                </RutasProtegidasUsuario>
             }
           >
             <Route index element={<DashboardUsuario />} />
             <Route path="dashboardUsuario" element={<DashboardUsuario />} />
-            <Route path="dashboardUsuario/detalleRestaurante/:idRestaurante" element={<DetalleRestaurante />} />
+            <Route path="detalleRestaurante/:idRestaurante" element={<DetalleRestaurante />} />
             <Route path="confirmacionReserva" element={<ConfirmacionReserva />} />
+            <Route
+            path="detalleRestaurante/:idRestaurante/reservar/:idRestaurante"
+            element={
+              <RutasProtegidasUsuario>
+                <ReservarMesa />
+              </RutasProtegidasUsuario>
+            }
+          />
+           <Route
+            path="dashboardUsuario/misReservas"
+            element={
+              <RutasProtegidasUsuario>
+                <MisReservas/>
+              </RutasProtegidasUsuario>
+            }
+          />
           </Route>
           
 

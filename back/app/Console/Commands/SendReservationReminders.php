@@ -36,7 +36,7 @@ class SendReservationReminders extends Command
 
         $reservations = Reserva::where('fechaReserva', '=', $now->format('Y-m-d'))
             ->where('horaReserva', '>=', $now->format('H:i'))
-            ->where('horaReserva', '<=', $now->addMinutes(10)->format('H:i'))
+            ->where('horaReserva', '<=', $now->addMinutes(14)->format('H:i'))
             ->where('estado', '<>', 'cancelada')
             ->get();
 

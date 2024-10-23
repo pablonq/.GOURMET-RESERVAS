@@ -62,7 +62,7 @@ const DetalleRestaurante = () => {
 
   const handleReservar = () => {
     if (user) {
-      navigate(`/reservar/${idRestaurante}`);
+      navigate(`reservar/${idRestaurante}`);
     } else {
       navigate("/loginUsuario");
     }

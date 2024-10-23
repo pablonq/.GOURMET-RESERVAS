@@ -43,6 +43,7 @@ export default function AdministrarPlatos() {
     if (idRestaurante && token) {
       getPlatos();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idRestaurante, token]);
   return (
     <>
@@ -65,7 +66,7 @@ export default function AdministrarPlatos() {
           </p>
         ) : platos.length === 0 ? (
           <p className="text-center font-bold text-rose-700">
-            No hay restaurantes disponibles.
+            No hay platos disponibles.
           </p>
         ) : (
           platos.map((plato) => (
