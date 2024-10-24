@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PlatoController;
+use App\Http\Controllers\SoapController;
 use App\Http\Controllers\UsuarioController;
 
 // Rutas accesibles solo con autenticación (usuarios y restaurantes)
@@ -72,3 +73,6 @@ Route::get('/pago/pendiente', [PagoController::class, 'pendiente'])->name('pago.
 Route::post('/pago/createPreference', [PagoController::class, 'createPreference']);
 Route::post('/pago/guardarPago', [PagoController::class, 'guardarPago']);
 Route::get('/pago/confirmacionPago/{paymentId}', [PagoController::class, 'confirmacionPago']);
+
+//ruta soap
+Route::get('/dish-tags', [SoapController::class, 'getDishTags']);
