@@ -121,6 +121,7 @@ export default function EditarPlato() {
     getPlato();
     getMenus();
     fetchTags();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
