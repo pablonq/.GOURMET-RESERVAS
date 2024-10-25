@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
 
 export default function MostrarPlato() {
   const { platoId } = useParams();
   const navigate = useNavigate();
-  const { user, token } = useContext(AppContext);
+  const {  token } = useContext(AppContext);
 
   const [plato, setPlato] = useState(null);
 
@@ -44,7 +44,7 @@ export default function MostrarPlato() {
       }
 
       console.log(data);
-    
+   
   } 
 
   useEffect(() => {
@@ -77,6 +77,25 @@ export default function MostrarPlato() {
         <h2 className="text-2xl">${plato?.precio}</h2>
         <h2 className="text-2xl">Menu: {plato?.menu ? plato.menu.nombre : "Sin menú asociado"}</h2>
         
+          {/* Aquí se agregan las tags como etiquetas */}
+          <div className="mt-6">
+          <h2 className="text-md">Etiquetas asociadas</h2>
+          <div className="mt-4">
+          {Array.isArray(plato?.tag) && plato.tag.length > 0  ? (
+            plato.tag.map((tag, index) => (
+              <span
+                key={index}
+                className="inline-block  bg-slate-400  text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+              >
+                {tag}
+              </span>
+            ))
+          ) : (
+            <p>No hay etiquetas disponibles</p>
+          )}
+        </div>
+        </div>
+
       </div>
     </>
   );

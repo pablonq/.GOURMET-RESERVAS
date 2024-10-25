@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../../../Context/AppContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { uploadFileRestaurantes } from "../../../firebase/config";
@@ -12,17 +12,18 @@ export default function EditarPlato() {
     descripcion: "",
     precio: "",
     informacionNutricional: "",
-    tag: null,
+    tags: [],
     imagen: null,
     categoria: "",
     idRestaurante: user?.id,
     idMenu: "",
-
   });
 
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [menus, setMenus] = useState([]);
+  const [allTags, setTags] = useState([]);
+
   async function getMenus() {
     try {
       const res = await fetch(`/api/restaurantes/indexMenu/${user?.id}`, {
@@ -37,11 +38,9 @@ export default function EditarPlato() {
 
       const data = await res.json();
       setMenus(data);
-      setLoading(false);
       console.log("Menus:", data);
     } catch (error) {
-      setError(error.message);
-      setLoading(false);
+      setErrors(error.message);
     }
   }
 
@@ -62,15 +61,28 @@ export default function EditarPlato() {
         descripcion: data.descripcion,
         precio: data.precio,
         informacionNutricional: data.informacionNutricional,
-        tag: data.tag,
+        tags: Array.isArray(data.tag) ? data.tag : JSON.parse(data.tag || "[]"),
         imagen: data.imagen,
         categoria: data.categoria,
         idRestaurante: user?.id,
-        idMenu:  data.idMenu || "",
-
-      })
+        idMenu: data.idMenu || "",
+      });
     }
   }
+
+  // traer las tags del soap
+  const fetchTags = async () => {
+    try {
+      const res = await fetch(`/api/dish-tags`);
+      if (!res.ok) {
+        throw new Error("Error al cargar las etiquetas");
+      }
+      const data = await res.json();
+      setTags(data);
+    } catch (error) {
+      setErrors(error.message);
+    }
+  };
 
   async function handleUpdate(e) {
     e.preventDefault();
@@ -82,7 +94,7 @@ export default function EditarPlato() {
     const updatedData = {
       ...formData,
       imagen,
-        // Actualiza la imagen si fue modificada
+      // Actualiza la imagen si fue modificada
     };
     const res = await fetch(`/api/restaurantes/editarPlato/${platoId}`, {
       method: "PUT",
@@ -102,12 +114,13 @@ export default function EditarPlato() {
       navigate("/panelRestaurante/administrarPlatos");
     } else {
       console.error("Error al actualizar el plato");
-      setErrors(data.errors || {});  // Mostrar los errores si ocurren
+      setErrors(data.errors || {}); // Mostrar los errores si ocurren
     }
   }
   useEffect(() => {
     getPlato();
     getMenus();
+    fetchTags();
   }, []);
   return (
     <>
@@ -127,7 +140,9 @@ export default function EditarPlato() {
               setFormData({ ...formData, nombrePlato: e.target.value })
             }
           />
-          {errors.nombrePlato && <p className="error">{errors.nombrePlato[0]}</p>}
+          {errors.nombrePlato && (
+            <p className="error">{errors.nombrePlato[0]}</p>
+          )}
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">
@@ -139,12 +154,15 @@ export default function EditarPlato() {
             value={formData.descripcion}
             className="w-full px-3 py-2 border border-gray-300 rounded-md"
             onChange={(e) =>
-              setFormData({ ...formData, descripcion: e.target.value })}
+              setFormData({ ...formData, descripcion: e.target.value })
+            }
           ></textarea>
-          {errors.descripcion && <p className="error">{errors.descripcion[0]}</p>}
+          {errors.descripcion && (
+            <p className="error">{errors.descripcion[0]}</p>
+          )}
         </div>
         <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">
+          <label className="block text-gray-700 font-semibold mb-2">
             Información Nutricional
           </label>
           <input
@@ -153,11 +171,48 @@ export default function EditarPlato() {
             className="w-full px-3 py-2 border border-gray-300 rounded-md"
             value={formData.informacionNutricional}
             onChange={(e) =>
-              setFormData({ ...formData, informacionNutricional: e.target.value })
+              setFormData({
+                ...formData,
+                informacionNutricional: e.target.value,
+              })
             }
           />
-          {errors.informacionNutricional && <p className="error">{errors.informacionNutricional[0]}</p>}
+          {errors.informacionNutricional && (
+            <p className="error">{errors.informacionNutricional[0]}</p>
+          )}
         </div>
+
+        {/* Checkboxes para las tags */}
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2">
+            Seleccione las tags
+          </label>
+          <div className="flex flex-wrap">
+            {allTags.map((tag, index) => (
+              <div key={index} className="mr-4">
+                <label className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    value={tag}
+                    checked={formData.tags.includes(tag)}
+                    onChange={(e) => {
+                      const { checked } = e.target;
+                      setFormData((prev) => {
+                        const newTags = checked
+                          ? [...prev.tags, tag]
+                          : prev.tags.filter((t) => t !== tag);
+                        return { ...prev, tags: newTags };
+                      });
+                    }}
+                    className="form-checkbox h-5 w-5 text-blue-600"
+                  />
+                  <span className="ml-2">{tag}</span>
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+        
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">
             Precio:
@@ -180,23 +235,26 @@ export default function EditarPlato() {
           <input
             type="text"
             value={formData.categoria}
-            onChange={(e) => setFormData({...formData, categoria: e.target.value})}
+            onChange={(e) =>
+              setFormData({ ...formData, categoria: e.target.value })
+            }
             required
             className="w-full px-3 py-2 border border-gray-300 rounded-md"
           />
-           {errors.categoria && <p className="error">{errors.categoria[0]}</p>}
+          {errors.categoria && <p className="error">{errors.categoria[0]}</p>}
         </div>
-        
+
         <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Menú
-          </label>
+          <label className="block text-gray-700 font-semibold mb-2">Menú</label>
           <select
             value={formData.idMenu}
-            onChange={(e) => setFormData({...formData, idMenu: e.target.value})}
+            onChange={(e) =>
+              setFormData({ ...formData, idMenu: e.target.value })
+            }
             className="w-full px-3 py-2 border border-gray-300 rounded-md"
           >
-            <option value="">Ninguno</option> {/* Opción para no seleccionar ningún menú */}
+            <option value="">Ninguno</option>{" "}
+            {/* Opción para no seleccionar ningún menú */}
             {menus.map((menu) => (
               <option key={menu.id} value={menu.id}>
                 {menu.nombre}
@@ -213,11 +271,10 @@ export default function EditarPlato() {
             type="file"
             accept="image/*"
             onChange={(e) => setFile(e.target.files[0])}
-            
             className="w-full px-3 py-2 border border-gray-300 rounded-md"
           />
         </div>
-        
+
         <button className="primary-btn">Actualizar</button>
       </form>
     </>

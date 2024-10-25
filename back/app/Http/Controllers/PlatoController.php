@@ -111,6 +111,7 @@ class PlatoController extends Controller
       'descripcion' => $plato->descripcion,
       'informacionNutricional' => $plato->informacionNutricional,
       'precio' => $plato->precio,
+      'tag' => json_decode($plato->tag) ?? [],
       'categoria' => $plato->categoria,
       'imagen' => $plato->imagen,
       'menu' => $menu ? [
@@ -129,7 +130,7 @@ class PlatoController extends Controller
       'informacionNutricional' => 'required|string',
       'precio' => 'required|integer',
       'categoria' => 'required|string',
-      'tags' => 'nullable',
+      'tags' => 'nullable|array',
       'idMenu' => 'nullable|integer',
 
       /* 'imagen' => 'required', */
@@ -143,6 +144,10 @@ class PlatoController extends Controller
 
     $plato->update($platoData);
 
+    if (isset($fields['tags'])) {
+      $plato->tag = json_encode($fields['tags']);
+    }
+
     if (empty($fields['idMenu'])) {
       $plato->menus()->detach();  // Eliminar todos los menús asociados al plato
     } else {
@@ -150,10 +155,9 @@ class PlatoController extends Controller
       $plato->menus()->sync([$fields['idMenu']]);
     }
 
-
-
     return response()->json($plato);
   }
+
   public function borrarPlato($id)
   {
     $plato = Plato::find($id);
