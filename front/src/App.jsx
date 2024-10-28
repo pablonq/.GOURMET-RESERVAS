@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/leaflet.css";
 
 import Home from "./pages/Home";
 import LoginUsuario from "./pages/Login/LoginUsuario";
@@ -62,21 +62,11 @@ function App() {
             element={user ? <Home /> : <RegistroRestaurante />}
           />
 
-           <Route
+          <Route
             path="/detalleRestaurante/:idRestaurante"
-            element={
-                <DetalleRestaurante />
-            }
-          /> 
+            element={<DetalleRestaurante />}
+          />
 
-         {/* <Route
-            path="/reservar/:idRestaurante"
-            element={
-              <RutasProtegidasUsuario>
-                <ReservarMesa />
-              </RutasProtegidasUsuario>
-            }
-          />*/}
           <Route
             path="/detalleReserva"
             element={
@@ -87,7 +77,30 @@ function App() {
           />
 
           <Route path="/infoReserva/:id" element={<InfoReserva />} />
-
+          <Route
+            path="/reservar/:idRestaurante"
+            element={
+              <RutasProtegidasUsuario>
+                <ReservarMesa />
+              </RutasProtegidasUsuario>
+            }
+          />
+          <Route
+            path="/confirmacionReserva"
+            element={
+              <RutasProtegidasUsuario>
+                <ConfirmacionReserva />
+              </RutasProtegidasUsuario>
+            }
+          />
+          <Route
+            path="/misReservas"
+            element={
+              <RutasProtegidasUsuario>
+                <MisReservas />
+              </RutasProtegidasUsuario>
+            }
+          />
 
           {/* Anidar aqui rutas hijas del panel usuario */}
           <Route
@@ -95,31 +108,16 @@ function App() {
             element={
               <RutasProtegidasUsuario>
                 <PanelUsuario />
-                </RutasProtegidasUsuario>
+              </RutasProtegidasUsuario>
             }
           >
             <Route index element={<DashboardUsuario />} />
             <Route path="dashboardUsuario" element={<DashboardUsuario />} />
-            <Route path="detalleRestaurante/:idRestaurante" element={<DetalleRestaurante />} />
-            <Route path="confirmacionReserva" element={<ConfirmacionReserva />} />
             <Route
-            path="detalleRestaurante/:idRestaurante/reservar/:idRestaurante"
-            element={
-              <RutasProtegidasUsuario>
-                <ReservarMesa />
-              </RutasProtegidasUsuario>
-            }
-          />
-           <Route
-            path="dashboardUsuario/misReservas"
-            element={
-              <RutasProtegidasUsuario>
-                <MisReservas/>
-              </RutasProtegidasUsuario>
-            }
-          />
+              path="detalleRestaurante/:idRestaurante"
+              element={<DetalleRestaurante />}
+            />
           </Route>
-          
 
           {/* Anidar aqui rutas hijas del panel Restaurante*/}
           <Route
@@ -130,9 +128,7 @@ function App() {
               </RutasProtegidas>
             }
           >
-            <Route index
-              element={
-                <DashboardRestaurante />} />
+            <Route index element={<DashboardRestaurante />} />
             <Route
               path="dashboardRestaurante"
               element={<DashboardRestaurante />}
@@ -241,15 +237,14 @@ function App() {
                 </RutasProtegidas>
               }
             />
-               <Route
+            <Route
               path="visualizarReservas"
               element={
                 <RutasProtegidas>
-                  <Reservas/>
+                  <Reservas />
                 </RutasProtegidas>
               }
             />
-
           </Route>
         </Route>
       </Routes>

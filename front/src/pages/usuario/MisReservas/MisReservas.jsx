@@ -19,17 +19,15 @@ const MisReservas = () => {
       );
       if (!reservaResponse.ok) {
         const errorData = await reservaResponse.json();
-        console.error("Error detallado:", errorData);
-        throw new Error("Error al cargar la reserva");
+       // console.error( errorData.message);
+        setError(errorData.message);
       }
       const data = await reservaResponse.json();
       const reservasOrdenadas = data.sort(
         (a, b) => new Date(b.fechaReserva) - new Date(a.fechaReserva)
       );
       setReservas(reservasOrdenadas);
-    } catch (error) {
-      setError(error.message);
-    } finally {
+    } catch {
       setLoading(false);
     }
   };
@@ -50,7 +48,7 @@ const MisReservas = () => {
   const paginate = (pageNumber) => setPaginaActual(pageNumber);
 
   if (loading) return <p>Cargando reservas...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p className="font-bold text-center text-red-600">{error}</p>;
 
   return (
     <div>

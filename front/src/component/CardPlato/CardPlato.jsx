@@ -1,5 +1,5 @@
-import React from 'react'
 
+// eslint-disable-next-line react/prop-types
 export default function CardPlato({ imagen, nombre, menu, onView }) {
   return (
     <div className="relative max-w-72 h-px-auto overflow-hidden bg-gray-800 rounded-2xl shadow-2xl group">
@@ -12,9 +12,6 @@ export default function CardPlato({ imagen, nombre, menu, onView }) {
           className="w-full h-40 object-cover"
         />
       </div>
-
-
-
 
       <div className=" text-white p-3">
         <h3 className="text-lg  font-bold text-center mb-1">{nombre}</h3>
