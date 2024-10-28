@@ -14,3 +14,5 @@ comando para ejecutar tarea en segundo plano:
 
 ejecutar recordatorios:
  ```php artisan app:send-reservation-reminders```
+### `Comando para instalar Leaflet :`
+npm install react-leaflet leaflet
