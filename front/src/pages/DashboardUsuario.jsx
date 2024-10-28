@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import CardRestaurante from "../component/CardRestaurante/CardRestaurante";
 import { useNavigate } from "react-router-dom";
+import Mapa from "../component/Mapa/Mapa";
+import { makers } from "leaflet";
 const DashboardUsuario = () => {
   const [cards, setCards] = useState([]);
   const [imagenes, setImagenes] = useState([]);
@@ -8,6 +10,13 @@ const DashboardUsuario = () => {
   const handleView = (restauranteId) => {
     navigate(`detalleRestaurante/${restauranteId}`); // Redirige a la página del menú específico
   };
+  const makers = [
+    { name: "JACC", lat: -38.977469146985506, lng: -68.0519252863631 },
+    { name: "MORGAN", lat:-38.97944604404572, lng: -68.05654001651327 },
+    { name: "LA TOSCANA", lat: -38.95970742188375, lng: -68.0617733678413},
+    { name: "BOTANICO", lat:-38.97113798717784, lng:-68.05892454732094},
+    {  lat: -38.94959853946168,lng: -68.05973916742052, name: "MORRIGAN"},
+  ];
   async function getCards() {
     const res = await fetch("/api/restaurantes/indexRestaurante");
     const data = await res.json();
@@ -29,7 +38,9 @@ const DashboardUsuario = () => {
     getImagenes();
   }, []);
   return (
-    <div className="flex flex-wrap ">
+    <>
+    <div className="flex">
+    <div className="w-full md:w-[65%] flex flex-wrap">
       {cards.length === 0 ? (
         <p className="text-center font-bold text-rose-700">
           No hay restaurantes disponibles.
@@ -40,7 +51,7 @@ const DashboardUsuario = () => {
             return imagen.idRestaurante === restaurante.id;
           });
           return (
-            <div key={restaurante.id} className="m-2 ">
+            <div key={restaurante.id} className="m-1 w-1/4">
               <CardRestaurante
                 imagenes={imagenesFiltradas}
                 nombreRes={restaurante.nombreRes}
@@ -53,7 +64,13 @@ const DashboardUsuario = () => {
         })
       )}
     </div>
+    <div className="w-full md:w-[35%]">
+      <Mapa markers={makers}/>
+    </div>
+    </div>
+    </>
   );
 };
 
 export default DashboardUsuario;
+/* AIzaSyBUyBTw6d8oPQUJtKC2zbMMEPe-CUd_Um4 */

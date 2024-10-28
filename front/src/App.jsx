@@ -1,6 +1,8 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import 'leaflet/dist/leaflet.css';
+
 import Home from "./pages/Home";
 import LoginUsuario from "./pages/Login/LoginUsuario";
 import LoginRestaurante from "./pages/Login/LoginRestaurante";
@@ -34,6 +36,7 @@ import MostrarPlato from "./pages/restaurante/AdministrarPlatos/MostrarPlato";
 import EditarPlato from "./pages/restaurante/AdministrarPlatos/EditarPlato";
 import Reservas from "./pages/restaurante/Reservas/Reservas";
 import MisReservas from "./pages/usuario/MisReservas/MisReservas";
+import EditarDiasHorarios from "./pages/restaurante/PerfilRestaurante/EditarDiasHorarios";
 
 function App() {
   const { user } = useContext(AppContext);
@@ -219,6 +222,14 @@ function App() {
               element={
                 <RutasProtegidas>
                   <EditarPlato />
+                </RutasProtegidas>
+              }
+            />
+            <Route
+              path="diasHorarios/editarDiasHorarios/:restauranteId"
+              element={
+                <RutasProtegidas>
+                  <EditarDiasHorarios />
                 </RutasProtegidas>
               }
             />

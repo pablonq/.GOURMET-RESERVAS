@@ -49,6 +49,7 @@ Route::prefix('restaurantes')->group(function () {
   Route::post('/diasHorarios', [RestauranteController::class, 'diasHorarios'])->name('diasHorarios.Restaurante')->middleware('auth:sanctum');
   Route::get('/mesasDisponibles', [MesaController::class, 'obtenerMesasDisponiblesEnFecha']);
   Route::get('/diasHorariosRestaurante/{id}', [AtencionRestauranteController::class, 'indexDiasHorarios']);
+  Route::PUT('/actualizarDiasHorarios', [AtencionRestauranteController::class, 'actualizarDiasHorarios'])->name('actualizarDiasHorarios.restaurante')->middleware('auth:sanctum');
   Route::get('/indexMenu/{id}', [MenuController::class, 'indexMenu'])->name('indexMenu.Restaurante')->middleware('auth:sanctum');
   Route::get('/mostrarMenu/{id}', [MenuController::class, 'getMenu'])->name('getMenu.Restaurante')->middleware('auth:sanctum');
   Route::DELETE('/borrarMenu/{id}', [MenuController::class, 'borrarMenu'])->name('borrarMenu.Restaurante')->middleware('auth:sanctum');

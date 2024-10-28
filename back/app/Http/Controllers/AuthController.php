@@ -142,7 +142,7 @@ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a re
     ]);
     $persona = Persona::create([
       'nombre' => $fields['nombreDuenio'],
-      'apellido' => $fields['apellidosDuenio'],
+      'apellido' => $fields['apellidoDuenio'],
       'dni' => $fields['dniDuenio'],
       'fechaNac' => $fields['fechaNacimientoDuenio'],
       'email' => $fields['emailDuenio'],

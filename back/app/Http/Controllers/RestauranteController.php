@@ -50,10 +50,14 @@ class RestauranteController extends Controller
     return response()->json($fields);
   }
 
+  
+
   public function totalReservas($idRestaurante)
   {
     $total = Reserva::where('idRestaurante', $idRestaurante)->count();
 
     return response()->json(['total' => $total], 200);
   }
+
+  
 }
