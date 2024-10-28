@@ -1,29 +1,29 @@
-import React from 'react';
-import { useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react';
 import { AppContext } from "../../../Context/AppContext";
-import { useNavigate } from 'react-router-dom'
 import Title from '../../../component/Title/Title';
-
-
+import { useNavigate } from 'react-router-dom';
 
 export default function DiasHorarios() {
   const { user, token } = useContext(AppContext);
+  const navigate = useNavigate();
   const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   
-  // Estado inicial: Ningún día seleccionado y franjas vacías.
   const [schedule, setSchedule] = useState({
-    Lunes: { selected: false, startTime1: '', endTime1: '',startTime2: '', endTime2: '' },
-    Martes: { selected: false, startTime1: '', endTime1: '',startTime2: '', endTime2: '' },
-    Miércoles: { selected: false, startTime1: '', endTime1: '',startTime2: '', endTime2: '' },
-    Jueves: { selected: false, startTime1: '', endTime1: '',startTime2: '', endTime2: '' },
-    Viernes: { selected: false, startTime1: '', endTime1: '',startTime2: '', endTime2: '' },
-    Sábado: { selected: false, startTime1: '', endTime1: '',startTime2: '', endTime2: '' },
-    Domingo: { selected: false, startTime1: '', endTime1: '',startTime2: '', endTime2: '' }
-  }); 
+    Lunes: { selected: false, startTime1: '', endTime1: '', startTime2: '', endTime2: '' },
+    Martes: { selected: false, startTime1: '', endTime1: '', startTime2: '', endTime2: '' },
+    Miércoles: { selected: false, startTime1: '', endTime1: '', startTime2: '', endTime2: '' },
+    Jueves: { selected: false, startTime1: '', endTime1: '', startTime2: '', endTime2: '' },
+    Viernes: { selected: false, startTime1: '', endTime1: '', startTime2: '', endTime2: '' },
+    Sábado: { selected: false, startTime1: '', endTime1: '', startTime2: '', endTime2: '' },
+    Domingo: { selected: false, startTime1: '', endTime1: '', startTime2: '', endTime2: '' }
+  });
 
-  const idRestaurante = user.id;
-  const [errors, setErrors] = useState({}); // Para almacenar errores específicos del día
-  // Función para actualizar el estado cuando se selecciona un día.
+  const idRestaurante = user?.id;
+  const [diasHorarios, setDiasHorarios] = useState({});
+  const [selectedDays, setSelectedDays] = useState([]); // Mantén los días seleccionados
+  const [successMessage, setSuccessMessage] = useState(""); // Para mostrar el mensaje de éxito
+  const [errors, setErrors] = useState({});
+
   const handleDayChange = (day) => {
     setSchedule({
       ...schedule,
@@ -31,7 +31,6 @@ export default function DiasHorarios() {
     });
   };
 
-  // Función para actualizar las franjas horarias.
   const handleTimeChange = (day, timeType, value) => {
     setSchedule({
       ...schedule,
@@ -39,151 +38,253 @@ export default function DiasHorarios() {
     });
   };
 
-  // Función para validar las franjas horarias de un día
-  const validateTimes = (day, { startTime1, endTime1, startTime2, endTime2 }) => {
-    const errors = [];
-
-    // Validar que la primera franja horaria tenga sentido
-    if (startTime1 >= endTime1) {
-      errors.push(`En ${day}, la hora de inicio de la primera franja debe ser menor que la hora de fin.`);
-    }
-
-    // Validar que la segunda franja horaria tenga sentido
-    if (startTime2 && endTime2 && startTime2 >= endTime2) {
-      errors.push(`En ${day}, la hora de inicio de la segunda franja debe ser menor que la hora de fin.`);
-    }
-
-    // Validar que no haya solapamiento entre las dos franjas horarias
-    if (endTime1 && startTime2 && endTime1 >= startTime2) {
-      errors.push(`En ${day}, la primera franja no debe solaparse con la segunda.`);
-    }
-
-    return errors;
-  };
-
-  /* const selectedDays = Object.entries(schedule)
-    .filter(([day, data]) => data.selected)
-    .map(([day, data]) => ({ day, startTime1: data.startTime1, endTime1: data.endTime1, startTime2: data.startTime2, endTime2: data.endTime2  }));
-   */
+  const validateSelection = () => {
+    const newErrors = {};
+    let hasError = false;
   
-    // Enviar los datos a la API
-    async function handleSubmit (e) {
-      e.preventDefault();
-      let validationErrors = {}; // Para guardar los errores por cada día
-    let hasErrors = false;
-    const selectedDays = Object.entries(schedule)
-      .filter(([day, data]) => data.selected)
-      .map(([day, data]) => {
-        const dayErrors = validateTimes(day, data);
-
-        if (dayErrors.length > 0) {
-          validationErrors[day] = dayErrors;
-          hasErrors = true;
+    Object.entries(schedule).forEach(([day, data]) => {
+      if (data.selected) {
+        const startTime1 = data.startTime1 ? new Date(`1970-01-01T${data.startTime1}:00`) : null;
+        const endTime1 = data.endTime1 ? new Date(`1970-01-01T${data.endTime1}:00`) : null;
+        const startTime2 = data.startTime2 ? new Date(`1970-01-01T${data.startTime2}:00`) : null;
+        const endTime2 = data.endTime2 ? new Date(`1970-01-01T${data.endTime2}:00`) : null;
+  
+        // Verificar si al menos una franja horaria tiene horas válidas.
+        const firstShiftFilled = startTime1 && endTime1;
+        const secondShiftFilled = startTime2 && endTime2;
+  
+        if (!firstShiftFilled && !secondShiftFilled) {
+          newErrors[day] = 'Debe ingresar al menos una franja horaria.';
+          hasError = true;
         }
-
-        return {
-          day,
-          startTime1: data.startTime1 || null,
-          endTime1: data.endTime1 || null,
-          startTime2: data.startTime2 || null,
-          endTime2: data.endTime2 || null
-        };
-      });
-
-    if (hasErrors) {
-      // Si hay errores, actualizamos el estado para mostrar los mensajes
-      setErrors(validationErrors);
-      return; // No enviar los datos si hay errores
-    }
-
-    if (selectedDays.length === 0) {
-      alert("Por favor, selecciona al menos un día.");
-      return;
-    }
-      try{
-    const res = await fetch("/api/restaurantes/diasHorarios", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json"},
-      body: JSON.stringify({idRestaurante, horarios: selectedDays})
+  
+        // Si la primera franja está cargada, validar que el horario es correcto.
+        if (firstShiftFilled && startTime1 >= endTime1) {
+          newErrors[day] = 'El horario de la primera franja es inválido.';
+          hasError = true;
+        }
+  
+        // Si la segunda franja está cargada, validar que el horario es correcto.
+        if (secondShiftFilled && startTime2 >= endTime2) {
+          newErrors[day] = 'El horario de la segunda franja es inválido.';
+          hasError = true;
+        }
+  
+        // Si ambas franjas están cargadas, verificar que no se solapen.
+        if (firstShiftFilled && secondShiftFilled && endTime1 >= startTime2) {
+          newErrors[day] = 'Los horarios no deben superponerse.';
+          hasError = true;
+        }
+      }
     });
   
-    
+    setErrors(newErrors);
+    return !hasError;
+  };
 
-    if (!res.ok) {
-      const errorData = await res.json();  // Captura el mensaje de error del servidor
-      console.error("Error en la respuesta del servidor:", errorData);
-      alert(`Error: ${JSON.stringify(errorData)}`);  // Muestra el error en la UI
-      return;
-    } const data = await res.json();
-    console.log("Datos enviados correctamente:", data);
-    alert("Horario enviado exitosamente");
-    
-  }
-     catch (error) {
-      console.error("Error al enviar la solicitud:", error);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateSelection()) return;
+
+    const selectedDays = Object.entries(schedule)
+      .filter(([day, data]) => data.selected)
+      .map(([day, data]) => ({
+        day,
+        startTime1: data.startTime1,
+        endTime1: data.endTime1,
+        startTime2: data.startTime2,
+        endTime2: data.endTime2
+      }));
+
+    try {
+      const res = await fetch("/api/restaurantes/diasHorarios", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ idRestaurante: user?.id, horarios: selectedDays })
+      });
+
+      if (!res.ok) {
+        console.error("Error al enviar los datos");
+        return;
+      }
       
+      setDiasHorarios(selectedDays);
+
+      
+      setSuccessMessage("Horarios enviados correctamente");
+      
+      
+      setTimeout(() => {
+        setSuccessMessage(""); // Borrar el mensaje después de un tiempo
+      }, 3000);
+      
+      alert("Horarios enviados correctamente");
+    } catch (error) {
+      console.error("Error al enviar la solicitud:", error);
     }
-}
+  };
+
+  const getDiasHorarios = async () => {
+    const res = await fetch(`/api/restaurantes/diasHorariosRestaurante/${idRestaurante}`);
+    const data = await res.json();
+    if (res.ok) {
+      setDiasHorarios(data);
+      console.log(data);
+    }
+  };
+
+  useEffect(() => {
+    getDiasHorarios();
+    console.log(idRestaurante);
+  }, []);
+
   return (
-     <div>
-  <div className="bg-slate-400">
-      <Title text="Dias y Horarios de Atención" />
-    </div>
-  <form onSubmit={handleSubmit} className="w-1/2 mx-auto space-y-6">
-    {daysOfWeek.map((day) => (
-      <div key={day}>
-        <label>
-          <input
-            type="checkbox"
-            checked={schedule[day].selected}
-            onChange={() => handleDayChange(day)}
-          />
-          {day}
-        </label>
-        {schedule[day].selected && (
-          <div>
-            <h5>Franja horaria</h5>
-            <label>
-              Horario apertura:
-              <input
-                type="time"
-                value={schedule[day].startTime1}
-                onChange={(e) => handleTimeChange(day, 'startTime1', e.target.value)}
-              />
-            </label>
-            <label>
-              Horario cierre:
-              <input
-                type="time"
-                value={schedule[day].endTime1}
-                onChange={(e) => handleTimeChange(day, 'endTime1', e.target.value)}
-              />
-            </label>
-            <label>
-              Horario apertura:
-              <input
-                type="time"
-                value={schedule[day].startTime2}
-                onChange={(e) => handleTimeChange(day, 'startTime2', e.target.value)}
-              />
-            </label>
-            <label>
-            Horario cierre:
-
-              <input
-                type="time"
-                value={schedule[day].endTime2}
-                onChange={(e) => handleTimeChange(day, 'endTime2', e.target.value)}
-              />
-            </label>
-          </div>
-        )}
+    <div>
+      <div className="bg-slate-400">
+        <Title text="Dias y Horarios de Atención" />
       </div>
-    ))}
-    <button className="primary-btn">Enviar Horario</button>
-  </form>
-</div>
-)
-}
+      
+      {Object.keys(diasHorarios).length === 0 ? (
+        <form onSubmit={handleSubmit} className="w-full max-w-3xl mx-auto space-y-3 mt-5">
+        <p className='text-center text-red-700 text-lg font-bold'>No hay Cronograma de Atención. Ingrese dias y horarios.</p>
+      {daysOfWeek.map((day) => (
+        <div key={day} className="bg-white rounded-lg shadow p-4 border border-sky-800">
+          <div className="grid grid-cols-12 gap-4 items-start">
+            {/* Día y checkbox */}
+            <div className="col-span-2">
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={schedule[day].selected}
+                  onChange={() => handleDayChange(day)}
+                  className="w-4 h-4"
+                />
+                <span className="font-semibold text-lg">{day}</span>
+              </label>
+            </div>
 
+            {/* Franjas horarias */}
+            <div className="col-span-10 grid grid-cols-2 gap-4">
+              {/* Franja mañana */}
+              <div className="space-y-2">
+                <h5 className="text-sm font-semibold text-gray-700 ml-20">1° Franja horaria</h5>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-sm text-gray-600">Inicio</label>
+                    <input
+                      type="time"
+                      value={schedule[day].startTime1}
+                      onChange={(e) => handleTimeChange(day, 'startTime1', e.target.value)}
+                      className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-600">Fin</label>
+                    <input
+                      type="time"
+                      value={schedule[day].endTime1}
+                      onChange={(e) => handleTimeChange(day, 'endTime1', e.target.value)}
+                      className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Franja tarde/noche */}
+              <div className="space-y-2">
+                <h5 className="text-sm font-semibold text-gray-700 ml-20">2° Franja horaria</h5>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-sm text-gray-600">Inicio</label>
+                    <input
+                      type="time"
+                      value={schedule[day].startTime2}
+                      onChange={(e) => handleTimeChange(day, 'startTime2', e.target.value)}
+                      className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-600">Fin</label>
+                    <input
+                      type="time"
+                      value={schedule[day].endTime2}
+                      onChange={(e) => handleTimeChange(day, 'endTime2', e.target.value)}
+                      className="w-full px-2 py-1 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mensajes de error */}
+            {errors[day] && (
+              <div className="col-span-12">
+                <p className="text-sm text-red-500">{errors[day]}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+      
+      <div className="flex justify-end">
+        <button 
+          type="submit" 
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+        >
+          Guardar Horarios
+        </button>
+      </div>
+    </form>
+      ) : (
+        <div className="w-full max-w-3xl mx-auto">
+        {diasHorarios.map((diaHorario, index) => {
+          return (
+            
+            <div key={diaHorario.id || index} className="bg-white rounded-lg shadow p-4 mt-4 border border-sky-800">
+              <div className="grid grid-cols-12 gap-4 items-start">
+                
+                {/* Nombre del día */}
+                <div className="col-span-2">
+                  <label className="flex items-center space-x-2">
+                    <span className="font-semibold text-lg">{diaHorario.dia}</span>
+                  </label>
+                </div>
+        
+                {/* Horarios */}
+                <div className="col-span-10 grid grid-cols-2 gap-4">
+                  <div className="space-y-2 ">
+                    <h5 className="text-sm font-semibold text-gray-700 ml-20">Franja horaria 1</h5>
+                    <p className='ml-20'>{diaHorario.startTime1} - {diaHorario.endTime1}</p>
+                  </div>
+        
+                  {diaHorario.startTime2 && diaHorario.endTime2 && (
+                    <div className="space-y-2">
+                      <h5 className="text-sm font-semibold text-gray-700 ml-20">Franja horaria 2</h5>
+                      <p className='ml-20'>{diaHorario.startTime2} - {diaHorario.endTime2}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+        
+        
+        <div className="flex justify-end mt-4">
+            <button 
+              type="button"
+              onClick={() => navigate(`editarDiasHorarios/${idRestaurante}`)} 
+              className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition-colors"
+            >
+              Editar Cronograma
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

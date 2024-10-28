@@ -44,6 +44,7 @@ export default function LoginUsuario() {
       <form onSubmit={handleLogin} className="w-1/2 mx-auto space-y-6">
         <div>
           <input
+            required
             type="text"
             placeholder="Email"
             value={formData.email || ""}
@@ -56,6 +57,7 @@ export default function LoginUsuario() {
 
         <div>
           <input
+          required
             type="password"
             placeholder="Password"
             value={formData.contrasenia || ""}

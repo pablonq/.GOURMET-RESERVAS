@@ -43,6 +43,7 @@ export default function LoginRestaurante() {
       <form onSubmit={handleLogin} className="w-1/2 mx-auto space-y-6">
         <div>
           <input
+          required
             type="text"
             placeholder="Email"
             value={formData.email || ""}
@@ -55,6 +56,7 @@ export default function LoginRestaurante() {
 
         <div>
           <input
+          required
             type="password"
             placeholder="Password"
             value={formData.contrasenia || ""}

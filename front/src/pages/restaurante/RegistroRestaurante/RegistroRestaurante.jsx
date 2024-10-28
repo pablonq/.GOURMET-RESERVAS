@@ -80,9 +80,9 @@ export default function RegistroRestaurante() {
       /* if (!res.ok)  */
       const result = await res.json();
       console.log(result);
-      if (data.errors) {
-        setErrors(data.errors);
-        console.log(data);
+      if (result.errors) {
+        setErrors(result.errors);
+        console.log(result);
       } else {
         console.log("Registro exitoso:", result);
         navigate("/LoginRestaurante");
@@ -106,6 +106,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+              required
                 type="text"
                 className="input-style"
                 placeholder="Nombre del Restaurante"
@@ -119,6 +120,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="text"
                 className="input-style"
                 placeholder="Dirección del Restaurante"
@@ -132,6 +134,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="text"
                 className="input-style"
                 placeholder="Descripción del Restaurante"
@@ -145,6 +148,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="text"
                 className="input-style"
                 placeholder="Tipo de Restaurante"
@@ -158,6 +162,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="text"
                 className="input-style"
                 placeholder="Teléfono del Restaurante"
@@ -171,6 +176,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="email"
                 className="input-style"
                 placeholder="Email del Restaurante"
@@ -184,6 +190,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="password"
                 className="input-style"
                 placeholder="Contraseña"
@@ -197,6 +204,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="password"
                 className="input-style"
                 placeholder="Confirmar Contraseña"
@@ -212,6 +220,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="text"
                 className="input-style"
                 placeholder="Capacidad Total"
@@ -268,6 +277,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="text"
                 className="input-style"
                 placeholder="Nombre del Dueño"
@@ -281,6 +291,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="text"
                 className="input-style"
                 placeholder="Apellido del Dueño"
@@ -294,6 +305,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="date"
                 className="input-style"
                 placeholder="Fecha de Nacimiento"
@@ -310,6 +322,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="text"
                 className="input-style"
                 placeholder="DNI"
@@ -323,6 +336,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="email"
                 className="input-style"
                 placeholder="Email del Dueño"
@@ -336,6 +350,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
+                required
                 type="text"
                 className="input-style"
                 placeholder="Teléfono del Dueño"
@@ -349,7 +364,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
-                
+                required
                 type="text"
                 className="input-style"
                 placeholder="Ciudad del Dueño"
