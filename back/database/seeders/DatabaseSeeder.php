@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             PlatoSeeder::class,
             ImagenesRestaurantesSeeder::class,
             AtencionRestauranteSeeder::class,
+            TagSeeder::class
         ]);
     }
 }

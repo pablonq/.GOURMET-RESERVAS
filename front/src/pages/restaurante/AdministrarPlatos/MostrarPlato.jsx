@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
 
 export default function MostrarPlato() {
   const { platoId } = useParams();
   const navigate = useNavigate();
-  const { user, token } = useContext(AppContext);
+  const { token } = useContext(AppContext);
 
   const [plato, setPlato] = useState(null);
 
@@ -22,42 +22,46 @@ export default function MostrarPlato() {
       setPlato(data);
       console.log(data);
       console.log(platoId);
-
     }
   }
 
   async function handleDelete(e) {
     e.preventDefault();
 
-    
-      const res = await fetch(`/api/restaurantes/borrarPlato/${platoId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    const res = await fetch(`/api/restaurantes/borrarPlato/${platoId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (res.ok) {
-        navigate("/panelRestaurante/administrarPlatos");
-      }
+    if (res.ok) {
+      navigate("/panelRestaurante/administrarPlatos");
+    }
 
-      console.log(data);
-    
-  } 
+    console.log(data);
+  }
 
   useEffect(() => {
     getPlato();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <div className="flex justify-center items-center m-4 space-x-4">
-        <button className="w-40 rounded-md bg-green-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-400 disabled:cursor-wait" onClick={() => navigate(`../editarPlato/${platoId}`)}>
+        <button
+          className="w-40 rounded-md bg-green-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-400 disabled:cursor-wait"
+          onClick={() => navigate(`../editarPlato/${platoId}`)}
+        >
           Editar
         </button>
-        <button className="w-40 rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-400 disabled:cursor-wait" onClick={handleDelete}>
+        <button
+          className="w-40 rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-400 disabled:cursor-wait"
+          onClick={handleDelete}
+        >
           Borrar
         </button>
       </div>
@@ -75,7 +79,27 @@ export default function MostrarPlato() {
         <h3 className="text-lg text-slate-800">{plato?.descripcion}</h3>
         <h3 className="text-md">{plato?.informacionNutricional}</h3>
         <h2 className="text-2xl">${plato?.precio}</h2>
-        <h2 className="text-2xl">Menu: {plato?.menu ? plato.menu.nombre : "Sin menú asociado"}</h2>
+        <h2 className="text-2xl">
+          Menu: {plato?.menu ? plato.menu.nombre : "Sin menú asociado"}
+        </h2>
+
+        <div className="mt-6">
+          <h2 className="text-md">Etiquetas asociadas</h2>
+          <div className="mt-4">
+            {Array.isArray(plato?.tags) && plato.tags.length > 0 ? (
+              plato.tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="inline-block bg-slate-400 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
+                >
+                  {tag.nombreTag}
+                </span>
+              ))
+            ) : (
+              <p>No hay etiquetas disponibles</p>
+            )}
+          </div>
+        </div>
         
       </div>
     </>

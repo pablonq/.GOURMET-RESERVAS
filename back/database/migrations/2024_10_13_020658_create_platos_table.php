@@ -18,14 +18,10 @@ return new class extends Migration
             $table->string('descripcion');
             $table->string('precio');
             $table->string('informacionNutricional');
-            $table->string('tag')->nullable();
             $table->string('categoria')->nullable();
             $table->string('imagen')->nullable();
 
             $table->timestamps();
-
-            
-
         });
     }
 

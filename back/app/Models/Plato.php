@@ -11,7 +11,7 @@ class Plato extends Model
     use HasFactory;
 
     protected $fillable = [
-        
+
         'nombrePlato',
         'descripcion',
         'precio',
@@ -31,6 +31,8 @@ class Plato extends Model
         return $this->belongsToMany(Restaurante::class);
     }
 
-    
-
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'plato_tag', 'plato_id', 'tag_id');
+    }
 }

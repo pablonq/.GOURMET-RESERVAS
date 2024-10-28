@@ -58,7 +58,7 @@ export default function AdministrarPlatos() {
       <div className="flex flex-wrap">
         {loading ? (
           <p className="text-center font-bold text-rose-700">
-            Cargando menús...
+            Cargando platos...
           </p>
         ) : error ? (
           <p className="text-center font-bold text-rose-700">

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PlatoController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UsuarioController;
 
 // Rutas accesibles solo con autenticación (usuarios y restaurantes)
@@ -64,6 +65,9 @@ Route::prefix('restaurantes')->group(function () {
   Route::get('/reservasCliente/{id}',  [ReservaController::class, 'getReservasPorCliente']);
   Route::PUT('/cancelarReserva/{id}',  [ReservaController::class, 'cancelarReserva']);
   Route::get('/totalReservas/{idRestaurante}', [RestauranteController::class, 'totalReservas']);
+
+  Route::get('/traerTags', [TagController::class, 'indexTags']);
+  Route::post('/crearTag', [TagController::class, 'crearTag']);
 });
 
 Route::get('/pago/exito', [PagoController::class, 'exito'])->name('pago.exito');
