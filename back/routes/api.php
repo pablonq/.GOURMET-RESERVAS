@@ -75,4 +75,5 @@ Route::post('/pago/guardarPago', [PagoController::class, 'guardarPago']);
 Route::get('/pago/confirmacionPago/{paymentId}', [PagoController::class, 'confirmacionPago']);
 
 //ruta soap
-Route::get('/dish-tags', [SoapController::class, 'getDishTags']);
+Route::get('/dish-tags', [SoapController::class, 'getAllTags']); 
+Route::post('/insertTag', [SoapController::class, 'insertNewTag']);

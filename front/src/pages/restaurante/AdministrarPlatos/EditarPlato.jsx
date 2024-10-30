@@ -78,7 +78,7 @@ export default function EditarPlato() {
         throw new Error("Error al cargar las etiquetas");
       }
       const data = await res.json();
-      setTags(data);
+      setTags(data.tag || []);
     } catch (error) {
       setErrors(error.message);
     }
@@ -107,7 +107,7 @@ export default function EditarPlato() {
 
     const data = await res.json();
 
-    console.log(data);
+   // console.log(data);
 
     if (res.ok) {
       console.log("Plato actualizado:", data);
@@ -194,20 +194,20 @@ export default function EditarPlato() {
                 <label className="inline-flex items-center">
                   <input
                     type="checkbox"
-                    value={tag}
-                    checked={formData.tags.includes(tag)}
+                    value={tag.name}
+                    checked={formData.tags.includes(tag.name)}
                     onChange={(e) => {
                       const { checked } = e.target;
                       setFormData((prev) => {
                         const newTags = checked
-                          ? [...prev.tags, tag]
-                          : prev.tags.filter((t) => t !== tag);
+                          ? [...prev.tags, tag.name]
+                          : prev.tags.filter((t) => t !== tag.name);
                         return { ...prev, tags: newTags };
                       });
                     }}
                     className="form-checkbox h-5 w-5 text-blue-600"
                   />
-                  <span className="ml-2">{tag}</span>
+                  <span className="ml-2">{tag.name}</span>
                 </label>
               </div>
             ))}

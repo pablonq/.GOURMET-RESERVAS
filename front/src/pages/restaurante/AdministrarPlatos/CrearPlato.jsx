@@ -11,6 +11,7 @@ export default function CrearMenu() {
     tipo: "",
     informacionNutricional: "",
     tags: [],
+    nuevaTag: "",
     precio: "",
     categoria: "",
     imagen: null,
@@ -57,7 +58,8 @@ export default function CrearMenu() {
         throw new Error("Error al cargar las etiquetas");
       }
       const data = await res.json();
-      setTags(data);
+
+      setTags(data.tag || []);
     } catch (error) {
       setError(error.message);
     }
@@ -74,6 +76,35 @@ export default function CrearMenu() {
       setFormData((prev) => ({ ...prev, imagen }));
     }
 
+    // Verificar y agregar nueva tag si es necesario
+    if (
+      formData.nuevaTag &&
+      !tags.some((tag) => tag.name === formData.nuevaTag)
+    ) {
+      try {
+        const res = await fetch("/api/insertTag", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: formData.nuevaTag }),
+        });
+        const newTag = await res.json();
+
+        if (!res.ok) {
+          throw new Error("Error al agregar la nueva tag");
+        }
+
+        // Actualiza las etiquetas y el formData
+        setTags((prevTags) => [...prevTags, newTag.tag]);
+
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+        return;
+      }
+    }
+
     const data = {
       nombre: formData.nombre,
       descripcion: formData.descripcion,
@@ -84,8 +115,10 @@ export default function CrearMenu() {
       imagen: imagen,
       idRestaurante: user?.id,
       idMenu: formData.idMenu === "" ? null : formData.idMenu,
-      tags: formData.tags,
+      tags: [...new Set([...formData.tags, formData.nuevaTag].filter(tag => tag))]
     };
+
+    console.log(" es la info a enviar:", data);
 
     try {
       const res = await fetch("/api/restaurantes/crearPlato", {
@@ -193,24 +226,40 @@ export default function CrearMenu() {
                 <label className="inline-flex items-center">
                   <input
                     type="checkbox"
-                    value={tag}
-                    checked={formData.tags.includes(tag)}
+                    value={tag.name}
+                    checked={formData.tags.includes(tag.name)}
                     onChange={(e) => {
                       const { checked } = e.target;
                       setFormData((prev) => {
                         const newTags = checked
-                          ? [...prev.tags, tag]
-                          : prev.tags.filter((t) => t !== tag);
+                          ? [...new Set([...prev.tags, tag.name])]
+                          : prev.tags.filter((t) => t !== tag.name);
                         return { ...prev, tags: newTags };
                       });
                     }}
                     className="form-checkbox h-5 w-5 text-blue-600"
                   />
-                  <span className="ml-2">{tag}</span>
+                  <span className="ml-2">{tag.name}</span>
                 </label>
               </div>
             ))}
           </div>
+        </div>
+
+        {/*aca se da la opcion de agregar un nueva tag */}
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2">
+            Agrega una Nueva Tag si no existe
+          </label>
+          <input
+            type="text"
+            value={formData.nuevaTag}
+            onChange={(e) =>
+              setFormData({ ...formData, nuevaTag: e.target.value })
+            }
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            placeholder="Nueva tag"
+          />
         </div>
 
         <div className="mb-4">

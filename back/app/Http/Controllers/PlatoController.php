@@ -131,6 +131,7 @@ class PlatoController extends Controller
       'precio' => 'required|integer',
       'categoria' => 'required|string',
       'tags' => 'nullable|array',
+      'tags.*' => 'string',
       'idMenu' => 'nullable|integer',
 
       /* 'imagen' => 'required', */
@@ -147,6 +148,8 @@ class PlatoController extends Controller
     if (isset($fields['tags'])) {
       $plato->tag = json_encode($fields['tags']);
     }
+
+    $plato->save();
 
     if (empty($fields['idMenu'])) {
       $plato->menus()->detach();  // Eliminar todos los menús asociados al plato
