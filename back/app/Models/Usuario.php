@@ -40,4 +40,9 @@ class Usuario extends Model
     {
         return $this->hasMany( notification::class);
     }
+
+    public function direccion()
+    {
+        return $this->morphOne(Direccione::class, 'direccionable');
+    }
 }

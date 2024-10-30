@@ -33,9 +33,31 @@ const DashboardUsuario = () => {
       //  console.log("Imagenes recibidas:", data);
     }
   }
+  const address = "Río Negro 2170, Neuquén, Neuquén, Argentina";
+  async function getCoordinates() {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`
+      );
+      const data = await response.json();
+      if (data.length > 0) {
+        const { lat, lon } = data[0];
+        console.log(lat, lon);
+        console.log(address);
+        return { lat: parseFloat(lat), lon: parseFloat(lon) };
+      } else {
+        throw new Error("No se encontraron coordenadas para esta dirección");
+      }
+    } catch (error) {
+      console.error("Error al obtener coordenadas:", error);
+      return null;
+    }
+  };
+
   useEffect(() => {
     getCards();
     getImagenes();
+    /* getCoordinates(); */
   }, []);
   return (
     <>

@@ -24,12 +24,7 @@ class Restaurante extends Model
         'email',
         'contrasenia',
         'capacidadTotal',
-        /* 'diasAtencion',
-        'horaApertura',
-        'horaCierre',
-        'imagen', */
-        'latitud',
-        'longitud',
+               
         'aceptaEventos',
         'fechaBaja',
         'fechaAlta'
@@ -80,5 +75,10 @@ class Restaurante extends Model
     public function imagenesRestaurantes(): HasMany
     {
         return $this->hasMany(ImagenesRestaurante::class);
+    }
+
+    public function direccion()
+    {
+        return $this->morphOne(Direccione::class, 'direccionable');
     }
 }

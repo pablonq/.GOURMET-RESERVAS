@@ -6,7 +6,11 @@ export default function RegistroRestaurante() {
   const [formData, setFormData] = useState({
     // Datos del Restaurante
     nombreRes: "",
-    direccion: "",
+    calle: "",
+    altura: "",
+    ciudad: "",
+    provincia: "",
+    pais: "",
     descripcion: "",
     tipo: "",
     telefono: "",
@@ -47,7 +51,12 @@ export default function RegistroRestaurante() {
       const data = {
         // Datos del Restaurante
         nombreRes: formData.nombreRes,
-        direccion: formData.direccion,
+        calle: formData.calle,
+        altura: formData.altura,
+        ciudad: formData.ciudad,
+        provincia: formData.provincia,
+        pais: formData.pais,
+        
         descripcion: formData.descripcion,
         tipo: formData.tipo,
         telefono: formData.telefono,
@@ -102,7 +111,7 @@ export default function RegistroRestaurante() {
         <div className="flex justify-between space-x-8">
           {/* Sección de Datos del Restaurante */}
           <div className="w-1/2 bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Datos del Restaurante</h2>
+            <h2 className="text-xl font-semibold mb-4 text-center">Restaurante</h2>
 
             <div className="mb-4">
               <input
@@ -117,20 +126,71 @@ export default function RegistroRestaurante() {
               />
               {errors.nombreRes && <p className="error">{errors.nombreRes[0]}</p>}
             </div>
-
             <div className="mb-4">
-              <input
-                required
-                type="text"
-                className="input-style"
-                placeholder="Dirección del Restaurante"
-                value={formData.direccion || ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, direccion: e.target.value })
-                }
-              />
-              {errors.direccion && <p className="error">{errors.direccion[0]}</p>}
-            </div>
+  {/* Primer grupo de dos inputs en una fila */}
+  <div className="flex space-x-4 mb-4">
+    <div className="flex-1">
+      <input
+        required
+        type="text"
+        className="input-style w-full"
+        placeholder="Calle"
+        value={formData.calle || ""}
+        onChange={(e) => setFormData({ ...formData, calle: e.target.value })}
+      />
+      {errors.calle && <p className="error">{errors.calle[0]}</p>}
+    </div>
+    <div className="flex-1">
+      <input
+        required
+        type="text"
+        className="input-style w-full"
+        placeholder="Altura"
+        value={formData.altura || ""}
+        onChange={(e) => setFormData({ ...formData, altura: e.target.value })}
+      />
+      {errors.altura && <p className="error">{errors.altura[0]}</p>}
+    </div>
+  </div>
+
+  {/* Segundo grupo de tres inputs en una fila */}
+  <div className="flex space-x-4">
+    <div className="flex-1">
+      <input
+        required
+        type="text"
+        className="input-style w-full"
+        placeholder="Ciudad"
+        value={formData.ciudad || ""}
+        onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
+      />
+      {errors.ciudad && <p className="error">{errors.ciudad[0]}</p>}
+    </div>
+    <div className="flex-1">
+      <input
+        required
+        type="text"
+        className="input-style w-full"
+        placeholder="Provincia"
+        value={formData.provincia || ""}
+        onChange={(e) => setFormData({ ...formData, provincia: e.target.value })}
+      />
+      {errors.provincia && <p className="error">{errors.provincia[0]}</p>}
+    </div>
+    <div className="flex-1">
+      <input
+        required
+        type="text"
+        className="input-style w-full"
+        placeholder="Pais"
+        value={formData.pais || ""}
+        onChange={(e) => setFormData({ ...formData, pais: e.target.value })}
+      />
+      {errors.pais && <p className="error">{errors.pais[0]}</p>}
+    </div>
+  </div>
+</div>
+
 
             <div className="mb-4">
               <input
@@ -273,7 +333,7 @@ export default function RegistroRestaurante() {
 
           {/* Sección de Datos del Dueño */}
           <div className="w-1/2 bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Datos del Dueño</h2>
+            <h2 className="text-xl font-semibold mb-4 text-center">Dueño</h2>
 
             <div className="mb-4">
               <input

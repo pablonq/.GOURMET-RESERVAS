@@ -14,19 +14,15 @@ return new class extends Migration
         Schema::create('restaurantes', function (Blueprint $table) {
           $table->id();
           $table->string('nombreRes');
-          $table->string('direccion');
+          
           $table->text('descripcion');
           $table->string('tipo');
           $table->string('telefono');
           $table->string('email');
           $table->string('contrasenia');
           $table->integer('capacidadTotal');
-         /*  $table->string('diasAtencion'); */ // O $table->json('diasAtencion')->nullable();
-
-          /* $table->time('horaApertura', precision: 0);
-          $table->time('horaCierre', precision: 0); */
-          
-          $table->geometry('coordenadas')->nullable(); 
+          // Campos separados para cada parte de la dirección
+              
           $table->string('aceptaEventos');
           $table->timestamp('fechaBaja')->nullable();
           $table->timestamp('fechaAlta')->nullable();

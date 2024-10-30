@@ -77,7 +77,11 @@ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a re
     {
         $fields = $request->validate([
             'nombreRes' => 'required|max:255',
-            'direccion' => 'required|max:255',
+            'calle' => 'required|max:255',
+            'altura' => 'required|max:255',
+            'ciudad' => 'required|max:255',
+            'provincia' => 'required|max:255',
+            'pais' => 'required|max:255',
             'descripcion' => 'required|max:255',
             'tipo' => 'required|max:255',
             'telefono' => 'required|max:255',
@@ -118,7 +122,7 @@ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a re
       
         $restaurante = Restaurante::create([
         'nombreRes' => $fields['nombreRes'],
-        'direccion' => $fields['direccion'],
+        
         'descripcion' => $fields['descripcion'],
         'tipo' => $fields['tipo'],
         'telefono' => $fields['telefono'],
@@ -135,6 +139,15 @@ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a re
         'fechaAlta' => now(),
        
     ]);
+
+    $restaurante->direccion()->create([
+      'calle' => $fields['calle'],
+      'altura' => $fields['altura'],
+      'ciudad' => $fields['ciudad'],
+      'provincia' => $fields['provincia'],
+      'pais' => $fields['pais'],
+  ]);
+
     $imagenRestaurante = ImagenesRestaurante::create([
       'imagenUrl' => $fields['imagenUrl'],
        'idRestaurante' => $restaurante->id,
