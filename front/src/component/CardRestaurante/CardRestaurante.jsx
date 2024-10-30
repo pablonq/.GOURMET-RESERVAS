@@ -27,7 +27,8 @@ const CardRestaurante = ({
 
   
   return (
-    <div className="relative max-w-64 h-auto overflow-hidden bg-gray-800 rounded-2xl shadow-2xl group">
+    <div className="h-96">
+    <div className="relative max-w-64 h-full  overflow-hidden bg-gray-800 rounded-2xl shadow-2xl group flex flex-col">
       {/* Carrusel de imágenes */}
       {imagenes.length > 0 ? (
         <Slider {...settings}>
@@ -45,14 +46,15 @@ const CardRestaurante = ({
         <p className="text-white text-center">No hay imágenes disponibles</p>
       )}
       <div className=" text-white p-3">
-        <h3 className="text-lg  font-bold text-center mb-1">{nombreRes}</h3>
+        <h3 className="text-lg  font-bold text-center mt-2">{nombreRes}</h3>
         
         <p className="font-light text-end text-sm">{direccion}</p>
         <p className="font-light text-end text-sm">{tipo}</p>
-        <div className="flex justify-center  p-2">
+        </div>
+        <div className="flex justify-center mt-6 ">
           <button
             onClick={onView}
-            className="text-white text-center rounded-md bg-slate-400 p-2 hover:bg-orange-400"
+            className="text-white text-center rounded-md bg-slate-400 p-1 hover:bg-orange-400"
           >
            Reservar
           </button>{" "}

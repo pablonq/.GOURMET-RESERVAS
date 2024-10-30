@@ -1,6 +1,8 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
+import ImagenPerfil from "../component/ImagenPerfil/ImagenPerfil";
+import defaultAvatar from "../assets/default-avatar.jpg";
 
 export default function Layout() {
   const { user, token, setUser, setToken } = useContext(AppContext);
@@ -42,37 +44,74 @@ export default function Layout() {
           >
             .GourmetReservas
           </Link>
+          <div className="flex items-center space-x-4">
+            {user ? (
+              <>
+                {user.rol === "usuario" && (
+                  <>
+                    <Link
+                      to="/misReservas"
+                      className={`hover:text-blue-300 ${
+                        isActive("/misReservas")
+                          ? "text-orange-400"
+                          : "text-white"
+                      }`}
+                    >
+                      Mis Reservas
+                    </Link>
+                    <Link
+                      to="/perfilUsuario"
+                      className={`hover:text-blue-300 ${
+                        isActive("/perfilUsuario")
+                          ? "text-orange-400"
+                          : "text-white"
+                      }`}
+                    >
+                      Editar Perfil
+                    </Link>
+                  </>
+                )}
+                <div className="flex items-center justify-center mx-8 font-light text-gray-400 ">
+                  Bienvenido{" "}
+                  {user.rol === "restaurante"
+                    ? user.nombreRes
+                    : user.nombreUsuario}
+                  {user.rol === "usuario" && (
+                    <ImagenPerfil
+                      src={user?.avatarUrl || defaultAvatar}
+                      textAlt={"imagen perfil usuario"}
+                      isSmall={true} 
+                    />
+                  )}
+                </div>
+                <form onSubmit={handleLogout}>
+                  <button className="nav-link text-white">Logout</button>
+                </form>
+              </>
+            ) : (
+              <div className="space-x-4">
+                <Link
+                  to="/loginRestaurante"
+                  className={`hover:text-blue-300 ${
+                    isActive("/loginRestaurante")
+                      ? "text-orange-400"
+                      : "text-white"
+                  }`}
+                >
+                  Restaurantes
+                </Link>
 
-          {user ? (
-            <div className="flex items-center font-light text-orange-400 space-x-4">
-              Bienvenido{" "}
-              {user.rol === "restaurante" ? user.nombreRes : user.nombreUsuario}
-              <form onSubmit={handleLogout}>
-                <button className="nav-link">Logout</button>
-              </form>
-            </div>
-          ) : (
-            <div className="space-x-4">
-              <Link
-                to="/loginRestaurante"
-                className={`hover:text-blue-300 ${
-                  isActive("/loginRestaurante")
-                    ? "text-orange-400"
-                    : "text-white"
-                }`}
-              >
-                Restaurantes
-              </Link>
-              <Link
-                to="/loginUsuario"
-                className={`hover:text-blue-300 ${
-                  isActive("/loginUsuario") ? "text-orange-400" : "text-white"
-                }`}
-              >
-                Usuarios
-              </Link>
-            </div>
-          )}
+                <Link
+                  to="/loginUsuario"
+                  className={`hover:text-blue-300 ${
+                    isActive("/loginUsuario") ? "text-orange-400" : "text-white"
+                  }`}
+                >
+                  Usuarios
+                </Link>
+              </div>
+            )}
+          </div>
         </nav>
       </header>
 
