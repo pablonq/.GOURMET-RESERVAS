@@ -32,6 +32,7 @@ Route::prefix('usuarios')->group(function () {
   Route::post('/login', [AuthController::class, 'loginUsuarios'])->name('login.usuario');
   Route::post('/registerReserva', [ReservaController::class, 'registerReserva'])->name('register.reserva');
   Route::get('/traerUsuario/{id}', [UsuarioController::class, 'getUsuario']);
+  Route::get('/indexDireccionUsuario/{id}', [UsuarioController::class, 'indexDireccionUsuario'])->name('indexDireccionUsuario.usuario')->middleware('auth:sanctum');
 });
 
 // Rutas de autenticación y registro de restaurantes
@@ -72,6 +73,7 @@ Route::prefix('restaurantes')->group(function () {
   Route::get('/traerResenias/{idRestaurante}', [ReseniaController::class, 'traerReseniaRestaurante']);
   Route::get('/traerReseniasUsuario/{idUsuario}', [ReseniaController::class, 'getReseniasUsuario']);
 
+  Route::get('/indexDireccionesRestaurantes', [RestauranteController::class, 'indexDireccionesRestaurantes'])->name('indexDireccionesRestaurantes.Restaurante');
   Route::get('/traerTags', [TagController::class, 'indexTags']);
   Route::post('/crearTag', [TagController::class, 'crearTag']);
 });
