@@ -8,7 +8,7 @@ const PanelUsuario = () => {
 
   return (
     <div className="flex">
-      <div className="w-1/5 min-h-screen border-r-2 border-slate-700 shadow-md shadow-slate-700 ">
+      <div className="w-72 min-h-screen border-r-2 border-slate-700 shadow-md shadow-slate-700 ">
         <nav className=" flex flex-col justify-start  ">
        
           <ul className="space-y-4">

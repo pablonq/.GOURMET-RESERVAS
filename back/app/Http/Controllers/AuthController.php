@@ -24,7 +24,11 @@ class AuthController extends Controller
         'fechaNac' => 'required|date',
         'email' => 'required|email|unique:personas,email',
         'telefono' => 'required|max:255',
-        'ciudad' => 'required|max:255',
+        'calle' => 'required|max:255',
+            'altura' => 'required|max:255',
+            'ciudad' => 'required|max:255',
+            'provincia' => 'required|max:255',
+            'pais' => 'required|max:255',
         'nombreUsuario' => 'required|max:255|unique:usuarios,nombreUsuario',
         'contrasenia' => 'required|confirmed|min:4',
         'avatarUrl'=> 'required',
@@ -40,21 +44,24 @@ class AuthController extends Controller
           'ciudad' => $fields['ciudad'],
       ]);
 
-    $usuario = Usuario::create([
-      'idPersona' => $persona->id,
-      'nombreUsuario' => $fields['nombreUsuario'],
-      'contrasenia' => bcrypt($fields['contrasenia']),
-      'avatarUrl' => $fields['avatarUrl'],
-      'fechaRegistro' => now(),
       
-      
-  ]);
-  // Si se proporcionó un avatar, lo procesamos y guardamos
-  /* if ($request->hasFile('avatar')) {
-    $avatarPath = $request->file('avatar')->store('avatars', 'public');
-    $usuario->avatar = $avatarPath;
-    $usuario->save();
-} */
+      $usuario = Usuario::create([
+        'idPersona' => $persona->id,
+        'nombreUsuario' => $fields['nombreUsuario'],
+        'contrasenia' => bcrypt($fields['contrasenia']),
+        'avatarUrl' => $fields['avatarUrl'],
+        'fechaRegistro' => now(),
+        
+        
+      ]);
+      $usuario->direccion()->create([
+        'calle' => $fields['calle'],
+        'altura' => $fields['altura'],
+        'ciudad' => $fields['ciudad'],
+        'provincia' => $fields['provincia'],
+        'pais' => $fields['pais'],
+    ]);
+   
 
 /* Después de crear el usuario,
 el método genera un token para el usuario utilizando el método createToken del objeto $user. 
@@ -88,12 +95,9 @@ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a re
             'email' => 'required|email|unique:restaurantes',
             'contrasenia' => 'required|confirmed|min:4',
             'capacidadTotal'=> 'required|max:11',
-            /* 'diasAtencion'=> 'required',
-            'horaApertura'=> 'required', 
-            'horaCierre'=> 'required', */
+            
             'imagenUrl'=> 'required',
-            /* 'latitud' => 'required|numeric',
-            'longitud' => 'required|numeric', */
+          
             'aceptaEventos'=> 'required|in:si,no',
             'fechaBaja' => 'nullable|date', // Inicialmente no tiene fecha de baja
             'fechaAlta' => now(),
@@ -110,15 +114,6 @@ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a re
         
         /* \Log::info('Campo aceptaEventos: ' . $fields['aceptaEventos']); */
         
-        
-        /* $coordenadas = "POINT({$fields['longitud']} {$fields['latitud']})"; */
-    
-        
-        /* if ($request->hasFile('imagen')) {
-          $imagenPath = $request->file('imagen')->store('imagen', 'public');
-          $restaurante->imagen = $imagenPath;
-          $restaurante->save();
-      } */
       
         $restaurante = Restaurante::create([
         'nombreRes' => $fields['nombreRes'],
@@ -129,11 +124,7 @@ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a re
         'email' => $fields['email'],
         'contrasenia' => bcrypt($fields['contrasenia']),
         'capacidadTotal' => $fields['capacidadTotal'],
-        /* 'diasAtencion' => is_array($fields['diasAtencion']) ? implode(',', $fields['diasAtencion']) : $fields['diasAtencion'], // Convierte array a string,
-        'horaApertura' => $fields['horaApertura'],
-        'horaCierre' => $fields['horaCierre'], */
         
-        /* 'coordenadas' => DB::raw("ST_GeomFromText('$coordenadas', 4326)"), */
         'aceptaEventos' => $fields['aceptaEventos'],
         'fechaBaja' => null, // Inicialmente no tiene fecha de baja
         'fechaAlta' => now(),

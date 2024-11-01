@@ -8,6 +8,7 @@ use App\Models\AtencionRestaurante;
   use Illuminate\Http\Request;
   use App\Models\ImagenesRestaurante;
 use App\Models\Reserva;
+use App\Models\Direccione;
 
 class RestauranteController extends Controller
 {
@@ -58,6 +59,13 @@ class RestauranteController extends Controller
 
     return response()->json(['total' => $total], 200);
   }
-
+public function indexDireccionesRestaurantes() {
   
+
+   // Filtramos las direcciones que pertenecen al modelo `Restaurante`
+   $direcciones = Direccione::where('direccionable_type', Restaurante::class)->get();
+
+   // Retornamos la colección de direcciones asociadas a restaurantes
+   return response()->json($direcciones);
+}
 }
