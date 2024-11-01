@@ -86,7 +86,7 @@ class PagoController extends Controller
         $paymentId = $pagoData['preference_id'];
         Log::info('paymentId enviado:', ['paymentId' => $paymentId]);
 
-        return redirect()->away("http://localhost:5173/panelUsuario/confirmacionReserva?paymentId={$paymentId}");
+        return redirect()->away("http://localhost:5173/confirmacionReserva?paymentId={$paymentId}");
     }
 
 

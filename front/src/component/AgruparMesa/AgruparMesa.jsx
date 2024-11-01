@@ -35,7 +35,6 @@ const AgruparMesa = ({
     }
   };
 
-
   const filteredMesas = mesas.filter(
     (mesa) => mesa.cantidadPersonas === cantidadPersonas
   );
@@ -52,11 +51,14 @@ const AgruparMesa = ({
               <button
                 id={mesa.id}
                 onClick={() => handleReserve(mesa.id)}
-                disabled={mesa.estado === 'reservada' || mesa.estado === 'ocupada'}
+                disabled={
+                  mesa.estado === "reservada" || mesa.estado === "ocupada"
+                }
                 className={"p-1 self-center"}
               >
                 {renderMesa(cantidadPersonas, mesa.estado)}
               </button>
+              {handleDelete ? (
                 <button
                   onClick={() => handleDelete(mesa.id)}
                   className="p-1 m-2 self-center"
@@ -79,12 +81,15 @@ const AgruparMesa = ({
                     ></path>
                   </svg>
                 </button>
-              <button
-                onClick={() => handleHabilitar(mesa.id)}
-                className="p-1 m-2 ml-2 bg-green-600 text-white rounded-md"
-              >
-                {textAcion}
-              </button>
+              ) : null}
+              {textAcion ? (
+                <button
+                  onClick={() => handleHabilitar(mesa.id)}
+                  className="p-1 m-2 ml-2 bg-green-600 text-white rounded-md"
+                >
+                  {textAcion}
+                </button>
+              ) : null}
             </div>
           ))}
         </div>

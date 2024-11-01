@@ -12,7 +12,12 @@ const PagoComponent = ({ preferenceId}) => {
       <h2 className="font-bold text-center">Completa tu pago</h2>
       <Wallet
         initialization={{ preferenceId }}
-        customization={{ texts: { valueProp: "smart_option" } }}
+        customization={{
+          texts: {
+            action: 'pay', 
+            valueProp: 'security_safety', 
+          },
+        }}
         onPaymentFailure={(error) => console.error("Error de pago:", error)}
       />
     </div>

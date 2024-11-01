@@ -23,7 +23,7 @@ class AtencionRestauranteSeeder extends Seeder
         $horarios->save();
 
         $horarios = new AtencionRestaurante();
-        $horarios->dia = 'Miercoles';
+        $horarios->dia = 'Miércoles';
         $horarios->startTime1 = '08:30:00';
         $horarios->endTime1 = '14:00:00';
         $horarios->startTime2= '17:00:00';
@@ -41,7 +41,7 @@ class AtencionRestauranteSeeder extends Seeder
         $horarios->save();
 
         $horarios = new AtencionRestaurante();
-        $horarios->dia = 'Vierves';
+        $horarios->dia = 'Viernes';
         $horarios->startTime1 = '08:30:00';
         $horarios->endTime1 = '14:00:00';
         $horarios->startTime2= '17:00:00';
@@ -50,7 +50,7 @@ class AtencionRestauranteSeeder extends Seeder
         $horarios->save();
 
         $horarios = new AtencionRestaurante();
-        $horarios->dia = 'Sabado';
+        $horarios->dia = 'Sábado';
         $horarios->startTime1 = '08:30:00';
         $horarios->endTime1 = '14:00:00';
         $horarios->startTime2= '17:00:00';

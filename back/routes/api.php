@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PlatoController;
+use App\Http\Controllers\ReseniaController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UsuarioController;
 
@@ -66,6 +67,10 @@ Route::prefix('restaurantes')->group(function () {
   Route::get('/reservasCliente/{id}',  [ReservaController::class, 'getReservasPorCliente']);
   Route::PUT('/cancelarReserva/{id}',  [ReservaController::class, 'cancelarReserva']);
   Route::get('/totalReservas/{idRestaurante}', [RestauranteController::class, 'totalReservas']);
+
+  Route::post('/crearUnaResenia', [ReseniaController::class, 'crearResenia']);
+  Route::get('/traerResenias/{idRestaurante}', [ReseniaController::class, 'traerReseniaRestaurante']);
+  Route::get('/traerReseniasUsuario/{idUsuario}', [ReseniaController::class, 'getReseniasUsuario']);
 
   Route::get('/traerTags', [TagController::class, 'indexTags']);
   Route::post('/crearTag', [TagController::class, 'crearTag']);

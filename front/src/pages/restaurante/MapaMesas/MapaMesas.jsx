@@ -5,6 +5,7 @@ import InputMesa from "../../../component/InputMesa/InputMesa";
 import PlanoMesa from "../../../component/PlanoMesa/PlanoMesa";
 import { AppContext } from "../../../Context/AppContext";
 import { obtenerMesasExistentes } from "../../../api/mesasAPI";
+import PlanoEditable from "../../../component/PlanoEditable/PlanoEditable";
 
 /**
  * cargar mesas para la creacion del plano editable.
@@ -24,6 +25,7 @@ const MapaMesas = () => {
   const [numeroMesa, setNumeroMesa] = useState(1);
   const [successMessage, setSuccessMessage] = useState("");
   const [mesasExistentes, setMesasExistentes] = useState([]);
+  const [mesasEditable, setMesasEditable] = useState();
 
   const CAPACIDAD_MAXIMA = user?.capacidadTotal;
 
@@ -55,10 +57,32 @@ const MapaMesas = () => {
     }
   };
 
+  async function getMesas() {
+    try {
+      const res = await fetch("/api/restaurantes/indexMesas", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        console.error(data.message || "Error al obtener las mesas.");
+      }
+      const data = await res.json();
+      setMesasEditable(data || []);
+    } catch (error) {
+      console.error("Error al obtener las mesas:", error);
+    }
+  }
+
   useEffect(() => {
     if (idRestaurante) {
       getUltimaMesaNumber();
       obtenerMesasExistentes(token, setMesasExistentes);
+      getMesas();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idRestaurante, token]);
@@ -149,10 +173,13 @@ const MapaMesas = () => {
         setErrors(data.errors || { general: "Error al guardar los datos." });
         setSuccessMessage("Error al cargar las mesas");
       } else {
-        console.log("Datos guardados exitosamente:", data);
+        // console.log("Datos guardados exitosamente:", data);
+        setMesasEditable((prevMesas) => [...prevMesas, ...data]);
+        getMesas();
         clearInput();
         setSuccessMessage("Mesas cargadas exitosamente");
-        obtenerMesasExistentes();
+        // obtenerMesasExistentes();
+        setTimeout(() => setSuccessMessage(""), 3000);
       }
     } catch (error) {
       console.error("Error al enviar la solicitud:", error);
@@ -162,7 +189,7 @@ const MapaMesas = () => {
 
   return (
     <div className="max-w-screen-lg mx-auto">
-      <Title text="Mapa de Mesas" />
+      <Title text="Cargar mesas" />
 
       <div className="flex">
         <form onSubmit={handleGuardar}>
@@ -213,10 +240,19 @@ const MapaMesas = () => {
         </div>
       )}
       {successMessage && (
-        <div className="text-white bg-green-700 p-4 border-2 rounded-md text-center">
-          {successMessage}
+        <div className="flex justify-center">
+          <div className="text-white bg-green-700 p-1 w-1/3 rounded-md text-center">
+            {successMessage}
+          </div>
         </div>
       )}
+
+      <div className=" m-2">
+        <Title text="Editar Mapa mesas existentes" />
+        <div>
+          <PlanoEditable mesas={mesasEditable} setMesas={setMesasEditable} />
+        </div>
+      </div>
     </div>
   );
 };

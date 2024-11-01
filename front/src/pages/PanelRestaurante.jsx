@@ -1,14 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import SiderLink from "../component/SiderLink/SiderLink";
 import ImagenPerfil from "../component/ImagenPerfil/ImagenPerfil";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 import defaultAvatar from "../assets/default-avatar.jpg";
 
 const PanelRestaurante = () => {
   const [imagenes, setImagenes] = useState([]);
   const { user } = useContext(AppContext);
-  const [redirected, setRedirected] = useState(false);
   const [totalReservas, setTotalReservas] = useState(0);
 
   async function getImagenes() {
@@ -35,8 +34,7 @@ const PanelRestaurante = () => {
   useEffect(() => {
     getImagenes();
     getTotalReservas();
-    setRedirected(true);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const imagenesFiltradas = imagenes.filter(
@@ -62,11 +60,11 @@ const PanelRestaurante = () => {
             />
             <SiderLink
               to={"/panelRestaurante/registerMesa"}
-              text={"Cargar Mesas al plano"}
+              text={"Cargar o eliminar Mesas"}
             />
             <SiderLink
               to={"/panelRestaurante/editarMapa"}
-              text={"Administar Mesas"}
+              text={"Administar Mesas/reservas"}
             />
             <SiderLink to={"/panelRestaurante/editarMenu"} text={"Menues"} />
             <SiderLink
@@ -96,11 +94,7 @@ const PanelRestaurante = () => {
         </nav>
       </div>
       <div className="flex-1 p-4">
-        {redirected ? (
-          <Outlet />
-        ) : (
-          <Navigate to="/panelRestaurante/dashboardRestaurante" replace />
-        )}
+        <Outlet />
       </div>
     </div>
   );

@@ -13,17 +13,16 @@ return new class extends Migration
     {
         Schema::create('resenias', function (Blueprint $table) {
             $table->id();
-            /* $table->BigInteger('idUsuario')->unsigned()->nullable();
-            $table->BigInteger('idRestaurante')->unsigned()->nullable(); */
+
             $table->integer('calificacion');
             $table->string('comentario');
             $table->string('respuestaDuenio')->nullable();
             $table->timestamp('fechaResenia');
-            $table->string('imagen')->nullable();
             $table->timestamps();
 
             $table->foreignId('idRestaurante')->references('id')->on('restaurantes')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('idUsuario')->references('id')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('idReserva')->references('id')->on('reservas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

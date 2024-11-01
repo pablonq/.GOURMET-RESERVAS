@@ -1,13 +1,14 @@
 import { useEffect, useState, useContext } from "react";
 import Title from "../../../component/Title/Title";
-import PlanoEditable from "../../../component/PlanoEditable/PlanoEditable";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
+import PlanoTiempoReal from "../../../component/PlanoEditable/PlanoTiempoReal";
 
 const EditarMapa = () => {
   const [mesas, setMesas] = useState();
-  const { token } = useContext(AppContext);
+  const { token, user } = useContext(AppContext);
   const navigate = useNavigate();
+  const [mesasReservadas, setMesasReservadas] = useState([]);
 
   async function getMesas() {
     try {
@@ -30,15 +31,46 @@ const EditarMapa = () => {
       }
       const data = await res.json();
       setMesas(data || []);
-      console.log(data);
     } catch (error) {
       console.error("Error al obtener las mesas:", error);
     }
   }
 
+  const getMesasReservadas = async () => {
+    const currentDate = new Date().toISOString().split("T")[0];
+    const currentTime = new Date().toLocaleTimeString("it-IT");
+    const idRestaurante = user.id;
+
+    try {
+      const res = await fetch(
+        `/api/restaurantes/mesasDisponibles?fecha=${currentDate}&hora=${currentTime}&idRestaurante=${idRestaurante}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!res.ok) {
+        const data = await res.json();
+        console.error(data.message || "Error al obtener mesas reservadas.");
+        return;
+      }
+
+      const data = await res.json();
+      setMesasReservadas(data || []);
+    } catch (error) {
+      console.error("Error al obtener mesas reservadas:", error);
+    }
+  };
+
   useEffect(() => {
-    if (token) {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
       getMesas();
+      getMesasReservadas();
     } else {
       navigate("/loginRestaurante");
     }
@@ -47,9 +79,13 @@ const EditarMapa = () => {
 
   return (
     <div className=" m-2">
-      <Title text="Editar Mapa" />
+      <Title text="Ocupar o Habilitar mesas" />
       <div>
-        <PlanoEditable mesas={mesas} setMesas={setMesas} />
+        <PlanoTiempoReal
+          mesas={mesas}
+          setMesas={setMesas}
+          mesasReservadas={mesasReservadas}
+        />
       </div>
     </div>
   );
