@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurante;
 use App\Models\AtencionRestaurante;
-  use Illuminate\Http\Request;
-  use App\Models\ImagenesRestaurante;
+use Illuminate\Http\Request;
+use App\Models\ImagenesRestaurante;
 use App\Models\Reserva;
 use App\Models\Direccione;
 
@@ -17,19 +17,19 @@ class RestauranteController extends Controller
     return Restaurante::all();
   }
 
-    public function getRestaurante($id)
-    {
-        $restaurante = Restaurante::find($id);
-        $imagenRestaurante = ImagenesRestaurante::where('idRestaurante', $id)->get();
-        return response()->json([
-            'restaurante' => $restaurante,
-            'imagen' => $imagenRestaurante,
-        ]);
-        
-    }
+  public function getRestaurante($id)
+  {
+    $restaurante = Restaurante::find($id);
+    $imagenRestaurante = ImagenesRestaurante::where('idRestaurante', $id)->get();
+    return response()->json([
+      'restaurante' => $restaurante,
+      'imagen' => $imagenRestaurante,
+    ]);
+  }
 
-    public function diasHorarios(Request $request){
-      $fields = $request->validate([
+  public function diasHorarios(Request $request)
+  {
+    $fields = $request->validate([
       'idRestaurante' => 'required|integer',
       'horarios' => 'array',
       'horarios.*.day' => 'nullable|string',
@@ -51,7 +51,6 @@ class RestauranteController extends Controller
     return response()->json($fields);
   }
 
-  
 
   public function totalReservas($idRestaurante)
   {
@@ -59,13 +58,25 @@ class RestauranteController extends Controller
 
     return response()->json(['total' => $total], 200);
   }
-public function indexDireccionesRestaurantes() {
-  
+  public function indexDireccionesRestaurantes()
+  {
 
-   // Filtramos las direcciones que pertenecen al modelo `Restaurante`
-   $direcciones = Direccione::where('direccionable_type', Restaurante::class)->get();
 
-   // Retornamos la colección de direcciones asociadas a restaurantes
-   return response()->json($direcciones);
-}
+    // Filtramos las direcciones que pertenecen al modelo `Restaurante`
+    $direcciones = Direccione::where('direccionable_type', Restaurante::class)->get();
+
+    // Retornamos la colección de direcciones asociadas a restaurantes
+    return response()->json($direcciones);
+  }
+
+  public function filtrarPorTags(Request $request)
+  {
+    $tagsSeleccionados = $request->input('tags');
+
+    $restaurantes = Restaurante::whereHas('platos.tags', function ($query) use ($tagsSeleccionados) {
+      $query->whereIn('tags.id', $tagsSeleccionados);
+    })->get();
+
+    return response()->json($restaurantes);
+  }
 }

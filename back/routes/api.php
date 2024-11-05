@@ -76,6 +76,8 @@ Route::prefix('restaurantes')->group(function () {
   Route::get('/indexDireccionesRestaurantes', [RestauranteController::class, 'indexDireccionesRestaurantes'])->name('indexDireccionesRestaurantes.Restaurante');
   Route::get('/traerTags', [TagController::class, 'indexTags']);
   Route::post('/crearTag', [TagController::class, 'crearTag']);
+
+  Route::post('/filtrarRestaurantesPorTags', [RestauranteController::class, 'filtrarPorTags']);
 });
 
 Route::get('/pago/exito', [PagoController::class, 'exito'])->name('pago.exito');

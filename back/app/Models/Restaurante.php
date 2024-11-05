@@ -24,7 +24,7 @@ class Restaurante extends Model
         'email',
         'contrasenia',
         'capacidadTotal',
-               
+
         'aceptaEventos',
         'fechaBaja',
         'fechaAlta'
@@ -62,9 +62,9 @@ class Restaurante extends Model
         return $this->hasMany(notification::class);
     }
 
-    public function platos()
+    public function platos(): BelongsToMany
     {
-        return $this->belongsToMany(Plato::class);
+        return $this->belongsToMany(Plato::class, 'plato_restaurante', 'restaurante_id', 'plato_id');
     }
 
     public function atencionRestaurantes(): HasMany
