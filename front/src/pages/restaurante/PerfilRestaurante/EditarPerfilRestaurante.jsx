@@ -225,18 +225,27 @@ export default function EditarPerfilRestaurante() {
 
               <div className="mb-2">
                 <label className="text-xs">Tipo de Restaurante</label>
-                <input
+                <select
                   required
-                  type="text"
                   className="input-style"
-                  placeholder="Tipo de Restaurante"
                   value={formData.tipo || ""}
                   onChange={(e) =>
                     setFormData({ ...formData, tipo: e.target.value })
                   }
-                />
+                >
+                  <option value="" disabled>Tipo de restaurante</option>
+                  <option value="Tematico">Temático</option>
+                  <option value="Fast food">Fast food</option>
+                  <option value="Buffet">Estilo buffet</option>
+                  <option value="Gourmet">Gourmet</option>
+                  <option value="Fusion">Fusión</option>
+                  <option value="Familiar">familiar</option>
+                  <option value="De autor">De autor</option>
+                  {/* Agrega más opciones aquí según lo necesites */}
+                </select>
                 {errors.tipo && <p className="error">{errors.tipo[0]}</p>}
               </div>
+
 
               <div className="mb-2">
                 <label className="text-xs">Telefono</label>

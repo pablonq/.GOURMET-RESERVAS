@@ -75,7 +75,7 @@ export default function PerfilRestaurante() {
         <h1 className="text-l font-bold">Dueño</h1>
         <p className="text-lg">Nombre: {duenio.persona?.[0]?.nombre || "Nombre no disponible"} {duenio.persona?.[0]?.apellido}</p>
         <p className="text-lg">DNI: {duenio?.dni || "DNI no disponible"}</p>
-        <p className="text-lg">Email: {user?.email || "Email no disponible"}</p>
+        <p className="text-lg">Email: {duenio.persona?.[0]?.email || "Email no disponible"}</p>
         <p className="text-lg">Telefono: {duenio.persona?.[0]?.telefono || "Celular no disponible"}</p>
         <p className="text-lg">Ciudad: {duenio.persona?.[0]?.ciudad || "Ciudad no disponible"}</p>
       </div>

@@ -12,6 +12,8 @@ use App\Models\Reserva;
 use App\Models\Direccione;
 use App\Models\Mesa;
 use App\Models\Resenia;
+use App\Models\Persona;
+use App\Models\Duenio;
 
 class RestauranteController extends Controller
 {
@@ -91,6 +93,9 @@ public function getDireccionRestaurante($id){
 
 public function getDuenio($id){
   $duenio = Duenio::where('idRestaurante', $id)->get(['dni', 'idPersona']);
+  if($duenio->isEmpty()){
+    return response()->json(['dni' => null, 'persona' => null], 200);
+  }
   $dniDuenio = $duenio[0]->dni;
   $personaId = $duenio[0]->idPersona;
   $persona = Persona::where('id', $personaId)->get();

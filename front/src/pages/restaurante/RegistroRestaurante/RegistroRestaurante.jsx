@@ -56,7 +56,7 @@ export default function RegistroRestaurante() {
         ciudad: formData.ciudad,
         provincia: formData.provincia,
         pais: formData.pais,
-        
+
         descripcion: formData.descripcion,
         tipo: formData.tipo,
         telefono: formData.telefono,
@@ -115,7 +115,7 @@ export default function RegistroRestaurante() {
 
             <div className="mb-4">
               <input
-              required
+                required
                 type="text"
                 className="input-style"
                 placeholder="Nombre del Restaurante"
@@ -127,69 +127,69 @@ export default function RegistroRestaurante() {
               {errors.nombreRes && <p className="error">{errors.nombreRes[0]}</p>}
             </div>
             <div className="mb-4">
-  {/* Primer grupo de dos inputs en una fila */}
-  <div className="flex space-x-4 mb-4">
-    <div className="flex-1">
-      <input
-        required
-        type="text"
-        className="input-style w-full"
-        placeholder="Calle"
-        value={formData.calle || ""}
-        onChange={(e) => setFormData({ ...formData, calle: e.target.value })}
-      />
-      {errors.calle && <p className="error">{errors.calle[0]}</p>}
-    </div>
-    <div className="flex-1">
-      <input
-        required
-        type="text"
-        className="input-style w-full"
-        placeholder="Altura"
-        value={formData.altura || ""}
-        onChange={(e) => setFormData({ ...formData, altura: e.target.value })}
-      />
-      {errors.altura && <p className="error">{errors.altura[0]}</p>}
-    </div>
-  </div>
+              {/* Primer grupo de dos inputs en una fila */}
+              <div className="flex space-x-4 mb-4">
+                <div className="flex-1">
+                  <input
+                    required
+                    type="text"
+                    className="input-style w-full"
+                    placeholder="Calle"
+                    value={formData.calle || ""}
+                    onChange={(e) => setFormData({ ...formData, calle: e.target.value })}
+                  />
+                  {errors.calle && <p className="error">{errors.calle[0]}</p>}
+                </div>
+                <div className="flex-1">
+                  <input
+                    required
+                    type="text"
+                    className="input-style w-full"
+                    placeholder="Altura"
+                    value={formData.altura || ""}
+                    onChange={(e) => setFormData({ ...formData, altura: e.target.value })}
+                  />
+                  {errors.altura && <p className="error">{errors.altura[0]}</p>}
+                </div>
+              </div>
 
-  {/* Segundo grupo de tres inputs en una fila */}
-  <div className="flex space-x-4">
-    <div className="flex-1">
-      <input
-        required
-        type="text"
-        className="input-style w-full"
-        placeholder="Ciudad"
-        value={formData.ciudad || ""}
-        onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
-      />
-      {errors.ciudad && <p className="error">{errors.ciudad[0]}</p>}
-    </div>
-    <div className="flex-1">
-      <input
-        required
-        type="text"
-        className="input-style w-full"
-        placeholder="Provincia"
-        value={formData.provincia || ""}
-        onChange={(e) => setFormData({ ...formData, provincia: e.target.value })}
-      />
-      {errors.provincia && <p className="error">{errors.provincia[0]}</p>}
-    </div>
-    <div className="flex-1">
-      <input
-        required
-        type="text"
-        className="input-style w-full"
-        placeholder="Pais"
-        value={formData.pais || ""}
-        onChange={(e) => setFormData({ ...formData, pais: e.target.value })}
-      />
-      {errors.pais && <p className="error">{errors.pais[0]}</p>}
-    </div>
-  </div>
-</div>
+              {/* Segundo grupo de tres inputs en una fila */}
+              <div className="flex space-x-4">
+                <div className="flex-1">
+                  <input
+                    required
+                    type="text"
+                    className="input-style w-full"
+                    placeholder="Ciudad"
+                    value={formData.ciudad || ""}
+                    onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
+                  />
+                  {errors.ciudad && <p className="error">{errors.ciudad[0]}</p>}
+                </div>
+                <div className="flex-1">
+                  <input
+                    required
+                    type="text"
+                    className="input-style w-full"
+                    placeholder="Provincia"
+                    value={formData.provincia || ""}
+                    onChange={(e) => setFormData({ ...formData, provincia: e.target.value })}
+                  />
+                  {errors.provincia && <p className="error">{errors.provincia[0]}</p>}
+                </div>
+                <div className="flex-1">
+                  <input
+                    required
+                    type="text"
+                    className="input-style w-full"
+                    placeholder="Pais"
+                    value={formData.pais || ""}
+                    onChange={(e) => setFormData({ ...formData, pais: e.target.value })}
+                  />
+                  {errors.pais && <p className="error">{errors.pais[0]}</p>}
+                </div>
+              </div>
+            </div>
 
 
             <div className="mb-4">
@@ -207,16 +207,25 @@ export default function RegistroRestaurante() {
             </div>
 
             <div className="mb-4">
-              <input
+              <select
                 required
-                type="text"
                 className="input-style"
-                placeholder="Tipo de Restaurante"
                 value={formData.tipo || ""}
                 onChange={(e) =>
                   setFormData({ ...formData, tipo: e.target.value })
                 }
-              />
+              >
+                <option value="" disabled>Tipo de restaurante</option>
+                <option value="tematico">Temático</option>
+                <option value="fast food">Fast food</option>
+                <option value="buffet">Estilo buffet</option>
+                <option value="gourmet">Gourmet</option>
+                <option value="fusion">Fusión</option>
+                <option value="familiar">familiar</option>
+                <option value="de autor">De autor</option>
+
+                {/* Agrega más opciones aquí según lo necesites */}
+              </select>
               {errors.tipo && <p className="error">{errors.tipo[0]}</p>}
             </div>
 
