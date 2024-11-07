@@ -5,7 +5,7 @@ import Mapa from "../component/Mapa/Mapa";
 import { AppContext } from "../Context/AppContext";
 
 const DashboardUsuario = () => {
-  const filtros = useOutletContext();
+  const { filtros, ordenarPorPopularidad } = useOutletContext();
   const [cards, setCards] = useState([]);
   const [imagenes, setImagenes] = useState([]);
   const [direcciones, setDirecciones] = useState([]);
@@ -48,7 +48,7 @@ const DashboardUsuario = () => {
 
     if (res.ok) {
       const direccionFormateada = `${data.calle} ${data.altura}, ${data.ciudad}, ${data.provincia}, ${data.pais}`;
-      console.log(direccionFormateada);
+      // console.log(direccionFormateada);
       setDireccionUsuario([direccionFormateada]);
     }
   }
@@ -56,7 +56,15 @@ const DashboardUsuario = () => {
   async function getCards() {
     try {
       let res;
-      if (filtros.tags && filtros.tags.length > 0) {
+      if (filtros.fecha && filtros.hora) {
+        res = await fetch("/api/restaurantes/filtrarRestaurantesConMesas", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ fecha: filtros.fecha, hora: filtros.hora }),
+        });
+      } else if (filtros.tags && filtros.tags.length > 0) {
         res = await fetch("/api/restaurantes/filtrarRestaurantesPorTags", {
           method: "POST",
           headers: {
@@ -67,6 +75,7 @@ const DashboardUsuario = () => {
       } else {
         res = await fetch("/api/restaurantes/indexRestaurante");
       }
+
       const data = await res.json();
       if (res.ok) {
         setCards(data);
@@ -94,14 +103,16 @@ const DashboardUsuario = () => {
     }
   }
 
+  //ir ordenado restaurante filtrados
   const restaurantesFiltrados = cards.filter((restaurante) => {
-    return (
-      restaurante.nombreRes
-        .toLowerCase()
-        .includes(filtros.nombre.toLowerCase()) &&
-      // Añadir otros filtos ques e vallan implementando aca
-      true
-    );
+    const nombreMatch = restaurante.nombreRes
+      .toLowerCase()
+      .includes(filtros.nombre.toLowerCase());
+    const puntuacionSuficiente = ordenarPorPopularidad
+      ? restaurante.promedioPuntuacion >= 4
+      : true; //Esto es para que muestre restaurantes con puntuacion 4 o mas estrellas
+
+    return nombreMatch && puntuacionSuficiente;
   });
 
   async function getCoordinates() {
@@ -175,7 +186,7 @@ const DashboardUsuario = () => {
   return (
     <>
       <div className="flex">
-        <div className="w-full md:w-[65%] flex flex-wrap">
+        <div className="w-full md:w-[70%] flex flex-wrap">
           {restaurantesFiltrados.length === 0 ? (
             <p className="text-center font-bold text-rose-700">
               No hay restaurantes disponibles.
@@ -186,12 +197,14 @@ const DashboardUsuario = () => {
                 return imagen.idRestaurante === restaurante.id;
               });
               return (
-                <div key={restaurante.id} className="m-1 w-1/4">
+                <div key={restaurante.id} className="m-2">
                   <CardRestaurante
                     imagenes={imagenesFiltradas}
                     nombreRes={restaurante.nombreRes}
-                    direccion={restaurante.direccion}
+                    direccion={restaurante.ciudad}
                     tipo={restaurante.tipo}
+                    calificacion={restaurante.promedioPuntuacion}
+                    mesasDisponibles={restaurante.mesas_disponibles}
                     onView={() => handleView(restaurante.id)}
                   />
                 </div>
@@ -199,7 +212,7 @@ const DashboardUsuario = () => {
             })
           )}
         </div>
-        <div className="w-full md:w-[35%]">
+        <div className="w-full md:w-[30%]">
           <Mapa markers={markers} />
         </div>
       </div>

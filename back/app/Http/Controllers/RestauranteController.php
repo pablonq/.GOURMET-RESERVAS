@@ -9,12 +9,32 @@ use Illuminate\Http\Request;
 use App\Models\ImagenesRestaurante;
 use App\Models\Reserva;
 use App\Models\Direccione;
+use App\Models\Mesa;
+use App\Models\Resenia;
 
 class RestauranteController extends Controller
 {
   public function indexRestaurante()
   {
-    return Restaurante::all();
+     $restaurantes = Restaurante::with('direccion')->get();;
+
+        // calculo el promedio de puntuacion
+        foreach ($restaurantes as $restaurante) {
+          $resenias = Resenia::where('idRestaurante', $restaurante->id)->get();
+          $totalResenias = $resenias->count();
+  
+          if ($totalResenias > 0) {
+              $puntuacionTotal = $resenias->sum('calificacion');
+              $promedio = $puntuacionTotal / $totalResenias;
+          } else {
+              $promedio = 0; 
+          }
+  
+          $restaurante->promedioPuntuacion = $promedio;
+          $restaurante->ciudad = $restaurante->direccion->ciudad ?? null;
+      }
+  
+      return response()->json($restaurantes, 200);
   }
 
   public function getRestaurante($id)
@@ -58,6 +78,8 @@ class RestauranteController extends Controller
 
     return response()->json(['total' => $total], 200);
   }
+
+
   public function indexDireccionesRestaurantes()
   {
 
@@ -79,4 +101,60 @@ class RestauranteController extends Controller
 
     return response()->json($restaurantes);
   }
+
+  public function filtrarRestaurantesConMesasDisponibles(Request $request)
+  {
+    $request->validate([
+      'fecha' => 'required|date',
+      'hora' => 'required',
+    ]);
+
+    $fecha = $request->input('fecha');
+    $hora = $request->input('hora');
+
+    $restaurantes = Restaurante::all();
+    $restaurantesConMesasDisponibles = [];
+
+    foreach ($restaurantes as $restaurante) {
+      $mesasDisponibles = Mesa::where('estado', 'disponible')
+        ->where('idRestaurante', $restaurante->id)
+        ->whereDoesntHave('reservas', function ($query) use ($fecha, $hora) {
+          $query->where('fechaReserva', $fecha)
+            ->where(function ($q) use ($hora) {
+              $q->where('horaReserva', '<=', $hora)
+                ->where('horaFinReserva', '>', $hora);
+            });
+        })
+        ->count();
+
+      if ($mesasDisponibles > 0) {
+        $restaurante->mesas_disponibles = $mesasDisponibles;
+        $restaurantesConMesasDisponibles[] = $restaurante;
+      }
+    }
+
+    return response()->json($restaurantesConMesasDisponibles);
+  }
+
+  public function CalcularPuntuacionTotalRestaurante($idRestaurante)
+  {
+
+    $resenias = Resenia::where('idRestaurante', $idRestaurante)->get();
+    $totalResenias = $resenias->count();
+
+    if ($totalResenias === 0) {
+      return response()->json(['promedio' => 0], 200);
+    }
+
+    $puntuacionTotal = 0;
+
+    foreach ($resenias as $resenia) {
+      $puntuacionTotal += $resenia['calificacion'];
+    };
+
+    $promedio = $puntuacionTotal / $totalResenias;
+
+    return response()->json(['promedio' => $promedio], 200);
+  }
+
 }

@@ -76,14 +76,6 @@ function App() {
             }
           />
 
-            <Route
-            path="/detalleReserva/:id"
-            element={
-              <RutasProtegidasUsuario>
-                <DetalleReserva />
-              </RutasProtegidasUsuario>
-            }
-          />
 
           <Route path="/infoReserva/:id" element={<InfoReserva />} />
           <Route

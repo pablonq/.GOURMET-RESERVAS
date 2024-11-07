@@ -52,10 +52,9 @@ const ListaCard = () => {
               <CardRestaurante
                 imagenes={imagenesFiltradas}
                 nombreRes={restaurante.nombreRes}
-                descripcion={restaurante.descripcion}
-                direccion={restaurante.direccion}
+                direccion={restaurante.ciudad}
                 tipo={restaurante.tipo}
-                idRestaurante={restaurante.id}
+                calificacion={restaurante.promedioPuntuacion}
                 onView={handleView}
               />
             </div>

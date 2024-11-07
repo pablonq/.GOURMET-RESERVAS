@@ -68,6 +68,8 @@ Route::prefix('restaurantes')->group(function () {
   Route::get('/reservasCliente/{id}',  [ReservaController::class, 'getReservasPorCliente']);
   Route::PUT('/cancelarReserva/{id}',  [ReservaController::class, 'cancelarReserva']);
   Route::get('/totalReservas/{idRestaurante}', [RestauranteController::class, 'totalReservas']);
+  Route::post('/filtrarRestaurantesConMesas', [RestauranteController::class, 'filtrarRestaurantesConMesasDisponibles']);
+  Route::get('/promedioPuntuacion/{idRestaurante}', [RestauranteController::class, 'CalcularPuntuacionTotalRestaurante']);
 
   Route::post('/crearUnaResenia', [ReseniaController::class, 'crearResenia']);
   Route::get('/traerResenias/{idRestaurante}', [ReseniaController::class, 'traerReseniaRestaurante']);

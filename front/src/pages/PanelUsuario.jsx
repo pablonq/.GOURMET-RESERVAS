@@ -4,6 +4,8 @@ import SiderLink from "../component/SiderLink/SiderLink";
 import { useState } from "react";
 import FiltroNombre from "./restaurante/Filtros/FiltroNombre";
 import FiltroCategoria from "./restaurante/Filtros/FiltroCategoria";
+import FiltroMesasDisponible from "./restaurante/Filtros/FiltroMesasDisponible";
+import FiltroPopularidad from "./restaurante/Filtros/FiltroPopularidad";
 //import { AppContext } from "../Context/AppContext";
 
 const PanelUsuario = () => {
@@ -11,12 +13,16 @@ const PanelUsuario = () => {
   const [filtros, setFiltros] = useState({
     nombre: "",
     tags: [],
+    fecha: "",
+    hora: "",
     //agregar otros filtros
   });
 
   const handleFiltroChange = (filtro, valor) => {
     setFiltros((prevFiltros) => ({ ...prevFiltros, [filtro]: valor }));
   };
+
+  const [ordenarPorPopularidad, setOrdenarPorPopularidad] = useState(false);
 
   return (
     <div className="flex">
@@ -27,18 +33,30 @@ const PanelUsuario = () => {
           </ul>
         </nav>
 
-        <FiltroNombre
-          filtroNombre={filtros.nombre}
-          setFiltroNombre={(valor) => handleFiltroChange("nombre", valor)}
-        />
+        <div className="divide-y divide-gray-300 ">
+          <FiltroNombre
+            filtroNombre={filtros.nombre}
+            setFiltroNombre={(valor) => handleFiltroChange("nombre", valor)}
+          />
 
-        <FiltroCategoria
-          filtroTags={filtros.tags}
-          setFiltroTags={(tags) => handleFiltroChange("tags", tags)}
-        />
+          <FiltroCategoria
+            filtroTags={filtros.tags}
+            setFiltroTags={(tags) => handleFiltroChange("tags", tags)}
+          />
+
+          <FiltroMesasDisponible
+            setFecha={(fecha) => handleFiltroChange("fecha", fecha)}
+            setHora={(hora) => handleFiltroChange("hora", hora)}
+          />
+
+          <FiltroPopularidad
+            ordenarPorPopularidad={ordenarPorPopularidad}
+            setOrdenarPorPopularidad={setOrdenarPorPopularidad}
+          />
+        </div>
       </div>
       <div className="flex-1 p-4 ml-4">
-        <Outlet context={filtros} />
+        <Outlet context={{ filtros, ordenarPorPopularidad }} />
       </div>
     </div>
   );

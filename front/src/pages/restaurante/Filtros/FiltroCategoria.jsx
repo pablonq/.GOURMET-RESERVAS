@@ -27,6 +27,7 @@ const FiltroCategoria = ({ filtroTags, setFiltroTags }) => {
   const tagsAMostrar = mostrarTodas ? tags : tags.slice(0, 5);
 
   return (
+    <div className="mx-2 mt-2 ">
     <div className="w-3/4">
       <div className="w-full p-2 font-medium text-neutral-700">Categoría</div>
       {tagsAMostrar.map((tag) => (
@@ -45,6 +46,7 @@ const FiltroCategoria = ({ filtroTags, setFiltroTags }) => {
       >
         {mostrarTodas ? "Ver menos" : "Ver más"}
       </button>
+    </div>
     </div>
   );
 };

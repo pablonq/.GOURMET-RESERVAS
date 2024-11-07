@@ -8,9 +8,24 @@ const ConfirmacionReserva = () => {
 
   useEffect(() => {
     const fetchConfirmationData = async () => {
-      const paymentId = new URLSearchParams(window.location.search).get(
-        "paymentId"
-      );
+      const urlParams = new URLSearchParams(window.location.search);
+      const paymentId = urlParams.get("paymentId");
+      const estado = urlParams.get("estado");
+
+      if (estado === "fallo") {
+        setErrorMessage("El pago ha fallado o fue cancelado. Por favor, intente nuevamente.");
+        setLoading(false);
+        return;
+      }
+
+      if (estado === "pendiente") {
+        setErrorMessage(
+          "El pago está pendiente. Puede intentarlo nuevamente más tarde."
+        );
+        setLoading(false);
+        return;
+      }
+
       try {
         const response = await fetch(`/api/pago/confirmacionPago/${paymentId}`);
         const data = await response.json();
