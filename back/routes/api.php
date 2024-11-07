@@ -74,6 +74,8 @@ Route::prefix('restaurantes')->group(function () {
   Route::get('/reservasCliente/{id}',  [ReservaController::class, 'getReservasPorCliente']);
   Route::PUT('/cancelarReserva/{id}',  [ReservaController::class, 'cancelarReserva']);
   Route::get('/totalReservas/{idRestaurante}', [RestauranteController::class, 'totalReservas']);
+  Route::post('/filtrarRestaurantesConMesas', [RestauranteController::class, 'filtrarRestaurantesConMesasDisponibles']);
+  Route::get('/promedioPuntuacion/{idRestaurante}', [RestauranteController::class, 'CalcularPuntuacionTotalRestaurante']);
 
   Route::post('/crearUnaResenia', [ReseniaController::class, 'crearResenia']);
   Route::get('/traerResenias/{idRestaurante}', [ReseniaController::class, 'traerReseniaRestaurante']);
@@ -83,6 +85,8 @@ Route::prefix('restaurantes')->group(function () {
   Route::get('/mostrarDireccionRestaurante/{id}', [RestauranteController::class, 'getDireccionRestaurante'])->name('getDireccionRestaurante.Restaurante');  
   Route::get('/traerTags', [TagController::class, 'indexTags']);
   Route::post('/crearTag', [TagController::class, 'crearTag']);
+
+  Route::post('/filtrarRestaurantesPorTags', [RestauranteController::class, 'filtrarPorTags']);
 });
 
 Route::get('/pago/exito', [PagoController::class, 'exito'])->name('pago.exito');

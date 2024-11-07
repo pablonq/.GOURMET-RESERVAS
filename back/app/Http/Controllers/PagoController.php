@@ -90,17 +90,20 @@ class PagoController extends Controller
     }
 
 
-
     public function fallo(Request $request)
     {
-        // Lógica para manejar el fallo del pago
-        return redirect()->away("http://localhost:5173/detalleReserva");
+        $paymentId = $request->query('preference_id');
+        Log::info('Pago fallido:', ['paymentId' => $paymentId]);
+
+        return redirect()->away("http://localhost:5173/confirmacionReserva?estado=fallo&paymentId={$paymentId}");
     }
 
-    public function pendiente()
+    public function pendiente(Request $request)
     {
-        // Lógica para manejar el pago pendiente
-        return view('pago.pendiente');
+        $paymentId = $request->query('preference_id');
+        Log::info('Pago pendiente:', ['paymentId' => $paymentId]);
+    
+        return redirect()->away("http://localhost:5173/confirmacionReserva?estado=pendiente&paymentId={$paymentId}");
     }
 
     public function guardarPago(Request $request)
