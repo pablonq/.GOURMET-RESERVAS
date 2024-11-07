@@ -10,9 +10,9 @@ import customIconUrl from "../../assets/iconoplatos.png";
 
 const customIcon = L.icon({
   iconUrl: customIconUrl,
-  iconSize: [30, 30],       // Tamaño del icono
-  iconAnchor: [16, 32],     // Punto donde el icono se ancla al mapa (centro inferior)
-  popupAnchor: [0, -32],    // Punto donde se ancla el popup en relación al icono
+  iconSize: [30, 30],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
 });
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -38,9 +38,9 @@ const FitBounds = ({ markers }) => {
 const Mapa = ({ markers = [] }) => {
   return (
     <div style={{ height: "100%", width: "100%" }}>
-      <MapContainer 
-        center={[-38.9624343938463, -68.05923874197444]} 
-        zoom={13} 
+      <MapContainer
+        center={[-38.9624343938463, -68.05923874197444]}
+        zoom={13}
         style={{ height: "500px", width: "100%" }}
       >
         <TileLayer
@@ -50,8 +50,8 @@ const Mapa = ({ markers = [] }) => {
         <FitBounds markers={markers} />
         {markers.map((position, idx) => (
           <Marker key={idx}
-           position={[position.lat, position.lng]}
-           icon={customIcon}>
+            position={[position.lat, position.lng]}
+            icon={customIcon}>
             <Popup>{position.name}</Popup>
           </Marker>
         ))}

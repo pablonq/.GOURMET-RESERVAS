@@ -9,13 +9,13 @@ const DashboardUsuario = () => {
   const [imagenes, setImagenes] = useState([]);
   const [direcciones, setDirecciones] = useState([]);
   const [coordenadas, setCoordenadas] = useState([]);
-  const [markers, setMarkers] = useState([]); // Nuevo estado para los markers
+  const [markers, setMarkers] = useState([]); 
 
   const { user, token } = useContext(AppContext);
-  
+
   const [direccionUsuario, setDireccionUsuario] = useState([]);
   const navigate = useNavigate();
- 
+
 
   const handleView = (restauranteId) => {
     navigate(`detalleRestaurante/${restauranteId}`);
@@ -34,23 +34,23 @@ const DashboardUsuario = () => {
     }
   }
 
-async function getDireccionUsuario() {
-  const res = await fetch(`/api/usuarios/indexDireccionUsuario/${user?.id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+  async function getDireccionUsuario() {
+    const res = await fetch(`/api/usuarios/indexDireccionUsuario/${user?.id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      const direccionFormateada = `${data.calle} ${data.altura}, ${data.ciudad}, ${data.provincia}, ${data.pais}`;
+      console.log(direccionFormateada);
+      setDireccionUsuario([direccionFormateada]);
     }
-  });
-
-  const data = await res.json();
-
-  if (res.ok) {
-    const direccionFormateada = `${data.calle} ${data.altura}, ${data.ciudad}, ${data.provincia}, ${data.pais}`;
-  console.log(direccionFormateada);
-    setDireccionUsuario([direccionFormateada]);
   }
-}
 
   async function getCards() {
     const res = await fetch("/api/restaurantes/indexRestaurante");
@@ -69,7 +69,7 @@ async function getDireccionUsuario() {
   }
 
 
-   async function getCoordinates() {
+  async function getCoordinates() {
     try {
       const allCoordinates = await Promise.all(
         direcciones.map(async (address) => {
@@ -77,16 +77,16 @@ async function getDireccionUsuario() {
             `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=pk.eyJ1IjoicGFibG9ucSIsImEiOiJjbTJ4YmZjOGQwMzRzMmpwc20zODgydG1iIn0.bYtjnOjNcWqmycW_N1lsfA`
           );
           const data = await response.json();
+
           
-          // Verifica si la respuesta contiene `features` y tiene al menos un resultado
           if (data.features && data.features.length > 0) {
-            const coordinates = data.features[0].center; // Array [longitud, latitud]
+            const coordinates = data.features[0].center; 
             const placeName = data.features[0].place_name;
-            
+
             console.log("Coordenadas:", coordinates);
             console.log("Nombre del lugar:", placeName);
-  
-            // Retorna las coordenadas en formato `{ lat, lng }`
+
+            
             return { lat: coordinates[1], lng: coordinates[0] };
           } else {
             console.warn(`No se encontraron coordenadas para la dirección: ${address}`);
@@ -94,20 +94,20 @@ async function getDireccionUsuario() {
           }
         })
       );
-  
-      // Filtra las direcciones para excluir las que no encontraron coordenadas completas
+
+      
       const validCoordinates = allCoordinates.filter((coord) => coord !== null);
-  
-      // Aquí puedes guardar las coordenadas válidas en el estado o en la variable deseada
+
+      
       setCoordenadas(validCoordinates);
       console.log("Coordenadas validadas:", validCoordinates);
     } catch (error) {
       console.error("Error al obtener coordenadas:", error);
     }
-  } 
-  
-  
-  
+  }
+
+
+
 
   useEffect(() => {
     getCards();
@@ -135,8 +135,8 @@ async function getDireccionUsuario() {
       setMarkers(generatedMarkers);
     }
   }, [cards, coordenadas]);
-  
-  
+
+
 
   return (
     <>

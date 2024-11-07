@@ -77,7 +77,7 @@ const PanelRestaurante = () => {
             />
             <SiderLink
               to={"/panelRestaurante/perfilRestaurante"}
-              text={"Editar Perfil "}
+              text={"Perfil "}
             />
             <SiderLink
               to={"/panelRestaurante/visualizarReservas"}

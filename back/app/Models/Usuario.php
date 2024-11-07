@@ -21,10 +21,10 @@ class Usuario extends Model
       'fechaRegistro',
   ];  
 
-    public function personas(): BelongsTo
-    {
-        return $this->belongsTo(Persona::class);
-    }
+  public function persona(): BelongsTo
+  {
+      return $this->belongsTo(Persona::class, 'idPersona'); // Asegúrate de especificar la clave foránea
+  }
 
     public function reservas(): HasMany
     {

@@ -22,7 +22,7 @@ const DetalleRestaurante = () => {
 
     if (res.ok) {
       setRestaurante(data);
-      console.log("Restaurante:", data);
+      
     }
   }
 
@@ -54,7 +54,7 @@ const DetalleRestaurante = () => {
 
       const data = await res.json();
       setPlatos(data);
-      console.log("Platos:", data);
+      
     } catch (error) {
       setError(error.message);
     }

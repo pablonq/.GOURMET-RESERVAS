@@ -60,14 +60,14 @@ export default function Layout() {
                       Mis Reservas
                     </Link>
                     <Link
-                      to="/perfilUsuario"
+                      to="panelUsuario/perfilUsuario"
                       className={`hover:text-blue-300 ${
                         isActive("/perfilUsuario")
                           ? "text-orange-400"
                           : "text-white"
                       }`}
                     >
-                      Editar Perfil
+                      Mi Perfil
                     </Link>
                   </>
                 )}

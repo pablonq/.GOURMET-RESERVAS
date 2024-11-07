@@ -9,24 +9,24 @@ use Illuminate\Notifications\Notifiable;
 
 class Persona extends Model
 {
-    use HasFactory , Notifiable;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'nombre',
         'apellido',
         'fechaNac',
         'email',
-       'telefono',
+        'telefono',
         'ciudad'
     ];
 
-    public function usarios(): HasOne
+    public function usuario(): HasOne
     {
-        return $this->hasOne(Usuario::class);
+        return $this->hasOne(Usuario::class); // Relación con Usuario, un a uno
     }
 
-    public function duenios(): HasOne
+    public function duenio(): HasOne
     {
-        return $this->hasOne(Duenio::class);
+        return $this->hasOne(Duenio::class, 'idPersona', 'id'); // Relación con Duenio, un a uno
     }
 }

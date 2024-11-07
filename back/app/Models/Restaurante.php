@@ -32,10 +32,10 @@ class Restaurante extends Model
     ];
 
 
-    public function duenios(): BelongsTo
-    {
-        return $this->belongsTo(Duenio::class);
-    }
+    public function duenio()
+{
+    return $this->hasOne(Duenio::class, 'idRestaurante', 'id');
+}
 
     public function resenias(): HasMany
     {

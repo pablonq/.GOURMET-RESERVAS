@@ -1,8 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import "leaflet/dist/leaflet.css";
-
 import Home from "./pages/Home";
 import LoginUsuario from "./pages/Login/LoginUsuario";
 import LoginRestaurante from "./pages/Login/LoginRestaurante";
@@ -37,6 +35,9 @@ import EditarPlato from "./pages/restaurante/AdministrarPlatos/EditarPlato";
 import Reservas from "./pages/restaurante/Reservas/Reservas";
 import MisReservas from "./pages/usuario/MisReservas/MisReservas";
 import EditarDiasHorarios from "./pages/restaurante/PerfilRestaurante/EditarDiasHorarios";
+import Perfil from "./pages/usuario/Perfil/Perfil";
+import EditarPerfil from "./pages/usuario/Perfil/EditarPerfil";
+import EditarPerfilRestaurante from "./pages/restaurante/PerfilRestaurante/EditarPerfilRestaurante";
 
 function App() {
   const { user } = useContext(AppContext);
@@ -76,7 +77,7 @@ function App() {
             }
           />
 
-            <Route
+          <Route
             path="/detalleReserva/:id"
             element={
               <RutasProtegidasUsuario>
@@ -126,6 +127,28 @@ function App() {
               path="detalleRestaurante/:idRestaurante"
               element={<DetalleRestaurante />}
             />
+            <Route
+              path="reservar/:idRestaurante"
+              element={
+                <RutasProtegidasUsuario>
+                  <ReservarMesa />
+                </RutasProtegidasUsuario>
+              }
+            />
+            <Route
+              path="perfilUsuario"
+              element={
+                <RutasProtegidasUsuario>
+                  <Perfil />
+                </RutasProtegidasUsuario>
+              } />
+            <Route
+              path="editarUsuario/:userId"
+              element={
+                <RutasProtegidasUsuario>
+                  <EditarPerfil />
+                </RutasProtegidasUsuario>
+              } />
           </Route>
 
           {/* Anidar aqui rutas hijas del panel Restaurante*/}
@@ -246,6 +269,13 @@ function App() {
                 </RutasProtegidas>
               }
             />
+            <Route
+              path="editarRestaurante/:userId"
+              element={
+                <RutasProtegidas>
+                  <EditarPerfilRestaurante />
+                </RutasProtegidas>
+              } />
             <Route
               path="visualizarReservas"
               element={

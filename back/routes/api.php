@@ -33,11 +33,17 @@ Route::prefix('usuarios')->group(function () {
   Route::post('/registerReserva', [ReservaController::class, 'registerReserva'])->name('register.reserva');
   Route::get('/traerUsuario/{id}', [UsuarioController::class, 'getUsuario']);
   Route::get('/indexDireccionUsuario/{id}', [UsuarioController::class, 'indexDireccionUsuario'])->name('indexDireccionUsuario.usuario')->middleware('auth:sanctum');
+  Route::PUT('/actualizarUsuario/{id}', [UsuarioController::class, 'actualizarUsuario'])->name('actualizarUsuario.usuario')->middleware('auth:sanctum');
+  Route::DELETE('/borrarUsuario/{id}', [UsuarioController::class, 'borrarUsuario'])->name('borrarUsuario.usuario')->middleware('auth:sanctum');
+ 
 });
 
 // Rutas de autenticación y registro de restaurantes
 Route::prefix('restaurantes')->group(function () {
   Route::get('/mostrarRestaurante/{id}', [RestauranteController::class, 'getRestaurante'])->name('getRestaurante.restaurante');
+  Route::PUT('/actualizarRestaurante/{id}', [RestauranteController::class, 'actualizarRestaurante'])->name('actualizarRestaurante.restaurante')->middleware('auth:sanctum');
+  Route::get('/mostrarDuenio/{id}', [RestauranteController::class, 'getDuenio'])->name('getDuenio.restaurante')->middleware('auth:sanctum');
+  Route::DELETE('/borrarRestaurante/{id}', [RestauranteController::class, 'borrarRestaurante'])->name('borrarRestaurante.restaurante')->middleware('auth:sanctum');
   Route::post('/mesas', [MesaController::class,  'registerMesa'])->name('register.Mesa')->middleware('auth:sanctum');
   Route::get('/indexMesas', [MesaController::class, 'index'])->name('index.Mesa')->middleware('auth:sanctum');
   Route::patch('/ocuparMesa/{mesa}', [MesaController::class, 'ocuparMesa'])->name('ocupar.Mesa');
@@ -74,6 +80,7 @@ Route::prefix('restaurantes')->group(function () {
   Route::get('/traerReseniasUsuario/{idUsuario}', [ReseniaController::class, 'getReseniasUsuario']);
 
   Route::get('/indexDireccionesRestaurantes', [RestauranteController::class, 'indexDireccionesRestaurantes'])->name('indexDireccionesRestaurantes.Restaurante');
+  Route::get('/mostrarDireccionRestaurante/{id}', [RestauranteController::class, 'getDireccionRestaurante'])->name('getDireccionRestaurante.Restaurante');  
   Route::get('/traerTags', [TagController::class, 'indexTags']);
   Route::post('/crearTag', [TagController::class, 'crearTag']);
 });

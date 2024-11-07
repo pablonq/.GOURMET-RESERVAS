@@ -15,16 +15,15 @@ class Duenio extends Model
         'dni',
         'idRestaurante',
         'idPersona'
-
     ];
 
-    public function personas(): BelongsTo
+    public function persona(): BelongsTo
     {
-        return $this->belongsTo(Persona::class);
+        return $this->belongsTo(Persona::class, 'idPersona', 'id'); // Relación con Persona, un a uno
     }
 
-    public function restaurantes(): HasOne
+    public function restaurante(): BelongsTo
     {
-        return $this->hasOne(Restaurante::class);
+        return $this->belongsTo(Restaurante::class, 'idRestaurante', 'id'); // Relación con Restaurante, un a uno
     }
 }
