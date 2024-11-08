@@ -14,7 +14,6 @@ export default function EditarPlato() {
     informacionNutricional: "",
     tags: [],
     imagen: null,
-    categoria: "",
     idRestaurante: user?.id,
     idMenu: "",
   });
@@ -65,7 +64,6 @@ export default function EditarPlato() {
         informacionNutricional: data.informacionNutricional,
         tags: data.tags.map(tag =>parseInt(tag.id, 10)),
         imagen: data.imagen,
-        categoria: data.categoria,
         idRestaurante: user?.id,
         idMenu: data.idMenu || "",
       });
@@ -116,7 +114,7 @@ export default function EditarPlato() {
       navigate("/panelRestaurante/administrarPlatos");
     } else {
       console.error("Error al actualizar el plato");
-      setErrors(data.errors || {}); // Mostrar los errores si ocurren
+      setErrors(data.errors || {}); 
     }
   }
   useEffect(() => {
@@ -229,21 +227,6 @@ export default function EditarPlato() {
             }
           />
           {errors.precio && <p className="error">{errors.precio[0]}</p>}
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Categoria
-          </label>
-          <input
-            type="text"
-            value={formData.categoria}
-            onChange={(e) =>
-              setFormData({ ...formData, categoria: e.target.value })
-            }
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-          />
-          {errors.categoria && <p className="error">{errors.categoria[0]}</p>}
         </div>
 
         <div className="mb-4">

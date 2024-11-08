@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 const CardDashboard = ({ title, contenido }) => {
   return (
-    <div className="bg-gray-400 rounded-lg drop-shadow-lg m-4 flex min-w-[200px] max-w-[400px] min-h-[150px] max-h-[300px]">
+    <div className="rounded-2xl shadow-2xl m-4 flex justify-center min-w-[500px] max-w-[800px] min-h-[200px] max-h-[500px]">
       <h1 className="text-center p-2 font-semibold">{title}</h1>
       <div>{contenido}</div>
     </div>

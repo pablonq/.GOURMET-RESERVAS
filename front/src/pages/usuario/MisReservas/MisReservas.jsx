@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from "react";
 import Title from "../../../component/Title/Title";
 import { AppContext } from "../../../Context/AppContext";
@@ -42,7 +43,7 @@ const MisReservas = () => {
     }
   };
 
-  // traer todas las resñas que ha generado el usuario
+  // traer todas las reseñas que ha generado el usuario
   const getReseniasUsuario = async () => {
     const reseñasResponse = await fetch(
       `/api/restaurantes/traerReseniasUsuario/${idUsuario}`
@@ -84,15 +85,12 @@ const MisReservas = () => {
   };
 
   if (loading) return <p>Cargando reservas...</p>;
-  if (error)
-    return <p className="font-bold text-center text-red-600">{error}</p>;
-
 
   return (
     <div>
       <Title text="Reservas" />
       {reservas.length === 0 ? (
-        <p>No hay reservas disponibles.</p>
+        <p>No hay reservas realizadas</p>
       ) : (
         <div className="space-y-4">
           {reservasActuales.map((reserva) => {

@@ -1,6 +1,6 @@
 import Title from "../../../component/Title/Title";
 import { AppContext } from "../../../Context/AppContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import UsuarioData from "../../../api/UsuarioData";
 import { useNavigate } from "react-router-dom";
 

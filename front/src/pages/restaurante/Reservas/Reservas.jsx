@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from "react";
 import Title from "../../../component/Title/Title";
 import VistaReserva from "../../../component/VistaReserva/VistaReserva";
@@ -95,14 +96,12 @@ const Reservas = () => {
   const paginate = (pageNumber) => setPaginaActual(pageNumber);
 
   if (loading) return <p>Cargando reservas...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
       <Title text="Reservas" />
 
       {/* Inputs de filtrado */}
-     
       <div className="flex my-6 ">
       <div className="text-center items-center w-2/4 font-semibold ">Filtrar Reservas</div>
         <input

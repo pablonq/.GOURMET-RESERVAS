@@ -4,7 +4,6 @@ import { AppContext } from "../../../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import RestauranteData from "../../../api/RestauranteData";
 export default function EditarPerfilRestaurante() {
-
   const navigate = useNavigate();
   const { user, token } = useContext(AppContext);
   const { restaurante, direccion, duenio } = RestauranteData();
@@ -35,7 +34,7 @@ export default function EditarPerfilRestaurante() {
     dniDuenio: "",
     emailDuenio: "",
     telefonoDuenio: "",
-    ciudadDuenio: ""
+    ciudadDuenio: "",
   });
   useEffect(() => {
     setFormData({
@@ -60,27 +59,31 @@ export default function EditarPerfilRestaurante() {
       nombreDuenio: duenio.persona?.[0]?.nombre || "",
       apellidoDuenio: duenio.persona?.[0]?.apellido || "",
 
-      fechaNacimientoDuenio: duenio.persona?.[0]?.fechaNac ? duenio.persona[0].fechaNac.split(" ")[0] : "",
+      fechaNacimientoDuenio: duenio.persona?.[0]?.fechaNac
+        ? duenio.persona[0].fechaNac.split(" ")[0]
+        : "",
       dniDuenio: duenio?.dni || "",
       emailDuenio: duenio.persona?.[0]?.email || "",
       telefonoDuenio: duenio.persona?.[0]?.telefono || "",
-      ciudadDuenio: duenio.persona?.[0]?.ciudad || ""
+      ciudadDuenio: duenio.persona?.[0]?.ciudad || "",
     });
   }, [restaurante, direccion]);
 
   async function handleUpdate(e) {
     e.preventDefault();
 
-    if (formData.nuevaContrasenia && formData.nuevaContrasenia !== formData.contrasenia_confirmation) {
+    if (
+      formData.nuevaContrasenia &&
+      formData.nuevaContrasenia !== formData.contrasenia_confirmation
+    ) {
       setErrors({ ...errors, contrasenia: "Las contraseñas no coinciden" });
       return;
     }
 
-
     const updatedData = {
       ...formData,
 
-      contrasenia: formData.nuevaContrasenia || undefined
+      contrasenia: formData.nuevaContrasenia || undefined,
     };
     console.log(updatedData);
 
@@ -89,14 +92,17 @@ export default function EditarPerfilRestaurante() {
       delete updatedData.contrasenia_confirmation;
     }
 
-    const res = await fetch(`/api/restaurantes/actualizarRestaurante/${user?.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(updatedData),
-    });
+    const res = await fetch(
+      `/api/restaurantes/actualizarRestaurante/${user?.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedData),
+      }
+    );
 
     const data = await res.json();
     console.log(data);
@@ -115,13 +121,13 @@ export default function EditarPerfilRestaurante() {
         <Title text="Editar Perfil restaurante" />
       </div>
       <div className="container mx-auto p-8">
-
-
         <form onSubmit={handleUpdate} className="space-y-6">
           <div className="flex justify-between space-x-8">
             {/* Sección de Datos del Restaurante */}
             <div className="w-1/2 bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4 text-center">Restaurante</h2>
+              <h2 className="text-xl font-semibold mb-4 text-center">
+                Restaurante
+              </h2>
 
               <div className="mb-2">
                 <label className="text-xs">Nombre Restaurante</label>
@@ -135,7 +141,9 @@ export default function EditarPerfilRestaurante() {
                     setFormData({ ...formData, nombreRes: e.target.value })
                   }
                 />
-                {errors.nombreRes && <p className="error">{errors.nombreRes[0]}</p>}
+                {errors.nombreRes && (
+                  <p className="error">{errors.nombreRes[0]}</p>
+                )}
               </div>
               <div className="mb-2">
                 {/* Primer grupo de dos inputs en una fila */}
@@ -148,7 +156,9 @@ export default function EditarPerfilRestaurante() {
                       className="input-style w-full"
                       placeholder="Calle"
                       value={formData.calle || ""}
-                      onChange={(e) => setFormData({ ...formData, calle: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, calle: e.target.value })
+                      }
                     />
                     {errors.calle && <p className="error">{errors.calle[0]}</p>}
                   </div>
@@ -160,9 +170,13 @@ export default function EditarPerfilRestaurante() {
                       className="input-style w-full"
                       placeholder="Altura"
                       value={formData.altura || ""}
-                      onChange={(e) => setFormData({ ...formData, altura: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, altura: e.target.value })
+                      }
                     />
-                    {errors.altura && <p className="error">{errors.altura[0]}</p>}
+                    {errors.altura && (
+                      <p className="error">{errors.altura[0]}</p>
+                    )}
                   </div>
                 </div>
 
@@ -176,9 +190,13 @@ export default function EditarPerfilRestaurante() {
                       className="input-style w-full"
                       placeholder="Ciudad"
                       value={formData.ciudad || ""}
-                      onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, ciudad: e.target.value })
+                      }
                     />
-                    {errors.ciudad && <p className="error">{errors.ciudad[0]}</p>}
+                    {errors.ciudad && (
+                      <p className="error">{errors.ciudad[0]}</p>
+                    )}
                   </div>
                   <div className="flex-1">
                     <label className="text-xs">Provincia</label>
@@ -188,9 +206,13 @@ export default function EditarPerfilRestaurante() {
                       className="input-style w-full"
                       placeholder="Provincia"
                       value={formData.provincia || ""}
-                      onChange={(e) => setFormData({ ...formData, provincia: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, provincia: e.target.value })
+                      }
                     />
-                    {errors.provincia && <p className="error">{errors.provincia[0]}</p>}
+                    {errors.provincia && (
+                      <p className="error">{errors.provincia[0]}</p>
+                    )}
                   </div>
                   <div className="flex-1">
                     <label className="text-xs">Pais</label>
@@ -200,13 +222,14 @@ export default function EditarPerfilRestaurante() {
                       className="input-style w-full"
                       placeholder="Pais"
                       value={formData.pais || ""}
-                      onChange={(e) => setFormData({ ...formData, pais: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, pais: e.target.value })
+                      }
                     />
                     {errors.pais && <p className="error">{errors.pais[0]}</p>}
                   </div>
                 </div>
               </div>
-
 
               <div className="mb-2">
                 <label className="text-xs">Descripción</label>
@@ -220,7 +243,9 @@ export default function EditarPerfilRestaurante() {
                     setFormData({ ...formData, descripcion: e.target.value })
                   }
                 />
-                {errors.descripcion && <p className="error">{errors.descripcion[0]}</p>}
+                {errors.descripcion && (
+                  <p className="error">{errors.descripcion[0]}</p>
+                )}
               </div>
 
               <div className="mb-2">
@@ -233,19 +258,25 @@ export default function EditarPerfilRestaurante() {
                     setFormData({ ...formData, tipo: e.target.value })
                   }
                 >
-                  <option value="" disabled>Tipo de restaurante</option>
+                  <option value="" disabled>
+                    Tipo de restaurante
+                  </option>
                   <option value="Tematico">Temático</option>
-                  <option value="Fast food">Fast food</option>
+                  <option value="comida rapida">Comida rapida</option>
                   <option value="Buffet">Estilo buffet</option>
                   <option value="Gourmet">Gourmet</option>
                   <option value="Fusion">Fusión</option>
                   <option value="Familiar">familiar</option>
                   <option value="De autor">De autor</option>
+                  <option value="bar restaurante">Bar restaurante</option>
+                  <option value="pizzeria">Pizzeria</option>
+                  <option value="parrilla">Parrilla</option>
+                  <option value="cafe restaurante">Cafe restaurante</option>
+
                   {/* Agrega más opciones aquí según lo necesites */}
                 </select>
                 {errors.tipo && <p className="error">{errors.tipo[0]}</p>}
               </div>
-
 
               <div className="mb-2">
                 <label className="text-xs">Telefono</label>
@@ -259,7 +290,9 @@ export default function EditarPerfilRestaurante() {
                     setFormData({ ...formData, telefono: e.target.value })
                   }
                 />
-                {errors.telefono && <p className="error">{errors.telefono[0]}</p>}
+                {errors.telefono && (
+                  <p className="error">{errors.telefono[0]}</p>
+                )}
               </div>
 
               <div className="mb-2">
@@ -284,7 +317,10 @@ export default function EditarPerfilRestaurante() {
                   placeholder="Nueva Contraseña"
                   value={formData.nuevaContrasenia || ""}
                   onChange={(e) =>
-                    setFormData({ ...formData, nuevaContrasenia: e.target.value })
+                    setFormData({
+                      ...formData,
+                      nuevaContrasenia: e.target.value,
+                    })
                   }
                 />
                 {errors.contrasenia && (
@@ -319,11 +355,12 @@ export default function EditarPerfilRestaurante() {
                     setFormData({ ...formData, capacidadTotal: e.target.value })
                   }
                 />
-                {errors.capacidadTotal && <p className="error">{errors.capacidadTotal[0]}</p>}
+                {errors.capacidadTotal && (
+                  <p className="error">{errors.capacidadTotal[0]}</p>
+                )}
               </div>
 
               <div className="mb-4">
-
                 <label className="mr-4">¿Acepta eventos?</label>
                 <div className="inline-flex items-center space-x-4">
                   <input
@@ -333,10 +370,15 @@ export default function EditarPerfilRestaurante() {
                     value="si"
                     checked={formData.aceptaEventos === "si"}
                     onChange={(e) =>
-                      setFormData({ ...formData, aceptaEventos: e.target.value })
+                      setFormData({
+                        ...formData,
+                        aceptaEventos: e.target.value,
+                      })
                     }
                   />
-                  <label htmlFor="aceptaSi" className="mr-4">Sí</label>
+                  <label htmlFor="aceptaSi" className="mr-4">
+                    Sí
+                  </label>
 
                   <input
                     type="radio"
@@ -345,7 +387,10 @@ export default function EditarPerfilRestaurante() {
                     value="no"
                     checked={formData.aceptaEventos === "no"}
                     onChange={(e) =>
-                      setFormData({ ...formData, aceptaEventos: e.target.value })
+                      setFormData({
+                        ...formData,
+                        aceptaEventos: e.target.value,
+                      })
                     }
                   />
                   <label htmlFor="aceptaNo">No</label>
@@ -369,7 +414,9 @@ export default function EditarPerfilRestaurante() {
                     setFormData({ ...formData, nombreDuenio: e.target.value })
                   }
                 />
-                {errors.nombreDuenio && <p className="error">{errors.nombreDuenio[0]}</p>}
+                {errors.nombreDuenio && (
+                  <p className="error">{errors.nombreDuenio[0]}</p>
+                )}
               </div>
 
               <div className="mb-2">
@@ -384,7 +431,9 @@ export default function EditarPerfilRestaurante() {
                     setFormData({ ...formData, apellidoDuenio: e.target.value })
                   }
                 />
-                {errors.apellidoDuenio && <p className="error">{errors.apellidoDuenio[0]}</p>}
+                {errors.apellidoDuenio && (
+                  <p className="error">{errors.apellidoDuenio[0]}</p>
+                )}
               </div>
 
               <div className="mb-2">
@@ -402,7 +451,9 @@ export default function EditarPerfilRestaurante() {
                     })
                   }
                 />
-                {errors.fechaNacimientoDuenio && <p className="error">{errors.fechaNacimientoDuenio[0]}</p>}
+                {errors.fechaNacimientoDuenio && (
+                  <p className="error">{errors.fechaNacimientoDuenio[0]}</p>
+                )}
               </div>
 
               <div className="mb-2">
@@ -417,7 +468,9 @@ export default function EditarPerfilRestaurante() {
                     setFormData({ ...formData, dniDuenio: e.target.value })
                   }
                 />
-                {errors.dniDuenio && <p className="error">{errors.dniDuenio[0]}</p>}
+                {errors.dniDuenio && (
+                  <p className="error">{errors.dniDuenio[0]}</p>
+                )}
               </div>
 
               <div className="mb-2">
@@ -432,7 +485,9 @@ export default function EditarPerfilRestaurante() {
                     setFormData({ ...formData, emailDuenio: e.target.value })
                   }
                 />
-                {errors.emailDuenio && <p className="error">{errors.emailDuenio[0]}</p>}
+                {errors.emailDuenio && (
+                  <p className="error">{errors.emailDuenio[0]}</p>
+                )}
               </div>
 
               <div className="mb-2">
@@ -447,7 +502,9 @@ export default function EditarPerfilRestaurante() {
                     setFormData({ ...formData, telefonoDuenio: e.target.value })
                   }
                 />
-                {errors.telefonoDuenio && <p className="error">{errors.telefonoDuenio[0]}</p>}
+                {errors.telefonoDuenio && (
+                  <p className="error">{errors.telefonoDuenio[0]}</p>
+                )}
               </div>
 
               <div className="mb-2">
@@ -462,7 +519,9 @@ export default function EditarPerfilRestaurante() {
                     setFormData({ ...formData, ciudadDuenio: e.target.value })
                   }
                 />
-                {errors.ciudadDuenio && <p className="error">{errors.ciudadDuenio[0]}</p>}
+                {errors.ciudadDuenio && (
+                  <p className="error">{errors.ciudadDuenio[0]}</p>
+                )}
               </div>
             </div>
           </div>
@@ -474,4 +533,4 @@ export default function EditarPerfilRestaurante() {
       </div>
     </>
   );
-};
+}
