@@ -15,15 +15,13 @@ class PlatoController extends Controller
 
     $restaurante = Restaurante::find($id);
 
-    // Verificar si el restaurante existe
     if (!$restaurante) {
       return response()->json(['error' => 'Restaurante no encontrado'], 404);
     }
 
-    // Cargar los platos del restaurante con los menús asociados
     $platos = $restaurante->platos()->with('menus:id,nombre')->get();
 
-    // Modificar la estructura de la respuesta para incluir los menús asociados
+
     $platosConMenus = $platos->map(function ($plato) {
       return [
         'id' => $plato->id,
@@ -31,9 +29,7 @@ class PlatoController extends Controller
         'descripcion' => $plato->descripcion,
         'informacionNutricional' => $plato->informacionNutricional,
         'precio' => $plato->precio,
-        'categoria' => $plato->categoria,
         'imagen' => $plato->imagen,
-        // Devolver una lista de los menús asociados con el plato
         'menus' => $plato->menus->map(function ($menu) {
           return [
             'id' => $menu->id,
@@ -43,7 +39,6 @@ class PlatoController extends Controller
       ];
     });
 
-    // Devolver la respuesta en formato JSON
     return response()->json($platosConMenus);
   }
 
@@ -56,7 +51,6 @@ class PlatoController extends Controller
       'descripcion' => 'required|string',
       'informacionNutricional' => 'required|string',
       'precio' => 'required|integer',
-      'categoria' => 'required|string',
       'tags' => 'array',
       'tags.*' => 'integer',
 
@@ -71,7 +65,6 @@ class PlatoController extends Controller
       'descripcion' => $fields['descripcion'],
       'informacionNutricional' => $fields['informacionNutricional'],
       'precio' => $fields['precio'],
-      'categoria' => $fields['categoria'],
       'imagen' => $fields['imagen'],
 
     ]);
@@ -82,7 +75,6 @@ class PlatoController extends Controller
     }
 
     if (!is_null($fields['idMenu'])) {
-      // Buscar el menú
       $menu = Menu::find($fields['idMenu']);
 
       // Si el menú existe, crear la relación en la tabla pivote plato_menu
@@ -103,7 +95,6 @@ class PlatoController extends Controller
       return response()->json(['error' => 'Plato no encontrado'], 404);
     }
 
-
     $menu = $plato->menus->isNotEmpty() ? $plato->menus->first() : null;
 
     $tagsArray = [];
@@ -121,7 +112,6 @@ class PlatoController extends Controller
       'informacionNutricional' => $plato->informacionNutricional,
       'tags'  => $tagsArray,
       'precio' => $plato->precio,
-      'categoria' => $plato->categoria,
       'imagen' => $plato->imagen,
       'menu' => $menu ? [
         'id' => $menu->id,
@@ -138,14 +128,13 @@ class PlatoController extends Controller
       'descripcion' => 'required|string',
       'informacionNutricional' => 'required|string',
       'precio' => 'required|integer',
-      'categoria' => 'required|string',
       'tags' => 'nullable|array',
       'tags.*' => 'integer',
       'idMenu' => 'nullable|integer',
 
       /* 'imagen' => 'required', */
     ]);
-    $platoData = $request->only(['nombrePlato', 'descripcion', 'informacionNutricional', 'precio', 'categoria']);
+    $platoData = $request->only(['nombrePlato', 'descripcion', 'informacionNutricional', 'precio']);
     $plato = Plato::find($id);
     if (!$plato) {
       return response()->json(['error' => 'Plato no encontrado'], 404);
@@ -161,7 +150,6 @@ class PlatoController extends Controller
     if (empty($fields['idMenu'])) {
       $plato->menus()->detach();  // Eliminar todos los menús asociados al plato
     } else {
-      // Si se seleccionó un menú, actualizar la relación
       $plato->menus()->sync([$fields['idMenu']]);
     }
 
@@ -178,18 +166,14 @@ class PlatoController extends Controller
 
   public function indexPlatosMenus($menuId)
   {
-    // Buscar el menú por su ID
     $menu = Menu::find($menuId);
 
-    // Verificar si el menú existe
     if (!$menu) {
       return response()->json(['error' => 'Menú no encontrado'], 404);
     }
 
-    // Obtener los platos asociados al menú
     $platos = $menu->platos;
 
-    // Devolver los platos en formato JSON
     return response()->json($platos);
   }
 }

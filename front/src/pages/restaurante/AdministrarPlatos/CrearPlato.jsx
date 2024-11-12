@@ -12,7 +12,6 @@ export default function CrearMenu() {
     informacionNutricional: "",
     tags: [],
     precio: "",
-    categoria: "",
     imagen: null,
     idRestaurante: user?.id,
     idMenu: "",
@@ -78,10 +77,8 @@ export default function CrearMenu() {
     const data = {
       nombre: formData.nombre,
       descripcion: formData.descripcion,
-
       informacionNutricional: formData.informacionNutricional,
       precio: formData.precio,
-      categoria: formData.categoria,
       imagen: imagen,
       idRestaurante: user?.id,
       idMenu: formData.idMenu === "" ? null : formData.idMenu,
@@ -226,22 +223,6 @@ export default function CrearMenu() {
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Categoria
-          </label>
-          <input
-            type="text"
-            value={formData.categoria}
-            onChange={(e) =>
-              setFormData({ ...formData, categoria: e.target.value })
-            }
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-          />
-          {errors.categoria && <p className="error">{errors.categoria[0]}</p>}
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">Menú</label>

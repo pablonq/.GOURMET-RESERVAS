@@ -17,7 +17,6 @@ class Plato extends Model
         'precio',
         'informacionNutricional',
         'tag',
-        'categoria',
         'imagen'
     ];
 

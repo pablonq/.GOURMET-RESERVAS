@@ -216,13 +216,18 @@ export default function RegistroRestaurante() {
                 }
               >
                 <option value="" disabled>Tipo de restaurante</option>
-                <option value="Tematico">Temático</option>
-                <option value="Fast food">Fast food</option>
-                <option value="Buffet">Estilo buffet</option>
-                <option value="Gourmet">Gourmet</option>
-                <option value="Fusion">Fusión</option>
-                <option value="Familiar">Familiar</option>
-                <option value="De autor">De autor</option>
+                <option value="tematico">Temático</option>
+                <option value="comida rapida">Comida rapida</option>
+                <option value="buffet">Estilo buffet</option>
+                <option value="gourmet">Gourmet</option>
+                <option value="fusion">Fusión</option>
+                <option value="familiar">familiar</option>
+                <option value="de autor">De autor</option>
+                <option value="bar restaurante">Bar restaurante</option>
+                <option value="pizzeria">Pizzeria</option>
+                <option value="parrilla">Parrilla</option>
+                <option value="cafe restaurante">Cafe restaurante</option>
+
 
                 {/* Agrega más opciones aquí según lo necesites */}
               </select>

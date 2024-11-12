@@ -30,34 +30,26 @@ class MenuSeeder extends Seeder
         $menu->save();
 
         $menu = new Menu();
-        $menu->nombre = 'Menu 3';
-        $menu->descripcion = 'Descripcion del menu 3';
-        $menu->tipo = 'tipo 3';
-        $menu->imagen = 'null';
+        $menu->nombre = 'Dulce Antojo';
+        $menu->descripcion = 'Postres clasicos y gourmet';
+        $menu->tipo = 'Postres';
+        $menu->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2024-11-01.jpg?alt=media&token=3af98f19-36a9-42f5-b5b2-5cfe50d039fa';
         $menu->idRestaurante = 1;
         $menu->save();
 
         $menu = new Menu();
-        $menu->nombre = 'Menu 4';
-        $menu->descripcion = 'Descripcion del menu 4';
-        $menu->tipo = 'tipo 4';
-        $menu->imagen = 'null';
+        $menu->nombre = 'pizzas';
+        $menu->descripcion = 'PIZZAS MASA MADRE EN HORNO DE LEÑA.';
+        $menu->tipo = 'Principal';
+        $menu->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F131dfebf-0446-4f84-a764-9939fbfbeeb1?alt=media&token=ae602e9c-273d-442b-bd1e-3a34cc0a6c19';
         $menu->idRestaurante = 1;
         $menu->save();
 
         $menu = new Menu();
-        $menu->nombre = 'Menu 5';
-        $menu->descripcion = 'Descripcion del menu 5';
-        $menu->tipo = 'tipo 5';
-        $menu->imagen = 'null';
-        $menu->idRestaurante = 1;
-        $menu->save();
-
-        $menu = new Menu();
-        $menu->nombre = 'Menu 1';
-        $menu->descripcion = 'Descripcion del menu 1';
-        $menu->tipo = 'tipo 1';
-        $menu->imagen = 'null';
+        $menu->nombre = 'Nuestras Pizzas';
+        $menu->descripcion = 'La mejor pizza ';
+        $menu->tipo = 'Principal';
+        $menu->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F46ca6c33-ef1f-42ce-a60e-b7409517bf63?alt=media&token=b7cbca6f-5562-430d-92be-d6c232e70e82';
         $menu->idRestaurante = 2;
         $menu->save();
 
@@ -86,18 +78,18 @@ class MenuSeeder extends Seeder
         $menu->save();
 
         $menu = new Menu();
-        $menu->nombre = 'Menu 5';
-        $menu->descripcion = 'Descripcion del menu 5';
-        $menu->tipo = 'tipo 5';
-        $menu->imagen = 'null';
-        $menu->idRestaurante = 2;
+        $menu->nombre = 'After hours';
+        $menu->descripcion = 'Variades de cervezas ';
+        $menu->tipo = 'Bebidas';
+        $menu->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FCerveza-artesanal-750x375.jpg?alt=media&token=71693dfa-a590-4c1b-81e0-3dfd090e706d';
+        $menu->idRestaurante = 3;
         $menu->save();
 
         $menu = new Menu();
         $menu->nombre = 'Pizza Gourmet';
         $menu->descripcion = 'Pizza todo variedad';
         $menu->tipo = 'Pizzas';
-        $menu->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fa12c5ee3-94bf-4464-9cb3-e3f5d11cb42f?alt=media&token=eb44ac9d-a988-465b-aa87-a1ac9a829650';
+        $menu->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F47bcbf25-deee-49d8-97c4-4f0c886afdf7?alt=media&token=dab8be1a-efd1-4190-86f7-7322c6dde957';
         $menu->idRestaurante = 3;
         $menu->save();
 
@@ -122,7 +114,7 @@ class MenuSeeder extends Seeder
         $menu->descripcion = 'Descripcion del menu 4';
         $menu->tipo = 'tipo 4';
         $menu->imagen = 'null';
-        $menu->idRestaurante = 3;
+        $menu->idRestaurante = 4;
         $menu->save();
 
         $menu = new Menu();
@@ -130,7 +122,7 @@ class MenuSeeder extends Seeder
         $menu->descripcion = 'Explora una variedad de sabores en nuestro menú de desayunos. ';
         $menu->tipo = 'Desayuno';
         $menu->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Ff9e18001-b49a-4142-9d85-4032418760eb?alt=media&token=6018581d-e405-440a-b3f8-23c92888d1ad';
-        $menu->idRestaurante = 3;
+        $menu->idRestaurante = 4;
         $menu->save();
 
         $menu = new Menu();
@@ -149,12 +141,21 @@ class MenuSeeder extends Seeder
         $menu->idRestaurante = 4;
         $menu->save();
 
+
+        $menu = new Menu();
+        $menu->nombre = 'Carnes';
+        $menu->descripcion = 'Los mejores cortes de carnes con salsa o ensaladas';
+        $menu->tipo = 'Plato principal';
+        $menu->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F432aa2b5-df83-42f6-bacc-ac66ecaf6b16?alt=media&token=ee90332f-2052-4199-9c83-aaaaa839505b';
+        $menu->idRestaurante = 5;
+        $menu->save();
+
         $menu = new Menu();
         $menu->nombre = 'Menu 3';
         $menu->descripcion = 'Descripcion del menu 3';
         $menu->tipo = 'tipo 3';
         $menu->imagen = 'null';
-        $menu->idRestaurante = 4;
+        $menu->idRestaurante = 5;
         $menu->save();
 
         $menu = new Menu();
@@ -162,7 +163,7 @@ class MenuSeeder extends Seeder
         $menu->descripcion = 'Descripcion del menu 4';
         $menu->tipo = 'tipo 4';
         $menu->imagen = 'null';
-        $menu->idRestaurante = 4;
+        $menu->idRestaurante = 5;
         $menu->save();
 
         $menu = new Menu();
@@ -170,7 +171,7 @@ class MenuSeeder extends Seeder
         $menu->descripcion = 'Descripcion del menu 5';
         $menu->tipo = 'tipo 5';
         $menu->imagen = 'null';
-        $menu->idRestaurante = 4;
+        $menu->idRestaurante = 5;
         $menu->save();
     }
 }

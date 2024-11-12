@@ -9,9 +9,9 @@ const DashboardRestaurante = () => {
           title={"Calificación promedio de los clientes"}
           contenido={""}
         />
-        <CardDashboard title={"Mesas disponibles y ocupadas"} contenido={""} />
+        <CardDashboard title={"Total Mesas disponibles y ocupadas"} contenido={""} />
         <CardDashboard
-          title={"Reservas confirmadas, pendientes y canceladas"}
+          title={"horas pico de reserva"}
           contenido={""}
         />
       </div>
