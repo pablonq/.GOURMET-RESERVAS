@@ -40,6 +40,7 @@ Route::prefix('usuarios')->group(function () {
 
 // Rutas de autenticación y registro de restaurantes
 Route::prefix('restaurantes')->group(function () {
+  Route::get('/indexRestaurantes', [RestauranteController::class, 'indexRestaurantes'])->name('index.restaurantes');
   Route::get('/mostrarRestaurante/{id}', [RestauranteController::class, 'getRestaurante'])->name('getRestaurante.restaurante');
   Route::PUT('/actualizarRestaurante/{id}', [RestauranteController::class, 'actualizarRestaurante'])->name('actualizarRestaurante.restaurante')->middleware('auth:sanctum');
   Route::get('/mostrarDuenio/{id}', [RestauranteController::class, 'getDuenio'])->name('getDuenio.restaurante')->middleware('auth:sanctum');
