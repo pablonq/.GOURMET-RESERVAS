@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -33,9 +34,9 @@ class Restaurante extends Model
 
 
     public function duenio()
-{
-    return $this->hasOne(Duenio::class, 'idRestaurante', 'id');
-}
+    {
+        return $this->hasOne(Duenio::class, 'idRestaurante', 'id');
+    }
 
     public function resenias(): HasMany
     {
@@ -74,7 +75,13 @@ class Restaurante extends Model
 
     public function imagenesRestaurantes(): HasMany
     {
-        return $this->hasMany(ImagenesRestaurante::class);
+        return $this->hasMany(ImagenesRestaurante::class, 'idRestaurante', 'id');
+    }
+
+    // esto para traer solo una imagen
+    public function imagenPrincipal(): HasOne
+    {
+        return $this->hasOne(ImagenesRestaurante::class, 'idRestaurante', 'id');
     }
 
     public function direccion()

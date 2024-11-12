@@ -13,6 +13,7 @@ const Reservas = () => {
   const [filtroNombre, setFiltroNombre] = useState("");
   const [filtroFecha, setFiltroFecha] = useState("");
   const [filtroEstado, setFiltroEstado] = useState("");
+  const [resenias, setResenias] = useState({});
 
   // Paginación
   const [paginaActual, setPaginaActual] = useState(1);
@@ -37,6 +38,31 @@ const Reservas = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const fetchResenias = async (reservas) => {
+    try {
+      const reseniaPromises = reservas.map(async (reserva) => {
+        const response = await fetch(
+          `/api/restaurantes/reseniaReserva/${reserva.id}`
+        );
+        return response.ok ? response.json() : null;
+      });
+      const resenias = await Promise.all(reseniaPromises);
+      setResenias(resenias);
+    } catch (error) {
+      setError("Error al cargar las reseñas");
+    }
+  };
+
+  const handleResponseUpdate = (reseniaId, respuestaDuenio) => {
+    setResenias((prevResenias) =>
+      prevResenias.map((resenia) =>
+        resenia && resenia.id === reseniaId
+          ? { ...resenia, respuestaDuenio }
+          : resenia
+      )
+    );
   };
 
   const getUsuarios = async (ids) => {
@@ -71,27 +97,31 @@ const Reservas = () => {
     if (reservas.length > 0) {
       const idsUsuarios = reservas.map((reserva) => reserva.idUsuario);
       getUsuarios(idsUsuarios);
+      fetchResenias(reservas);
     }
   }, [reservas]);
 
   // Filtrar reservas
   const reservasFiltradas = reservas.filter((reserva) => {
-    const usuario = usuarios.find((user) => user.id === reserva.idUsuario) || {};
+    const usuario =
+      usuarios.find((user) => user.id === reserva.idUsuario) || {};
     const nombreUsuario = usuario.nombre || "";
-    const fechaReserva = reserva.fechaReserva.split(" ")[0]; 
-  
+    const fechaReserva = reserva.fechaReserva.split(" ")[0];
+
     return (
       (filtroNombre === "" ||
         nombreUsuario.toLowerCase().includes(filtroNombre.toLowerCase())) &&
       (filtroFecha === "" || fechaReserva === filtroFecha) &&
       (filtroEstado === "" || reserva.estado === filtroEstado)
-      
     );
   });
 
   const indexUltimaReserva = paginaActual * reservasPorPagina;
   const indexPrimerReserva = indexUltimaReserva - reservasPorPagina;
-  const reservasActuales = reservasFiltradas.slice(indexPrimerReserva, indexUltimaReserva);
+  const reservasActuales = reservasFiltradas.slice(
+    indexPrimerReserva,
+    indexUltimaReserva
+  );
 
   const paginate = (pageNumber) => setPaginaActual(pageNumber);
 
@@ -103,7 +133,9 @@ const Reservas = () => {
 
       {/* Inputs de filtrado */}
       <div className="flex my-6 ">
-      <div className="text-center items-center w-2/4 font-semibold ">Filtrar Reservas</div>
+        <div className="text-center items-center w-2/4 font-semibold ">
+          Filtrar Reservas
+        </div>
         <input
           type="text"
           placeholder="Buscar por nombre de Persona"
@@ -130,6 +162,20 @@ const Reservas = () => {
         </select>
       </div>
 
+      <div className="flex flex-row ">
+        <div className="w-3/4 flex flex-row  divide-x border border-gray-300 font-semibold p-2 my-4">
+          <p className="flex-1 text-center">Fecha</p>
+          <p className="flex-1 text-center">Hora</p>
+          <p className="flex-1 text-center">Estado De reserva</p>
+          <p className="flex-1 text-center">Comentarios</p>
+          <p className="flex-1 text-center">Resumen de Mesas</p>
+          <p className="flex-1 text-center">Datos del usuario</p>
+        </div>
+        <div className="w-1/4 ml-2 border border-gray-300 font-semibold p-2 my-4">
+          <p className="text-center">Calificacion de usuarios</p>
+        </div>
+      </div>
+
       {reservasFiltradas.length === 0 ? (
         <p>No hay reservas disponibles.</p>
       ) : (
@@ -139,6 +185,8 @@ const Reservas = () => {
             reserva={reserva}
             mesas={reserva.mesas}
             usuario={usuarios[index]}
+            reseniaExistente={resenias[index]}
+            onResponse={handleResponseUpdate}
           />
         ))
       )}

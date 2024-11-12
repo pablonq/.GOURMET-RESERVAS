@@ -79,7 +79,9 @@ Route::prefix('restaurantes')->group(function () {
 
   Route::post('/crearUnaResenia', [ReseniaController::class, 'crearResenia']);
   Route::get('/traerResenias/{idRestaurante}', [ReseniaController::class, 'traerReseniaRestaurante']);
-  Route::get('/traerReseniasUsuario/{idUsuario}', [ReseniaController::class, 'getReseniasUsuario']);
+  Route::get('/traerReseniasUsuario/{idUsuario}', [ReseniaController::class, 'getReseniasUsuario']); 
+  Route::get('/reseniaReserva/{idResenia}', [ReseniaController::class, 'getReseniaPorReserva']);
+  Route::post('/responderResenia/{idResenia}', [ReseniaController::class, 'responderResenia']);
 
   Route::get('/indexDireccionesRestaurantes', [RestauranteController::class, 'indexDireccionesRestaurantes'])->name('indexDireccionesRestaurantes.Restaurante');
   Route::get('/mostrarDireccionRestaurante/{id}', [RestauranteController::class, 'getDireccionRestaurante'])->name('getDireccionRestaurante.Restaurante');  
@@ -87,6 +89,7 @@ Route::prefix('restaurantes')->group(function () {
   Route::post('/crearTag', [TagController::class, 'crearTag']);
 
   Route::post('/filtrarRestaurantesPorTags', [RestauranteController::class, 'filtrarPorTags']);
+  Route::get('/totalReservasPorPeriodo/{idRestaurante}/{fechaInicio}/{fechaFin}',  [ReservaController::class, 'getTotalReservasPorPeriodo']);
 });
 
 Route::get('/pago/exito', [PagoController::class, 'exito'])->name('pago.exito');

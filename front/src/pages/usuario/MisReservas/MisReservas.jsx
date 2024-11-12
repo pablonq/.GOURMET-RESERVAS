@@ -4,6 +4,9 @@ import Title from "../../../component/Title/Title";
 import { AppContext } from "../../../Context/AppContext";
 import EstrellaPuntuacion from "../../../component/EstrellaPuntuacion/EstrellaPuntuacion";
 import EscribirResenia from "./EscribirResenia";
+import ReservasFiltros from "../../../component/ReservasFiltros/ReservasFiltros";
+import DetalleReservaCliente from "../../../component/DetalleReservaCliente/DetalleReservaCliente";
+import ResumenResenia from "../../../component/ResumenResenia/ResumenResenia";
 
 const MisReservas = () => {
   const { user } = useContext(AppContext);
@@ -13,6 +16,7 @@ const MisReservas = () => {
   const [resenias, setResenias] = useState({});
   const [reservaActual, setReservaActual] = useState(null);
   const [mostrarEscribirResenia, setMostrarEscribirResenia] = useState(false);
+  const [filter, setFilter] = useState("activas");
 
   const [paginaActual, setPaginaActual] = useState(1);
   const reservasPorPagina = 5;
@@ -64,9 +68,28 @@ const MisReservas = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idUsuario]);
 
+  const handleFilterChange = (selectedFilter) => {
+    setFilter(selectedFilter);
+  };
+
+  const today = new Date();
+  const filteredReservas = reservas.filter((reserva) => {
+    const fecha = new Date(
+      `${reserva.fechaReserva.split(" ")[0]}T${reserva.horaReserva}`
+    );
+    if (filter === "activas") {
+      return reserva.estado === "procesada" && fecha > today;
+    } else if (filter === "pasadas") {
+      return reserva.estado === "procesada" && fecha < today;
+    } else if (filter === "canceladas") {
+      return reserva.estado === "cancelada";
+    }
+    return false;
+  });
+
   const indexUltimaReserva = paginaActual * reservasPorPagina;
   const indexPrimerReserva = indexUltimaReserva - reservasPorPagina;
-  const reservasActuales = reservas.slice(
+  const reservasActuales = filteredReservas.slice(
     indexPrimerReserva,
     indexUltimaReserva
   );
@@ -87,93 +110,68 @@ const MisReservas = () => {
   if (loading) return <p>Cargando reservas...</p>;
 
   return (
-    <div>
-      <Title text="Reservas" />
-      {reservas.length === 0 ? (
-        <p>No hay reservas realizadas</p>
-      ) : (
-        <div className="space-y-4">
-          {reservasActuales.map((reserva) => {
-            const cantidadMesas = reserva.mesas.length;
-            const totalComensales = reserva.mesas.reduce(
-              (total, mesa) => total + mesa.cantidadPersonas,
-              0
-            );
+    <div className="flex">
+      <div className="w-1/4 p-4">
+        <ReservasFiltros onFilterChange={handleFilterChange} />
+      </div>
+      <div className="w-3/4 p-4">
+        <h3 className="font-semibold text-lg text-zinc-700 p-2">{`Reservas ${filter}`}</h3>
+        {filteredReservas.length === 0 ? (
+          <p className="text-sm ml-2">No hay reservas realizadas</p>
+        ) : (
+          <div className="space-y-4">
+            {reservasActuales.map((reserva) => {
+              const reseniaExistente = resenias[reserva.id];
+              const fechaActual = new Date();
+              const fechaReserva = new Date(
+                `${reserva.fechaReserva.split(" ")[0]}T${reserva.horaReserva}`
+              );
+              const haPasado = fechaReserva < fechaActual;
+              return (
+                <div key={reserva.id} className="border p-4 rounded shadow">
+                  <DetalleReservaCliente reserva={reserva} filtro={filter} />
 
-            const reseniaExistente = resenias[reserva.id];
-            const fechaActual = new Date();
-            const fechaReservaString = reserva.fechaReserva;
-            const fechaLimpia = fechaReservaString.split(" ")[0];
-            const horaReservaString = reserva.horaReserva;
+                  {/* Botón para abrir el modal */}
+                  {haPasado &&
+                    !reseniaExistente &&
+                    reserva.estado == "procesada" && (
+                      <button
+                        onClick={() => openModal(reserva)}
+                        className="mt-4 bg-slate-400 hover:bg-orange-400 text-white py-2 px-4 rounded"
+                      >
+                        Generar Reseña
+                      </button>
+                    )}
 
-            const fechaReserva = new Date(
-              `${fechaLimpia}T${horaReservaString}`
-            );
+                  {reseniaExistente && (
+                    <ResumenResenia reseniaExistente={reseniaExistente} />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
 
-            const haPasado = fechaReserva < fechaActual;
-            return (
-              <div key={reserva.id} className="border p-4 rounded shadow">
-                <h3 className="text-lg font-semibold">
-                  Restaurante: {reserva.restaurantes.nombreRes}
-                </h3>
-                <p>Fecha: {fechaLimpia}</p>
-                <p>Hora: {horaReservaString}</p>
-                <p>Estado reserva: {reserva.estado}</p>
-                <p>Cantidad de mesas reservadas: {cantidadMesas}</p>
-                <p>Total de comensales: {totalComensales}</p>
-                <ul>
-                  {reserva.mesas.map((mesa) => (
-                    <li key={mesa.id}>
-                      Mesa número {mesa.numeroMesa} : Cap
-                      {mesa.cantidadPersonas} personas
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Botón para abrir el modal */}
-                {haPasado && !reseniaExistente && (
-                  <button
-                    onClick={() => openModal(reserva)}
-                    className="mt-4 bg-slate-400 hover:bg-orange-400 text-white py-2 px-4 rounded"
-                  >
-                    Generar Reseña
-                  </button>
-                )}
-
-                {reseniaExistente && (
-                  <div className="mt-4  p-2 border-2 shadow-md  shadow-amber-100 ">
-                    <h4 className="font-semibold">Tu Reseña:</h4>
-                    <EstrellaPuntuacion
-                      calificacion={reseniaExistente.calificacion}
-                    />
-                    <p>Comentario: {reseniaExistente.comentario}</p>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+        {/* Paginación */}
+        <div className="flex justify-end">
+          {Array.from(
+            { length: Math.ceil(reservas.length / reservasPorPagina) },
+            (_, index) => (
+              <button
+                className="border-2 rounded-md p-2 w-6 text-center"
+                key={index + 1}
+                onClick={() => paginate(index + 1)}
+              >
+                {index + 1}
+              </button>
+            )
+          )}
         </div>
-      )}
 
-      {/* Paginación */}
-      <div className="flex justify-end">
-        {Array.from(
-          { length: Math.ceil(reservas.length / reservasPorPagina) },
-          (_, index) => (
-            <button
-              className="border-2 rounded-md p-2 w-6 text-center"
-              key={index + 1}
-              onClick={() => paginate(index + 1)}
-            >
-              {index + 1}
-            </button>
-          )
+        {mostrarEscribirResenia && (
+          <EscribirResenia reserva={reservaActual} closeModal={closeModal} />
         )}
       </div>
-
-      {mostrarEscribirResenia && (
-        <EscribirResenia reserva={reservaActual} closeModal={closeModal} />
-      )}
     </div>
   );
 };

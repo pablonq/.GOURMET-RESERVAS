@@ -10,7 +10,7 @@ const DashboardUsuario = () => {
   const [imagenes, setImagenes] = useState([]);
   const [direcciones, setDirecciones] = useState([]);
   const [coordenadas, setCoordenadas] = useState([]);
-  const [markers, setMarkers] = useState([]); 
+  const [markers, setMarkers] = useState([]);
 
   const { user, token } = useContext(AppContext);
 
@@ -41,7 +41,6 @@ const DashboardUsuario = () => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-      
       },
     });
 
@@ -49,7 +48,7 @@ const DashboardUsuario = () => {
 
     if (res.ok) {
       const direccionFormateada = `${data.calle} ${data.altura}, ${data.ciudad}, ${data.provincia}, ${data.pais}`;
-      console.log(direccionFormateada);
+      //console.log(direccionFormateada);
       // console.log(direccionFormateada);
       setDireccionUsuario([direccionFormateada]);
     }
@@ -128,16 +127,14 @@ const DashboardUsuario = () => {
           );
           const data = await response.json();
 
-          
           // Verifica si la respuesta contiene `features` y tiene al menos un resultado
           if (data.features && data.features.length > 0) {
-            const coordinates = data.features[0].center; 
+            const coordinates = data.features[0].center;
             const placeName = data.features[0].place_name;
 
-            console.log("Coordenadas:", coordinates);
+            //   console.log("Coordenadas:", coordinates);
             console.log("Nombre del lugar:", placeName);
 
-            
             // Retorna las coordenadas en formato `{ lat, lng }`
             return { lat: coordinates[1], lng: coordinates[0] };
           } else {
@@ -154,7 +151,7 @@ const DashboardUsuario = () => {
 
       // Aquí puedes guardar las coordenadas válidas en el estado o en la variable deseada
       setCoordenadas(validCoordinates);
-      console.log("Coordenadas validadas:", validCoordinates);
+     // console.log("Coordenadas validadas:", validCoordinates);
     } catch (error) {
       console.error("Error al obtener coordenadas:", error);
     }
@@ -170,7 +167,7 @@ const DashboardUsuario = () => {
   useEffect(() => {
     if (direcciones.length > 0) {
       getCoordinates().then(() => {
-        console.log("Coordenadas obtenidas:", coordenadas);
+       // console.log("Coordenadas obtenidas:", coordenadas);
       });
     }
   }, [direcciones]);
@@ -182,7 +179,7 @@ const DashboardUsuario = () => {
         lat: coordenadas[index].lat,
         lng: coordenadas[index].lng,
       }));
-      console.log("Markers generados:", generatedMarkers);
+    //  console.log("Markers generados:", generatedMarkers);
       setMarkers(generatedMarkers);
     }
   }, [cards, coordenadas]);

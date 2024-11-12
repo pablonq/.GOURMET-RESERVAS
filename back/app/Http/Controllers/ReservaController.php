@@ -5,14 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Jobs\SendReservationReminder;
 use App\Models\Reserva;
-use App\Notifications\ReservaNotification;
 use Illuminate\Http\Request;
-use App\Models\Usuario;
-use Illuminate\Support\Facades\Log;
-use App\Models\notification;
 use App\Models\Persona;
-use App\Models\Restaurante;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class ReservaController extends Controller
 {
@@ -85,7 +80,12 @@ class ReservaController extends Controller
 
     public function getReservasPorCliente($idUsuario)
     {
-        $reservas = Reserva::with(['restaurantes', 'mesas'])
+        $reservas = Reserva::with([
+            'restaurantes' => function ($query) {
+                $query->with('imagenPrincipal')->with('direccion');
+            },
+            'mesas'
+        ])
             ->where('idUsuario', $idUsuario)
             ->get();
 
@@ -124,5 +124,17 @@ class ReservaController extends Controller
         }
 
         return response()->json(['message' => 'No se puede cancelar la reserva ya que no está en estado procesada.'], 400);
+    }
+
+    public function getTotalReservasPorPeriodo($idRestaurante, $fechaInicio, $fechaFin)
+    {
+        $reservas = DB::table('reservas')
+            ->select(DB::raw('DATE(fechaReserva) as fecha'), DB::raw('count(*) as cantidad'))
+            ->where('idRestaurante', $idRestaurante)
+            ->whereBetween('fechaReserva', [$fechaInicio, $fechaFin])
+            ->groupBy(DB::raw('DATE(fechaReserva)'))
+            ->get();
+
+        return response()->json($reservas);
     }
 }
