@@ -17,6 +17,12 @@ use App\Models\Duenio;
 
 class RestauranteController extends Controller
 {
+  public function indexRestaurantes()
+  {
+    $restaurantes = Restaurante::all();
+     /* \Log::info('restaurantes: ' . $restaurantes);  */ 
+    return response()->json($restaurantes, 200);
+  }
   public function indexRestaurante()
   {
      $restaurantes = Restaurante::with('direccion')->get();;
@@ -154,7 +160,7 @@ public function actualizarRestaurante(Request $request, $id)
           $duenio->update(['dni'=> $duenioData['dniDuenio']]);
           // Actualizar la persona asociada al dueño
           $persona = $duenio->persona;
-          \Log::info('persona: ' . $persona); 
+           
           if ($persona) {
             $persona->update([
                 'nombre' => $personaData['nombreDuenio'],
@@ -215,9 +221,9 @@ public function borrarRestaurante($id)
 
     // Filtramos las direcciones que pertenecen al modelo `Restaurante`
     $direcciones = Direccione::where('direccionable_type', Restaurante::class)->get();
-
+    /* \Log::info('ciudades: ' . $direcciones);  */ 
     // Retornamos la colección de direcciones asociadas a restaurantes
-    return response()->json($direcciones);
+    return response()->json($direcciones, 200);
   }
 
   public function filtrarPorTags(Request $request)

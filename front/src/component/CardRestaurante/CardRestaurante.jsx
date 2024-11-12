@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import Slider from "react-slick"; // libreria para carrusel
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import EstrellaPuntuacion from "../EstrellaPuntuacion/EstrellaPuntuacion";
@@ -7,11 +7,11 @@ import EstrellaPuntuacion from "../EstrellaPuntuacion/EstrellaPuntuacion";
 const CardRestaurante = ({
   imagenes = [],
   nombreRes,
-
   mesasDisponibles,
   direccion,
   tipo,
   calificacion,
+  distancia,
   onView,
 }) => {
   const settings = {
@@ -27,8 +27,7 @@ const CardRestaurante = ({
 
   return (
     <div className="h-80">
-      <div className="relative max-w-60 h-full  overflow-hidden rounded-2xl shadow-2xl group flex flex-col transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
-        {/* Carrusel de imágenes */}
+      <div className="relative max-w-60 h-full overflow-hidden rounded-2xl shadow-2xl group flex flex-col transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
         {imagenes.length > 0 ? (
           <Slider {...settings}>
             {imagenes.map((imagen, index) => (
@@ -46,11 +45,15 @@ const CardRestaurante = ({
             No hay imágenes disponibles
           </p>
         )}
-        <div className=" text-slate-950 p-3">
-          <h3 className="text-base  font-bold text-center mt-2">{nombreRes}</h3>
-
+        <div className="text-slate-950 p-3">
+          <h3 className="text-base font-bold text-center mt-2">{nombreRes}</h3>
           <p className="font-light text-end text-xs p-1">{tipo}</p>
           <p className="font-light text-end text-xs">{direccion}</p>
+          {distancia && distancia !== Infinity && (
+            <p className="font-light text-end text-xs text-blue-600">
+              A {distancia.toFixed(1)} km de distancia
+            </p>
+          )}
           <div className="flex justify-end">
             <EstrellaPuntuacion calificacion={calificacion} />
           </div>
@@ -60,13 +63,13 @@ const CardRestaurante = ({
             </p>
           )}
         </div>
-        <div className="flex justify-center mt-1 ">
+        <div className="flex justify-center mt-1">
           <button
             onClick={onView}
             className="text-white text-center text-sm rounded-md bg-gray-800 p-1 hover:bg-orange-400"
           >
             Reservar
-          </button>{" "}
+          </button>
         </div>
       </div>
     </div>
