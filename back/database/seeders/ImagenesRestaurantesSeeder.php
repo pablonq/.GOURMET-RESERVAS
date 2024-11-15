@@ -94,31 +94,13 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
-    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2023-03-11.jpg?alt=media&token=e723674d-b18a-4fc7-83f9-edbbf3c0a73b';
-    $imagenesRestaurante->idRestaurante = 9;
-    $imagenesRestaurante->save();
-    $imagenesRestaurante = new ImagenesRestaurante();
-    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F20231028_225555%20(1).jpg?alt=media&token=38a753c8-6e7e-40d1-8308-7f853a2685bc';
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2bfddd51-37c3-4928-953f-5748e8b671eb?alt=media&token=17f8f142-724c-480c-b319-12dee4c41f4b';
     $imagenesRestaurante->idRestaurante = 9;
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
-    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F-1795302849-img1_664916_large.jpg?alt=media&token=fce9423e-f2f8-46f3-b823-fd3157bd73c3';
-    $imagenesRestaurante->idRestaurante = 10;
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fnoble-campo-772866.jpg?alt=media&token=eb8feaa8-9263-4017-8004-b78ace2c307f';
+    $imagenesRestaurante->idRestaurante = 9;
     $imagenesRestaurante->save();
-    $imagenesRestaurante = new ImagenesRestaurante();
-    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2023-01-31.jpg?alt=media&token=c6c5c6a9-bc1a-48b2-82b5-c7fc64e7e415';
-    $imagenesRestaurante->idRestaurante = 10;
-    $imagenesRestaurante->save();
-
-    $imagenesRestaurante = new ImagenesRestaurante();
-    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2021-02-10.png?alt=media&token=7b7c8fd6-16a0-4f4d-8c37-0a78ca3927ed';
-    $imagenesRestaurante->idRestaurante = 11;
-    $imagenesRestaurante->save();
-    $imagenesRestaurante = new ImagenesRestaurante();
-    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Funnamed.jpg?alt=media&token=f8f1b08e-b46f-4f76-aaa2-74c27e29ed01';
-    $imagenesRestaurante->idRestaurante = 11;
-    $imagenesRestaurante->save();
-
   }
 }

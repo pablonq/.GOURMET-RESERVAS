@@ -110,7 +110,7 @@ class DireccioneSeeder extends Seeder
       'direccionable_id' => $restaurante->id,
       'direccionable_type' => Restaurante::class,
 
-      'calle' => 'Almte. Brown',
+      'calle' => 'Almirante Brown',
       'altura' => '434',
       'ciudad' => 'Neuquén',
       'provincia' => 'Neuquén',
@@ -129,7 +129,6 @@ class DireccioneSeeder extends Seeder
       'pais' => 'Argentina',
     ]);
 
-    
     $restaurante = Restaurante::find(9);
     Direccione::create([
       'direccionable_id' => $restaurante->id,
@@ -155,6 +154,19 @@ class DireccioneSeeder extends Seeder
     ]);
 
     $restaurante = Restaurante::find(11);
+    Direccione::create([
+      'direccionable_id' => $restaurante->id,
+      'direccionable_type' => Restaurante::class,
+      
+      'calle' => 'General Fernández Oro',
+      'altura' => '230',
+      'ciudad' => 'Cipolletti',
+      'provincia' => 'Rio Negro',
+      'pais' => 'Argentina',
+    ]);
+
+    
+    $restaurante = Restaurante::find(12);
     Direccione::create([
       'direccionable_id' => $restaurante->id,
       'direccionable_type' => Restaurante::class,

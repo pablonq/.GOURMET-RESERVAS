@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('apellido');
-            $table->timestamp('fechaNac');
+            $table->date('fechaNac');
             $table->string('email')->unique();
             $table->string('telefono');
-            $table->string('ciudad');
+            
             $table->timestamps();
         });
     }

@@ -115,35 +115,35 @@ class RestauranteController extends Controller
     $restaurante = Restaurante::findOrFail($id);
 
     $fields = $request->validate([
-      'nombreRes' => 'required|max:255',
-      'calle' => 'required|max:255',
-      'altura' => 'required|max:255',
-      'ciudad' => 'required|max:255',
-      'provincia' => 'required|max:255',
-      'pais' => 'required|max:255',
-      'descripcion' => 'required|max:255',
-      'tipo' => 'required|max:255',
-      'telefono' => 'required|max:255',
-      'email' => [
-        'required',
-        'email',
-        Rule::unique('restaurantes', 'email')->ignore($restaurante->id, 'id')
-      ],
-      'contrasenia' => 'sometimes|confirmed|min:4',
-      'capacidadTotal' => 'required|integer',
-      'imagenUrl' => 'nullable|string',
-      'aceptaEventos' => 'required|in:si,no',
-      'nombreDuenio' => 'required|max:255',
-      'apellidoDuenio' => 'required|max:255',
-      'fechaNacimientoDuenio' => 'required|date',
-      'emailDuenio' => 'nullable|email',
-      'telefonoDuenio' => 'required|max:255',
-      'ciudadDuenio' => 'required|max:255',
-      'dniDuenio' => 'required|max:255',
+        'nombreRes' => 'required|max:255',
+        'calle' => 'required|max:255',
+        'altura' => 'required|max:255',
+        'ciudad' => 'required|max:255',
+        'provincia' => 'required|max:255',
+        'pais' => 'required|max:255',
+        'descripcion' => 'required|max:255',
+        'tipo' => 'required|max:255',
+        'telefono' => 'required|max:255',
+        'email' => [
+            'required',
+            'email',
+            Rule::unique('restaurantes', 'email')->ignore($restaurante->id, 'id')
+        ],
+        'contrasenia' => 'sometimes|confirmed|min:4',
+        'capacidadTotal' => 'required|integer',
+        'imagenUrl'=> 'nullable|string',
+        'aceptaEventos' => 'required|in:si,no',
+        'nombreDuenio' => 'required|max:255',
+        'apellidoDuenio' => 'required|max:255',
+        'fechaNacimientoDuenio' => 'required|date',
+        'emailDuenio' => 'nullable|email',
+        'telefonoDuenio' => 'required|max:255',
+        
+        'dniDuenio' => 'required|max:255',
     ]);
 
     $restauranteData = $request->only(['nombreRes', 'descripcion', 'tipo', 'telefono', 'email', 'capacidadTotal', 'aceptaEventos']);
-    $personaData = $request->only(['nombreDuenio', 'apellidoDuenio', 'fechaNacimientoDuenio', 'emailDuenio', 'telefonoDuenio', 'ciudadDuenio']);
+    $personaData = $request->only(['nombreDuenio', 'apellidoDuenio', 'fechaNacimientoDuenio', 'emailDuenio', 'telefonoDuenio']);
     $duenioData = $request->only(['dniDuenio']);
     $direccionData = $request->only(['calle', 'altura', 'ciudad', 'provincia', 'pais']);
 
@@ -153,7 +153,27 @@ class RestauranteController extends Controller
 
     DB::transaction(function () use ($restaurante, $restauranteData, $duenioData, $personaData, $direccionData) {
 
-      $restaurante->update($restauranteData);
+        $duenio = $restaurante->duenio;
+        
+        if ($duenio) {
+          $duenio->update(['dni'=> $duenioData['dniDuenio']]);
+          // Actualizar la persona asociada al dueño
+          $persona = $duenio->persona;
+           
+          if ($persona) {
+            $persona->update([
+                'nombre' => $personaData['nombreDuenio'],
+                'apellido' => $personaData['apellidoDuenio'],
+                'fechaNac' => $personaData['fechaNacimientoDuenio'],
+                'email' => $personaData['emailDuenio'],
+                'telefono' => $personaData['telefonoDuenio'],
+                ]);
+            } else {
+                throw new \Exception('Persona no encontrada para el ID especificado en Duenio');
+            }
+        } else {
+            throw new \Exception('Dueño no encontrado para el restaurante');
+        }
 
       $duenio = $restaurante->duenio;
 

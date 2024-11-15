@@ -16,7 +16,7 @@ class RestauranteSeeder extends Seeder
         $restaurante = new Restaurante();
         $restaurante->nombreRes = 'Spazio Morrigan';
         $restaurante->descripcion = 'CERVECERIA - ESPACIO CULTURAL';
-        $restaurante->tipo = 'Pizzeria';
+        $restaurante->tipo = 'Bar restaurante';
         $restaurante->telefono = '2994444444';
         $restaurante->email = 'morri@gmail.com';
         $restaurante->contrasenia = bcrypt('1234');
@@ -30,7 +30,7 @@ class RestauranteSeeder extends Seeder
         $restaurante = new Restaurante();
         $restaurante->nombreRes = 'Morgan Bar Cervecero';
         $restaurante->descripcion = 'Bar Cervecero';
-        $restaurante->tipo = 'Bar restaurante';
+        $restaurante->tipo = 'Pizzeria';
         $restaurante->telefono = '2994444444';
         $restaurante->email = 'morgan@gmail.com';
         $restaurante->contrasenia = bcrypt('1234');
@@ -43,14 +43,12 @@ class RestauranteSeeder extends Seeder
 
         $restaurante = new Restaurante();
         $restaurante->nombreRes = 'JACC Isla Cervecera';
-        
         $restaurante->descripcion = 'Bar Cervecero';
-        $restaurante->tipo = 'Bar restaurante';
+        $restaurante->tipo = 'Pizzeria';
         $restaurante->telefono = '2994444444';
         $restaurante->email = 'jacc@gmail.com';
         $restaurante->contrasenia = bcrypt('1234');
         $restaurante->capacidadTotal = 80;
-        
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -130,45 +128,17 @@ class RestauranteSeeder extends Seeder
         $restaurante->save();
 
         $restaurante = new Restaurante();
-        $restaurante->nombreRes = 'Marga Restaurante';
-        $restaurante->descripcion = 'Se requieren reservas ,Ofrece buenos cócteles,Tiene sillas altas disponibles';
-        $restaurante->tipo = 'Familiar';
-        $restaurante->telefono = ' 0299 515-3912';
-        $restaurante->email = 'marga@gmail.com';
-        $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =72;
-        $restaurante->fechaBaja = null;
-        $restaurante->fechaAlta = now();
-        $restaurante->rol = 'restaurante';
-        $restaurante->aceptaEventos = 'si';
-        $restaurante->save();
-
-        $restaurante = new Restaurante();
-        $restaurante->nombreRes = 'DONATO';
-        $restaurante->descripcion = 'Tiene asientos al aire libre, Ofrece buenos cócteles, Sirve comida en el bar';
-        $restaurante->tipo = 'Bar restaurante';
-        $restaurante->telefono = '0299 546-4570';
-        $restaurante->email = 'donato@gmail.com';
+        $restaurante->nombreRes = 'Noble Campo"';
+        $restaurante->descripcion = 'Es un restaurante que cuenta con mas de 12 años de experiencia, muy reconocido en nuestro Alto Valle. Su carta se destaca por la parrilla gourmet y cocina italiana.';
+        $restaurante->tipo = 'Gourmet';
+        $restaurante->telefono = '2995082121';
+        $restaurante->email = 'noble@mail.com';
         $restaurante->contrasenia = bcrypt('1234');
         $restaurante->capacidadTotal =100;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
-        $restaurante->aceptaEventos = 'si';
-        $restaurante->save();
-
-        $restaurante = new Restaurante();
-        $restaurante->nombreRes = 'INDA';
-        $restaurante->descripcion = 'Tiene asientos al aire libre, Ofrece buenos cócteles,Ofrece platos veganos';
-        $restaurante->tipo = 'Bar restaurante';
-        $restaurante->telefono = '0299 401-1992';
-        $restaurante->email = 'donato@gmail.com';
-        $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =90;
-        $restaurante->fechaBaja = null;
-        $restaurante->fechaAlta = now();
-        $restaurante->rol = 'restaurante';
-        $restaurante->aceptaEventos = 'si';
+        $restaurante->aceptaEventos = 'no';
         $restaurante->save();
 
     }
