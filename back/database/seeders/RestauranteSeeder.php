@@ -116,13 +116,55 @@ class RestauranteSeeder extends Seeder
         $restaurante->save();
 
         $restaurante = new Restaurante();
-        $restaurante->nombreRes = 'Dorado"';
+        $restaurante->nombreRes = 'Dorado';
         $restaurante->descripcion = 'desayunos,meriendas,almuerzos,cocteles';
         $restaurante->tipo = 'Familiar';
         $restaurante->telefono = '0299 502-6743';
         $restaurante->email = 'dorado@gmail.com';
         $restaurante->contrasenia = bcrypt('1234');
         $restaurante->capacidadTotal =120;
+        $restaurante->fechaBaja = null;
+        $restaurante->fechaAlta = now();
+        $restaurante->rol = 'restaurante';
+        $restaurante->aceptaEventos = 'si';
+        $restaurante->save();
+
+        $restaurante = new Restaurante();
+        $restaurante->nombreRes = 'Marga Restaurante';
+        $restaurante->descripcion = 'Se requieren reservas ,Ofrece buenos cócteles,Tiene sillas altas disponibles';
+        $restaurante->tipo = 'Familiar';
+        $restaurante->telefono = ' 0299 515-3912';
+        $restaurante->email = 'marga@gmail.com';
+        $restaurante->contrasenia = bcrypt('1234');
+        $restaurante->capacidadTotal =72;
+        $restaurante->fechaBaja = null;
+        $restaurante->fechaAlta = now();
+        $restaurante->rol = 'restaurante';
+        $restaurante->aceptaEventos = 'si';
+        $restaurante->save();
+
+        $restaurante = new Restaurante();
+        $restaurante->nombreRes = 'DONATO';
+        $restaurante->descripcion = 'Tiene asientos al aire libre, Ofrece buenos cócteles, Sirve comida en el bar';
+        $restaurante->tipo = 'Bar restaurante';
+        $restaurante->telefono = '0299 546-4570';
+        $restaurante->email = 'donato@gmail.com';
+        $restaurante->contrasenia = bcrypt('1234');
+        $restaurante->capacidadTotal =100;
+        $restaurante->fechaBaja = null;
+        $restaurante->fechaAlta = now();
+        $restaurante->rol = 'restaurante';
+        $restaurante->aceptaEventos = 'si';
+        $restaurante->save();
+
+        $restaurante = new Restaurante();
+        $restaurante->nombreRes = 'INDA';
+        $restaurante->descripcion = 'Tiene asientos al aire libre, Ofrece buenos cócteles,Ofrece platos veganos';
+        $restaurante->tipo = 'Bar restaurante';
+        $restaurante->telefono = '0299 401-1992';
+        $restaurante->email = 'donato@gmail.com';
+        $restaurante->contrasenia = bcrypt('1234');
+        $restaurante->capacidadTotal =90;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';

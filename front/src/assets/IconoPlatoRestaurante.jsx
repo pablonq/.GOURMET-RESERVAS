@@ -1,0 +1,87 @@
+const IconoPlatoRestaurante = () => {
+  return (
+    <svg
+      width="40"
+      height="36"
+      viewBox="0 0 200 200"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="100"
+        cy="100"
+        r="40"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="6"
+      />
+      <circle
+        cx="100"
+        cy="100"
+        r="28"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="6"
+      />
+
+      <line
+        x1="45"
+        y1="60"
+        x2="45"
+        y2="140"
+        stroke="currentColor"
+        strokeWidth="6"
+      />
+      <line
+        x1="40"
+        y1="70"
+        x2="40"
+        y2="110"
+        stroke="currentColor"
+        strokeWidth="6"
+      />
+      <line
+        x1="45"
+        y1="70"
+        x2="45"
+        y2="110"
+        stroke="currentColor"
+        strokeWidth="6"
+      />
+      <line
+        x1="50"
+        y1="70"
+        x2="50"
+        y2="110"
+        stroke="currentColor"
+        strokeWidth="6"
+      />
+
+      <line
+        x1="155"
+        y1="60"
+        x2="155"
+        y2="120"
+        stroke="currentColor"
+        strokeWidth="6"
+      />
+      <line
+        x1="160"
+        y1="60"
+        x2="160"
+        y2="130"
+        stroke="currentColor"
+        strokeWidth="6"
+      />
+      <line
+        x1="152"
+        y1="130"
+        x2="160"
+        y2="140"
+        stroke="currentColor"
+        strokeWidth="6"
+      />
+    </svg>
+  );
+};
+
+export default IconoPlatoRestaurante;

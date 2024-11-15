@@ -51,7 +51,7 @@ Route::prefix('restaurantes')->group(function () {
   Route::patch('/habilitarMesa/{mesa}', [MesaController::class, 'habilitarMesa'])->name('habilitar.Mesa');
   Route::delete('/eliminar/{mesa}', [MesaController::class, 'destroyMesa'])->name('eliminar.Mesa');
   Route::get('/ultimaMesa/{id}',  [MesaController::class, 'getUltimaMesa'])->name('ultima.Mesa');
-  Route::get('/indexRestaurante', [RestauranteController::class, 'indexRestaurante'])->name('index.Restaurante');
+  Route::get('/indexRestaurante', [RestauranteController::class, 'traerRestaurante'])->name('index.Restaurante');
   Route::get('/indexImagenesRestaurante', [ImagenesRestauranteController::class, 'indexImagenesRestaurante'])->name('imagenes.Restaurante');
   Route::post('/register', [AuthController::class, 'registerRestaurante'])->name('register.restaurante');
   Route::post('/login', [AuthController::class, 'loginRestaurante'])->name('login.restaurante');
@@ -91,6 +91,7 @@ Route::prefix('restaurantes')->group(function () {
 
   Route::post('/filtrarRestaurantesPorTags', [RestauranteController::class, 'filtrarPorTags']);
   Route::get('/totalReservasPorPeriodo/{idRestaurante}/{fechaInicio}/{fechaFin}',  [ReservaController::class, 'getTotalReservasPorPeriodo']);
+  Route::get('/obtenerCalificacion/{idRestaurante}',  [RestauranteController::class, 'ObtenerDistribucionCalificaciones']);
 });
 
 Route::get('/pago/exito', [PagoController::class, 'exito'])->name('pago.exito');

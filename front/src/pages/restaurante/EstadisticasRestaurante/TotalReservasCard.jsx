@@ -44,6 +44,7 @@ const TotalReservasCard = ({ idRestaurante }) => {
 
             const options = {
               chart: {
+                height: 200,
                 type: "line",
               },
               xaxis: {

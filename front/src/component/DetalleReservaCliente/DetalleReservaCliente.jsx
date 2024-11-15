@@ -83,7 +83,7 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
               <p className="text-sm">Fecha: {fechaLimpia}</p>
             </div>
             <div className="flex items-center">
-              <IconoReloj />
+              <IconoReloj width={"16"} height={"16"}/>
               <p className="text-sm ml-2">Hora: {horaReservaString}</p>
             </div>
             <div className="flex items-center">

@@ -33,7 +33,7 @@ class MenuSeeder extends Seeder
         $menu->nombre = 'Dulce Antojo';
         $menu->descripcion = 'Postres clasicos y gourmet';
         $menu->tipo = 'Postres';
-        $menu->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2024-11-01.jpg?alt=media&token=3af98f19-36a9-42f5-b5b2-5cfe50d039fa';
+        $menu->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F06151a0b-cf58-4aa1-aa74-417b6533351a?alt=media&token=c660d704-6b4c-4c79-8046-a5ca2895359f';
         $menu->idRestaurante = 1;
         $menu->save();
 

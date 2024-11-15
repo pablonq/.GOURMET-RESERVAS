@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link, useLocation } from "react-router-dom";
 
-const SiderLink = ({ to, text }) => {
+const SiderLink = ({ to, text, icono }) => {
   const location = useLocation();
   const isActive = location.pathname === to;
   return (
@@ -13,7 +13,10 @@ const SiderLink = ({ to, text }) => {
             isActive ? "text-orange-400" : "text-white"
           }`}
         >
-          {text}
+          <div className="flex space-x-2 items-center">
+           <div>{icono}</div> 
+           <div>{text}</div> 
+          </div>
         </Link>
       </li>
     </>

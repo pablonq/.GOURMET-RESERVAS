@@ -18,7 +18,7 @@ class PlatoSeeder extends Seeder
         $plato->descripcion = 'Nuestra clásica pizza con salsa de tomate, mozzarella fresca y albahaca.';
         $plato->precio = 12000;
         $plato->informacionNutricional = 'calorias 300';
-        $plato->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fce89eeaf-9354-4137-8750-d91620aa30ec?alt=media&token=1c32f72d-829f-44ef-aa3d-9bb7298d0088';
+        $plato->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fpizza-napolitana-770x485.jpeg?alt=media&token=0a905566-5c18-418e-a176-9e269929e4ce';
 
 
         $plato->save();
@@ -64,11 +64,11 @@ class PlatoSeeder extends Seeder
         $plato->save();
 
         $plato = new Plato();
-        $plato->nombrePlato = 'Plato 3';
-        $plato->descripcion = 'Descripción 3';
-        $plato->precio = 100;
-        $plato->informacionNutricional = 'Informacion nutricional 3';
-        $plato->imagen = null;
+        $plato->nombrePlato = 'Peras al almibar';
+        $plato->descripcion = 'Peras en almíbar de vino blanco y canela';
+        $plato->precio = 4500;
+        $plato->informacionNutricional = 'cal 450';
+        $plato->imagen = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Ff18d17b8-6b27-472a-b58e-28e116370ccb?alt=media&token=3b81e531-f50d-4d69-a8c2-1ba1cecbbbc9';
 
 
         $plato->save();
