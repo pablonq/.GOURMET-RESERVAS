@@ -3,11 +3,13 @@ import Title from "../../../component/Title/Title";
 import { AppContext } from "../../../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import RestauranteData from "../../../api/RestauranteData";
+import axios from "axios";
 export default function EditarPerfilRestaurante() {
   const navigate = useNavigate();
   const { user, token } = useContext(AppContext);
   const { restaurante, direccion, duenio } = RestauranteData();
-
+  const [provincias, setProvincias] = useState([]);
+  const [localidades, setLocalidades] = useState([]);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     // Datos del Restaurante
@@ -16,7 +18,7 @@ export default function EditarPerfilRestaurante() {
     altura: "",
     ciudad: "",
     provincia: "",
-    pais: "",
+    pais: "Argentina",
     descripcion: "",
     tipo: "",
     telefono: "",
@@ -34,7 +36,7 @@ export default function EditarPerfilRestaurante() {
     dniDuenio: "",
     emailDuenio: "",
     telefonoDuenio: "",
-    ciudadDuenio: "",
+
   });
   useEffect(() => {
     setFormData({
@@ -43,7 +45,7 @@ export default function EditarPerfilRestaurante() {
       altura: direccion?.[0]?.altura,
       ciudad: direccion?.[0]?.ciudad,
       provincia: direccion?.[0]?.provincia,
-      pais: direccion?.[0]?.pais,
+      pais: "Argentina",
 
       descripcion: restaurante.restaurante?.descripcion,
       tipo: restaurante.restaurante?.tipo,
@@ -65,9 +67,50 @@ export default function EditarPerfilRestaurante() {
       dniDuenio: duenio?.dni || "",
       emailDuenio: duenio.persona?.[0]?.email || "",
       telefonoDuenio: duenio.persona?.[0]?.telefono || "",
-      ciudadDuenio: duenio.persona?.[0]?.ciudad || "",
+
     });
   }, [restaurante, direccion]);
+
+  useEffect(() => {
+    const fetchProvincias = async () => {
+      try {
+        const response = await axios.get("https://apis.datos.gob.ar/georef/api/provincias");
+        setProvincias(response.data.provincias);
+
+        // Buscar la provincia seleccionada para cargar sus localidades
+        const provinciaSeleccionada = response.data.provincias.find(
+          (prov) => prov.nombre.toLowerCase() === formData.provincia.toLowerCase()
+        );
+        if (provinciaSeleccionada) {
+          await cargarLocalidades(provinciaSeleccionada.id);
+        }
+      } catch (error) {
+        console.error("Error al cargar las provincias:", error);
+      }
+    };
+    fetchProvincias();
+  }, [formData.provincia]);
+
+  const cargarLocalidades = async (provinciaId) => {
+    try {
+      const response = await axios.get("https://apis.datos.gob.ar/georef/api/localidades", {
+        params: { provincia: provinciaId, max: 100 },
+      });
+      setLocalidades(response.data.localidades);
+    } catch (error) {
+      console.error("Error al cargar las localidades:", error);
+    }
+  };
+
+  // Al cambiar la provincia, almacenamos el nombre en lugar del ID
+  const handleProvinciaChange = async (e) => {
+    const provinciaNombre = e.target.options[e.target.selectedIndex].text;
+    setFormData({ ...formData, provincia: provinciaNombre, ciudad: "" });
+
+    // Cargar localidades basadas en el ID de la provincia seleccionada
+    const provinciaId = e.target.value;
+    await cargarLocalidades(provinciaId);
+  };
 
   async function handleUpdate(e) {
     e.preventDefault();
@@ -182,52 +225,45 @@ export default function EditarPerfilRestaurante() {
 
                 {/* Segundo grupo de tres inputs en una fila */}
                 <div className="flex space-x-4">
-                  <div className="flex-1">
-                    <label className="text-xs">Ciudad</label>
-                    <input
-                      required
-                      type="text"
-                      className="input-style w-full"
-                      placeholder="Ciudad"
-                      value={formData.ciudad || ""}
-                      onChange={(e) =>
-                        setFormData({ ...formData, ciudad: e.target.value })
-                      }
-                    />
-                    {errors.ciudad && (
-                      <p className="error">{errors.ciudad[0]}</p>
-                    )}
-                  </div>
-                  <div className="flex-1">
+                  <div className="mb-2">
                     <label className="text-xs">Provincia</label>
-                    <input
+                    <select
                       required
-                      type="text"
                       className="input-style w-full"
-                      placeholder="Provincia"
-                      value={formData.provincia || ""}
-                      onChange={(e) =>
-                        setFormData({ ...formData, provincia: e.target.value })
+                      value={
+                        provincias.find((prov) => prov.nombre === formData.provincia)?.id || ""
                       }
-                    />
-                    {errors.provincia && (
-                      <p className="error">{errors.provincia[0]}</p>
-                    )}
+                      onChange={handleProvinciaChange}
+                    >
+                      <option value="" disabled>Selecciona una provincia</option>
+                      {provincias.map((provincia) => (
+                        <option key={provincia.id} value={provincia.id}>
+                          {provincia.nombre}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.provincia && <p className="error">{errors.provincia[0]}</p>}
                   </div>
-                  <div className="flex-1">
-                    <label className="text-xs">Pais</label>
-                    <input
+                  <div className="mb-2">
+                    <label className="text-xs">Localidad</label>
+                    <select
                       required
-                      type="text"
                       className="input-style w-full"
-                      placeholder="Pais"
-                      value={formData.pais || ""}
-                      onChange={(e) =>
-                        setFormData({ ...formData, pais: e.target.value })
-                      }
-                    />
-                    {errors.pais && <p className="error">{errors.pais[0]}</p>}
+                      value={formData.ciudad || ""}
+                      onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
+                      disabled={!formData.provincia}
+                    >
+                      <option value="" disabled>Selecciona una localidad</option>
+                      {localidades.map((localidad) => (
+                        <option key={localidad.id} value={localidad.nombre}>
+                          {localidad.nombre}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.ciudad && <p className="error">{errors.ciudad[0]}</p>}
                   </div>
+
+
                 </div>
               </div>
 
@@ -262,16 +298,16 @@ export default function EditarPerfilRestaurante() {
                     Tipo de restaurante
                   </option>
                   <option value="Tematico">Temático</option>
-                  <option value="comida rapida">Comida rapida</option>
+                  <option value="Comida rapida">Comida rapida</option>
                   <option value="Buffet">Estilo buffet</option>
                   <option value="Gourmet">Gourmet</option>
                   <option value="Fusion">Fusión</option>
                   <option value="Familiar">familiar</option>
                   <option value="De autor">De autor</option>
-                  <option value="bar restaurante">Bar restaurante</option>
-                  <option value="pizzeria">Pizzeria</option>
-                  <option value="parrilla">Parrilla</option>
-                  <option value="cafe restaurante">Cafe restaurante</option>
+                  <option value="Bar restaurante">Bar restaurante</option>
+                  <option value="Pizzeria">Pizzeria</option>
+                  <option value="Parrilla">Parrilla</option>
+                  <option value="Cafe restaurante">Cafe restaurante</option>
 
                   {/* Agrega más opciones aquí según lo necesites */}
                 </select>
@@ -507,22 +543,7 @@ export default function EditarPerfilRestaurante() {
                 )}
               </div>
 
-              <div className="mb-2">
-                <label className="text-xs">Ciudad</label>
-                <input
-                  required
-                  type="text"
-                  className="input-style"
-                  placeholder="Ciudad del Dueño"
-                  value={formData.ciudadDuenio || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, ciudadDuenio: e.target.value })
-                  }
-                />
-                {errors.ciudadDuenio && (
-                  <p className="error">{errors.ciudadDuenio[0]}</p>
-                )}
-              </div>
+
             </div>
           </div>
 

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { uploadFileUsuarios } from "../../../firebase/config";
+import axios from "axios";
 
 export default function RegistroUsuario() {
   const [formData, setFormData] = useState({
@@ -12,85 +13,88 @@ export default function RegistroUsuario() {
     calle: "",
     altura: "",
     ciudad: "",
-    provincia: "",
-    pais: "",
+    provincia: { id: "", nombre: "" }, 
+    pais: "Argentina",
     nombreUsuario: "",
     contrasenia: "",
     contrasenia_confirmation: "",
     avatarUrl: null,
   });
-
+  const [provincias, setProvincias] = useState([]);
+  const [localidades, setLocalidades] = useState([]);
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false); // Indicador de subida de archivo
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchProvincias = async () => {
+      try {
+        const response = await axios.get("https://apis.datos.gob.ar/georef/api/provincias");
+        setProvincias(response.data.provincias);
+      } catch (error) {
+        console.error("Error al cargar las provincias:", error);
+      }
+    };
+    fetchProvincias();
+  }, []);
+
+  // Cargar las localidades al seleccionar una provincia
+  const handleProvinciaChange = async (e) => {
+    const provinciaId = e.target.value; // ID de la provincia seleccionada
+    const provinciaNombre = e.target.options[e.target.selectedIndex].text; // Nombre de la provincia seleccionada
+
+    setFormData({ 
+      ...formData, 
+      provincia: { id: provinciaId, nombre: provinciaNombre }, 
+      ciudad: "" 
+    }); // Guardar tanto el ID como el nombre de la provincia en el estado
+
+    try {
+      const response = await axios.get("https://apis.datos.gob.ar/georef/api/localidades", {
+        params: { provincia: provinciaId, max: 100 },
+      });
+      setLocalidades(response.data.localidades);
+    } catch (error) {
+      console.error("Error al cargar las localidades:", error);
+    }
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
-    setIsUploading(true); // Establecer el indicador de subida de archivo en verdadero
+    setIsUploading(true);
     try {
-      let avatarUrl = formData.avatarUrl; // URL del avatar predeterminado o la URL existente
+      let avatarUrl = formData.avatarUrl;
       if (file) {
         avatarUrl = await uploadFileUsuarios(file);
-        console.log(avatarUrl);
-        // Actualizar la URL del avatar en el estado del formulario
         setFormData((prev) => ({ ...prev, avatarUrl }));
       }
-      const data = {
-        nombre: formData.nombre,
-        apellido: formData.apellido,
-        fechaNac: formData.fechaNac,
-        email: formData.email,
-        telefono: formData.telefono,
-        calle: formData.calle,
-        altura: formData.altura,
-        ciudad: formData.ciudad,
-        provincia: formData.provincia,
-        pais: formData.pais,
-        nombreUsuario: formData.nombreUsuario,
-        contrasenia: formData.contrasenia,
-        contrasenia_confirmation: formData.contrasenia_confirmation,
-        avatarUrl: avatarUrl, // Añadir la URL del avatar si está disponible
+
+      const data = { 
+        ...formData, 
+        provincia: formData.provincia.nombre, // Enviar solo el nombre de la provincia al backend
+        avatarUrl 
       };
-
-      /* const form = new FormData();
-    form.append("nombre", formData.nombre);
-    form.append("apellido", formData.apellido);
-    form.append("fechaNac", formData.fechaNac);
-    form.append("email", formData.email);
-    form.append("telefono", formData.telefono);
-    form.append("ciudad", formData.ciudad);
-    form.append("nombreUsuario", formData.nombreUsuario);
-    form.append("contrasenia", formData.contrasenia);
-    form.append("contrasenia_confirmation", formData.contrasenia_confirmation);
-    if(avatarUrl) form.append("avatarUrl", avatarUrl); // Agregar el archivo de imagen al objeto FormData
-     */
-      /* for (let pair of form.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    } */
-
+      
       const res = await fetch("/api/usuarios/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Establecer el encabezado JSON
-        },
-        body: JSON.stringify(data), // Convertir los datos a JSON
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
 
       const result = await res.json();
       if (result.errors) {
         setErrors(result.errors);
-        console.log(result);
       } else {
-        console.log(result);
         navigate("/LoginUsuario");
       }
     } catch (error) {
       console.error("Error al registrar el usuario", error);
     } finally {
-      setIsUploading(false); // Restablecer el indicador de subida de archivo en falso
+      setIsUploading(false);
     }
   };
+
   return (
     <>
       <div>
@@ -107,7 +111,7 @@ export default function RegistroUsuario() {
             />
             {errors.nombre && <p className="error">{errors.nombre[0]}</p>}
           </div>
-          
+
           <div>
             <input
               type="text"
@@ -119,7 +123,7 @@ export default function RegistroUsuario() {
             />
             {errors.apellido && <p className="error">{errors.apellido[0]}</p>}
           </div>
-          
+
           <div>
             <input
               type="date"
@@ -131,7 +135,7 @@ export default function RegistroUsuario() {
             />
             {errors.fechaNac && <p className="error">{errors.fechaNac[0]}</p>}
           </div>
-  
+
           <div>
             <input
               type="text"
@@ -143,7 +147,7 @@ export default function RegistroUsuario() {
             />
             {errors.email && <p className="error">{errors.email[0]}</p>}
           </div>
-  
+
           <div>
             <input
               type="text"
@@ -155,7 +159,7 @@ export default function RegistroUsuario() {
             />
             {errors.telefono && <p className="error">{errors.telefono[0]}</p>}
           </div>
-  
+
           <div className="flex space-x-4 mb-4">
             <div className="flex-1">
               <input
@@ -180,44 +184,44 @@ export default function RegistroUsuario() {
               {errors.altura && <p className="error">{errors.altura[0]}</p>}
             </div>
           </div>
-  
-          <div className="flex space-x-4">
-            <div className="flex-1">
-              <input
-                required
-                type="text"
-                className="input-style w-full"
-                placeholder="Ciudad"
-                value={formData.ciudad || ""}
-                onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
-              />
-              {errors.ciudad && <p className="error">{errors.ciudad[0]}</p>}
-            </div>
-            <div className="flex-1">
-              <input
-                required
-                type="text"
-                className="input-style w-full"
-                placeholder="Provincia"
-                value={formData.provincia || ""}
-                onChange={(e) => setFormData({ ...formData, provincia: e.target.value })}
-              />
-              {errors.provincia && <p className="error">{errors.provincia[0]}</p>}
-            </div>
-            <div className="flex-1">
-              <input
-                required
-                type="text"
-                className="input-style w-full"
-                placeholder="Pais"
-                value={formData.pais || ""}
-                onChange={(e) => setFormData({ ...formData, pais: e.target.value })}
-              />
-              {errors.pais && <p className="error">{errors.pais[0]}</p>}
-            </div>
+          <div className="flex space-x-4 mb-4">
+          <div className="flex-1">
+            <select
+              required
+              className="input-style w-full"
+              value={formData.provincia.id || ""}
+              onChange={handleProvinciaChange}
+            >
+              <option value="" disabled>Provincia</option>
+              {provincias.map((provincia) => (
+                <option key={provincia.id} value={provincia.id}>
+                  {provincia.nombre}
+                </option>
+              ))}
+            </select>
+            {errors.provincia && <p className="error">{errors.provincia[0]}</p>}
           </div>
-  
-          <div>
+
+          <div className="flex-1">
+            <select
+              required
+              className="input-style w-full"
+              value={formData.ciudad || ""}
+              onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
+              disabled={!formData.provincia.id}
+            >
+              <option value="" disabled>Ciudad</option>
+              {localidades.map((localidad) => (
+                <option key={localidad.id} value={localidad.nombre}>
+                  {localidad.nombre}
+                </option>
+              ))}
+            </select>
+            {errors.ciudad && <p className="error">{errors.ciudad[0]}</p>}
+          </div>
+        </div>
+
+          <div className="mt-2">
             <input
               type="text"
               placeholder="Nombre de Usuario"
@@ -230,7 +234,7 @@ export default function RegistroUsuario() {
               <p className="error">{errors.nombreUsuario[0]}</p>
             )}
           </div>
-  
+
           <div>
             <input
               type="password"
@@ -244,7 +248,7 @@ export default function RegistroUsuario() {
               <p className="error">{errors.contrasenia[0]}</p>
             )}
           </div>
-  
+
           <div>
             <input
               type="password"
@@ -258,7 +262,7 @@ export default function RegistroUsuario() {
               }
             />
           </div>
-  
+
           <div>
             <input
               type="file"
@@ -267,7 +271,7 @@ export default function RegistroUsuario() {
             />
             {errors.avatarUrl && <p className="error">{errors.avatarUrl[0]}</p>}
           </div>
-  
+
           <button className="primary-btn" disabled={isUploading}>
             {isUploading ? "Guardando....." : "Registrarme"}
           </button>
@@ -275,5 +279,5 @@ export default function RegistroUsuario() {
       </div>
     </>
   );
-  
+
 }

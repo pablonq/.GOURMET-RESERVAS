@@ -17,7 +17,7 @@ class Persona extends Model
         'fechaNac',
         'email',
         'telefono',
-        'ciudad'
+        
     ];
 
     public function usuario(): HasOne

@@ -92,5 +92,15 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2024-03-31.jpg?alt=media&token=0d9db22b-d39d-4b71-ac99-a4efd480be53';
     $imagenesRestaurante->idRestaurante = 8;
     $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2bfddd51-37c3-4928-953f-5748e8b671eb?alt=media&token=17f8f142-724c-480c-b319-12dee4c41f4b';
+    $imagenesRestaurante->idRestaurante = 9;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fnoble-campo-772866.jpg?alt=media&token=eb8feaa8-9263-4017-8004-b78ace2c307f';
+    $imagenesRestaurante->idRestaurante = 9;
+    $imagenesRestaurante->save();
   }
 }

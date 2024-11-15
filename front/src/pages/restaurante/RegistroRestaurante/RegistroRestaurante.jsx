@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { uploadFileRestaurantes } from "../../../firebase/config";
+import axios from "axios";
+
 
 export default function RegistroRestaurante() {
   const [formData, setFormData] = useState({
@@ -10,7 +12,7 @@ export default function RegistroRestaurante() {
     altura: "",
     ciudad: "",
     provincia: "",
-    pais: "",
+    pais: "Argentina",
     descripcion: "",
     tipo: "",
     telefono: "",
@@ -28,14 +30,42 @@ export default function RegistroRestaurante() {
     dniDuenio: "",
     emailDuenio: "",
     telefonoDuenio: "",
-    ciudadDuenio: ""
+    
   });
-
+  const [provincias, setProvincias] = useState([]);
+  const [localidades, setLocalidades] = useState([]);
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false); // Indicador de subida de archivo
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
+  // Cargar las provincias al montar el componente
+  useEffect(() => {
+    const fetchProvincias = async () => {
+      try {
+        const response = await axios.get("https://apis.datos.gob.ar/georef/api/provincias");
+        setProvincias(response.data.provincias);
+      } catch (error) {
+        console.error("Error al cargar las provincias:", error);
+      }
+    };
+    fetchProvincias();
+  }, []);
+
+  // Cargar las localidades al seleccionar una provincia
+  const handleProvinciaChange = async (e) => {
+    const provinciaId = e.target.value;
+    setFormData({ ...formData, provincia: provinciaNombre, ciudad: "" });
+
+    try {
+      const response = await axios.get("https://apis.datos.gob.ar/georef/api/localidades", {
+        params: { provincia: provinciaId, max: 100 }, // puedes ajustar el 'max' según la cantidad que necesites
+      });
+      setLocalidades(response.data.localidades);
+    } catch (error) {
+      console.error("Error al cargar las localidades:", error);
+    }
+  };
   const handleRegister = async (e) => {
     e.preventDefault();
     setIsUploading(true); // Establecer el indicador de subida de archivo en verdadero
@@ -74,7 +104,7 @@ export default function RegistroRestaurante() {
         dniDuenio: formData.dniDuenio,
         emailDuenio: formData.emailDuenio,
         telefonoDuenio: formData.telefonoDuenio,
-        ciudadDuenio: formData.ciudadDuenio
+        
       };
 
       /* try { */
@@ -153,42 +183,45 @@ export default function RegistroRestaurante() {
                 </div>
               </div>
 
-              {/* Segundo grupo de tres inputs en una fila */}
-              <div className="flex space-x-4">
-                <div className="flex-1">
-                  <input
-                    required
-                    type="text"
-                    className="input-style w-full"
-                    placeholder="Ciudad"
-                    value={formData.ciudad || ""}
-                    onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
-                  />
-                  {errors.ciudad && <p className="error">{errors.ciudad[0]}</p>}
-                </div>
-                <div className="flex-1">
-                  <input
-                    required
-                    type="text"
-                    className="input-style w-full"
-                    placeholder="Provincia"
-                    value={formData.provincia || ""}
-                    onChange={(e) => setFormData({ ...formData, provincia: e.target.value })}
-                  />
-                  {errors.provincia && <p className="error">{errors.provincia[0]}</p>}
-                </div>
-                <div className="flex-1">
-                  <input
-                    required
-                    type="text"
-                    className="input-style w-full"
-                    placeholder="Pais"
-                    value={formData.pais || ""}
-                    onChange={(e) => setFormData({ ...formData, pais: e.target.value })}
-                  />
-                  {errors.pais && <p className="error">{errors.pais[0]}</p>}
-                </div>
+              <div className="mb-4">
+                
+                <select
+                  required
+                  className="input-style w-full"
+                  value={formData.provincia || ""}
+                  onChange={handleProvinciaChange}
+                >
+                  <option value="" disabled>Provincia</option>
+                  {provincias.map((provincia) => (
+                    <option key={provincia.id} value={provincia.id}>
+                      {provincia.nombre}
+                    </option>
+                  ))}
+                </select>
+                {errors.provincia && <p className="error">{errors.provincia[0]}</p>}
               </div>
+
+              {/* Selector de Localidad */}
+              <div className="mb-4">
+                
+                <select
+                  required
+                  className="input-style w-full"
+                  value={formData.ciudad || ""}
+                  onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
+                  disabled={!formData.provincia} // Deshabilita si no hay provincia seleccionada
+                >
+                  <option value="" disabled>Ciudad</option>
+                  {localidades.map((localidad) => (
+                    <option key={localidad.id} value={localidad.nombre}>
+                      {localidad.nombre}
+                    </option>
+                  ))}
+                </select>
+                {errors.ciudad && <p className="error">{errors.ciudad[0]}</p>}
+              </div>
+              {/* Segundo grupo de tres inputs en una fila */}
+              
             </div>
 
 
@@ -436,19 +469,7 @@ export default function RegistroRestaurante() {
               {errors.telefonoDuenio && <p className="error">{errors.telefonoDuenio[0]}</p>}
             </div>
 
-            <div className="mb-4">
-              <input
-                required
-                type="text"
-                className="input-style"
-                placeholder="Ciudad del Dueño"
-                value={formData.ciudadDuenio || ""}
-                onChange={(e) =>
-                  setFormData({ ...formData, ciudadDuenio: e.target.value })
-                }
-              />
-              {errors.ciudadDuenio && <p className="error">{errors.ciudadDuenio[0]}</p>}
-            </div>
+            
           </div>
         </div>
 

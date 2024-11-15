@@ -107,7 +107,7 @@ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a re
         'fechaNacimientoDuenio' => 'required|date',
         'emailDuenio' => 'required|email|unique:personas,email',
         'telefonoDuenio' => 'required|max:255',
-        'ciudadDuenio' => 'required|max:255',
+        
         'dniDuenio' => 'required|max:255',
         ]);
         
@@ -151,7 +151,7 @@ Estos datos se utilizan para autenticar al usuario y proporcionarles acceso a re
       'fechaNac' => $fields['fechaNacimientoDuenio'],
       'email' => $fields['emailDuenio'],
       'telefono' => $fields['telefonoDuenio'],
-      'ciudad' => $fields['ciudadDuenio'],
+      
   ]);
   $duenio = Duenio::create([
     'dni' => $fields['dniDuenio'],

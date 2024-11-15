@@ -137,12 +137,12 @@ public function actualizarRestaurante(Request $request, $id)
         'fechaNacimientoDuenio' => 'required|date',
         'emailDuenio' => 'nullable|email',
         'telefonoDuenio' => 'required|max:255',
-        'ciudadDuenio' => 'required|max:255',
+        
         'dniDuenio' => 'required|max:255',
     ]);
 
     $restauranteData = $request->only(['nombreRes', 'descripcion', 'tipo', 'telefono', 'email', 'capacidadTotal', 'aceptaEventos']);
-    $personaData = $request->only(['nombreDuenio', 'apellidoDuenio', 'fechaNacimientoDuenio', 'emailDuenio', 'telefonoDuenio', 'ciudadDuenio']);
+    $personaData = $request->only(['nombreDuenio', 'apellidoDuenio', 'fechaNacimientoDuenio', 'emailDuenio', 'telefonoDuenio']);
     $duenioData = $request->only(['dniDuenio']);
     $direccionData = $request->only(['calle', 'altura', 'ciudad', 'provincia', 'pais']);
 
@@ -168,7 +168,7 @@ public function actualizarRestaurante(Request $request, $id)
                 'fechaNac' => $personaData['fechaNacimientoDuenio'],
                 'email' => $personaData['emailDuenio'],
                 'telefono' => $personaData['telefonoDuenio'],
-                'ciudad' => $personaData['ciudadDuenio'],]);
+                ]);
             } else {
                 throw new \Exception('Persona no encontrada para el ID especificado en Duenio');
             }
