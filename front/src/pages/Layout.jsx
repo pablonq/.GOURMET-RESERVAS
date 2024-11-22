@@ -116,7 +116,7 @@ export default function Layout() {
       </header>
 
       <main className="flex-1 w-full min-h-screen">
-        <div className="p-4">
+        <div className="my-2">
           <Outlet />
         </div>
       </main>

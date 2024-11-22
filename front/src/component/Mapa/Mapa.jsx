@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+/* eslint-disable react/prop-types */
+
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -7,6 +8,7 @@ import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import customIconUrl from "../../assets/iconoplatos.png";
+import { useEffect } from "react";
 
 // Configuración de iconos por defecto
 delete L.Icon.Default.prototype._getIconUrl;
@@ -39,7 +41,7 @@ const userIcon = L.icon({
 const FitBounds = ({ markers, userLocation }) => {
   const map = useMap();
 
-  useEffect(() => {
+useEffect(() => {
     if (markers.length > 0) {
       const points = [...markers.map(marker => [marker.lat, marker.lng])];
       if (userLocation) {

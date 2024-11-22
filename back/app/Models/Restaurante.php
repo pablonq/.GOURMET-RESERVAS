@@ -40,7 +40,7 @@ class Restaurante extends Model
 
     public function resenias(): HasMany
     {
-        return $this->hasMany(Resenia::class);
+        return $this->hasMany(Resenia::class, 'idRestaurante', 'id');
     }
 
     public function menus(): HasMany
@@ -70,7 +70,7 @@ class Restaurante extends Model
 
     public function atencionRestaurantes(): HasMany
     {
-        return $this->hasMany(AtencionRestaurante::class);
+        return $this->hasMany(AtencionRestaurante::class, 'idRestaurante', 'id');
     }
 
     public function imagenesRestaurantes(): HasMany

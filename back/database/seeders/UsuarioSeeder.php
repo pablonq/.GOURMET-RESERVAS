@@ -23,5 +23,6 @@ class UsuarioSeeder extends Seeder
         $usuario->rol = 'usuario';
         $usuario->idPersona = 1;
         $usuario->save();
+
     }
 }

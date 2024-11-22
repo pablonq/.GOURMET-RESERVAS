@@ -123,10 +123,12 @@ function App() {
           >
             <Route index element={<DashboardUsuario />} />
             <Route path="dashboardUsuario" element={<DashboardUsuario />} />
-            <Route
+
+            {/*  <Route
               path="detalleRestaurante/:idRestaurante"
               element={<DetalleRestaurante />}
-            />
+            /> */}
+
             <Route
               path="reservar/:idRestaurante"
               element={
@@ -141,14 +143,16 @@ function App() {
                 <RutasProtegidasUsuario>
                   <Perfil />
                 </RutasProtegidasUsuario>
-              } />
+              }
+            />
             <Route
               path="editarUsuario/:userId"
               element={
                 <RutasProtegidasUsuario>
                   <EditarPerfil />
                 </RutasProtegidasUsuario>
-              } />
+              }
+            />
           </Route>
 
           {/* Anidar aqui rutas hijas del panel Restaurante*/}
@@ -275,7 +279,8 @@ function App() {
                 <RutasProtegidas>
                   <EditarPerfilRestaurante />
                 </RutasProtegidas>
-              } />
+              }
+            />
             <Route
               path="visualizarReservas"
               element={

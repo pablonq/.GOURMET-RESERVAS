@@ -13,7 +13,9 @@ const ConfirmacionReserva = () => {
       const estado = urlParams.get("estado");
 
       if (estado === "fallo") {
-        setErrorMessage("El pago ha fallado o fue cancelado. Por favor, intente nuevamente.");
+        setErrorMessage(
+          "El pago ha fallado o fue cancelado. Por favor, intente nuevamente."
+        );
         setLoading(false);
         return;
       }
@@ -63,7 +65,7 @@ const ConfirmacionReserva = () => {
           )}
           <button
             onClick={() =>
-              (window.location.href = "/panelUsuario/dashboardUsuario")
+              (window.location.href = "http://localhost:5173/panelUsuario")
             }
             className="mt-4 w-full rounded-md px-4 py-2 text-white  bg-slate-400 p-2 hover:bg-orange-400"
           >

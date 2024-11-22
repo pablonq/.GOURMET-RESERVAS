@@ -28,8 +28,6 @@ class DireccioneSeeder extends Seeder
       } */
 
     $restaurante = Restaurante::find(1); // Suponiendo que tienes algunos restaurantes creados
-
-
     Direccione::create([
       'direccionable_id' => $restaurante->id, // ID del restaurante
       'direccionable_type' => Restaurante::class, // Tipo de modelo polimórfico
@@ -133,30 +131,6 @@ class DireccioneSeeder extends Seeder
     Direccione::create([
       'direccionable_id' => $restaurante->id,
       'direccionable_type' => Restaurante::class,
-
-      'calle' => 'San Luis ',
-      'altura' => '630',
-      'ciudad' => 'Cipolletti',
-      'provincia' => 'Río Negro',
-      'pais' => 'Argentina',
-    ]);
-
-    $restaurante = Restaurante::find(10);
-    Direccione::create([
-      'direccionable_id' => $restaurante->id,
-      'direccionable_type' => Restaurante::class,
-
-      'calle' => ' Av. Mengelle',
-      'altura' => '670',
-      'ciudad' => 'Cipolletti',
-      'provincia' => 'Río Negro',
-      'pais' => 'Argentina',
-    ]);
-
-    $restaurante = Restaurante::find(11);
-    Direccione::create([
-      'direccionable_id' => $restaurante->id,
-      'direccionable_type' => Restaurante::class,
       
       'calle' => 'General Fernández Oro',
       'altura' => '230',
@@ -165,17 +139,5 @@ class DireccioneSeeder extends Seeder
       'pais' => 'Argentina',
     ]);
 
-    
-    $restaurante = Restaurante::find(12);
-    Direccione::create([
-      'direccionable_id' => $restaurante->id,
-      'direccionable_type' => Restaurante::class,
-
-      'calle' => 'Av. Belgrano',
-      'altura' => '282',
-      'ciudad' => 'Plottier',
-      'provincia' => 'Neuquén',
-      'pais' => 'Argentina',
-    ]);
   }
 }

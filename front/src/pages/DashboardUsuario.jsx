@@ -28,18 +28,18 @@ const DashboardUsuario = () => {
 
   const [direccionUsuario, setDireccionUsuario] = useState([]);
   const [coordenadas, setCoordenadas] = useState([]);
-  const [coordenadasUsuario, setCoordenadasUsuario] = useState(null); // Coordenadas del usuario
+  const [coordenadasUsuario, setCoordenadasUsuario] = useState(null); 
   const [markers, setMarkers] = useState([]);
   const [restaurantesFiltrados, setRestaurantesFiltrados] = useState([]);
   const { user, token } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleView = (restauranteId) => {
-    navigate(`detalleRestaurante/${restauranteId}`);
+    navigate(`/detalleRestaurante/${restauranteId}`);
   };
 
   const handleUsuarioCoordinatesReady = (coords) => {
-    setCoordenadasUsuario(coords[0]); // Guarda las coordenadas del usuario (primer resultado)
+    setCoordenadasUsuario(coords[0]); 
   };
   
   useEffect(() => {
@@ -72,7 +72,8 @@ const DashboardUsuario = () => {
 
     getDireccionesRestaurantes();
     getDireccionUsuario();
-  }, []);
+  }, [token, user?.id]);
+  
   useEffect(() => {
     if (coordenadasUsuario) {
       async function getCards() {
@@ -145,7 +146,6 @@ const DashboardUsuario = () => {
   }, [direcciones]);
 
   useEffect(() => {
-    // Combinar los datos de `cards` con `coordenadas` y aplicar los filtros
     const filtered = cards.map((restaurante, index) => {
       const distancia = coordenadas[index]
         ? calcularDistancia(
@@ -184,7 +184,7 @@ const DashboardUsuario = () => {
         lng: restaurante.coordenadas.lng,
       }));
     setMarkers(generatedMarkers);
-  }, [cards, coordenadas, filtros, coordenadasUsuario]);
+  }, [cards, coordenadas, filtros, coordenadasUsuario, ordenarPorPopularidad]);
   
 
   return (

@@ -1,4 +1,4 @@
-const FlechaDerecha = () => {
+const FlechaIzquierda = () => {
   return (
     <svg
       data-slot="icon"
@@ -14,9 +14,9 @@ const FlechaDerecha = () => {
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="m8.25 4.5 7.5 7.5-7.5 7.5"
+        d="M15.75 19.5 8.25 12l7.5-7.5"
       ></path>
     </svg>
   );
 };
-export default FlechaDerecha;
+export default FlechaIzquierda;

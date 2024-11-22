@@ -8,12 +8,19 @@ import PersonaGroup from "../../assets/PersonasGroup";
 
 const DetalleReservaCliente = ({ reserva, filtro }) => {
   const [mensaje, setMensaje] = useState("");
+  const [mensajeExito, setMensajeExito] = useState(false);
   const cantidadMesas = reserva.mesas.length;
   const totalComensales = reserva.mesas.reduce(
     (total, mesa) => total + mesa.cantidadPersonas,
     0
   );
-  const fechaLimpia = reserva.fechaReserva.split(" ")[0];
+
+  const convertirFecha = (fecha) => {
+    const [year, month, day] = fecha.split("-");
+    return `${day}/${month}/${year}`;
+  };
+
+  const fechaLimpia = convertirFecha(reserva.fechaReserva.split(" ")[0]);
   const horaReservaString = reserva.horaReserva;
   const direccionRestaurante =
     reserva.restaurantes.direccion.calle +
@@ -26,18 +33,28 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
 
   const handleCancelar = async () => {
     try {
-      const response = await fetch(`/api/restaurantes/cancelarReserva/${reserva.id}`, {
-        method: "PUT",
-      });
+      const response = await fetch(
+        `/api/restaurantes/cancelarReserva/${reserva.id}`,
+        {
+          method: "PUT",
+        }
+      );
 
       if (response.ok) {
+        setMensajeExito(true);
         setMensaje(
-          `La reserva del ${reserva.fechaReserva} a las ${reserva.horaReserva} ha sido cancelada. Por favor, no asistas ya que no aparecerá en la agenda del lugar y no serás atendido.`
+          `La reserva del ${fechaLimpia} a las ${horaReservaString} ha sido cancelada. Por favor, no asistas ya que no aparecerá en la agenda del lugar y no serás atendido.`
         );
+        setTimeout(() => {
+          setMensaje("");
+          setMensajeExito(false);
+        }, 5000);
+      } else {
         const errorData = await response.json();
         setMensaje(errorData.message || "Error al cancelar la reserva.");
       }
     } catch (error) {
+      setMensajeExito(false);
       setMensaje("Error al cancelar la reserva: " + error.message);
     }
   };
@@ -83,7 +100,7 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
               <p className="text-sm">Fecha: {fechaLimpia}</p>
             </div>
             <div className="flex items-center">
-              <IconoReloj width={"16"} height={"16"}/>
+              <IconoReloj width={"16"} height={"16"} />
               <p className="text-sm ml-2">Hora: {horaReservaString}</p>
             </div>
             <div className="flex items-center">
@@ -114,7 +131,17 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
           ) : (
             ""
           )}
-          {mensaje && <div className="mb-4 text-center text-red-500">{mensaje}</div>}
+          {mensaje && (
+            <div
+              className={`mb-4 text-center p-2 rounded ${
+                mensajeExito
+                  ? "bg-green-500 text-white"
+                  : "bg-red-500 text-white"
+              }`}
+            >
+              {mensaje}
+            </div>
+          )}
         </div>
       </div>
     </div>

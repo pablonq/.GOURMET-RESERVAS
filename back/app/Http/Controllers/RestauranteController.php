@@ -27,7 +27,7 @@ class RestauranteController extends Controller
 
   public function traerRestaurante()
   {
-    $restaurantes = Restaurante::with('direccion')->get();;
+    $restaurantes = Restaurante::with(['direccion',  'imagenesRestaurantes', 'reservas', 'atencionRestaurantes', 'resenias'])->get();;
 
     // calculo el promedio de puntuacion
     foreach ($restaurantes as $restaurante) {
@@ -40,7 +40,7 @@ class RestauranteController extends Controller
       } else {
         $promedio = 0;
       }
-
+      $restaurante->totalResenias =  $totalResenias;
       $restaurante->promedioPuntuacion = $promedio;
       $restaurante->ciudad = $restaurante->direccion->ciudad ?? null;
     }

@@ -14,13 +14,10 @@ const PlanoCliente = ({ mesas = [], fecha, hora }) => {
   }
 
   const handleConfirmarReserva = () => {
-    console.log("Mesas seleccionadas antes de navegar:", mesasSelecionadas);
-  console.log("Fecha:", fecha);
-  console.log("Hora:", hora);
     navigate("/detalleReserva", {
       state: { mesasSelecionadas, fecha, hora },
     });
-    console.log(mesasSelecionadas);
+
   };
 
   return (
