@@ -71,7 +71,7 @@ const MesasDisponiblesCard = ({ idRestaurante, fecha, hora }) => {
       dataLabels: {
         enabled: true,
         formatter: function (val) {
-          return `${Math.round((val / totalMesas) * 10)}%`;
+          return `${Math.round((val / totalMesas) * totalMesas)}%`;
         },
       },
       tooltip: {

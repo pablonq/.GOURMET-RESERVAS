@@ -27,7 +27,7 @@ class PersonaSeeder extends Seeder
         $persona->nombre = 'Lionel';
         $persona->apellido = 'Messi';
         $persona->fechaNac = '2020-12-12';
-        $persona->email = 'messi@mail.com';
+        $persona->email = 'messi@gmail.com';
         $persona->telefono = '123456789';
         $persona->save();
 
@@ -45,7 +45,7 @@ class PersonaSeeder extends Seeder
         $persona->nombre = 'Mario';
         $persona->apellido = 'Kempes';
         $persona->fechaNac = '2020-12-12';
-        $persona->email = 'kempes@mail.com';
+        $persona->email = 'kempes@gmail.com';
         $persona->telefono = '123456789';
         $persona->save();
 
@@ -54,7 +54,7 @@ class PersonaSeeder extends Seeder
         $persona->nombre = 'Marcelo';
         $persona->apellido = 'Gallardo';
         $persona->fechaNac = '2020-12-12';
-        $persona->email = 'gallardo@mail.com';
+        $persona->email = 'gallardo@gmail.com';
         $persona->telefono = '123456789';
         $persona->save();
 
@@ -63,7 +63,7 @@ class PersonaSeeder extends Seeder
         $persona->nombre = 'Enzo';
         $persona->apellido = 'Francescoli';
         $persona->fechaNac = '2020-12-12';
-        $persona->email = 'francescoli@mail.com';
+        $persona->email = 'francescoli@gmail.com';
         $persona->telefono = '123456789';
         $persona->save();
 
@@ -72,7 +72,7 @@ class PersonaSeeder extends Seeder
         $persona->nombre = 'David';
         $persona->apellido = 'Gilmour';
         $persona->fechaNac = '2020-12-12';
-        $persona->email = 'gilmour@mail.com';
+        $persona->email = 'gilmour@gmail.com';
         $persona->telefono = '123456789';
         $persona->save();
 
@@ -81,7 +81,7 @@ class PersonaSeeder extends Seeder
         $persona->nombre = 'Roger';
         $persona->apellido = 'Waters';
         $persona->fechaNac = '2020-12-12';
-        $persona->email = 'waters@mail.com';
+        $persona->email = 'waters@gmail.com';
         $persona->telefono = '123456789';
         $persona->save();
 
@@ -90,7 +90,7 @@ class PersonaSeeder extends Seeder
         $persona->nombre = 'Jimmy';
         $persona->apellido = 'Page';
         $persona->fechaNac = '2020-12-12';
-        $persona->email = 'page@mail.com';
+        $persona->email = 'page@gmail.com';
         $persona->telefono = '123456789';
         $persona->save();
 
@@ -99,7 +99,7 @@ class PersonaSeeder extends Seeder
         $persona->nombre = 'Robert';
         $persona->apellido = 'Plant';
         $persona->fechaNac = '2020-12-12';
-        $persona->email = 'plant@mail.com';
+        $persona->email = 'plant@gmail.com';
         $persona->telefono = '123456789';
         $persona->save();
 

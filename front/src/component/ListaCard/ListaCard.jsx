@@ -13,7 +13,6 @@ const ListaCard = () => {
 
     if (res.ok) {
       setCards(data);
-      //  console.log("Restaurantes recibidos:", data);
     }
   }
 
@@ -23,7 +22,6 @@ const ListaCard = () => {
 
     if (res.ok) {
       setImagenes(data);
-      //  console.log("Imagenes recibidas:", data);
     }
   }
 
@@ -32,9 +30,10 @@ const ListaCard = () => {
     getImagenes();
   }, []);
 
-  const handleView = () => {
-    navigate(`/loginUsuario`); 
+  const handleView = (restauranteId) => {
+    navigate(`detalleRestaurante/${restauranteId}`); 
   };
+
 
   return (
     <div className="flex flex-wrap ">
@@ -55,7 +54,7 @@ const ListaCard = () => {
                 direccion={restaurante.ciudad}
                 tipo={restaurante.tipo}
                 calificacion={restaurante.promedioPuntuacion}
-                onView={handleView}
+                onView={() => handleView(restaurante.id)}
               />
             </div>
           );

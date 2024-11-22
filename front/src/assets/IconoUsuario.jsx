@@ -1,15 +1,16 @@
-const IconoUsuario = () => {
+/* eslint-disable react/prop-types */
+const IconoUsuario = ({ width = "28", height = "28" }) => {
   return (
     <svg
       data-slot="icon"
       fill="none"
-      strokeWidth="1"
+      strokeWidth="1.5"
       stroke="currentColor"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      width="28"
-      height="28"
+      width={width}
+      height={height}
     >
       <path
         strokeLinecap="round"

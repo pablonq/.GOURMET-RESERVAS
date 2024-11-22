@@ -20,8 +20,6 @@ const VistaReserva = ({
     return acc;
   }, {});
 
-  console.log("son los datosd de una reseña:", reseniaExistente);
-
   const [respuesta, setRespuesta] = useState("");
 
   const handleResponder = async () => {

@@ -101,11 +101,15 @@ const Reservas = () => {
     }
   }, [reservas]);
 
+  const usuariosPorId = usuarios.reduce((map, usuario) => {
+    map[usuario.usuario.id] = usuario;
+    return map;
+  }, {});
+
   // Filtrar reservas
   const reservasFiltradas = reservas.filter((reserva) => {
-    const usuario =
-      usuarios.find((user) => user.id === reserva.idUsuario) || {};
-    const nombreUsuario = usuario.nombre || "";
+    const usuario = usuariosPorId[reserva.idUsuario];
+    const nombreUsuario = usuario ? usuario.persona?.nombre || "" : "";
     const fechaReserva = reserva.fechaReserva.split(" ")[0];
 
     return (
@@ -179,13 +183,13 @@ const Reservas = () => {
       {reservasFiltradas.length === 0 ? (
         <p>No hay reservas disponibles.</p>
       ) : (
-        reservasActuales.map((reserva, index) => (
+        reservasActuales.map((reserva) => (
           <VistaReserva
             key={reserva.id}
             reserva={reserva}
             mesas={reserva.mesas}
-            usuario={usuarios[index]}
-            reseniaExistente={resenias[index]}
+            usuario={usuariosPorId[reserva.idUsuario]}
+            reseniaExistente={resenias[reserva.id]}
             onResponse={handleResponseUpdate}
           />
         ))

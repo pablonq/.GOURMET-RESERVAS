@@ -28,8 +28,6 @@ class DireccioneSeeder extends Seeder
       } */
 
     $restaurante = Restaurante::find(1); // Suponiendo que tienes algunos restaurantes creados
-
-
     Direccione::create([
       'direccionable_id' => $restaurante->id, // ID del restaurante
       'direccionable_type' => Restaurante::class, // Tipo de modelo polimórfico

@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from "react";
-import Title from "../../../component/Title/Title";
 import { AppContext } from "../../../Context/AppContext";
-import EstrellaPuntuacion from "../../../component/EstrellaPuntuacion/EstrellaPuntuacion";
 import EscribirResenia from "./EscribirResenia";
 import ReservasFiltros from "../../../component/ReservasFiltros/ReservasFiltros";
 import DetalleReservaCliente from "../../../component/DetalleReservaCliente/DetalleReservaCliente";

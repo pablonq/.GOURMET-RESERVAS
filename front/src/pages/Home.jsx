@@ -2,11 +2,6 @@ import { useNavigate } from "react-router-dom";
 import ListaCard from "../component/ListaCard/ListaCard";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../Context/AppContext";
-/**
- * Un breve resumen de la aplicación
- * Un formulario de búsqueda para que los usuarios encuentren restaurantes por nombre, comida, ubicación, etc.
- * Sección para mostrar los restaurantes más populares, nuevos o con mejores calificaciones.
- */
 
 const Home = () => {
   const { user, loading} = useContext(AppContext);

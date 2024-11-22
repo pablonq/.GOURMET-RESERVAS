@@ -7,9 +7,9 @@ const EstrellaPuntuacion = ({ calificacion }) => {
     const parcial = index === entero && decimal > 0;
     return (
       <span key={index} className="relative inline-block">
-        <span className="text-gray-300">★</span>
+        <span className="text-[#B6C6B9]">★</span>
         <span
-          className="absolute top-0 left-0 text-yellow-500 overflow-hidden"
+          className="absolute top-0 left-0 text-[#DC493A] overflow-hidden"
           style={{
             width: lleno ? "100%" : parcial ? `${decimal * 100}%` : "0%",
           }}
@@ -28,7 +28,7 @@ const EstrellaPuntuacion = ({ calificacion }) => {
   return (
     <div className="flex items-center">
       {estrellas}
-      <span className="ml-2 text-yellow-500 text-sm">{calificacionString}</span>
+      <span className="ml-2 text-[#DC493A] text-sm">{calificacionString}</span>
     </div>
   );
 };
