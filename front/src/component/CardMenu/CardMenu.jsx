@@ -2,7 +2,7 @@ import React from 'react'
 
 export function CardMenu({ imagen, nombre, descripcion, tipo, onView }) {
   return (
-    <div className="relative max-w-72 h-96 overflow-hidden bg-gray-800 rounded-2xl shadow-2xl group">
+    <div className="relative max-w-72 h-96 overflow-hidden bg-[#242424] rounded-2xl shadow-2xl group">
       
 
       <div >

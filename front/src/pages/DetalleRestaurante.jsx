@@ -106,11 +106,22 @@ const DetalleRestaurante = () => {
 
   if (loading) return <p className="text-center font-bold text-rose-700">Cargando...</p>;
   if (error) return <p className="text-center font-bold text-rose-700">Error: {error}</p>;
-
+  const handleVolver = () => {
+    navigate("/panelUsuario");
+  };
   return (
     <>
       <Title text={"Detalle del restaurante"} />
-
+    <div className="absolute top-40 left-50">
+      <button onClick={handleVolver}>
+        <img
+          src="../../src/assets/volver.png" // Reemplaza con la ruta de tu imagen PNG
+          alt="Volver"
+          className="w-8 h-8 cursor-pointer"
+        />
+      </button>
+    </div>
+      
       <div className="flex justify-center p-2">
         <button
           onClick={handleReservar}

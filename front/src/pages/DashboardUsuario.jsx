@@ -189,44 +189,48 @@ const DashboardUsuario = () => {
 
   return (
     <>
-      <Coordenadas 
-        direcciones={direccionUsuario} 
-        onCoordinatesReady={handleUsuarioCoordinatesReady} 
-      />
-      <div className="flex">
-        <div className="w-full md:w-[70%] flex flex-wrap">
-          {restaurantesFiltrados.length === 0 ? (
-            <p className="text-center font-bold text-rose-700">
-              No hay restaurantes disponibles con los filtros seleccionados.
-            </p>
-          ) : (
-            restaurantesFiltrados.map((restaurante) => {
-              const imagenesFiltradas = imagenes.filter(
-                (imagen) => imagen.idRestaurante === restaurante.id
-              );
-              return (
-                <div key={restaurante.id} className="m-2">
-                  <CardRestaurante
-                    imagenes={imagenesFiltradas}
-                    nombreRes={restaurante.nombreRes}
-                    direccion={restaurante.ciudad}
-                    tipo={restaurante.tipo}
-                    calificacion={restaurante.promedioPuntuacion}
-                    mesasDisponibles={restaurante.mesas_disponibles}
-                    onView={() => handleView(restaurante.id)}
-                    distancia={restaurante.distancia}
-                  />
-                </div>
-              );
-            })
-          )}
-        </div>
-        <div className="w-full md:w-[30%]">
-          <Mapa markers={markers}
-          userLocation={coordenadasUsuario} />
-        </div>
-      </div>
-    </>
+  <div className="w-full">
+    <Coordenadas 
+      direcciones={direccionUsuario} 
+      onCoordinatesReady={handleUsuarioCoordinatesReady} 
+    />
+    <Mapa 
+      markers={markers}
+      userLocation={coordenadasUsuario} 
+      className="w-full h-[220px] md:h-[250px] border-10 rounded-lg"
+    />
+  </div>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mt-4">
+    {restaurantesFiltrados.length === 0 ? (
+      <p className="text-center font-bold text-rose-700 w-full">
+        No hay restaurantes disponibles con los filtros seleccionados.
+      </p>
+    ) : (
+      restaurantesFiltrados.map((restaurante) => {
+        const imagenesFiltradas = imagenes.filter(
+          (imagen) => imagen.idRestaurante === restaurante.id
+        );
+        return (
+          <div 
+            key={restaurante.id} 
+            className="w-[90%] mx-auto">
+            <CardRestaurante
+              imagenes={imagenesFiltradas}
+              nombreRes={restaurante.nombreRes}
+              direccion={restaurante.ciudad}
+              tipo={restaurante.tipo}
+              calificacion={restaurante.promedioPuntuacion}
+              mesasDisponibles={restaurante.mesas_disponibles}
+              onView={() => handleView(restaurante.id)}
+              distancia={restaurante.distancia}
+            />
+          </div>
+        );
+      })
+    )}
+  </div>
+</>
+
   );
 };
 

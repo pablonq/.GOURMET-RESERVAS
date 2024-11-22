@@ -63,7 +63,7 @@ const Mapa = ({ markers = [], userLocation }) => {
       <MapContainer
         center={defaultCenter}
         zoom={13}
-        style={{ height: "500px", width: "100%" }}
+        style={{ height: "250px", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

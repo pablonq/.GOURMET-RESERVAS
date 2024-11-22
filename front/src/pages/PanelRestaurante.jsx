@@ -51,7 +51,7 @@ const PanelRestaurante = () => {
 
   return (
     <div className="flex">
-      <div className="w-72 text-sm min-h-screen bg-slate-700  ">
+      <div className="w-72 text-sm min-h-screen bg-[#242424]  ">
         <div className="flex justify-center my-2">
           {imagenesFiltradas.length > 0 ? (
             <ImagenPerfil

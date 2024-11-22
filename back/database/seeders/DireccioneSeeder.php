@@ -128,8 +128,19 @@ class DireccioneSeeder extends Seeder
       'provincia' => 'Neuquén',
       'pais' => 'Argentina',
     ]);
-
+    
     $restaurante = Restaurante::find(9);
+    Direccione::create([
+      'direccionable_id' => $restaurante->id,
+      'direccionable_type' => Restaurante::class,
+      
+      'calle' => 'General Fernández Oro',
+      'altura' => '230',
+      'ciudad' => 'Cipolletti',
+      'provincia' => 'Rio Negro',
+      'pais' => 'Argentina',
+    ]);
+    $restaurante = Restaurante::find(10);
     Direccione::create([
       'direccionable_id' => $restaurante->id,
       'direccionable_type' => Restaurante::class,
@@ -141,7 +152,7 @@ class DireccioneSeeder extends Seeder
       'pais' => 'Argentina',
     ]);
 
-    $restaurante = Restaurante::find(10);
+    $restaurante = Restaurante::find(11);
     Direccione::create([
       'direccionable_id' => $restaurante->id,
       'direccionable_type' => Restaurante::class,
@@ -153,17 +164,6 @@ class DireccioneSeeder extends Seeder
       'pais' => 'Argentina',
     ]);
 
-    $restaurante = Restaurante::find(11);
-    Direccione::create([
-      'direccionable_id' => $restaurante->id,
-      'direccionable_type' => Restaurante::class,
-      
-      'calle' => 'General Fernández Oro',
-      'altura' => '230',
-      'ciudad' => 'Cipolletti',
-      'provincia' => 'Rio Negro',
-      'pais' => 'Argentina',
-    ]);
 
     
     $restaurante = Restaurante::find(12);
@@ -175,6 +175,102 @@ class DireccioneSeeder extends Seeder
       'altura' => '282',
       'ciudad' => 'Plottier',
       'provincia' => 'Neuquén',
+      'pais' => 'Argentina',
+    ]);
+
+    $restaurante = Restaurante::find(13);
+    Direccione::create([
+      'direccionable_id' => $restaurante->id,
+      'direccionable_type' => Restaurante::class,
+
+      'calle' => 'Rivadavia',
+      'altura' => '171',
+      'ciudad' => 'Neuquén',
+      'provincia' => 'Neuquén',
+      'pais' => 'Argentina',
+    ]);
+
+    $restaurante = Restaurante::find(14);
+    Direccione::create([
+      'direccionable_id' => $restaurante->id,
+      'direccionable_type' => Restaurante::class,
+
+      'calle' => 'Almirante Brown',
+      'altura' => '205',
+      'ciudad' => 'Neuquén',
+      'provincia' => 'Neuquén',
+      'pais' => 'Argentina',
+    ]);
+
+    $restaurante = Restaurante::find(15);
+    Direccione::create([
+      'direccionable_id' => $restaurante->id,
+      'direccionable_type' => Restaurante::class,
+
+      'calle' => 'Entre Rios',
+      'altura' => '507',
+      'ciudad' => 'Neuquén',
+      'provincia' => 'Neuquén',
+      'pais' => 'Argentina',
+    ]);
+
+    $restaurante = Restaurante::find(16);
+    Direccione::create([
+      'direccionable_id' => $restaurante->id,
+      'direccionable_type' => Restaurante::class,
+
+      'calle' => 'Santa Fe',
+      'altura' => '383',
+      'ciudad' => 'Neuquén',
+      'provincia' => 'Neuquén',
+      'pais' => 'Argentina',
+    ]);
+
+    $restaurante = Restaurante::find(17);
+    Direccione::create([
+      'direccionable_id' => $restaurante->id,
+      'direccionable_type' => Restaurante::class,
+
+      'calle' => 'General Roca',
+      'altura' => '320',
+      'ciudad' => 'Cipolletti',
+      'provincia' => 'Río Negro',
+      'pais' => 'Argentina',
+    ]);
+
+    $restaurante = Restaurante::find(18);
+    Direccione::create([
+      'direccionable_id' => $restaurante->id,
+      'direccionable_type' => Restaurante::class,
+
+      'calle' => 'General José de San Martín',
+      'altura' => '531',
+      'ciudad' => 'General Roca',
+      'provincia' => 'Río Negro',
+      'pais' => 'Argentina',
+    ]);
+
+    $restaurante = Restaurante::find(19);
+    Direccione::create([
+      'direccionable_id' => $restaurante->id,
+      'direccionable_type' => Restaurante::class,
+
+      'calle' => 'La Pampa',
+      'altura' => '1571',
+      'ciudad' => 'General Roca',
+      'provincia' => 'Río Negro',
+      'pais' => 'Argentina',
+    ]);
+
+    $restaurante = Restaurante::find(20);
+    Direccione::create([
+      'direccionable_id' => $restaurante->id,
+      'direccionable_type' => Restaurante::class,
+
+      'calle' => 'Coronel Rodhe',
+      'altura' => '708',
+      'ciudad' => 'General Roca',
+      'provincia' => 'Río Negro',
       'pais' => 'Argentina',
     ]);
   }

@@ -40,7 +40,7 @@ export default function Layout() {
         <nav>
           <Link
             to="/"
-            className="nav-link font-semibold text-lg text-orange-400"
+            className="nav-link font-semibold text-lg text-[#B7C7BA]"
           >
             .GourmetReservas
           </Link>
@@ -116,7 +116,7 @@ export default function Layout() {
       </header>
 
       <main className="flex-1 w-full min-h-screen">
-        <div className="p-4">
+        <div className="p-4 bg-[#B7C7BA]">
           <Outlet />
         </div>
       </main>

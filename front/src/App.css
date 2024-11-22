@@ -13,7 +13,7 @@
         padding: 0;
     }
     body {
-        font-family: "Poppins", sans-serif;
+        font-family: Verdana, ;
     
     }
 }
@@ -31,7 +31,7 @@
         @apply block text-sm font-medium leading-6 text-slate-900 first-letter:capitalize;
     }
     header {
-        @apply bg-slate-800 shadow-md;
+        @apply bg-[#1A2F2A] shadow-md;
     }
     nav {
         @apply p-5 w-auto mx-4 flex items-center justify-between;
