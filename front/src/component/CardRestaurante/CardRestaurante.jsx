@@ -26,7 +26,7 @@ const CardRestaurante = ({
   };
 
   return (
-    <div className="h-80">
+    <div className="h-80" onClick={onView}>
       <div className="relative max-w-60 h-full overflow-hidden rounded-2xl shadow-2xl group flex flex-col transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
         {imagenes.length > 0 ? (
           <Slider {...settings}>
@@ -45,8 +45,8 @@ const CardRestaurante = ({
             No hay imágenes disponibles
           </p>
         )}
-        <div className="text-slate-950 p-3">
-          <h3 className="text-base font-bold text-center mt-2">{nombreRes}</h3>
+        <div className="text-slate-950 p-3 justify-between" >
+          <h3 className="line-clamp-2 text-base font-bold text-center mx-0 mt-1">{nombreRes}</h3>
           <p className="font-light text-end text-xs p-1">{tipo}</p>
           <p className="font-light text-end text-xs">{direccion}</p>
           {distancia && distancia !== Infinity && (
@@ -63,14 +63,7 @@ const CardRestaurante = ({
             </p>
           )}
         </div>
-        <div className="flex justify-center mt-1">
-          <button
-            onClick={onView}
-            className="text-white text-center text-sm rounded-md bg-gray-800 p-1 hover:bg-orange-400"
-          >
-            Reservar
-          </button>
-        </div>
+        
       </div>
     </div>
   );
