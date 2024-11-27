@@ -36,6 +36,7 @@ export default function Layout() {
 
   return (
     <>
+    <div className="flex flex-col min-h-screen">
       <header>
         <nav>
           <Link
@@ -94,7 +95,7 @@ export default function Layout() {
                   to="/loginRestaurante"
                   className={`hover:text-blue-300 ${
                     isActive("/loginRestaurante")
-                      ? "text-orange-400"
+                      ? "text-[#DC493A]"
                       : "text-white"
                   }`}
                 >
@@ -104,7 +105,7 @@ export default function Layout() {
                 <Link
                   to="/loginUsuario"
                   className={`hover:text-blue-300 ${
-                    isActive("/loginUsuario") ? "text-orange-400" : "text-white"
+                    isActive("/loginUsuario") ? "text-[#DC493A]" : "text-white"
                   }`}
                 >
                   Usuarios
@@ -115,14 +116,15 @@ export default function Layout() {
         </nav>
       </header>
 
-      <main className="flex-1 w-full min-h-screen">
-        <div className="p-4 bg-[#B7C7BA]">
+      <main className="flex-1 w-full">
+        <div className="p-4">
           <Outlet />
         </div>
       </main>
-      <footer className="bg-gray-800 text-white p-4 text-center">
+      <footer className="bg-[#242424] text-white p-4 text-center">
         <p>© 2024 .GourmetReservas Todos los derechos reservados.</p>
       </footer>
+      </div>
     </>
   );
 }

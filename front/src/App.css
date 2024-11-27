@@ -6,6 +6,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer base {
     html, body {
         height: 100%;
@@ -19,9 +20,9 @@
 }
 
 @layer components {
-    input[type="text"],
+    
     input[type="email"],
-    input[type="password"],
+    
     input[type="search"],
     input[type="tel"],
     input[type="url"], textarea {
@@ -31,7 +32,7 @@
         @apply block text-sm font-medium leading-6 text-slate-900 first-letter:capitalize;
     }
     header {
-        @apply bg-[#1A2F2A] shadow-md;
+        @apply bg-[#242424] shadow-md;
     }
     nav {
         @apply p-5 w-auto mx-4 flex items-center justify-between;
@@ -78,5 +79,22 @@
     }
     .user-marker {
       filter: hue-rotate(140deg);
+    }
+    .main1{
+      background-image: url("./assets/bg13.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      /* filter: brightness(0.5) blur(5px); */
+    }
+    .main2{
+      background-image: url("./assets/bg13.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      /* filter: brightness(0.5) blur(5px); */
+    }
+    .input-text, .input-password {
+      @apply font-verdana text-white bg-transparent focus:outline-none border border-r-0 border-t-0 border-l-0 tracking-wide;
     }
 }

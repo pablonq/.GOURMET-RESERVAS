@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{vue,js,jsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'verdana': ['Verdana', 'sans-serif'],
+      },
+      backgroundImage: {
+        'gourmet-bg': "url('./assets/gourmet2.jpeg')",
+      },
+    },
   },
   plugins: [],
 }
