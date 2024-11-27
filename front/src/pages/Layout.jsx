@@ -41,38 +41,38 @@ export default function Layout() {
         <nav>
           <Link
             to="/"
-            className="nav-link font-semibold text-lg text-[#B7C7BA]"
+            className="nav-link font-semibold text-lg text-[#DC493A]"
           >
             .GourmetReservas
           </Link>
-          <div className="flex items-center space-x-4">
+          <div className="flex  items-center  space-x-4">
             {user ? (
               <>
                 {user.rol === "usuario" && (
                   <>
                     <Link
                       to="/misReservas"
-                      className={`hover:text-blue-300 ${
+                      className={`px-4 ${
                         isActive("/misReservas")
-                          ? "text-orange-400"
+                          ? " text-[#DC493A] bg-white rounded-md "
                           : "text-white"
-                      }`}
+                      } hover:text-[#B6C6B9]`}
                     >
                       Mis Reservas
                     </Link>
                     <Link
                       to="panelUsuario/perfilUsuario"
-                      className={`hover:text-blue-300 ${
-                        isActive("/perfilUsuario")
-                          ? "text-orange-400"
+                      className={`px-4 ${
+                        isActive("/panelUsuario/perfilUsuario")
+                          ? "text-[#DC493A] bg-white rounded-md"
                           : "text-white"
-                      }`}
+                      } hover:text-[#B6C6B9]`}
                     >
                       Mi Perfil
                     </Link>
                   </>
                 )}
-                <div className="flex items-center justify-center mx-8 font-light text-gray-400 ">
+                <div className="flex items-center  mx-8 font-light text-[#B6C6B9]">
                   Bienvenido{" "}
                   {user.rol === "restaurante"
                     ? user.nombreRes
@@ -81,32 +81,32 @@ export default function Layout() {
                     <ImagenPerfil
                       src={user?.avatarUrl || defaultAvatar}
                       textAlt={"imagen perfil usuario"}
-                      isSmall={true} 
+                      isSmall={true}
                     />
                   )}
                 </div>
                 <form onSubmit={handleLogout}>
-                  <button className="nav-link text-white">Logout</button>
+                  <button className="nav-link text-white hover:text-[#B6C6B9] hover:bg-[#DC493A]">Logout</button>
                 </form>
               </>
             ) : (
               <div className="space-x-4">
                 <Link
                   to="/loginRestaurante"
-                  className={`hover:text-blue-300 ${
+                  className={`px-4 pt-2 pb-8  ${
                     isActive("/loginRestaurante")
-                      ? "text-[#DC493A]"
+                      ? "bg-white  text-[#DC493A] rounded-t-lg "
                       : "text-white"
-                  }`}
+                  } hover:text-[#B6C6B9]`}
                 >
                   Restaurantes
                 </Link>
 
                 <Link
                   to="/loginUsuario"
-                  className={`hover:text-blue-300 ${
-                    isActive("/loginUsuario") ? "text-[#DC493A]" : "text-white"
-                  }`}
+                  className={`px-4 pt-2 pb-8  ${
+                    isActive("/loginUsuario") ? "bg-white text-[#DC493A] rounded-t-lg " : "text-white "
+                  }hover:text-[#B6C6B9]`}
                 >
                   Usuarios
                 </Link>
@@ -116,8 +116,8 @@ export default function Layout() {
         </nav>
       </header>
 
-      <main className="flex-1 w-full">
-        <div className="p-4">
+      <main className="flex-1 w-full min-h-screen">
+        <div>
           <Outlet />
         </div>
       </main>

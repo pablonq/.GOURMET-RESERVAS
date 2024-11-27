@@ -34,16 +34,16 @@ const userIcon = L.icon({
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
-  className: 'user-marker'
+  className: "user-marker",
 });
 
 // Componente para ajustar los límites del mapa
 const FitBounds = ({ markers, userLocation }) => {
   const map = useMap();
 
-useEffect(() => {
+  useEffect(() => {
     if (markers.length > 0) {
-      const points = [...markers.map(marker => [marker.lat, marker.lng])];
+      const points = [...markers.map((marker) => [marker.lat, marker.lng])];
       if (userLocation) {
         points.push([userLocation.lat, userLocation.lng]);
       }
@@ -72,7 +72,7 @@ const Mapa = ({ markers = [], userLocation }) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> .Gourmet Reservas'
         />
         <FitBounds markers={markers} userLocation={userLocation} />
-        
+
         {userLocation && (
           <Marker
             position={[userLocation.lat, userLocation.lng]}

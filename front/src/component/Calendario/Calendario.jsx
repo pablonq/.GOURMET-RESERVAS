@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import  {  registerLocale  }  from  "react-datepicker" ; 
+import {  es  }  from  'date-fns/locale/es' ; 
+import IconoReloj from "../../assets/IconoReloj";
 
 // eslint-disable-next-line react/prop-types
 const Calendario = ({ onDateSelect, idRestaurante }) => {
+  registerLocale ( 'es' ,  es )
   const [fecha, setFecha] = useState();
   const [dias, setDias] = useState([]);
   const [diasHorarios, setDiasHorarios] = useState([]);
@@ -36,6 +40,7 @@ const Calendario = ({ onDateSelect, idRestaurante }) => {
 
   useEffect(() => {
     getDiasHorarios();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDateSelect = (date) => {
@@ -83,8 +88,7 @@ const Calendario = ({ onDateSelect, idRestaurante }) => {
     return opciones;
   };
 
-  const handleHoraChange = (event) => {
-    const hora = event.target.value;
+  const handleHoraChange = (hora) => {
     setHoraSeleccionada(hora);
 
     if (fecha && hora) {
@@ -107,7 +111,6 @@ const Calendario = ({ onDateSelect, idRestaurante }) => {
 
   return (
     <div className="flex p-2 w-auto">
-      <div>
         <DatePicker
           selected={fecha}
           onChange={handleDateSelect}
@@ -116,23 +119,32 @@ const Calendario = ({ onDateSelect, idRestaurante }) => {
           dateFormat="dd/MM/yyyy"
           placeholderText=" Dia "
           inline
+          locale="es"
+          dayClassName={(date) => {
+            if (date.toDateString() === new Date().toDateString()) {
+              return "rounded-sm bg-[#DC493A] text-white";
+            }
+          }}
         />
-      </div>
       {horariosDisponibles.length > 0 && (
-        <div className="ml-4">
-          <p className="text-gray-700">Horarios disponibles:</p>
-          <select
-            value={horaSeleccionada}
-            onChange={handleHoraChange}
-            className="block overflow-y-scroll px-4 py-2 border text-sm border-gray-300 rounded-s shadow-sm focus:outline-none"
-          >
-            <option value="">Selecciona una hora</option>
+        <div className="flex flex-col w-max ml-14">
+          <div className="flex space-x-2 items-center p-2">
+            <IconoReloj width={"18"} height={"18"}/>
+          <p className="text-[#242424]">Horarios disponibles</p>
+          </div>
+          <div className="grid grid-cols-8 gap-2">
             {opcionesHorario.map((hora, index) => (
-              <option key={index} value={hora}>
+              <div
+                key={index}
+                onClick={() => handleHoraChange(hora)}
+                className={`cursor-pointer  bg-[#DC493A] text-white font-medium text-xs rounded-md p-2 text-center ${
+                  hora === horaSeleccionada ? "ring-2 ring-white" : ""
+                }`}
+              >
                 {hora}
-              </option>
+              </div>
             ))}
-          </select>
+          </div>
         </div>
       )}
     </div>

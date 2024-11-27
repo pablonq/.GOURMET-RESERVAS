@@ -45,7 +45,7 @@ const AgruparMesa = ({
         Mesas para {cantidadPersonas} personas
       </h2>
       {filteredMesas.length > 0 ? (
-        <div className="flex flex-wrap border-solid border-2 border-slate-300 rounded-md">
+        <div className="flex flex-wrap border-b border-gray-300 p-4 rounded-md">
           {filteredMesas.map((mesa) => (
             <div key={mesa.id} className="m-2 flex flex-col">
               <button
@@ -65,7 +65,7 @@ const AgruparMesa = ({
                 >
                   <svg
                     data-slot="icon"
-                    fill="#FF0000"
+                    fill="#DC493A"
                     stroke="#000"
                     strokeWidth="1"
                     width="20"

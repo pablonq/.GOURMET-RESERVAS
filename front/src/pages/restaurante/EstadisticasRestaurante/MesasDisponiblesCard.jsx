@@ -55,16 +55,16 @@ const MesasDisponiblesCard = ({ idRestaurante, fecha, hora }) => {
 
     const options = {
       chart: {
-        height: 280,
+        height: 300,
         type: "pie", 
       },
       series: [mesasDisponibles, mesasOcupadas],
       labels: ["Mesas Disponibles", "Mesas Ocupadas"],
-      colors: ["#4e9616", "#FF5733"],
+      colors: ["#B6C6B9", "#DC493A"],
       plotOptions: {
         pie: {
           donut: {
-            size: "60%", 
+            size: "70%", 
           },
         },
       },

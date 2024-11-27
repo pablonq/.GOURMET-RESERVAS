@@ -1,17 +1,24 @@
 import { useLocation } from "react-router-dom";
 import Title from "../../../component/Title/Title";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../Context/AppContext";
 import PagoComponent from "../../../component/PagoComponent/PagoComponent";
+import IconoCalendarioBasico from "../../../assets/IconoCalendarioBasico";
+import IconoMapa from "../../../assets/IconoMapa";
+import Mesa from "../../../assets/Mesa";
+import PersonaGroup from "../../../assets/PersonasGroup";
+import IconoReloj from "../../../assets/IconoReloj";
+import Button from "../../../component/Button/Button";
+import IconoDinero from "../../../assets/IconoDinero";
 
 const DetalleReserva = () => {
   const location = useLocation();
   const { user } = useContext(AppContext);
   const [notaEspecial, setNotaEspecial] = useState("sin comentarios");
+  const [restaurante, setRestaurante] = useState("");
   const { mesasSelecionadas, fecha, hora } = location.state || {
     mesasSelecionadas: [],
   };
-
 
   const totalComensales = mesasSelecionadas.reduce(
     (total, mesa) => total + mesa.cantidadPersonas,
@@ -21,6 +28,29 @@ const DetalleReserva = () => {
     mesasSelecionadas.length > 0 ? mesasSelecionadas[0].idRestaurante : null;
 
   const [preferenceId, setPreferenceId] = useState(null);
+
+  const convertirFecha = (fecha) => {
+    const [year, month, day] = fecha.split("-");
+    return `${day}/${month}/${year}`;
+  };
+
+  const fechaLimpia = convertirFecha(fecha);
+
+  async function getRestaurante() {
+    const res = await fetch(
+      `/api/restaurantes/mostrarRestaurante/${idRestaurante}`
+    );
+    const data = await res.json();
+    if (res.ok) {
+      setRestaurante(data);
+      console.log(data);
+    }
+  }
+
+  useEffect(() => {
+    getRestaurante();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handlePagarReserva = async () => {
     const notaEspecial = document.getElementById("notaEspecial").value;
@@ -109,44 +139,95 @@ const DetalleReserva = () => {
 
   return (
     <>
-      <Title text={"Detalle Reserva"} />
-      <div className="max-w-xl mx-auto mt-6 p-6 bg-white rounded-lg shadow-md">
-        <h1 className="font-bold text-lg">Detalles de la Reserva</h1>
-        <div>
-          <p className="mb-2">
-            Mesas Seleccionadas: <strong>{mesasSelecionadas.length}</strong>
-          </p>
-          <p className="mb-2">
-            Cantidad total de personas: <strong>{totalComensales}</strong>
-          </p>
-          <p className="mb-2">
-            Fecha: <strong>{fecha}</strong>
-          </p>
-          <p className="mb-4">
-            Hora: <strong>{hora}</strong>
-          </p>
-          <h2 className=" font-semibold mb-2">Precio: $100</h2>
-          <label>Ingrese notas especiales, como alergias:</label>
-          <textarea
-            id="notaEspecial"
-            value={notaEspecial}
-            onChange={(e) => setNotaEspecial(e.target.value)}
-          />
+      <Title text={"Detalle de su Reserva"} />
+      <div className=" flex flex-row gap-6 max-w-6xl mt-6 p-6 bg-white mx-auto text-[#242424]">
+        <div className="flex flex-col w-1/4 border border-gray-300 rounded-md shadow-sm">
+          {restaurante && (
+            <div>
+              <img
+                src={restaurante.imagen[0].imagenUrl}
+                alt={`Imagen de ${restaurante.nombreRes || "Restaurante"}`}
+                className="w-full h-auto object-cover rounded-sm"
+              />
+              <div className="p-4 mt-4">
+                <div className="flex item-center space-x-2">
+                  <IconoMapa width="20" height="20" />
+                  <h3 className="text-sm">
+                    Tu reserva en{" "}
+                    <strong className="text-[#1A2F2A]">
+                      {restaurante.restaurante.nombreRes}
+                    </strong>
+                  </h3>
+                </div>
+                <div className="flex item-center space-x-2 my-2">
+                  <Mesa width="20" height="20" />
+                  <p className="mb-2 text-sm">
+                    Mesas Seleccionadas:{" "}
+                    <strong>{mesasSelecionadas.length}</strong>
+                  </p>
+                </div>
+                <div className="flex item-center space-x-2 my-2">
+                  <PersonaGroup />
+                  <p className="mb-2 text-sm">
+                    Cantidad total de personas:{" "}
+                    <strong>{totalComensales}</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-        <div className="flex justify-center">
-          <button
-            onClick={handlePagarReserva}
-            className="text-white text-center m-2 rounded-md bg-slate-400  hover:bg-orange-400 p-2"
-          >
-            Pagar con Mercado Pago
-          </button>
-        </div>
+        <div className="flex flex-col w-3/4">
+          <div className="border border-[#DC493A] rounded-sm text-center mt-8">
+            <p className="text-sm font-medium p-2">
+              Importante: El costo de la reserva se considera una seña y no será
+              reembolsado en caso de inasistencia o cancelación. Gracias por su
+              comprensión
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-4 mb-4 my-6">
+            <div className=" border border-gray-300 rounded-sm">
+              <div className="bg-[#B6C6B9] border-2 flex justify-between p-4 ">
+                <p>Estado de la reserva</p>
+                <div className="bg-[#DC493A] rounded-sm p-1">No confirmada</div>
+              </div>
+              <div className="my-2 mx-4" >
+                <div className="flex item-center space-x-2 my-4">
+                  <IconoCalendarioBasico width={"16"} height={"16"} />
+                  <p className="mb-2 text-sm">
+                    Fecha: <strong>{fechaLimpia}</strong>
+                  </p>
+                </div>
+                <div className="flex item-center space-x-2 my-2">
+                <IconoReloj width={"20"} height={"20"}/>
+                  <p className="mb-2 text-sm">
+                    Hora: <strong>{hora}</strong>
+                  </p>
+                  </div>
+                  <div className="flex item-center space-x-2 my-2">
+                    <IconoDinero width={"20"} height={"20"}/>
+                    <h2 className=" font-semibold mb-2 text-sm">Precio: $100</h2>
+                  </div>
+                </div>
+            </div>
 
-        {preferenceId && (
-          <PagoComponent
-            preferenceId={preferenceId}
-          />
-        )}
+            <div className="flex flex-col">
+            <div className="bg-[#B6C6B9] border-2 flex justify-between p-4 mb-4">
+                <p> Agregue notas especiales si lo desea</p>
+              </div>
+              <textarea
+                id="notaEspecial"
+                value={notaEspecial}
+                onChange={(e) => setNotaEspecial(e.target.value)}
+                className=" h-full border rounded-sm font-light text-s focus:outline-none focus:ring-1 focus:ring-[#DC493A] focus:border-[#DC493A]"
+              />
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <Button onClick={handlePagarReserva} texto={"Pagar con Mercado Pago"} />
+          </div>
+          {preferenceId && <PagoComponent preferenceId={preferenceId} />}
+        </div>
       </div>
     </>
   );

@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import Title from "../../../component/Title/Title";
 import VistaReserva from "../../../component/VistaReserva/VistaReserva";
 import { AppContext } from "../../../Context/AppContext";
+import IconoUsuario from "../../../assets/IconoUsuario";
 
 const Reservas = () => {
   const { user } = useContext(AppContext);
@@ -17,7 +18,7 @@ const Reservas = () => {
 
   // Paginación
   const [paginaActual, setPaginaActual] = useState(1);
-  const reservasPorPagina = 5;
+  const reservasPorPagina = 4;
 
   const idRestaurante = user.id;
   const getReservaRestaurante = async (idRestaurante) => {
@@ -46,23 +47,37 @@ const Reservas = () => {
         const response = await fetch(
           `/api/restaurantes/reseniaReserva/${reserva.id}`
         );
-        return response.ok ? response.json() : null;
+        return response.ok ? { [reserva.id]: await response.json() } : {};
       });
       const resenias = await Promise.all(reseniaPromises);
-      setResenias(resenias);
+      const reseniasMap = resenias.reduce((map, resenia) => {
+        return { ...map, ...resenia };
+      }, {});
+
+      setResenias(reseniasMap);
     } catch (error) {
       setError("Error al cargar las reseñas");
     }
   };
 
   const handleResponseUpdate = (reseniaId, respuestaDuenio) => {
-    setResenias((prevResenias) =>
-      prevResenias.map((resenia) =>
-        resenia && resenia.id === reseniaId
-          ? { ...resenia, respuestaDuenio }
-          : resenia
-      )
-    );
+    setResenias((prevResenias) => {
+      const updatedResenias = Object.keys(prevResenias).reduce((acc, key) => {
+        const resenia = prevResenias[key];
+        if (resenia.id === reseniaId) {
+          return {
+            ...acc,
+            [key]: {
+              ...resenia,
+              respuestaDuenio,
+            },
+          };
+        }
+        return { ...acc, [key]: resenia };
+      }, {});
+
+      return updatedResenias;
+    });
   };
 
   const getUsuarios = async (ids) => {
@@ -134,40 +149,39 @@ const Reservas = () => {
   return (
     <div>
       <Title text="Reservas" />
-
       {/* Inputs de filtrado */}
-      <div className="flex my-6 ">
-        <div className="text-center items-center w-2/4 font-semibold ">
-          Filtrar Reservas
+      <div className="flex my-4 ">
+        <div className="flex text-center items-center w-full font-semibold flex-wrap md:flex-nowrap gap-4 border p-4 bg-white shadow-md rounded-s ">
+          <div className=" text-[#242424] w-1/3"> Filtrar Reservas</div>
+          <IconoUsuario width="40" height="40" />
+          <input
+            type="text"
+            placeholder="Buscar por nombre de Persona"
+            value={filtroNombre}
+            onChange={(e) => setFiltroNombre(e.target.value)}
+            className="border rounded-s h-full border-[#B6C6B9] focus:ring-1 focus:ring-[#DC493A] focus:border-[#DC493A]"
+          />
+          <input
+            type="date"
+            placeholder="Buscar por fecha"
+            value={filtroFecha}
+            onChange={(e) => setFiltroFecha(e.target.value)}
+            className="border rounded-s mr-2 h-full "
+          />
+          <select
+            value={filtroEstado}
+            onChange={(e) => setFiltroEstado(e.target.value)}
+            className="border rounded-s h-full"
+          >
+            <option value="">Selecciona un estado</option>
+            <option value="procesada">Procesada</option>
+            <option value="cancelada">Cancelada</option>
+            <option value="pendiente">Pendiente</option>
+          </select>
         </div>
-        <input
-          type="text"
-          placeholder="Buscar por nombre de Persona"
-          value={filtroNombre}
-          onChange={(e) => setFiltroNombre(e.target.value)}
-          className="border rounded-lg mx-2"
-        />
-        <input
-          type="date"
-          placeholder="Buscar por fecha"
-          value={filtroFecha}
-          onChange={(e) => setFiltroFecha(e.target.value)}
-          className="border rounded-lg mr-2 "
-        />
-        <select
-          value={filtroEstado}
-          onChange={(e) => setFiltroEstado(e.target.value)}
-          className="border rounded-lg "
-        >
-          <option value="">Selecciona un estado</option>
-          <option value="procesada">Procesada</option>
-          <option value="cancelada">Cancelada</option>
-          <option value="pendiente">Pendiente</option>
-        </select>
       </div>
-
       <div className="flex flex-row ">
-        <div className="w-3/4 flex flex-row  divide-x border border-gray-300 font-semibold p-2 my-4">
+        <div className="w-3/4 flex flex-row  divide-x   bg-[#DC493A] text-white shadow-md rounded-s font-semibold p-2 my-4">
           <p className="flex-1 text-center">Fecha</p>
           <p className="flex-1 text-center">Hora</p>
           <p className="flex-1 text-center">Estado De reserva</p>
@@ -175,11 +189,10 @@ const Reservas = () => {
           <p className="flex-1 text-center">Resumen de Mesas</p>
           <p className="flex-1 text-center">Datos del usuario</p>
         </div>
-        <div className="w-1/4 ml-2 border border-gray-300 font-semibold p-2 my-4">
+        <div className="w-1/4 ml-2 shadow-md bg-[#B6C6B9] rounded-s font-semibold p-2 my-4">
           <p className="text-center">Calificacion de usuarios</p>
         </div>
       </div>
-
       {reservasFiltradas.length === 0 ? (
         <p>No hay reservas disponibles.</p>
       ) : (
@@ -194,14 +207,13 @@ const Reservas = () => {
           />
         ))
       )}
-
-      {/* Paginación */}
-      <div className="flex justify-end">
+      ;{/* Paginación */}
+      <div className="flex justify-end p-4 ">
         {Array.from(
           { length: Math.ceil(reservas.length / reservasPorPagina) },
           (_, index) => (
             <button
-              className="border-2 rounded-md p-2 w-6 text-center"
+              className="border rounded-full w-8 text-center  h-8 mx-1 border-[#DC493A] text-[#DC493A] hover:bg-[#DC493A] hover:text-white"
               key={index + 1}
               onClick={() => paginate(index + 1)}
             >

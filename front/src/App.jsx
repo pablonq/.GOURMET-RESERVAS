@@ -124,11 +124,6 @@ function App() {
             <Route index element={<DashboardUsuario />} />
             <Route path="dashboardUsuario" element={<DashboardUsuario />} />
 
-            {/*  <Route
-              path="detalleRestaurante/:idRestaurante"
-              element={<DetalleRestaurante />}
-            /> */}
-
             <Route
               path="reservar/:idRestaurante"
               element={

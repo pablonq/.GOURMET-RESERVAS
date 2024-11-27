@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import Subtitulo from "../Subtitulo/Subtitulo";
 import { useNavigate } from "react-router-dom";
 import MesasDisponibles from "../MesasDisponibles/MesasDisponibles";
+import Mesa from "../../assets/Mesa"
+import Button from "../Button/Button";
 
 const PlanoCliente = ({ mesas = [], fecha, hora }) => {
   const [mesasSelecionadas, setMesasSelecionadas] = useState([]);
@@ -15,30 +16,25 @@ const PlanoCliente = ({ mesas = [], fecha, hora }) => {
 
   const handleConfirmarReserva = () => {
     navigate("/detalleReserva", {
-      state: { mesasSelecionadas, fecha, hora },
+      state: { mesasSelecionadas, fecha, hora, },
     });
 
   };
 
   return (
     <div className="flex flex-col items-center p-4">
-      <h1 className="items-center font-bold text-lg">
-        Mesas disponibles en fecha seleccionada
+      <div className="flex items-center space-x-4">
+      <i><Mesa width={"24"} height={"24"}/> </i>
+      <h1 className="items-center text-[#1A2F2A] text-lg ">
+      Elija y ingresa la cantidad de las mesas disponibles 
       </h1>
-      <Subtitulo text=" Elija y ingresa la cantidad de mesas a reservar " />
+      </div>
 
       <MesasDisponibles
         mesas={mesas}
         setMesasSelecionadas={setMesasSelecionadas}
       />
-      <div className="flex flex-col space-y-1"></div>
-
-      <button
-        onClick={handleConfirmarReserva}
-        className="text-white text-center m-2 rounded-md bg-slate-400 p-2"
-      >
-        Confirmar Reserva
-      </button>
+      <Button onClick={handleConfirmarReserva} texto={"Confirmar Reserva"}/>
     </div>
   );
 };

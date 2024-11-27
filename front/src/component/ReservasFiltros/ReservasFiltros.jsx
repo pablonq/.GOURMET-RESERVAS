@@ -7,9 +7,9 @@ import FlechaDerecha from "../../assets/FlechaDerecha";
 const ReservasFiltros = ({ onFilterChange }) => {
   return (
     <div className="flex flex-col">
-      <h3 className="font-semibold text-lg text-zinc-700 p-2">Reservas</h3>
+      <h3 className="font-semibold text-lg text-[#1A2F2A] p-2">Reservas</h3>
       <button
-        className=" flex items-center justify-between  p-3 mt-2 rounded-md border-b-2 hover:bg-gray-200"
+        className=" flex items-center justify-between  p-3 mt-2 rounded-md border-b-2 hover:bg-[#DC493A] hover:text-white"
         onClick={() => onFilterChange("activas")}
       >
         <div className="flex items-center gap-2">
@@ -19,7 +19,7 @@ const ReservasFiltros = ({ onFilterChange }) => {
         <FlechaDerecha />
       </button>
       <button
-        className=" flex items-center justify-between  p-3 mt-2 rounded-md border-b-2 hover:bg-gray-200"
+        className=" flex items-center justify-between  p-3 mt-2 rounded-md border-b-2 hover:bg-[#DC493A] hover:text-white"
         onClick={() => onFilterChange("pasadas")}
       >
         <div className="flex items-center gap-2">
@@ -29,7 +29,7 @@ const ReservasFiltros = ({ onFilterChange }) => {
         <FlechaDerecha />
       </button>
       <button
-        className="flex items-center justify-between  p-3 mt-2 rounded-md border-b-2 hover:bg-gray-200"
+        className="flex items-center justify-between  p-3 mt-2 rounded-md border-b-2 hover:bg-[#DC493A] hover:text-white"
         onClick={() => onFilterChange("canceladas")}
       >
         <div className="flex items-center gap-2">
