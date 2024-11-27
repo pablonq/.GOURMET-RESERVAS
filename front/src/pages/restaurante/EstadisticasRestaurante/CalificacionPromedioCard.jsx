@@ -14,11 +14,11 @@ const CalificacionPromedioCard = ({ idRestaurante }) => {
           const totalCalificaciones = cal1 + cal2 + cal3 + cal4 + cal5;
 
           const porcentajes = [
-            (cal1 / totalCalificaciones) * 100,
-            (cal2 / totalCalificaciones) * 100,
-            (cal3 / totalCalificaciones) * 100,
-            (cal4 / totalCalificaciones) * 100,
-            (cal5 / totalCalificaciones) * 100,
+            Math.round((cal1 / totalCalificaciones) * 100),
+            Math.round((cal2 / totalCalificaciones) * 100),
+            Math.round( (cal3 / totalCalificaciones) * 100),
+            Math.round((cal4 / totalCalificaciones) * 100),
+            Math.round( (cal5 / totalCalificaciones) * 100),
           ];
 
           if (chartRef.current) {
@@ -55,7 +55,7 @@ const CalificacionPromedioCard = ({ idRestaurante }) => {
               "4 estrellas",
               "5 estrellas",
             ],
-            colors: ["#FF5733", "#FFC300", "#DAF7A6", "#33FF57", "#3357FF"],
+            colors: ["#DC493A", "#FFC300", "#DAF7A6", "#B6C6B9", "#1A2F2A"],
           };
 
           chartRef.current = new ApexCharts(

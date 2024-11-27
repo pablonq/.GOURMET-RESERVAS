@@ -51,9 +51,11 @@ const HorasPicoCard = ({ idRestaurante }) => {
     if (reservasPorHora.horas.length > 0) {
       const options = {
         chart: {
-          height: 300,
+          height: 200,
+          width: 500,
           type: "bar",
         },
+        colors: ["#DC493A"],
         series: [
           {
             name: "Reservas por Hora",

@@ -6,6 +6,8 @@ import PlanoMesa from "../../../component/PlanoMesa/PlanoMesa";
 import { AppContext } from "../../../Context/AppContext";
 import { obtenerMesasExistentes } from "../../../api/mesasAPI";
 import PlanoEditable from "../../../component/PlanoEditable/PlanoEditable";
+import Mesa from "../../../assets/Mesa";
+import Button from "../../../component/Button/Button";
 
 /**
  * cargar mesas para la creacion del plano editable.
@@ -190,13 +192,16 @@ const MapaMesas = () => {
   return (
     <div className="max-w-screen-lg mx-auto">
       <Title text="Cargar mesas" />
-
-      <div className="flex">
+      <div className="flex border-b border-gray-300 p-4">
         <form onSubmit={handleGuardar}>
-          <div className=" flex flex-col w-2/3 m-2 rounded-md  bg-gray-400">
-            <h1 className=" text-center font-semibold">
-              Ingrese la cantidad de mesa según correspona
-            </h1>
+          <div className=" flex flex-col w-2/3 m-2 rounded-md  ">
+            <div className="flex space-x-2 ">
+              <Mesa width="60" height="60" />
+              <h1 className=" text-center font-semibold text-lg">
+                Ingrese la cantidad de mesa según correspona
+              </h1>
+            </div>
+
             <InputMesa
               id="mesa2"
               value={mesas.mesa2}
@@ -222,9 +227,7 @@ const MapaMesas = () => {
               placeholder="Mesa +6 personas"
             />
 
-            <button className="w-28 m-3 rounded-md p-2 text-center text-cyan-50  bg-neutral-950 self-center ">
-              Guardar
-            </button>
+            <Button texto={"Guardar"}/>
           </div>
         </form>
         <PlanoMesa
@@ -248,7 +251,6 @@ const MapaMesas = () => {
       )}
 
       <div className=" m-2">
-        <Title text="Editar Mapa mesas existentes" />
         <div>
           <PlanoEditable mesas={mesasEditable} setMesas={setMesasEditable} />
         </div>

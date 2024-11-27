@@ -5,6 +5,7 @@ import EscribirResenia from "./EscribirResenia";
 import ReservasFiltros from "../../../component/ReservasFiltros/ReservasFiltros";
 import DetalleReservaCliente from "../../../component/DetalleReservaCliente/DetalleReservaCliente";
 import ResumenResenia from "../../../component/ResumenResenia/ResumenResenia";
+import Button from "../../../component/Button/Button";
 
 const MisReservas = () => {
   const { user } = useContext(AppContext);
@@ -113,7 +114,7 @@ const MisReservas = () => {
         <ReservasFiltros onFilterChange={handleFilterChange} />
       </div>
       <div className="w-3/4 p-4">
-        <h3 className="font-semibold text-lg text-zinc-700 p-2">{`Reservas ${filter}`}</h3>
+        <h3 className="font-semibold text-lg text-[#1A2F2A] p-2">{`Reservas ${filter}`}</h3>
         {filteredReservas.length === 0 ? (
           <p className="text-sm ml-2">No hay reservas realizadas</p>
         ) : (
@@ -133,12 +134,7 @@ const MisReservas = () => {
                   {haPasado &&
                     !reseniaExistente &&
                     reserva.estado == "procesada" && (
-                      <button
-                        onClick={() => openModal(reserva)}
-                        className="mt-4 bg-slate-400 hover:bg-orange-400 text-white py-2 px-4 rounded"
-                      >
-                        Generar Reseña
-                      </button>
+                      <Button  onClick={() => openModal(reserva)} texto={"Generar Reseña"}/>
                     )}
 
                   {reseniaExistente && (
@@ -151,12 +147,12 @@ const MisReservas = () => {
         )}
 
         {/* Paginación */}
-        <div className="flex justify-end">
+        <div className="flex justify-end p-2">
           {Array.from(
             { length: Math.ceil(reservas.length / reservasPorPagina) },
             (_, index) => (
               <button
-                className="border-2 rounded-md p-2 w-6 text-center"
+                className="border rounded-full w-8 h-8 text-center  border-[#DC493A] text-[#DC493A] hover:bg-[#DC493A] hover:text-white"
                 key={index + 1}
                 onClick={() => paginate(index + 1)}
               >

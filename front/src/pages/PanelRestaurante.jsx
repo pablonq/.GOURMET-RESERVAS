@@ -51,7 +51,7 @@ const PanelRestaurante = () => {
 
   return (
     <div className="flex">
-      <div className="w-72 text-sm min-h-screen bg-slate-700  ">
+      <div className="text-sm min-h-screen bg-[#242424] w-60">
         <div className="flex justify-center my-2">
           {imagenesFiltradas.length > 0 ? (
             <ImagenPerfil
@@ -62,8 +62,8 @@ const PanelRestaurante = () => {
             <p>Cargando imagen de perfil...</p>
           )}
         </div>
-        <nav className=" flex">
-          <ul className="space-y-4">
+        <nav className="flex m-0 p-0 flex-col items-end">
+          <ul className="space-y-2 w-auto">
             <SiderLink
               icono={<IconoDashboard />}
               to={"/panelRestaurante/dashboardRestaurante"}
@@ -100,21 +100,21 @@ const PanelRestaurante = () => {
               text={"Perfil "}
             />
             <SiderLink
-            icono={<IconoReserva width={"24"} height={"24"}/>}
+            icono={<IconoReserva width={"20"} height={"20"}/>}
               to={"/panelRestaurante/visualizarReservas"}
               text={
-                <div className="flex items-center">
+                <div className="flex items-center p-2">
                   <span>Visualizar Reservas</span>
-                  <span className="text-white bg-red-600 rounded-full px-2 ml-2">
+                  <div className="text-white bg-[#DC493A] rounded-full w-6 h-6 ml-2 p-1 text-center">
                     {totalReservas}
-                  </span>
+                  </div>
                 </div>
               }
             />
           </ul>
         </nav>
       </div>
-      <div className="flex-1 p-4">
+      <div className="flex-1 ml-2">
         <Outlet />
       </div>
     </div>

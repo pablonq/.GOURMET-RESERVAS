@@ -58,7 +58,7 @@ const ReservarMesaDetalle = () => {
   return (
     <div className="p-2">
       <div className="flex flex-wrap md:flex-nowrap items-center gap-4 border p-4 bg-white shadow-md rounded-s">
-        <div className=" text-[#242424]">Reserva tu mesa</div>
+        <div className=" text-[#242424]">Busca disponibilidad</div>
         <div className="border flex items-center space-x-2 p-2 rounded-s">
           <IconoUsuario className="text-gray-600" />
           <select
@@ -78,7 +78,7 @@ const ReservarMesaDetalle = () => {
           <IconoCalendarioBasico width="24" height="24" />
           <div
             onClick={() => setMostrarCalendario(!mostrarCalendario)}
-            className="flex-1 bg-transparent outline-none"
+            className="flex-1 bg-transparent outline-none h-full"
           >
             {fechaSeleccionada && horaSeleccionada
               ? `${fechaSeleccionada} ${horaSeleccionada}`
@@ -86,7 +86,7 @@ const ReservarMesaDetalle = () => {
           </div>
 
           {mostrarCalendario && (
-            <div className="absolute top-full left-0 z-10 bg-white border rounded-s p-4 shadow-lg mt-2">
+            <div className="absolute top-full left-0 z-10 bg-white border rounded-s p-4 shadow-lg mt-2 ">
               <Calendario
                 onDateSelect={(fecha, hora) => {
                   setFechaSeleccionada(fecha);

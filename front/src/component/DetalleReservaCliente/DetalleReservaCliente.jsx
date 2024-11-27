@@ -70,7 +70,7 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
               reserva.estado === "procesada"
                 ? "bg-green-700"
                 : reserva.estado === "cancelada"
-                ? "bg-red-500"
+                ? "bg-[#DC493A] "
                 : "bg-gray-800"
             }`}
             >
@@ -87,7 +87,7 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
         )}
 
         <div className="ml-4">
-          <h3 className="text-lg font-semibold  text-zinc-700">
+          <h3 className="text-lg font-semibold  text-[#1A2F2A]">
             Restaurante: {reserva.restaurantes.nombreRes}
           </h3>
           <div className="my-4">
@@ -104,7 +104,7 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
               <p className="text-sm ml-2">Hora: {horaReservaString}</p>
             </div>
             <div className="flex items-center">
-              <Mesa />
+              <Mesa width={"16"} height={"16"}/>
               <p className="text-sm ml-2">
                 Cantidad de mesas reservadas: {cantidadMesas}
               </p>
@@ -123,7 +123,7 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
           </div>
           {filtro === "activas" ? (
             <button
-              className="border-2 border-red-500  text-red-500 mt-4 ml-20 p-2 text-sm rounded hover:bg-red-500 hover:text-white"
+              className="border border-[#DC493A] hover:bg-[#DC493A] hover:text-white text-[#DC493A] mt-4 ml-20 p-2 text-sm rounded "
               onClick={handleCancelar}
             >
               Cancelar Reserva

@@ -45,26 +45,27 @@ const TotalReservasCard = ({ idRestaurante }) => {
             const options = {
               chart: {
                 height: 200,
+                width: 500,
                 type: "line",
               },
               xaxis: {
-                categories: fechas, 
+                categories: fechas,
               },
               stroke: {
                 curve: "smooth",
-                width: 3, 
+                width: 3,
               },
               fill: {
-                type: "gradient", 
+                type: "gradient",
               },
-              colors: ["#FF5733"], 
+              colors: ["#FF5733"],
               title: {
                 text: "Total Reservas en el Tiempo",
               },
               series: [
                 {
                   name: "Reservas",
-                  data: cantidades, 
+                  data: cantidades,
                 },
               ],
             };
@@ -84,24 +85,25 @@ const TotalReservasCard = ({ idRestaurante }) => {
 
   return (
     <div>
-      <div className="flex space-x-4 mb-4">
-        <h3></h3>
-        <label>
-          Ingresa una Fecha Inicio
+      <div className="flex space-x-4 mb-4 ">
+        <div className="mx-6">
+          <label className="font-semibold text-[#1A2F2A]">Ingresa una Fecha Inicio</label>
           <input
             type="date"
             value={fechaInicio}
             onChange={(e) => setFechaInicio(e.target.value)}
+            className="bg-transparent font-light text-[#1A2F2A]"
           />
-        </label>
-        <label>
-          Ingresa una Fecha Fin
+        </div>
+        <div className="mx-6 ">
+          <label className="font-semibold text-[#1A2F2A]">Ingresa una Fecha Fin</label>
           <input
             type="date"
             value={fechaFin}
             onChange={(e) => setFechaFin(e.target.value)}
+            className="bg-transparent font-light text-[#1A2F2A]"
           />
-        </label>
+        </div>
       </div>
       <div id="chart" />
     </div>

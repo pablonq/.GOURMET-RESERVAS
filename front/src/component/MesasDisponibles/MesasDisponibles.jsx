@@ -18,7 +18,6 @@ const MesasDisponibles = ({ mesas, setMesasSelecionadas }) => {
     const value = Math.min(e.target.value, mesasPorTipo[cantidad]);
     setSelectedCounts((prev) => ({ ...prev, [cantidad]: value }));
 
-    // Actualiza las mesas seleccionadas basándote en el nuevo valor
     const mesaSelecionadas = [];
 
     for (const key in { ...selectedCounts, [cantidad]: value }) {
@@ -48,11 +47,11 @@ const MesasDisponibles = ({ mesas, setMesasSelecionadas }) => {
   };
 
   return (
-    <div className="flex flex-col items-center m-4">
+    <div className="flex flex-col items-center m-4 ">
       {Object.entries(mesasPorTipo).map(([cantidad, total]) => (
         <div
           key={cantidad}
-          className="flex items-center  mb-4 justify-around w-96 border-solid border-2 border-slate-300 rounded-md"
+          className="flex items-center mb-4 justify-between w-96 border-b border-gray-300 pb-2 "
         >
           <div>{renderMesaIcon(parseInt(cantidad))}</div>
           <div>
@@ -61,7 +60,7 @@ const MesasDisponibles = ({ mesas, setMesasSelecionadas }) => {
             </p>
           </div>
           <input
-            className=" border-slate-300 border-solid border-2 rounded-md p-1 w-10 text-center"
+            className=" border  text-[#DC493A] border-[#DC493A] hover:bg-[#DC493A] hover:text-white  rounded-md p-1 w-10 text-center"
             type="number"
             value={selectedCounts[cantidad] || 0}
             onChange={(e) => handleChange(cantidad, e)}

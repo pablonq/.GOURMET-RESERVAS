@@ -14,8 +14,8 @@ const DashboardRestaurante = () => {
   const horaActual = new Date().toLocaleTimeString("it-IT");
 
   return (
-    <div className="flex ">
-      <div className="grid grid-cols-2">
+    <div className="flex bg-cover bg-center justify-center m-0 p-0"  style={{ backgroundImage: "url('/src/assets/bg-dash.jpg')" }}>
+      <div className="grid grid-cols-2 gap-4">
         <CardDashboard
           title={"Total Reservas entre 2 fechas"}
           contenido={<TotalReservasCard idRestaurante={idRestaurante} />}

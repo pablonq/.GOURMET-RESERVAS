@@ -40,38 +40,38 @@ export default function Layout() {
         <nav>
           <Link
             to="/"
-            className="nav-link font-semibold text-lg text-orange-400"
+            className="nav-link font-semibold text-lg text-[#DC493A]"
           >
             .GourmetReservas
           </Link>
-          <div className="flex items-center space-x-4">
+          <div className="flex  items-center  space-x-4">
             {user ? (
               <>
                 {user.rol === "usuario" && (
                   <>
                     <Link
                       to="/misReservas"
-                      className={`hover:text-blue-300 ${
+                      className={`px-4 ${
                         isActive("/misReservas")
-                          ? "text-orange-400"
+                          ? " text-[#DC493A] bg-white rounded-md "
                           : "text-white"
-                      }`}
+                      } hover:text-[#B6C6B9]`}
                     >
                       Mis Reservas
                     </Link>
                     <Link
                       to="panelUsuario/perfilUsuario"
-                      className={`hover:text-blue-300 ${
-                        isActive("/perfilUsuario")
-                          ? "text-orange-400"
+                      className={`px-4 ${
+                        isActive("/panelUsuario/perfilUsuario")
+                          ? "text-[#DC493A] bg-white rounded-md"
                           : "text-white"
-                      }`}
+                      } hover:text-[#B6C6B9]`}
                     >
                       Mi Perfil
                     </Link>
                   </>
                 )}
-                <div className="flex items-center justify-center mx-8 font-light text-gray-400 ">
+                <div className="flex items-center  mx-8 font-light text-[#B6C6B9]">
                   Bienvenido{" "}
                   {user.rol === "restaurante"
                     ? user.nombreRes
@@ -80,32 +80,32 @@ export default function Layout() {
                     <ImagenPerfil
                       src={user?.avatarUrl || defaultAvatar}
                       textAlt={"imagen perfil usuario"}
-                      isSmall={true} 
+                      isSmall={true}
                     />
                   )}
                 </div>
                 <form onSubmit={handleLogout}>
-                  <button className="nav-link text-white">Logout</button>
+                  <button className="nav-link text-white hover:text-[#B6C6B9] hover:bg-[#DC493A]">Logout</button>
                 </form>
               </>
             ) : (
               <div className="space-x-4">
                 <Link
                   to="/loginRestaurante"
-                  className={`hover:text-blue-300 ${
+                  className={`px-4 pt-2 pb-8  ${
                     isActive("/loginRestaurante")
-                      ? "text-orange-400"
+                      ? "bg-white  text-[#DC493A] rounded-t-lg "
                       : "text-white"
-                  }`}
+                  } hover:text-[#B6C6B9]`}
                 >
                   Restaurantes
                 </Link>
 
                 <Link
                   to="/loginUsuario"
-                  className={`hover:text-blue-300 ${
-                    isActive("/loginUsuario") ? "text-orange-400" : "text-white"
-                  }`}
+                  className={`px-4 pt-2 pb-8  ${
+                    isActive("/loginUsuario") ? "bg-white text-[#DC493A] rounded-t-lg " : "text-white "
+                  }hover:text-[#B6C6B9]`}
                 >
                   Usuarios
                 </Link>
@@ -116,11 +116,11 @@ export default function Layout() {
       </header>
 
       <main className="flex-1 w-full min-h-screen">
-        <div className="my-2">
+        <div>
           <Outlet />
         </div>
       </main>
-      <footer className="bg-gray-800 text-white p-4 text-center">
+      <footer className="bg-[#242424] text-white p-4 text-center">
         <p>© 2024 .GourmetReservas Todos los derechos reservados.</p>
       </footer>
     </>

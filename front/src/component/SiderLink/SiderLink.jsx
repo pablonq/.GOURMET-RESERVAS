@@ -6,17 +6,14 @@ const SiderLink = ({ to, text, icono }) => {
   const isActive = location.pathname === to;
   return (
     <>
-      <li>
-        <Link
-          to={to}
-          className={`hover:text-blue-300 ${
-            isActive ? "text-orange-400" : "text-white"
-          }`}
-        >
-          <div className="flex space-x-2 items-center">
-           <div>{icono}</div> 
-           <div>{text}</div> 
-          </div>
+      <li
+        className={`${
+          isActive ? "bg-white text-[#DC493A]" : "text-white"
+        } rounded-l-full hover:bg-[#DC493A] `}
+      >
+        <Link to={to} className="flex w-full space-x-2 text-xs m-2 p-1 hover:text-white items-center">
+          <div>{icono}</div>
+          <div>{text}</div>
         </Link>
       </li>
     </>

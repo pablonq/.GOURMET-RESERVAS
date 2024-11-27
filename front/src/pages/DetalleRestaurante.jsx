@@ -262,7 +262,7 @@ const DetalleRestaurante = () => {
 
           <div>
             <div className="flex border-b border-gray-300">
-              <h3 className="text-lg text-left my-8 text- text-[#242424] font-bold">
+              <h3 className="text-lg text-left my-8 text-[#242424] font-bold">
                 Menús
               </h3>
             </div>
