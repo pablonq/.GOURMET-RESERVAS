@@ -66,7 +66,7 @@ class RestauranteSeeder extends Seeder
         $restaurante->telefono = '299234569';
         $restaurante->email = 'toscana@gmail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal = 115;
+        $restaurante->capacidadTotal = 90;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -81,7 +81,7 @@ class RestauranteSeeder extends Seeder
         $restaurante->telefono = '02994432353';
         $restaurante->email = 'estacion@gmail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal = 120;
+        $restaurante->capacidadTotal = 60;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -96,7 +96,7 @@ class RestauranteSeeder extends Seeder
         $restaurante->telefono = '0299 448-6360';
         $restaurante->email = 'elbolichearlberto@gmail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal = 200;
+        $restaurante->capacidadTotal = 100;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -105,13 +105,13 @@ class RestauranteSeeder extends Seeder
 
         /* 7 */
         $restaurante = new Restaurante();
-        $restaurante->nombreRes = 'Franz y Peppone"';
+        $restaurante->nombreRes = 'Franz y Peppone';
         $restaurante->descripcion = 'Historica pizzería Franz y Peppone, con más de 30 años de experiencia ';
         $restaurante->tipo = 'Pizzeria';
         $restaurante->telefono = ' 0299 443-2385';
         $restaurante->email = 'franz@gmail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal = 200;
+        $restaurante->capacidadTotal = 70;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -126,7 +126,7 @@ class RestauranteSeeder extends Seeder
         $restaurante->telefono = '0299 502-6743';
         $restaurante->email = 'dorado@gmail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =120;
+        $restaurante->capacidadTotal =80;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -135,13 +135,13 @@ class RestauranteSeeder extends Seeder
 
         /* 9 */
         $restaurante = new Restaurante();
-        $restaurante->nombreRes = 'Noble Campo"';
+        $restaurante->nombreRes = 'Noble Campo';
         $restaurante->descripcion = 'Es un restaurante que cuenta con mas de 12 años de experiencia, muy reconocido en nuestro Alto Valle. Su carta se destaca por la parrilla gourmet y cocina italiana.';
         $restaurante->tipo = 'Gourmet';
         $restaurante->telefono = '2995082121';
         $restaurante->email = 'noble@mail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =100;
+        $restaurante->capacidadTotal =70;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -171,7 +171,7 @@ class RestauranteSeeder extends Seeder
         $restaurante->telefono = '2995464570';
         $restaurante->email = 'donato@mail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =60;
+        $restaurante->capacidadTotal =50;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -197,11 +197,11 @@ class RestauranteSeeder extends Seeder
         $restaurante = new Restaurante();
         $restaurante->nombreRes = 'Casa Juez';
         $restaurante->descripcion = 'Resto Café';
-        $restaurante->tipo = 'Gourmet';
+        $restaurante->tipo = 'Fusion';
         $restaurante->telefono = '2994011992';
         $restaurante->email = 'juez@mail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =75;
+        $restaurante->capacidadTotal =70;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -212,11 +212,11 @@ class RestauranteSeeder extends Seeder
         $restaurante = new Restaurante();
         $restaurante->nombreRes = 'Ache';
         $restaurante->descripcion = 'Comparte un excelente lugar con una amplia carta en variedades de pizza';
-        $restaurante->tipo = 'Pizzeria';
+        $restaurante->tipo = 'bar restaurante';
         $restaurante->telefono = '2995850002';
         $restaurante->email = 'ache@mail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =55;
+        $restaurante->capacidadTotal =60;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -231,7 +231,7 @@ class RestauranteSeeder extends Seeder
         $restaurante->telefono = '2994064287';
         $restaurante->email = 'magnolia@mail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =35;
+        $restaurante->capacidadTotal =40;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -246,7 +246,7 @@ class RestauranteSeeder extends Seeder
         $restaurante->telefono = '2994477938';
         $restaurante->email = 'faraon@mail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =45;
+        $restaurante->capacidadTotal =50;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -261,7 +261,7 @@ class RestauranteSeeder extends Seeder
         $restaurante->telefono = '2994583444';
         $restaurante->email = '1946@mail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =61;
+        $restaurante->capacidadTotal =60;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -276,7 +276,7 @@ class RestauranteSeeder extends Seeder
         $restaurante->telefono = '2991583444';
         $restaurante->email = 'natural@mail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =51;
+        $restaurante->capacidadTotal =50;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -285,13 +285,13 @@ class RestauranteSeeder extends Seeder
 
         /* 19 */
         $restaurante = new Restaurante();
-        $restaurante->nombreRes = 'Berlin';
-        $restaurante->descripcion = 'Resto Bar';
-        $restaurante->tipo = 'Familiar';
-        $restaurante->telefono = '2984591574';
-        $restaurante->email = 'natural@mail.com';
+        $restaurante->nombreRes = 'Lopez';
+        $restaurante->descripcion = 'Resto';
+        $restaurante->tipo = 'de autor';
+        $restaurante->telefono = '298154405110';
+        $restaurante->email = 'lopez@mail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =51;
+        $restaurante->capacidadTotal =40;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
@@ -300,17 +300,18 @@ class RestauranteSeeder extends Seeder
 
         /* 20 */
         $restaurante = new Restaurante();
-        $restaurante->nombreRes = 'Lopez';
-        $restaurante->descripcion = 'Resto';
-        $restaurante->tipo = 'Gourmet';
-        $restaurante->telefono = '298154405110';
-        $restaurante->email = 'lopez@mail.com';
+        $restaurante->nombreRes = 'Berlin';
+        $restaurante->descripcion = 'Resto Bar';
+        $restaurante->tipo = 'buffet';
+        $restaurante->telefono = '2984591574';
+        $restaurante->email = 'berlin@mail.com';
         $restaurante->contrasenia = bcrypt('1234');
-        $restaurante->capacidadTotal =41;
+        $restaurante->capacidadTotal =50;
         $restaurante->fechaBaja = null;
         $restaurante->fechaAlta = now();
         $restaurante->rol = 'restaurante';
         $restaurante->aceptaEventos = 'no';
         $restaurante->save();
+
     }
 }

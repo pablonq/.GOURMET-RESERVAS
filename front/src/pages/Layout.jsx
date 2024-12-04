@@ -72,7 +72,7 @@ export default function Layout() {
                     </Link>
                   </>
                 )}
-                <div className="flex items-center  mx-8 font-light text-[#B6C6B9]">
+                <div className="flex items-center justify-center mx-8 font-light text-[#B6C6B9]">
                   Bienvenido{" "}
                   {user.rol === "restaurante"
                     ? user.nombreRes
