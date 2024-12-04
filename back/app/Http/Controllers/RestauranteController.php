@@ -189,7 +189,6 @@ class RestauranteController extends Controller
             'fechaNac' => $personaData['fechaNacimientoDuenio'],
             'email' => $personaData['emailDuenio'],
             'telefono' => $personaData['telefonoDuenio'],
-            'ciudad' => $personaData['ciudadDuenio'],
           ]);
         } else {
           throw new \Exception('Persona no encontrada para el ID especificado en Duenio');

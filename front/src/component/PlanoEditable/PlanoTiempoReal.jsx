@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import Mesa from "../../assets/Mesa";
 import AgruparMesa from "../AgruparMesa/AgruparMesa";
 import Subtitulo from "../Subtitulo/Subtitulo";
 
@@ -69,10 +70,24 @@ const PlanoTiempoReal = ({ mesas = [], setMesas, mesasReservadas = [] }) => {
   };
 
   return (
-    <div>
-      <Subtitulo text="Hacer click sobre la mesa para seleccionarla como ocupada" />
+    <div className="flex flex-col items-center w-full">
+      <Subtitulo text="Hacer click sobre la mesa marcar como ocupada, o en el boton para habilitar nuevamente " />
+      <div className="flex flex-row border p-4 bg-white shadow-md rounded-s w-2/5 my-4 justify-center">
+        <div className="flex space-x-2 items-center text-center mr-4">
+          <Mesa width="32" height="32"  fill="#efd112" />
+          <p>Mesa Reservada</p>
+        </div>
+        <div className="flex space-x-2 items-center text-center mr-4 ">
+          <Mesa width="32" height="32" fill="#14b840"  />
+          <p>Mesa Libre</p>
+        </div>
+        <div className="flex space-x-2 items-center text-center mr-4">
+          <Mesa width="32" height="32" fill="#DC493A" />
+          <p>Mesa Ocupada</p>
+        </div>
+      </div>
 
-      <div className="flex flex-col space-y-1">
+      <div className="grid grid-cols-2 gap-4">
         <AgruparMesa
           mesas={mesasConEstado}
           cantidadPersonas={2}

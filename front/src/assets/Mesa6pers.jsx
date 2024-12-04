@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-const Mesa6pers = ({ color ="#C19A69" }) => {
+const Mesa6pers = ({ color ="#B6C6B9" }) => {
   return (
     <svg
       width="50"

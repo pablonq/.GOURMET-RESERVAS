@@ -4,6 +4,11 @@ import { AppContext } from "../../../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 import RestauranteData from "../../../api/RestauranteData";
 import axios from "axios";
+import FormInput from "../../../component/FormInput/FormInput";
+import SelectInput from "../../../component/SelectInput/SelectInput";
+import Button from "../../../component/Button/Button";
+import LinkVolver from "../../../component/LinkVolver/LinkVolver";
+
 export default function EditarPerfilRestaurante() {
   const navigate = useNavigate();
   const { user, token } = useContext(AppContext);
@@ -12,7 +17,6 @@ export default function EditarPerfilRestaurante() {
   const [localidades, setLocalidades] = useState([]);
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
-    // Datos del Restaurante
     nombreRes: "",
     calle: "",
     altura: "",
@@ -36,7 +40,6 @@ export default function EditarPerfilRestaurante() {
     dniDuenio: "",
     emailDuenio: "",
     telefonoDuenio: "",
-
   });
   useEffect(() => {
     setFormData({
@@ -57,7 +60,6 @@ export default function EditarPerfilRestaurante() {
       imagenUrl: null,
       aceptaEventos: restaurante.restaurante?.aceptaEventos,
 
-      // Datos del Dueño
       nombreDuenio: duenio.persona?.[0]?.nombre || "",
       apellidoDuenio: duenio.persona?.[0]?.apellido || "",
 
@@ -67,19 +69,20 @@ export default function EditarPerfilRestaurante() {
       dniDuenio: duenio?.dni || "",
       emailDuenio: duenio.persona?.[0]?.email || "",
       telefonoDuenio: duenio.persona?.[0]?.telefono || "",
-
     });
-  }, [restaurante, direccion]);
+  }, [restaurante, direccion, duenio.persona, duenio?.dni]);
 
   useEffect(() => {
     const fetchProvincias = async () => {
       try {
-        const response = await axios.get("https://apis.datos.gob.ar/georef/api/provincias");
+        const response = await axios.get(
+          "https://apis.datos.gob.ar/georef/api/provincias"
+        );
         setProvincias(response.data.provincias);
 
-        // Buscar la provincia seleccionada para cargar sus localidades
         const provinciaSeleccionada = response.data.provincias.find(
-          (prov) => prov.nombre.toLowerCase() === formData.provincia.toLowerCase()
+          (prov) =>
+            prov.nombre.toLowerCase() === formData.provincia.toLowerCase()
         );
         if (provinciaSeleccionada) {
           await cargarLocalidades(provinciaSeleccionada.id);
@@ -93,21 +96,21 @@ export default function EditarPerfilRestaurante() {
 
   const cargarLocalidades = async (provinciaId) => {
     try {
-      const response = await axios.get("https://apis.datos.gob.ar/georef/api/localidades", {
-        params: { provincia: provinciaId, max: 100 },
-      });
+      const response = await axios.get(
+        "https://apis.datos.gob.ar/georef/api/localidades",
+        {
+          params: { provincia: provinciaId, max: 100 },
+        }
+      );
       setLocalidades(response.data.localidades);
     } catch (error) {
       console.error("Error al cargar las localidades:", error);
     }
   };
 
-  // Al cambiar la provincia, almacenamos el nombre en lugar del ID
   const handleProvinciaChange = async (e) => {
     const provinciaNombre = e.target.options[e.target.selectedIndex].text;
     setFormData({ ...formData, provincia: provinciaNombre, ciudad: "" });
-
-    // Cargar localidades basadas en el ID de la provincia seleccionada
     const provinciaId = e.target.value;
     await cargarLocalidades(provinciaId);
   };
@@ -128,7 +131,7 @@ export default function EditarPerfilRestaurante() {
 
       contrasenia: formData.nuevaContrasenia || undefined,
     };
-    console.log(updatedData);
+    //console.log(updatedData);
 
     if (!formData.nuevaContrasenia) {
       delete updatedData.nuevaContrasenia;
@@ -148,207 +151,182 @@ export default function EditarPerfilRestaurante() {
     );
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     if (res.ok) {
-      console.log("Restaurante actualizado:", data);
+      alert("Informacion actualizada con exito");
+      //console.log("Restaurante actualizado:", data);
       navigate("/panelRestaurante/perfilRestaurante");
     } else {
       console.error("Error al actualizar el perfil");
+      alert("Error al actualizar el perfil");
       setErrors(data.errors || {});
     }
   }
+
   return (
     <>
-      <div className="bg-slate-400">
+      <div>
         <Title text="Editar Perfil restaurante" />
       </div>
       <div className="container mx-auto p-8">
         <form onSubmit={handleUpdate} className="space-y-6">
           <div className="flex justify-between space-x-8">
             {/* Sección de Datos del Restaurante */}
-            <div className="w-1/2 bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold mb-4 text-center">
+            <div className="w-1/2 bg-white p-6 rounded-s shadow-md m-4 border border-t-4 border-t-[#DC493A]">
+              <h2 className="text-xl font-semibold mb-4 text-center text-[#242424]">
                 Restaurante
               </h2>
 
               <div className="mb-2">
-                <label className="text-xs">Nombre Restaurante</label>
-                <input
-                  required
-                  type="text"
-                  className="input-style"
-                  placeholder="Nombre del Restaurante"
+                <FormInput
+                 placeholder="Nombre del Restaurante"
+                   label="Nombre Restaurante"
                   value={formData.nombreRes || ""}
                   onChange={(e) =>
                     setFormData({ ...formData, nombreRes: e.target.value })
                   }
+                  required
+                  errorMessage={errors.nombreRes?.[0] || ""}
                 />
-                {errors.nombreRes && (
-                  <p className="error">{errors.nombreRes[0]}</p>
-                )}
               </div>
               <div className="mb-2">
                 {/* Primer grupo de dos inputs en una fila */}
                 <div className="flex space-x-4 mb-2">
                   <div className="flex-1">
-                    <label className="text-xs">Calle</label>
-                    <input
-                      required
-                      type="text"
-                      className="input-style w-full"
+                    <FormInput
+                      label="Calle"
                       placeholder="Calle"
                       value={formData.calle || ""}
                       onChange={(e) =>
                         setFormData({ ...formData, calle: e.target.value })
                       }
+                      required
+                      errorMessage={errors.calle?.[0]}
                     />
-                    {errors.calle && <p className="error">{errors.calle[0]}</p>}
                   </div>
                   <div className="flex-1">
-                    <label className="text-xs">Altura</label>
-                    <input
-                      required
-                      type="text"
-                      className="input-style w-full"
+                    <FormInput
+                      label="Altura"
                       placeholder="Altura"
                       value={formData.altura || ""}
                       onChange={(e) =>
                         setFormData({ ...formData, altura: e.target.value })
                       }
+                      required
+                      errorMessage={errors.altura?.[0]}
                     />
-                    {errors.altura && (
-                      <p className="error">{errors.altura[0]}</p>
-                    )}
                   </div>
                 </div>
 
                 {/* Segundo grupo de tres inputs en una fila */}
                 <div className="flex space-x-4">
                   <div className="mb-2">
-                    <label className="text-xs">Provincia</label>
-                    <select
-                      required
-                      className="input-style w-full"
+                    <SelectInput
+                      label="Provincia"
+                      name="provincia"
+                      options={provincias}
                       value={
-                        provincias.find((prov) => prov.nombre === formData.provincia)?.id || ""
+                        provincias.find(
+                          (prov) => prov.nombre === formData.provincia
+                        )?.id || ""
                       }
                       onChange={handleProvinciaChange}
-                    >
-                      <option value="" disabled>Selecciona una provincia</option>
-                      {provincias.map((provincia) => (
-                        <option key={provincia.id} value={provincia.id}>
-                          {provincia.nombre}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.provincia && <p className="error">{errors.provincia[0]}</p>}
+                      placeholder="Selecciona una provincia"
+                      error={errors.provincia}
+                    />
                   </div>
                   <div className="mb-2">
-                    <label className="text-xs">Localidad</label>
-                    <select
-                      required
-                      className="input-style w-full"
+                    <SelectInput
+                      label="Localidad"
+                      options={localidades}
+                      keyField="nombre"
                       value={formData.ciudad || ""}
-                      onChange={(e) => setFormData({ ...formData, ciudad: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, ciudad: e.target.value })
+                      }
                       disabled={!formData.provincia}
-                    >
-                      <option value="" disabled>Selecciona una localidad</option>
-                      {localidades.map((localidad) => (
-                        <option key={localidad.id} value={localidad.nombre}>
-                          {localidad.nombre}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.ciudad && <p className="error">{errors.ciudad[0]}</p>}
+                      placeholder="Selecciona una localidad"
+                      error={errors.ciudad?.[0]}
+                    />
                   </div>
-
-
                 </div>
               </div>
 
               <div className="mb-2">
-                <label className="text-xs">Descripción</label>
-                <input
-                  required
-                  type="text"
-                  className="input-style"
+                <FormInput
+                  label="Descripción"
                   placeholder="Descripción del Restaurante"
                   value={formData.descripcion || ""}
                   onChange={(e) =>
                     setFormData({ ...formData, descripcion: e.target.value })
                   }
+                  required
+                  errorMessage={errors.descripcion?.[0]}
                 />
-                {errors.descripcion && (
-                  <p className="error">{errors.descripcion[0]}</p>
-                )}
               </div>
 
               <div className="mb-2">
-                <label className="text-xs">Tipo de Restaurante</label>
-                <select
-                  required
-                  className="input-style"
-                  value={formData.tipo || ""}
-                  onChange={(e) =>
-                    setFormData({ ...formData, tipo: e.target.value })
-                  }
-                >
-                  <option value="" disabled>
-                    Tipo de restaurante
-                  </option>
-                  <option value="Tematico">Temático</option>
-                  <option value="Comida rapida">Comida rapida</option>
-                  <option value="Buffet">Estilo buffet</option>
-                  <option value="Gourmet">Gourmet</option>
-                  <option value="Fusion">Fusión</option>
-                  <option value="Familiar">familiar</option>
-                  <option value="De autor">De autor</option>
-                  <option value="Bar restaurante">Bar restaurante</option>
-                  <option value="Pizzeria">Pizzeria</option>
-                  <option value="Parrilla">Parrilla</option>
-                  <option value="Cafe restaurante">Cafe restaurante</option>
+                <div className="flex items-center gap-4 ">
+                  <label className="text-xs w-1/3">Tipo de Restaurante</label>
+                  <select
+                    required
+                    className="input-style"
+                    value={formData.tipo || ""}
+                    onChange={(e) =>
+                      setFormData({ ...formData, tipo: e.target.value })
+                    }
+                  >
+                    <option value="" disabled>
+                      Tipo de restaurante
+                    </option>
+                    <option value="Tematico">Temático</option>
+                    <option value="Comida rapida">Comida rapida</option>
+                    <option value="Buffet">Estilo buffet</option>
+                    <option value="Gourmet">Gourmet</option>
+                    <option value="Fusion">Fusión</option>
+                    <option value="Familiar">familiar</option>
+                    <option value="De autor">De autor</option>
+                    <option value="Bar restaurante">Bar restaurante</option>
+                    <option value="Pizzeria">Pizzeria</option>
+                    <option value="Parrilla">Parrilla</option>
+                    <option value="Cafe restaurante">Cafe restaurante</option>
 
-                  {/* Agrega más opciones aquí según lo necesites */}
-                </select>
-                {errors.tipo && <p className="error">{errors.tipo[0]}</p>}
+                    {/* Agrega más opciones aquí según lo necesites */}
+                  </select>
+                  {errors.tipo && <p className="error">{errors.tipo[0]}</p>}
+                </div>
               </div>
 
               <div className="mb-2">
-                <label className="text-xs">Telefono</label>
-                <input
-                  required
-                  type="text"
-                  className="input-style"
+                <FormInput
+                  label="Telefono"
                   placeholder="Teléfono del Restaurante"
                   value={formData.telefono || ""}
                   onChange={(e) =>
                     setFormData({ ...formData, telefono: e.target.value })
                   }
+                  required
+                  errorMessage={errors.telefono?.[0]}
                 />
-                {errors.telefono && (
-                  <p className="error">{errors.telefono[0]}</p>
-                )}
               </div>
 
               <div className="mb-2">
-                <label className="text-xs">Email</label>
-                <input
-                  required
-                  type="email"
-                  className="input-style"
+                <FormInput
+                  label="Email"
                   placeholder="Email del Restaurante"
                   value={formData.email || ""}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
+                  required
+                  errorMessage={errors.email?.[0]}
                 />
-                {errors.email && <p className="error">{errors.email[0]}</p>}
               </div>
 
               <div className="mb-2">
-                <label className="text-xs">Nueva Contraseña</label>
-                <input
+                <FormInput
+                  label="Nueva Contraseña"
                   type="password"
                   placeholder="Nueva Contraseña"
                   value={formData.nuevaContrasenia || ""}
@@ -359,16 +337,13 @@ export default function EditarPerfilRestaurante() {
                     })
                   }
                 />
-                {errors.contrasenia && (
-                  <p className="error">{errors.contrasenia[0]}</p>
-                )}
               </div>
 
               <div className="mb-2">
-                <label className="text-xs">Confirme Contraseña</label>
-                <input
+                <FormInput
+                  label="Confirme Contraseña"
                   type="password"
-                  placeholder="Confirm Password"
+                  placeholder="Confirme Password"
                   value={formData.contrasenia_confirmation || ""}
                   onChange={(e) =>
                     setFormData({
@@ -380,105 +355,99 @@ export default function EditarPerfilRestaurante() {
               </div>
 
               <div className="mb-4">
-                <label className="text-xs">Capacidad Total</label>
-                <input
-                  required
-                  type="text"
-                  className="input-style"
+                <FormInput
+                  label="Capacidad Total"
                   placeholder="Capacidad Total"
                   value={formData.capacidadTotal || ""}
                   onChange={(e) =>
-                    setFormData({ ...formData, capacidadTotal: e.target.value })
+                    setFormData({
+                      ...formData,
+                      capacidadTotal: e.target.value,
+                    })
                   }
+                  required
+                  errorMessage={errors.capacidadTotal?.[0]}
                 />
-                {errors.capacidadTotal && (
-                  <p className="error">{errors.capacidadTotal[0]}</p>
-                )}
               </div>
-
               <div className="mb-4">
-                <label className="mr-4">¿Acepta eventos?</label>
-                <div className="inline-flex items-center space-x-4">
-                  <input
-                    type="radio"
-                    id="aceptaSi"
-                    name="aceptaEventos"
-                    value="si"
-                    checked={formData.aceptaEventos === "si"}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        aceptaEventos: e.target.value,
-                      })
-                    }
-                  />
-                  <label htmlFor="aceptaSi" className="mr-4">
-                    Sí
-                  </label>
+                <div className="flex items-center gap-4 ">
+                  <label className="mr-4 text-xs">¿Acepta eventos?</label>
+                  <div className="inline-flex items-center space-x-4">
+                    <input
+                      type="radio"
+                      id="aceptaSi"
+                      name="aceptaEventos"
+                      value="si"
+                      checked={formData.aceptaEventos === "si"}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          aceptaEventos: e.target.value,
+                        })
+                      }
+                      className="accent-[#DC493A]"
+                    />
+                    <label htmlFor="aceptaSi" className="mr-2 text-xs">
+                      Sí
+                    </label>
 
-                  <input
-                    type="radio"
-                    id="aceptaNo"
-                    name="aceptaEventos"
-                    value="no"
-                    checked={formData.aceptaEventos === "no"}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        aceptaEventos: e.target.value,
-                      })
-                    }
-                  />
-                  <label htmlFor="aceptaNo">No</label>
+                    <input
+                      type="radio"
+                      id="aceptaNo"
+                      name="aceptaEventos"
+                      value="no"
+                      checked={formData.aceptaEventos === "no"}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          aceptaEventos: e.target.value,
+                        })
+                      }
+                      className="accent-[#DC493A]"
+                    />
+                    <label htmlFor="aceptaNo" className="mr-2 text-xs">
+                      No
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Sección de Datos del Dueño */}
-            <div className="w-1/2 bg-white p-6 rounded-lg shadow-md">
+            <div className="w-1/2 bg-white p-6 rounded-lg shadow-md m-4 border border-t-4 border-t-[#DC493A]">
               <h2 className="text-xl font-semibold mb-4 text-center">Dueño</h2>
 
               <div className="mb-2">
-                <label className="text-xs">Nombre</label>
-                <input
-                  required
-                  type="text"
-                  className="input-style"
+                <FormInput
+                  label="Nombre"
                   placeholder="Nombre del Dueño"
                   value={formData.nombreDuenio || ""}
                   onChange={(e) =>
                     setFormData({ ...formData, nombreDuenio: e.target.value })
                   }
+                  required
+                  errorMessage={errors.nombreDuenio?.[0]}
                 />
-                {errors.nombreDuenio && (
-                  <p className="error">{errors.nombreDuenio[0]}</p>
-                )}
               </div>
 
               <div className="mb-2">
-                <label className="text-xs">Apellido</label>
-                <input
-                  required
-                  type="text"
-                  className="input-style"
+                <FormInput
+                  label="Apellido"
                   placeholder="Apellido del Dueño"
                   value={formData.apellidoDuenio || ""}
                   onChange={(e) =>
                     setFormData({ ...formData, apellidoDuenio: e.target.value })
                   }
+                  required
+                  errorMessage={errors.apellidoDuenio?.[0]}
                 />
-                {errors.apellidoDuenio && (
-                  <p className="error">{errors.apellidoDuenio[0]}</p>
-                )}
               </div>
 
               <div className="mb-2">
-                <label className="text-xs">Fecha de Nacimiento</label>
-                <input
-                  required
-                  type="date"
-                  className="input-style"
+                <FormInput
+                  label="Fecha de Nacimiento"
                   placeholder="Fecha de Nacimiento"
+                  type="date"
                   value={formData.fechaNacimientoDuenio || ""}
                   onChange={(e) =>
                     setFormData({
@@ -486,72 +455,58 @@ export default function EditarPerfilRestaurante() {
                       fechaNacimientoDuenio: e.target.value,
                     })
                   }
+                  required
+                  errorMessage={errors.fechaNacimientoDuenio?.[0]}
                 />
-                {errors.fechaNacimientoDuenio && (
-                  <p className="error">{errors.fechaNacimientoDuenio[0]}</p>
-                )}
               </div>
 
               <div className="mb-2">
-                <label className="text-xs">DNI</label>
-                <input
-                  required
-                  type="text"
-                  className="input-style"
+                <FormInput
+                  label="DNI"
                   placeholder="DNI"
                   value={formData.dniDuenio || ""}
                   onChange={(e) =>
                     setFormData({ ...formData, dniDuenio: e.target.value })
                   }
+                  required
+                  errorMessage={errors.dniDuenio?.[0]}
                 />
-                {errors.dniDuenio && (
-                  <p className="error">{errors.dniDuenio[0]}</p>
-                )}
               </div>
 
               <div className="mb-2">
-                <label className="text-xs">Email</label>
-                <input
-                  required
-                  type="email"
-                  className="input-style"
+                <FormInput
+                  label="Email"
                   placeholder="Email del Dueño"
                   value={formData.emailDuenio || ""}
                   onChange={(e) =>
                     setFormData({ ...formData, emailDuenio: e.target.value })
                   }
+                  required
+                  errorMessage={errors.emailDuenio?.[0]}
                 />
-                {errors.emailDuenio && (
-                  <p className="error">{errors.emailDuenio[0]}</p>
-                )}
               </div>
 
               <div className="mb-2">
-                <label className="text-xs">Telefono</label>
-                <input
-                  required
-                  type="text"
-                  className="input-style"
+                <FormInput
+                  label="Telefono"
                   placeholder="Teléfono del Dueño"
                   value={formData.telefonoDuenio || ""}
                   onChange={(e) =>
                     setFormData({ ...formData, telefonoDuenio: e.target.value })
                   }
+                  required
+                  errorMessage={errors.telefonoDuenio?.[0]}
                 />
-                {errors.telefonoDuenio && (
-                  <p className="error">{errors.telefonoDuenio[0]}</p>
-                )}
               </div>
-
-
             </div>
           </div>
 
           <div className="flex justify-center mt-6">
-            <button className="primary-btn">Actualizar</button>
+            <Button texto={"Actualizar"} />
           </div>
         </form>
       </div>
+      <LinkVolver color={"[#DC493A]"} colorHover={"[#B6C6B9]"} ruta={"/panelRestaurante"}/>
     </>
   );
 }

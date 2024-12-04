@@ -8,6 +8,8 @@ import { obtenerMesasExistentes } from "../../../api/mesasAPI";
 import PlanoEditable from "../../../component/PlanoEditable/PlanoEditable";
 import Mesa from "../../../assets/Mesa";
 import Button from "../../../component/Button/Button";
+import IconoError from "../../../assets/IconoError";
+import LinkVolver from "../../../component/LinkVolver/LinkVolver";
 
 /**
  * cargar mesas para la creacion del plano editable.
@@ -149,9 +151,10 @@ const MapaMesas = () => {
       }
       if (totalPersonas > CAPACIDAD_MAXIMA) {
         setErrors({
-          general: `La capacidad máxima de su restaurante es de ${CAPACIDAD_MAXIMA} personas. Puede eliminar mesas en Administrar mesas o aumentar su capacidad maxima`,
+          general: ` Supera la CAPACIDAD MAXIMA de ${CAPACIDAD_MAXIMA}, Puede ELIMINAR mesas o AUMENTAR su capacidad maxima`,
         });
         clearInput();
+        setTimeout(() => setErrors(""), 8000);
         // console.log("supera la cantidad de mesas");
         return;
       }
@@ -175,13 +178,11 @@ const MapaMesas = () => {
         setErrors(data.errors || { general: "Error al guardar los datos." });
         setSuccessMessage("Error al cargar las mesas");
       } else {
-        // console.log("Datos guardados exitosamente:", data);
         setMesasEditable((prevMesas) => [...prevMesas, ...data]);
         getMesas();
         clearInput();
         setSuccessMessage("Mesas cargadas exitosamente");
-        // obtenerMesasExistentes();
-        setTimeout(() => setSuccessMessage(""), 3000);
+        setTimeout(() => setSuccessMessage(""), 4000);
       }
     } catch (error) {
       console.error("Error al enviar la solicitud:", error);
@@ -190,8 +191,9 @@ const MapaMesas = () => {
   };
 
   return (
+    <>
     <div className="max-w-screen-lg mx-auto">
-      <Title text="Cargar mesas" />
+      <Title text="Aquí puedes gestionar tus mesas, agregar o quitar mesas disponibles" />
       <div className="flex border-b border-gray-300 p-4">
         <form onSubmit={handleGuardar}>
           <div className=" flex flex-col w-2/3 m-2 rounded-md  ">
@@ -237,25 +239,32 @@ const MapaMesas = () => {
           mesasMas6={mesas.mesaMas6}
         />
       </div>
+
       {errors.general && (
-        <div className="p-5 bg-amber-200 rounded-md border-2 border-red-600">
-          <p className="error text-center font-semibold">{errors.general}</p>
+        <div className="flex justify-center py-4">
+        <div className="flex flex-col items-center p-5 bg-[#DC493A] rounded-md border-white text-[#242424] w-2/3 rounded-s font-semibold">
+          <div className="flex space-x-4"><IconoError width="20" height="20"/><h3 className="font-bold">ERROR</h3></div>
+          <p className="text-center font-semibold">{errors.general}</p>
+        </div>
         </div>
       )}
       {successMessage && (
-        <div className="flex justify-center">
+        <div className="flex justify-center py-4">
           <div className="text-white bg-green-700 p-1 w-1/3 rounded-md text-center">
             {successMessage}
           </div>
         </div>
       )}
+      
 
       <div className=" m-2">
-        <div>
+          <div className="flex justify-center">
+            <h3 className="font-semibold  border-l-gray-300  border-r-gray-300[#242424] border-l border-r px-2">Plano editable de  mesas cargadas</h3> </div>
           <PlanoEditable mesas={mesasEditable} setMesas={setMesasEditable} />
         </div>
-      </div>
     </div>
+     <LinkVolver color={"[#DC493A]"} colorHover={"[#B6C6B9]"} ruta={"/panelRestaurante"} />
+     </>
   );
 };
 

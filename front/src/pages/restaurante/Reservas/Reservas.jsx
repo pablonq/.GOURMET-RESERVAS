@@ -4,6 +4,8 @@ import Title from "../../../component/Title/Title";
 import VistaReserva from "../../../component/VistaReserva/VistaReserva";
 import { AppContext } from "../../../Context/AppContext";
 import IconoUsuario from "../../../assets/IconoUsuario";
+import ButtonPaginacion from "../../../component/ButtonPaginacion/ButtonPaginacion";
+import LinkVolver from "../../../component/LinkVolver/LinkVolver";
 
 const Reservas = () => {
   const { user } = useContext(AppContext);
@@ -148,7 +150,7 @@ const Reservas = () => {
 
   return (
     <div>
-      <Title text="Reservas" />
+      <Title text="Consulta todas tus reservas confirmadas , pendientes y canceladas" />
       {/* Inputs de filtrado */}
       <div className="flex my-4 ">
         <div className="flex text-center items-center w-full font-semibold flex-wrap md:flex-nowrap gap-4 border p-4 bg-white shadow-md rounded-s ">
@@ -207,20 +209,26 @@ const Reservas = () => {
           />
         ))
       )}
-      ;{/* Paginación */}
-      <div className="flex justify-end p-4 ">
-        {Array.from(
-          { length: Math.ceil(reservas.length / reservasPorPagina) },
-          (_, index) => (
-            <button
-              className="border rounded-full w-8 text-center  h-8 mx-1 border-[#DC493A] text-[#DC493A] hover:bg-[#DC493A] hover:text-white"
-              key={index + 1}
-              onClick={() => paginate(index + 1)}
-            >
-              {index + 1}
-            </button>
-          )
-        )}
+      {/* Paginación */}
+      <div className="flex justify-between p-4 items-end">
+        <LinkVolver
+          color={"[#DC493A]"}
+          colorHover={"[#B6C6B9]"}
+          ruta={"/panelRestaurante"}
+        />
+        <div className="flex mt-4">
+          {Array.from(
+            { length: Math.ceil(reservas.length / reservasPorPagina) },
+            (_, index) => (
+              <ButtonPaginacion
+                key={index + 1}
+                page={index + 1}
+                isActive={paginaActual === index + 1}
+                onClick={paginate}
+              />
+            )
+          )}
+        </div>
       </div>
     </div>
   );

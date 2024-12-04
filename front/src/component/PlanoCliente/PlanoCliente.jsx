@@ -22,9 +22,9 @@ const PlanoCliente = ({ mesas = [], fecha, hora }) => {
   };
 
   return (
-    <div className="flex flex-col items-center p-4">
-      <div className="flex items-center space-x-4">
-      <i><Mesa width={"24"} height={"24"}/> </i>
+    <div className="flex flex-col items-center p-4 ">
+      <div className="flex items-center space-x-4 ">
+      <i><Mesa width={"24"} height={"24"}/></i>
       <h1 className="items-center text-[#1A2F2A] text-lg ">
       Elija y ingresa la cantidad de las mesas disponibles 
       </h1>

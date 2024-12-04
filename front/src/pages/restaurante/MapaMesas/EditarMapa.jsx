@@ -3,6 +3,7 @@ import Title from "../../../component/Title/Title";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
 import PlanoTiempoReal from "../../../component/PlanoEditable/PlanoTiempoReal";
+import LinkVolver from "../../../component/LinkVolver/LinkVolver";
 
 const EditarMapa = () => {
   const [mesas, setMesas] = useState();
@@ -78,8 +79,9 @@ const EditarMapa = () => {
   }, [token, navigate]);
 
   return (
-    <div className=" m-2">
-      <Title text="Ocupar o Habilitar mesas" />
+    <>
+    <div className="m-2">
+      <Title text="Disponibilidad de mesas en tiempo real" />
       <div>
         <PlanoTiempoReal
           mesas={mesas}
@@ -87,7 +89,9 @@ const EditarMapa = () => {
           mesasReservadas={mesasReservadas}
         />
       </div>
+      <LinkVolver color={"[#DC493A]"} colorHover={"[#B6C6B9]"} ruta={"/panelRestaurante"} />
     </div>
+    </>
   );
 };
 

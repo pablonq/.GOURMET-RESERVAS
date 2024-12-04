@@ -1,8 +1,12 @@
 /* eslint-disable react/prop-types */
+import IconoEliminar from "../../assets/IconoEliminar";
+import IconoTogleOn from "../../assets/IconoTogleOn";
 import Mesa2pers from "../../assets/Mesa2pers";
 import Mesa4pers from "../../assets/Mesa4pers";
 import Mesa6mas from "../../assets/Mesa6mas";
 import Mesa6pers from "../../assets/Mesa6pers";
+import MensajeError from "../MensajeError/MensajeError";
+import TooltipCustom from "../TooltipCustom/TooltipCustom";
 
 const AgruparMesa = ({
   mesas,
@@ -14,9 +18,9 @@ const AgruparMesa = ({
 }) => {
   const renderMesa = (cantidad, estado) => {
     const estadoColor = {
-      disponible: "green",
-      reservada: "yellow",
-      ocupada: "red",
+      disponible: "#14b840",
+      reservada: "#efd112",
+      ocupada: "#DC493A",
     };
 
     const color = estadoColor[estado] || "gray";
@@ -40,61 +44,53 @@ const AgruparMesa = ({
   );
 
   return (
-    <div className="mb-4">
-      <h2 className="text-base text-center font-bold">
+    <div className="mb-4 bg-white border shadow-md rounded-s">
+      <h2 className="text-base text-center font-bold border-b border-gray-300 ">
         Mesas para {cantidadPersonas} personas
       </h2>
       {filteredMesas.length > 0 ? (
-        <div className="flex flex-wrap border-b border-gray-300 p-4 rounded-md">
+        <div className="flex flex-wrap  p-4 rounded-md">
           {filteredMesas.map((mesa) => (
-            <div key={mesa.id} className="m-2 flex flex-col">
-              <button
-                id={mesa.id}
-                onClick={() => handleReserve(mesa.id)}
-                disabled={
-                  mesa.estado === "reservada" || mesa.estado === "ocupada"
-                }
-                className={"p-1 self-center"}
-              >
-                {renderMesa(cantidadPersonas, mesa.estado)}
-              </button>
-              {handleDelete ? (
+            <div
+              key={mesa.id}
+              className="m-2 flex flex-col items-center border-dotted border-2 rounded-sm border-gray-300"
+            >
+              <TooltipCustom text="Ocupar">
                 <button
-                  onClick={() => handleDelete(mesa.id)}
-                  className="p-1 m-2 self-center"
+                  id={mesa.id}
+                  onClick={() => handleReserve(mesa.id)}
+                  disabled={
+                    mesa.estado === "reservada" || mesa.estado === "ocupada"
+                  }
+                  className={"p-1 "}
                 >
-                  <svg
-                    data-slot="icon"
-                    fill="#DC493A"
-                    stroke="#000"
-                    strokeWidth="1"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z"
-                    ></path>
-                  </svg>
+                  {renderMesa(cantidadPersonas, mesa.estado)}
                 </button>
+              </TooltipCustom>
+              {handleDelete ? (
+                <TooltipCustom text="Eliminar">
+                  <button
+                    onClick={() => handleDelete(mesa.id)}
+                    className="p-1 m-2 "
+                  >
+               <IconoEliminar width={"20"} height={"20"}/>
+                  </button>
+                </TooltipCustom>
               ) : null}
               {textAcion ? (
-                <button
-                  onClick={() => handleHabilitar(mesa.id)}
-                  className="p-1 m-2 ml-2 bg-green-600 text-white rounded-md"
-                >
-                  {textAcion}
-                </button>
+                <TooltipCustom text="Habilitar">
+                  <button onClick={() => handleHabilitar(mesa.id)}>
+                    <IconoTogleOn width="20" height="20" color="#0c7328" />
+                  </button>
+                </TooltipCustom>
               ) : null}
             </div>
           ))}
         </div>
       ) : (
-        <p>No hay mesas para {cantidadPersonas} personas.</p>
+        <MensajeError
+          mensaje={`No hay mesas para ${cantidadPersonas} personas`}
+        />
       )}
     </div>
   );

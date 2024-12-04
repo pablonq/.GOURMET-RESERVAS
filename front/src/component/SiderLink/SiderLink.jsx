@@ -11,7 +11,7 @@ const SiderLink = ({ to, text, icono }) => {
           isActive ? "bg-white text-[#DC493A]" : "text-white"
         } rounded-l-full hover:bg-[#DC493A] `}
       >
-        <Link to={to} className="flex w-full space-x-2 text-xs m-2 p-1 hover:text-white items-center">
+        <Link to={to} className="flex w-full space-x-2 text-sm m-2 p-1 hover:text-white items-center">
           <div>{icono}</div>
           <div>{text}</div>
         </Link>

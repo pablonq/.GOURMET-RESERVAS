@@ -13,7 +13,7 @@ const ResumenResenia = ({ reseniaExistente }) => {
   };
 
   return (
-    <div className="mt-4 text-sm  text-[#242424] p-2 border shadow-md rounded-s">
+    <div className="mt-4 text-sm  text-[#242424] p-2 border shadow-md rounded-s border-l-[#DC493A] border-l-4">
       <div className="flex flex-row items-center">
         <IconoUsuario width="16" height="16" />
         <p>Usuario</p>

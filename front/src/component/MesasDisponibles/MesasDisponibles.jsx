@@ -47,13 +47,13 @@ const MesasDisponibles = ({ mesas, setMesasSelecionadas }) => {
   };
 
   return (
-    <div className="flex flex-col items-center m-4 ">
+    <div className="flex flex-col items-center m-2 ">
       {Object.entries(mesasPorTipo).map(([cantidad, total]) => (
         <div
           key={cantidad}
           className="flex items-center mb-4 justify-between w-96 border-b border-gray-300 pb-2 "
         >
-          <div>{renderMesaIcon(parseInt(cantidad))}</div>
+          <div className="border-dotted border-2 p-2">{renderMesaIcon(parseInt(cantidad))}</div>
           <div>
             <p className="ml-2">
               Total mesas {cantidad} personas: <strong>{total}</strong>

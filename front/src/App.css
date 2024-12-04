@@ -45,13 +45,13 @@
         @apply font-semibold text-blue-500 hover:text-blue-600;
     }
     .nav-link {
-        @apply text-slate-200 hover:bg-slate-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium;
+        @apply text-slate-200 hover:bg-[#B6C6B9] hover:text-white rounded-md px-3 py-2 text-sm font-medium;
     }
     .title {
         @apply my-6 text-center text-xl font-bold leading-9 text-slate-900;
     }
     .error {
-        @apply text-xs text-red-500 mt-1;
+        @apply text-xs text-[#DC493A] mt-1;
     }
     table {
         @apply w-full text-sm text-left rounded-md shadow-lg overflow-hidden mb-6 table-auto bg-white;
@@ -75,7 +75,7 @@
         @apply w-8 h-8 overflow-auto rounded-full bg-slate-100 focus:outline-none focus:ring-1 focus:ring-slate-100 focus:ring-offset-2 focus:ring-offset-slate-800;
     }
     .input-style {
-        @apply w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-500;
+        @apply w-full text-[#242424] border text-sm rounded-s px-2 py-2 focus:outline-none focus:ring-1 focus:ring-[#DC493A] ;
     }
     .user-marker {
       filter: hue-rotate(140deg);
@@ -95,6 +95,6 @@
       /* filter: brightness(0.5) blur(5px); */
     }
     .input-text, .input-password {
-      @apply font-verdana text-white bg-transparent focus:outline-none border border-r-0 border-t-0 border-l-0 tracking-wide;
+      @apply font-verdana text-white bg-transparent focus:outline-none  border-b tracking-wide;
     }
 }

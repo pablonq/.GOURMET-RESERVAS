@@ -37,10 +37,10 @@ const ApartadoResenias = ({ resenias, totalResenias }) => {
           <button
             onClick={irPaginaAnterior}
             disabled={paginaActual === 1}
-            className={`px-2 py-2 border border-[#1A2F2A] hover:border-[#DC493A] rounded-full hover:bg-[#f8c1bbc8] ${
+            className={`px-2 py-2 border border-[#DC493A] hover:border-[#DC493A] rounded-full hover:bg-[#DC493A] ${
               paginaActual === 1
                 ? "text-gray-400 cursor-not-allowed"
-                : "text-[#1A2F2A] hover:text-[#DC493A] "
+                : "text-[#DC493A]  hover:text-white "
             }`}
           >
             <FlechaIzquierda />
@@ -51,10 +51,10 @@ const ApartadoResenias = ({ resenias, totalResenias }) => {
           <button
             onClick={irPaginaSiguiente}
             disabled={paginaActual === totalPaginas}
-            className={`px-2 py-2 border border-[#1A2F2A]  rounded-full hover:border-[#DC493A] hover:bg-[#f8c1bbc8] ${
+            className={`px-2 py-2 border  rounded-full hover:border-[#DC493A]  hover:bg-[#DC493A] ${
               paginaActual === totalPaginas
-                ? "text-[#B6C6B9] cursor-not-allowed"
-                : "text-[#1A2F2A] hover:text-[#DC493A]"
+                ? "text-[#B6C6B9] border-[#B6C6B9] cursor-not-allowed"
+                : "text-[#DC493A] hover:text-white border-[#DC493A]"
             }`}
           >
             <FlechaDerecha />

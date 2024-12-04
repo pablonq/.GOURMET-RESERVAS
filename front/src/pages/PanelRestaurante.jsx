@@ -59,7 +59,7 @@ const PanelRestaurante = () => {
               textAlt={"imagen perfil restaurante"}
             />
           ) : (
-            <p>Cargando imagen de perfil...</p>
+            <p className="text-[#DC493A] ">Cargando imagen de perfil...</p>
           )}
         </div>
         <nav className="flex m-0 p-0 flex-col items-end">
@@ -72,12 +72,12 @@ const PanelRestaurante = () => {
             <SiderLink
               icono={<IconoEliminarAgregarMesa />}
               to={"/panelRestaurante/registerMesa"}
-              text={"Cargar o eliminar Mesas"}
+              text={"Cargar o Editar Mesas"}
             />
             <SiderLink
               icono={<IconoAdministrarMesas />}
               to={"/panelRestaurante/editarMapa"}
-              text={"Administar Mesas/reservas"}
+              text={"Plano en tiempo real"}
             />
             <SiderLink
               icono={<IconoMenu />}
@@ -85,27 +85,27 @@ const PanelRestaurante = () => {
               text={"Menues"}
             />
             <SiderLink
-              icono={<IconoPlatoRestaurante/>}
+              icono={<IconoPlatoRestaurante />}
               to={"/panelRestaurante/administrarPlatos"}
               text={"Platos"}
             />
             <SiderLink
-               icono={<IconoReloj width={"28"} height={"28"}/>}
+              icono={<IconoReloj width={"28"} height={"28"} />}
               to={"/panelRestaurante/diasHorarios"}
               text={"Dias y Horarios de Atención"}
             />
             <SiderLink
-              icono={<IconoUsuario/>}
+              icono={<IconoUsuario />}
               to={"/panelRestaurante/perfilRestaurante"}
               text={"Perfil "}
             />
             <SiderLink
-            icono={<IconoReserva width={"20"} height={"20"}/>}
+              icono={<IconoReserva width={"20"} height={"20"} />}
               to={"/panelRestaurante/visualizarReservas"}
               text={
-                <div className="flex items-center p-2">
+                <div className="flex items-center justify-center p-2">
                   <span>Visualizar Reservas</span>
-                  <div className="text-white bg-[#DC493A] rounded-full w-6 h-6 ml-2 p-1 text-center">
+                  <div className="text-white bg-[#DC493A] rounded-full w-6 h-6 ml-2 p-1 text-center hover:bg-white hover:text-[#DC493A]">
                     {totalReservas}
                   </div>
                 </div>
@@ -114,8 +114,8 @@ const PanelRestaurante = () => {
           </ul>
         </nav>
       </div>
-      <div className="flex-1 ml-2">
-        <Outlet />
+      <div className="flex-1 ml-2" >
+          <Outlet />
       </div>
     </div>
   );

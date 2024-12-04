@@ -75,41 +75,39 @@ const DetalleReserva = () => {
     };
 
     try {
-      const reservaResponse = await fetch("/api/usuarios/registerReserva", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+      const [reservaResponse, preferenceResponse] = await Promise.all([
+        fetch("/api/usuarios/registerReserva", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }),
+        fetch("/api/pago/createPreference", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            amount: 100,
+            external_reference: user.id,
+          }),
+        }),
+      ]);
 
       if (!reservaResponse.ok) {
         const errorData = await reservaResponse.json();
         throw new Error(`Error al registrar la reserva: ${errorData.message}`);
       }
 
-      const reservaData = await reservaResponse.json();
-
-      // preferencia de pago
-      const preferenceResponse = await fetch("/api/pago/createPreference", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: 100,
-          external_reference: reservaData.id,
-        }),
-      });
-
       if (!preferenceResponse.ok) {
         const errorData = await preferenceResponse.json();
         throw new Error(`Error al crear la preferencia: ${errorData.message}`);
       }
 
+      const reservaData = await reservaResponse.json();
       const preferenceData = await preferenceResponse.json();
-      console.log(preferenceData);
-
+    
       const pagoResponse = await fetch("/api/pago/guardarPago", {
         method: "POST",
         headers: {
@@ -141,7 +139,7 @@ const DetalleReserva = () => {
     <>
       <Title text={"Detalle de su Reserva"} />
       <div className=" flex flex-row gap-6 max-w-6xl mt-6 p-6 bg-white mx-auto text-[#242424]">
-        <div className="flex flex-col w-1/4 border border-gray-300 rounded-md shadow-sm">
+        <div className="flex flex-col w-1/4 border border-gray-300 rounded-md shadow-sm  border-b-4 border-b-[#DC493A]">
           {restaurante && (
             <div>
               <img
@@ -180,7 +178,7 @@ const DetalleReserva = () => {
         <div className="flex flex-col w-3/4">
           <div className="border border-[#DC493A] rounded-sm text-center mt-8">
             <p className="text-sm font-medium p-2">
-              Importante: El costo de la reserva se considera una seña y no será
+              <strong className="text-[#DC493A]">IMPORTANTE:</strong> El costo de la reserva se considera una seña y no será
               reembolsado en caso de inasistencia o cancelación. Gracias por su
               comprensión
             </p>
@@ -191,7 +189,7 @@ const DetalleReserva = () => {
                 <p>Estado de la reserva</p>
                 <div className="bg-[#DC493A] rounded-sm p-1">No confirmada</div>
               </div>
-              <div className="my-2 mx-4" >
+              <div className="my-2 mx-4">
                 <div className="flex item-center space-x-2 my-4">
                   <IconoCalendarioBasico width={"16"} height={"16"} />
                   <p className="mb-2 text-sm">
@@ -199,32 +197,35 @@ const DetalleReserva = () => {
                   </p>
                 </div>
                 <div className="flex item-center space-x-2 my-2">
-                <IconoReloj width={"20"} height={"20"}/>
+                  <IconoReloj width={"20"} height={"20"} />
                   <p className="mb-2 text-sm">
                     Hora: <strong>{hora}</strong>
                   </p>
-                  </div>
-                  <div className="flex item-center space-x-2 my-2">
-                    <IconoDinero width={"20"} height={"20"}/>
-                    <h2 className=" font-semibold mb-2 text-sm">Precio: $100</h2>
-                  </div>
                 </div>
+                <div className="flex item-center space-x-2 my-2">
+                  <IconoDinero width={"20"} height={"20"} />
+                  <h2 className=" font-semibold mb-2 text-sm">Precio: $100</h2>
+                </div>
+              </div>
             </div>
 
             <div className="flex flex-col">
-            <div className="bg-[#B6C6B9] border-2 flex justify-between p-4 mb-4">
-                <p> Agregue notas especiales si lo desea</p>
+              <div className="bg-[#B6C6B9] border-2 flex justify-center p-4 mb-4">
+                <p className="font-semibold"> Agregue notas especiales si lo desea</p>
               </div>
               <textarea
                 id="notaEspecial"
                 value={notaEspecial}
                 onChange={(e) => setNotaEspecial(e.target.value)}
-                className=" h-full border rounded-sm font-light text-s focus:outline-none focus:ring-1 focus:ring-[#DC493A] focus:border-[#DC493A]"
+                className="h-full border rounded-sm font-light text-s focus:outline-none focus:ring-1 focus:ring-[#DC493A] focus:border-[#DC493A]"
               />
             </div>
           </div>
           <div className="flex justify-end">
-            <Button onClick={handlePagarReserva} texto={"Pagar con Mercado Pago"} />
+            <Button
+              onClick={handlePagarReserva}
+              texto={"Pagar con Mercado Pago"}
+            />
           </div>
           {preferenceId && <PagoComponent preferenceId={preferenceId} />}
         </div>

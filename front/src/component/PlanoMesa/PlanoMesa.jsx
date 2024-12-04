@@ -7,7 +7,7 @@ import ColumnaMesa from "../ColumnaMesa/ColumnaMesa";
 
 const PlanoMesa = ({ mesas2, mesas4, mesas6, mesasMas6 }) => {
   return (
-    <div className=" w-3/3 m-2 p-4 flex border-b border-t border-[#DC493A]">
+    <div className=" w-3/3 m-2 p-4 flex border-b-4 border-t-4 border-[#DC493A]">
       <ColumnaMesa
         title="Mesas 2 Personas"
         numTables={mesas2}

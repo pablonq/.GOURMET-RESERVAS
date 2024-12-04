@@ -1,6 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../../../Context/AppContext";
+import Button from "../../../component/Button/Button";
+import TooltipCustom from "../../../component/TooltipCustom/TooltipCustom";
+import IconoEliminar from "../../../assets/IconoEliminar";
+import IconoMenu from "../../../assets/IconoMenu";
+import MensajeError from "../../../component/MensajeError/MensajeError";
+import LinkVolver from "../../../component/LinkVolver/LinkVolver";
+import IconoTag from "../../../assets/IconoTag";
 
 export default function MostrarPlato() {
   const { platoId } = useParams();
@@ -20,8 +27,8 @@ export default function MostrarPlato() {
 
     if (res.ok) {
       setPlato(data);
-      console.log(data);
-      console.log(platoId);
+      //console.log(data);
+      //console.log(platoId);
     }
   }
 
@@ -46,61 +53,80 @@ export default function MostrarPlato() {
 
   useEffect(() => {
     getPlato();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <div className="flex justify-center items-center m-4 space-x-4">
-        <button
-          className="w-40 rounded-md bg-green-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-400 disabled:cursor-wait"
+        <Button
           onClick={() => navigate(`../editarPlato/${platoId}`)}
-        >
-          Editar
-        </button>
-        <button
-          className="w-40 rounded-md bg-red-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-400 disabled:cursor-wait"
-          onClick={handleDelete}
-        >
-          Borrar
-        </button>
+          texto={"Editar"}
+        />
+        <TooltipCustom text="Eliminar">
+          <button onClick={handleDelete}>
+            <IconoEliminar width={"24"} height={"24"} />
+          </button>
+        </TooltipCustom>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mr-2">
         <img
           src={plato?.imagen}
           alt={`Imagen de ${plato?.nombre}`}
-          className="w-1/2 h-40 object-cover rounded-lg"
+          className="w-full h-40 object-cover"
         />
       </div>
 
       {/* Contenedor para el texto */}
-      <div className="text-center mt-4">
-        <h1 className="text-xl font-bold">{plato?.nombrePlato}</h1>
-        <h3 className="text-lg text-slate-800">{plato?.descripcion}</h3>
-        <h3 className="text-md">{plato?.informacionNutricional}</h3>
-        <h2 className="text-2xl">${plato?.precio}</h2>
-        <h2 className="text-2xl">
-          Menu: {plato?.menu ? plato.menu.nombre : "Sin menú asociado"}
-        </h2>
-
-        <div className="mt-6">
-          <h2 className="text-md">Etiquetas asociadas</h2>
-          <div className="mt-4">
-            {Array.isArray(plato?.tags) && plato.tags.length > 0 ? (
-              plato.tags.map((tag, index) => (
-                <span
-                  key={index}
-                  className="inline-block bg-slate-400 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded"
-                >
-                  {tag.nombreTag}
-                </span>
-              ))
-            ) : (
-              <p>No hay etiquetas disponibles</p>
-            )}
-          </div>
+      <div className="text-center mt-4 mx-16 border-b border-gray-300">
+        <div className="my-4">
+          <h1 className="text-xl font-bold text-[#1A2F2A]">
+            {plato?.nombrePlato}
+          </h1>
+          <h3 className="text-lg">{plato?.descripcion}</h3>
+          <p>{plato?.informacionNutricional}</p>
+          <p className="font-semibold">${plato?.precio}</p>
         </div>
-        
+      </div>
+      <div className="mt-4 mx-16 border-b border-gray-300 ">
+        <div className="flex space-x-2 items-center justify-center my-4">
+          <IconoMenu />
+          <h2 className="text-lg font-bold text-[#1A2F2A] ">Menu Asociado</h2>
+        </div>
+        {plato?.menu ? (
+          <div className="flex justify-center text-sm font-semibold text-[#1A2F2A] my-2">
+            {plato.menu.nombre}
+          </div>
+        ) : (
+          <MensajeError mensaje={"Sin menú asociado"} />
+        )}
+      </div>
+      <div className="mt-4 flex flex-col items-center text-[#1A2F2A] ">
+        <div className="flex space-x-2 items-center justify-center my-4">
+          <IconoTag width={"24"} height={"24"}/>
+        <h2 className="text-lg font-bold">Etiquetas asociadas</h2>
+        </div>
+        <div className="mt-4">
+          {Array.isArray(plato?.tags) && plato.tags.length > 0 ? (
+            plato.tags.map((tag, index) => (
+              <span
+                key={index}
+                className="inline-block bg-[#DC493A] text-white text-xs font-semibold mr-2 px-2 py-1 rounded"
+              >
+                {tag.nombreTag}
+              </span>
+            ))
+          ) : (
+            <MensajeError mensaje={"No hay etiquetas disponibles"} />
+          )}
+        </div>
+      </div>
+      <div className="mx-4 ">
+        <LinkVolver
+          color={"[#DC493A]"}
+          colorHover={"[#B6C6B9]"}
+          ruta={"/panelRestaurante/administrarPlatos"}
+        />
       </div>
     </>
   );

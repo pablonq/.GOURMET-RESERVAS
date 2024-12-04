@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import Home from "./pages/Home";
 import LoginUsuario from "./pages/Login/LoginUsuario";
@@ -44,7 +44,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
           <Route
             path="/loginRestaurante"
@@ -112,6 +112,23 @@ function App() {
             }
           />
 
+          <Route
+            path="/perfilUsuario"
+            element={
+              <RutasProtegidasUsuario>
+                <Perfil />
+              </RutasProtegidasUsuario>
+            }
+          />
+               <Route
+              path="/editarUsuario/:userId"
+              element={
+                <RutasProtegidasUsuario>
+                  <EditarPerfil />
+                </RutasProtegidasUsuario>
+              }
+            />
+
           {/* Anidar aqui rutas hijas del panel usuario */}
           <Route
             path="/panelUsuario"
@@ -132,22 +149,6 @@ function App() {
                 </RutasProtegidasUsuario>
               }
             />
-            <Route
-              path="perfilUsuario"
-              element={
-                <RutasProtegidasUsuario>
-                  <Perfil />
-                </RutasProtegidasUsuario>
-              }
-            />
-            <Route
-              path="editarUsuario/:userId"
-              element={
-                <RutasProtegidasUsuario>
-                  <EditarPerfil />
-                </RutasProtegidasUsuario>
-              }
-            />
           </Route>
 
           {/* Anidar aqui rutas hijas del panel Restaurante*/}
@@ -159,7 +160,10 @@ function App() {
               </RutasProtegidas>
             }
           >
-            <Route index element={<DashboardRestaurante />} />
+            <Route
+              index
+              element={<Navigate to="dashboardRestaurante" replace />}
+            />
             <Route
               path="dashboardRestaurante"
               element={<DashboardRestaurante />}

@@ -24,7 +24,6 @@ export default function AppProvider({ children }) {
 
     if (res.ok) {
       setUser(data);
-      //console.log(data);
     } else {
       console.error("Error al obtener el usuario:", data);
     }  } catch (error) {

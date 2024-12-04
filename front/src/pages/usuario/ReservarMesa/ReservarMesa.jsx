@@ -5,6 +5,7 @@ import PlanoCliente from "../../../component/PlanoCliente/PlanoCliente";
 import { useParams } from "react-router-dom";
 import PersonaGroup from "../../../assets/PersonasGroup";
 import IconoCalendarioBasico from "../../../assets/IconoCalendarioBasico";
+import LinkVolver from "../../../component/LinkVolver/LinkVolver";
 
 const ReservarMesa = () => {
   const [mesasDisponibles, setMesasDisponibles] = useState([]);
@@ -32,7 +33,7 @@ const ReservarMesa = () => {
       }
       const data = await response.json();
       setInfoRestaurante(data);
-      console.log(data);
+      //console.log(data);
     } catch (error) {
       console.error("Error al cargar el restaurante:", error);
     }
@@ -48,7 +49,6 @@ const ReservarMesa = () => {
     setMesasDisponibles(mesas);
     setFechaSeleccionada(fecha);
     setHoraSeleccionada(hora);
-    //console.log("Mesas disponibles:", mesas);
   };
 
   const mesasFiltradas = useMemo(() => {
@@ -83,7 +83,9 @@ const ReservarMesa = () => {
         <div className="flex flex-col items-center border-b border-gray-300 ">
           <div className="flex items-center">
             <PersonaGroup />
-            <h3 className="mx-4 text-lg text-[#1A2F2A]">Elige la cantidad de personas</h3>
+            <h3 className="mx-4 text-lg text-[#1A2F2A]">
+              Elige la cantidad de personas
+            </h3>
           </div>
           <div className="flex space-x-4 my-6">
             {Array.from({ length: 20 }).map((_, index) => (
@@ -101,17 +103,28 @@ const ReservarMesa = () => {
             ))}
           </div>
         </div>
+
         {cantidadPersonas > 0 && (
-          <div className="flex justify-center border-b border-gray-300 pb-8">
-            <div className="flex-col">
-            <div className="flex items-center space-x-4 my-4 ">
-             <IconoCalendarioBasico width={"18"} height={"18"}/>
-              <h3 className="mx-4 text-lg text-[#1A2F2A]">Elige una fecha y hora</h3>
+          <div >
+            <div className="flex justify-center border border-[#DC493A] w-2/3 rounded-sm text-center mt-4 justify-self-center">
+              <p className="font-semibold font-sm text-[#1A2F2A] my-4  ">
+               <stron className="text-[#DC493A]">IMPORTANTE:</stron>  Por políticas del restaurante, las reservas están
+                disponibles dentro de los próximos 30 días. 
+              </p>
             </div>
-            <Calendario
-              onDateSelect={handleDateSelect}
-              idRestaurante={idRestaurante}
-            />
+            <div className="flex justify-center border-b border-gray-300 pb-2">
+              <div className="flex-col">
+                <div className="flex items-center space-x-4 my-4 ">
+                  <IconoCalendarioBasico width={"18"} height={"18"} />
+                  <h3 className="mx-4 text-lg text-[#1A2F2A]">
+                    Elige una fecha y hora
+                  </h3>
+                </div>
+                <Calendario
+                  onDateSelect={handleDateSelect}
+                  idRestaurante={idRestaurante}
+                />
+              </div>
             </div>
           </div>
         )}
@@ -133,6 +146,11 @@ const ReservarMesa = () => {
           </div>
         )}
       </div>
+      <LinkVolver
+          color={"[#DC493A]"}
+          colorHover={"[#B6C6B9]"}
+          ruta={`/detalleRestaurante/${idRestaurante }`}
+        />
     </div>
   );
 };

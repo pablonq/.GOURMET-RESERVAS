@@ -2,6 +2,10 @@ import { useState, useContext, useEffect } from "react";
 import { AppContext } from "../../../Context/AppContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { uploadFileRestaurantes } from "../../../firebase/config";
+import Title from "../../../component/Title/Title";
+import FormInput from "../../../component/FormInput/FormInput";
+import Button from "../../../component/Button/Button";
+import LinkVolver from "../../../component/LinkVolver/LinkVolver";
 
 export default function EditarPlato() {
   const { user, token } = useContext(AppContext);
@@ -38,7 +42,7 @@ export default function EditarPlato() {
       const data = await res.json();
       setMenus(data);
 
-      console.log("Menus:", data);
+      //console.log("Menus:", data);
     } catch (error) {
       setErrors(error.message);
     }
@@ -54,7 +58,7 @@ export default function EditarPlato() {
 
     const data = await res.json();
     //console.log(data.nombrePlato);
-    console.log("soy la nueva taga", data.tags);
+    //console.log("soy la nueva taga", data.tags);
 
     if (res.ok) {
       setFormData({
@@ -62,7 +66,7 @@ export default function EditarPlato() {
         descripcion: data.descripcion,
         precio: data.precio,
         informacionNutricional: data.informacionNutricional,
-        tags: data.tags.map(tag =>parseInt(tag.id, 10)),
+        tags: data.tags.map((tag) => parseInt(tag.id, 10)),
         imagen: data.imagen,
         idRestaurante: user?.id,
         idMenu: data.idMenu || "",
@@ -107,14 +111,13 @@ export default function EditarPlato() {
     });
 
     const data = await res.json();
-  //  console.log(data);
 
     if (res.ok) {
-      console.log("Plato actualizado:", data);
+      alert("Plato actualizado");
       navigate("/panelRestaurante/administrarPlatos");
     } else {
       console.error("Error al actualizar el plato");
-      setErrors(data.errors || {}); 
+      setErrors(data.errors || {});
     }
   }
   useEffect(() => {
@@ -123,145 +126,141 @@ export default function EditarPlato() {
     fetchTags();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <>
-      <div className="title">Actualizar {platoId}</div>
-
-      <form onSubmit={handleUpdate} className="w-1/2 mx-auto space-y-6">
-        <div className="mb-4">
-          <label htmlFor="block text-gray-700 font-semibold mb-2">
-            Nombre del plato:
-          </label>
-          <input
-            type="text"
-            placeholder="Nombre del plato"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            value={formData.nombrePlato}
-            onChange={(e) =>
-              setFormData({ ...formData, nombrePlato: e.target.value })
-            }
-          />
-          {errors.nombrePlato && (
-            <p className="error">{errors.nombrePlato[0]}</p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Descripción:
-          </label>
-          <textarea
-            rows="4"
-            placeholder="Descripción"
-            value={formData.descripcion}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            onChange={(e) =>
-              setFormData({ ...formData, descripcion: e.target.value })
-            }
-          ></textarea>
-          {errors.descripcion && (
-            <p className="error">{errors.descripcion[0]}</p>
-          )}
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Información Nutricional
-          </label>
-          <input
-            type="text"
-            placeholder="Información Nutricional"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            value={formData.informacionNutricional}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                informacionNutricional: e.target.value,
-              })
-            }
-          />
-          {errors.informacionNutricional && (
-            <p className="error">{errors.informacionNutricional[0]}</p>
-          )}
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Seleccione las tags
-          </label>
-          <div className="flex flex-wrap">
-            {allTags.map((tag) => (
-              <div key={tag.id} className="mr-4">
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    value={tag.id}
-                    checked={formData.tags.includes(tag.id)}
-                    onChange={(e) => {
-                      const { checked } = e.target;
-                      setFormData((prev) => {
-                        const newTags = checked
-                          ? [...prev.tags, tag.id]
-                          : prev.tags.filter((t) => t !== tag.id);
-                        return { ...prev, tags: newTags };
-                      });
-                    }}
-                    className="form-checkbox h-5 w-5 text-blue-600"
-                  />
-                  <span className="ml-2">{tag.nombreTag}</span>
-                </label>
+      <div>
+        <Title text="Editar informacion del plato" />
+        <div className="w-1/2 mx-auto p-6 bg-white shadow-md rounded-s  m-4 border border-t-4 border-t-[#DC493A]">
+          <div className="title">Actualizar plato: {platoId}</div>
+          <form onSubmit={handleUpdate}>
+            <div className="mb-4">
+              <FormInput
+                label="Nombre del plato"
+                placeholder="Nombre del plato"
+                value={formData.nombrePlato}
+                onChange={(e) =>
+                  setFormData({ ...formData, nombrePlato: e.target.value })
+                }
+                required
+                errorMessage={errors.nombrePlato?.[0] || ""}
+              />
+            </div>
+            <div className="mb-4">
+              <div className="flex items-center gap-4">
+                <label className="text-xs w-1/3">Descripción:</label>
+                <div className="flex flex-col w-full">
+                  <textarea
+                    rows="4"
+                    placeholder="Descripción"
+                    value={formData.descripcion}
+                    onChange={(e) =>
+                      setFormData({ ...formData, descripcion: e.target.value })
+                    }
+                    className="w-full input-style px-3 py-2"
+                  ></textarea>
+                  {errors.descripcion && (
+                    <p className="error">{errors.descripcion[0]}</p>
+                  )}
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+            <div className="mb-4">
+              <FormInput
+                label="Información Nutricional"
+                placeholder="Información Nutricional"
+                value={formData.informacionNutricional}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    informacionNutricional: e.target.value,
+                  })
+                }
+                required
+                errorMessage={errors.informacionNutricional?.[0] || ""}
+              />
+            </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Precio:
-          </label>
-          <input
-            type="text"
-            placeholder="Precio"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            value={formData.precio}
-            onChange={(e) =>
-              setFormData({ ...formData, precio: e.target.value })
-            }
-          />
-          {errors.precio && <p className="error">{errors.precio[0]}</p>}
-        </div>
+            <div className="mb-4">
+              <label className="text-xs my-2">Seleccione tags</label>
+              <div className="flex flex-wrap">
+                {allTags.map((tag) => (
+                  <div key={tag.id} className="mr-4">
+                    <label className="inline-flex items-center  text-sm font-normal">
+                      <input
+                        type="checkbox"
+                        value={tag.id}
+                        checked={formData.tags.includes(tag.id)}
+                        onChange={(e) => {
+                          const { checked } = e.target;
+                          setFormData((prev) => {
+                            const newTags = checked
+                              ? [...prev.tags, tag.id]
+                              : prev.tags.filter((t) => t !== tag.id);
+                            return { ...prev, tags: newTags };
+                          });
+                        }}
+                        className="form-checkbox h-5 w-5 accent-[#DC493A]"
+                      />
+                      <span className="ml-2">{tag.nombreTag}</span>
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">Menú</label>
-          <select
-            value={formData.idMenu}
-            onChange={(e) =>
-              setFormData({ ...formData, idMenu: e.target.value })
-            }
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-          >
-            <option value="">Ninguno</option>{" "}
-            {/* Opción para no seleccionar ningún menú */}
-            {menus.map((menu) => (
-              <option key={menu.id} value={menu.id}>
-                {menu.nombre}
-              </option>
-            ))}
-          </select>
-        </div>
+            <div className="mb-4">
+              <FormInput
+                label="Precio"
+                placeholder="Precio"
+                value={formData.precio}
+                onChange={(e) =>
+                  setFormData({ ...formData, precio: e.target.value })
+                }
+                required
+                errorMessage={errors.precio?.[0] || ""}
+              />
+            </div>
+            <div className="mb-4">
+              <div className="flex items-center gap-4">
+                <label className="text-xs w-1/3">Menú</label>
+                <div className="flex flex-col w-full">
+                  <select
+                    value={formData.idMenu}
+                    onChange={(e) =>
+                      setFormData({ ...formData, idMenu: e.target.value })
+                    }
+                    className="w-full input-style"
+                  >
+                    <option value="">Ninguno</option>{" "}
+                    {/* Opción para no seleccionar ningún menú */}
+                    {menus.map((menu) => (
+                      <option key={menu.id} value={menu.id}>
+                        {menu.nombre}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Imagen del Plato
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setFile(e.target.files[0])}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-          />
+            <div className="mb-4">
+              <FormInput
+                label=" Imagen del Plato"
+                type="file"
+                accept={"image/*"}
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+            </div>
+            <Button texto={"Actualizar"} />
+          </form>
         </div>
-
-        <button className="primary-btn">Actualizar</button>
-      </form>
+        <LinkVolver
+          color={"[#DC493A]"}
+          colorHover={"[#B6C6B9]"}
+          ruta={`/panelRestaurante/mostrarPlato/${platoId}`}
+        />
+      </div>
     </>
   );
 }

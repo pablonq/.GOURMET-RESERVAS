@@ -8,16 +8,14 @@ const FiltroPopularidad = ({
   };
   return (
     <div className="mx-2 mt-2 ">
-    <div className=" w-3/4 mt-2 ">
       <button
         onClick={togglePopularidad}
-        className=" bg-gray-800 text-white p-2 text-sm w-full rounded-md ml-2  mt-2 "
+        className=" bg-[#242424] text-white p-2 text-sm w-3/4 rounded-md ml-2  mt-2 hover:bg-[#DC493A] "
       >
         {ordenarPorPopularidad
           ? "Ver todos los restaurantes"
           : "Ver más  populares"}
       </button>
-    </div>
     </div>
   );
 };

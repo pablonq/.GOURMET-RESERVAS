@@ -58,7 +58,7 @@ const ReservarMesaDetalle = () => {
   return (
     <div className="p-2">
       <div className="flex flex-wrap md:flex-nowrap items-center gap-4 border p-4 bg-white shadow-md rounded-s">
-        <div className=" text-[#242424]">Busca disponibilidad</div>
+        <div className="font-bold text-[#242424] animate-pulse">Buscar disponibilidad</div>
         <div className="border flex items-center space-x-2 p-2 rounded-s">
           <IconoUsuario className="text-gray-600" />
           <select

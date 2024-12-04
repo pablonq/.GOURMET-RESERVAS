@@ -4,12 +4,13 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import Mapa from "../component/Mapa/Mapa";
 import { AppContext } from "../Context/AppContext";
 import Coordenadas from "../api/Coordenadas";
+import MensajeError from "../component/MensajeError/MensajeError";
+import ButtonPaginacion from "../component/ButtonPaginacion/ButtonPaginacion";
 
-// Función para calcular la distancia usando la fórmula de Haversine
 function calcularDistancia(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Radio de la Tierra en kilómetros
+  const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
-  const dLon = ((lon2 - lon1) * Math.PI) / 180; // Corrige el orden de lon1 y lon2
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos((lat1 * Math.PI) / 180) *
@@ -17,7 +18,7 @@ function calcularDistancia(lat1, lon1, lat2, lon2) {
       Math.sin(dLon / 2) *
       Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c; // Retorna la distancia en kilómetros
+  return R * c;
 }
 
 const DashboardUsuario = () => {
@@ -33,6 +34,8 @@ const DashboardUsuario = () => {
   const [restaurantesFiltrados, setRestaurantesFiltrados] = useState([]);
   const { user, token } = useContext(AppContext);
   const navigate = useNavigate();
+  const [paginaActual, setPaginaActual] = useState(1);
+  const cardsPorPagina = 10;
 
   const handleView = (restauranteId) => {
     navigate(`/detalleRestaurante/${restauranteId}`);
@@ -205,7 +208,6 @@ const DashboardUsuario = () => {
 
     setRestaurantesFiltrados(filtered);
 
-    // Generar `markers` basados en los restaurantes filtrados
     const generatedMarkers = filtered
       .filter((restaurante) => restaurante.coordenadasCalculadas)
       .map((restaurante) => ({
@@ -215,6 +217,19 @@ const DashboardUsuario = () => {
       }));
     setMarkers(generatedMarkers);
   }, [cards, coordenadas, filtros, coordenadasUsuario, ordenarPorPopularidad]);
+
+  const indexUltimaCards = paginaActual * cardsPorPagina;
+  const indexPrimerCards = indexUltimaCards - cardsPorPagina;
+  const restaurantesActuales = restaurantesFiltrados.slice(
+    indexPrimerCards,
+    indexUltimaCards
+  );
+
+  const handlePageChange = (pageNumber) => {
+    setPaginaActual(pageNumber);
+  };
+
+  const totalPages = Math.ceil(restaurantesFiltrados.length / cardsPorPagina);
 
   return (
     <>
@@ -231,18 +246,19 @@ const DashboardUsuario = () => {
         />
       </div>
       <div className="flex">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mt-4">
           {restaurantesFiltrados.length === 0 ? (
-            <p className="text-center font-bold text-rose-700">
-              No hay restaurantes disponibles con los filtros seleccionados.
-            </p>
+            <MensajeError
+              mensaje="   No hay restaurantes disponibles con los filtros seleccionados.
+            "
+            />
           ) : (
-            restaurantesFiltrados.map((restaurante) => {
+            restaurantesActuales.map((restaurante) => {
               const imagenesFiltradas = imagenes.filter(
                 (imagen) => imagen.idRestaurante === restaurante.id
               );
               return (
-                <div key={restaurante.id} className="m-2">
+                <div key={restaurante.id} className="m-4">
                   <CardRestaurante
                     imagenes={imagenesFiltradas}
                     nombreRes={restaurante.nombreRes}
@@ -258,6 +274,16 @@ const DashboardUsuario = () => {
             })
           )}
         </div>
+      </div>
+      <div className="flex justify-end mt-4">
+        {[...Array(totalPages)].map((_, index) => (
+          <ButtonPaginacion
+            key={index + 1}
+            page={index + 1}
+            isActive={paginaActual === index + 1}
+            onClick={handlePageChange}
+          />
+        ))}
       </div>
     </>
   );

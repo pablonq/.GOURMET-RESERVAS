@@ -18,6 +18,9 @@ import GaleriaRestaurante from "../component/GaleriaRestaurante/GaleriaRestauran
 import ApartadoResenias from "../component/ApartadoResenias/ApartadoResenias";
 import Button from "../component/Button/Button";
 import MapaChico from "../component/Mapa/MapaChico";
+import MensajeError from "../component/MensajeError/MensajeError";
+import LinkVolver from "../component/LinkVolver/LinkVolver";
+import Loading from "../component/Loading/Loading";
 
 const DetalleRestaurante = () => {
   const { user } = useContext(AppContext);
@@ -179,7 +182,6 @@ const DetalleRestaurante = () => {
     setExpandedMenuId(expandedMenuId === menuId ? null : menuId);
   };
 
-  // Función para agrupar platos por menú
   const agruparPlatosPorMenu = () => {
     if (!platos || !menu) return {};
 
@@ -196,14 +198,13 @@ const DetalleRestaurante = () => {
       });
     });
 
-    // console.log("MenusPorPlatos:", menuMap);
     return menuMap;
   };
 
   const menusPorPlatos = agruparPlatosPorMenu();
 
   if (loading)
-    return <p className="text-center font-bold text-[#DC493A] ">Cargando...</p>;
+    return <p className="text-center font-bold text-[#DC493A] "><Loading/></p>;
   if (error)
     return (
       <p className="text-center font-bold text-[#DC493A] ">Error: {error}</p>
@@ -220,7 +221,7 @@ const DetalleRestaurante = () => {
           />
         )}
       </div>
-      <div className="sticky top-0 z-10">
+      <div className="">
         <ReservarMesaDetalle />
       </div>
 
@@ -233,7 +234,7 @@ const DetalleRestaurante = () => {
               </p>
             </div>
 
-            <div className="flex flex-row items-center justify-center space-x-4">
+            <div className="flex flex-row items-center justify-center space-x-4 ">
               <EstrellaPuntuacion
                 calificacion={restaurante?.promedioPuntuacion}
               />
@@ -266,12 +267,9 @@ const DetalleRestaurante = () => {
                 Menús
               </h3>
             </div>
-
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 justify-items-center  border-b  border-gray-300">
               {Object.values(menusPorPlatos).length === 0 ? (
-                <p className="text-center font-bold text-[#DC493A] ">
-                  No hay menús disponibles.
-                </p>
+                <MensajeError mensaje={"No hay menús disponibles"}/>
               ) : (
                 Object.values(menusPorPlatos).map((menuItem) => (
                   <div key={menuItem.id} className="w-full max-w-md">
@@ -313,7 +311,7 @@ const DetalleRestaurante = () => {
 
         {/*apartado info adicionala*/}
         <div className="w-1/4 mt-4">
-          <div className="flex border  border-gray-300  shadow-md rounded-s sticky top-28">
+          <div className="flex border border-gray-300 shadow-md rounded-s">
             <MapaChico markers={markers} />
           </div>
           <div className="my-4">
@@ -363,7 +361,7 @@ const DetalleRestaurante = () => {
                   Calificaciones y reseñas generales
                 </h3>
                 <p className="font-light text-xs">
-                  Son opiniones los comensales que asistieron a este restaurante
+                  Son opiniones de comensales que asistieron a este restaurante
                 </p>
                 <div className="flex flex-row items-center">
                   <EstrellaPuntuacion
@@ -383,6 +381,13 @@ const DetalleRestaurante = () => {
           </div>
         </div>
       </div>
+      <div className="p-4">
+      <LinkVolver
+          color={"[#DC493A]"}
+          colorHover={"[#B6C6B9]"}
+          ruta={`/panelUsuario`}
+        />
+        </div>
     </>
   );
 };

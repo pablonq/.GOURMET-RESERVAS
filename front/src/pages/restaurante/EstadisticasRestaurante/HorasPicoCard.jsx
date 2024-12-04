@@ -22,11 +22,8 @@ const HorasPicoCard = ({ idRestaurante }) => {
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
           const reservasContadas = {};
-
           data.forEach((reserva) => {
-            const hora = new Date(
-              `1970-01-01T${reserva.horaReserva}Z`
-            ).getHours();
+            const [hora] = reserva.horaReserva.split(":").map(Number);
             if (reservasContadas[hora]) {
               reservasContadas[hora] += 1;
             } else {

@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import  {  registerLocale  }  from  "react-datepicker" ; 
-import {  es  }  from  'date-fns/locale/es' ; 
+import { registerLocale } from "react-datepicker";
+import { es } from "date-fns/locale/es";
 import IconoReloj from "../../assets/IconoReloj";
 
 // eslint-disable-next-line react/prop-types
 const Calendario = ({ onDateSelect, idRestaurante }) => {
-  registerLocale ( 'es' ,  es )
+  registerLocale("es", es);
   const [fecha, setFecha] = useState();
   const [dias, setDias] = useState([]);
   const [diasHorarios, setDiasHorarios] = useState([]);
@@ -40,7 +40,7 @@ const Calendario = ({ onDateSelect, idRestaurante }) => {
 
   useEffect(() => {
     getDiasHorarios();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDateSelect = (date) => {
@@ -68,7 +68,6 @@ const Calendario = ({ onDateSelect, idRestaurante }) => {
         horarios.push({ start: startTime2, end: endTime2 });
       }
     }
-    //console.log("Horarios disponibles:", horarios);
     setHorariosDisponibles(horarios);
     setHoraSeleccionada("");
   };
@@ -79,12 +78,10 @@ const Calendario = ({ onDateSelect, idRestaurante }) => {
     horariosDisponibles.forEach(({ start, end }) => {
       const startDate = new Date(`1970-01-01T${start}Z`);
       const endDate = new Date(`1970-01-01T${end}Z`);
-
       for (let d = startDate; d <= endDate; d.setMinutes(d.getMinutes() + 30)) {
         opciones.push(d.toISOString().slice(11, 16));
       }
     });
-
     return opciones;
   };
 
@@ -100,9 +97,12 @@ const Calendario = ({ onDateSelect, idRestaurante }) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
+    const oneMonthFromToday = new Date();
+    oneMonthFromToday.setMonth(today.getMonth() + 1);
+
     const day = date.getDay();
     const isUnavailableDay = dias.includes(day);
-    const isBeforeToday = date >= today;
+    const isBeforeToday = date >= today && date < oneMonthFromToday;
 
     return isUnavailableDay && isBeforeToday;
   };
@@ -110,27 +110,27 @@ const Calendario = ({ onDateSelect, idRestaurante }) => {
   const opcionesHorario = generarOpcionesHorario();
 
   return (
-    <div className="flex p-2 w-auto">
-        <DatePicker
-          selected={fecha}
-          onChange={handleDateSelect}
-          filterDate={isDayDisabled}
-          open={true}
-          dateFormat="dd/MM/yyyy"
-          placeholderText=" Dia "
-          inline
-          locale="es"
-          dayClassName={(date) => {
-            if (date.toDateString() === new Date().toDateString()) {
-              return "rounded-sm bg-[#DC493A] text-white";
-            }
-          }}
-        />
+    <div className="flex p-2 w-auto bg-white">
+      <DatePicker
+        selected={fecha}
+        onChange={handleDateSelect}
+        filterDate={isDayDisabled}
+        open={true}
+        dateFormat="dd/MM/yyyy"
+        placeholderText=" Dia "
+        inline
+        locale="es"
+        dayClassName={(date) => {
+          if (date.toDateString() === new Date().toDateString()) {
+            return "rounded-sm bg-[#DC493A] text-white";
+          }
+        }}
+      />
       {horariosDisponibles.length > 0 && (
         <div className="flex flex-col w-max ml-14">
           <div className="flex space-x-2 items-center p-2">
-            <IconoReloj width={"18"} height={"18"}/>
-          <p className="text-[#242424]">Horarios disponibles</p>
+            <IconoReloj width={"18"} height={"18"} />
+            <p className="text-[#242424]">Horarios disponibles</p>
           </div>
           <div className="grid grid-cols-8 gap-2">
             {opcionesHorario.map((hora, index) => (

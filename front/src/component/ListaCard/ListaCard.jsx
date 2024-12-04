@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import CardRestaurante from "../CardRestaurante/CardRestaurante";
 import { useNavigate } from "react-router-dom";
+import ButtonPaginacion from "../ButtonPaginacion/ButtonPaginacion";
 
 const ListaCard = () => {
   const [cards, setCards] = useState([]);
   const [imagenes, setImagenes] = useState([]);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const cardsPorPagina = 10;
   const navigate = useNavigate();
 
   async function getCards() {
@@ -34,15 +37,22 @@ const ListaCard = () => {
     navigate(`detalleRestaurante/${restauranteId}`); 
   };
 
+  const indexUltimaCards = paginaActual * cardsPorPagina;
+  const indexPrimerCards = indexUltimaCards - cardsPorPagina;
+  const cardsActuales = cards.slice(indexPrimerCards, indexUltimaCards);
 
+  const paginate = (pageNumber) => {
+    setPaginaActual(pageNumber);
+  };
   return (
-    <div className="flex flex-wrap ">
+    <>
+    <div className="flex flex-wrap  justify-center ">
       {cards.length === 0 ? (
         <p className="text-center font-bold text-rose-700">
           No hay restaurantes disponibles.
         </p>
       ) : (
-        cards.map((restaurante) => {
+        cardsActuales.map((restaurante) => {
           const imagenesFiltradas = imagenes.filter((imagen) => {
             return imagen.idRestaurante === restaurante.id;
           });
@@ -61,6 +71,23 @@ const ListaCard = () => {
         })
       )}
     </div>
+          {/* Paginación */}
+          <div className=" flex justify-end">
+          <div className="flex mt-4">
+        {Array.from(
+          { length: Math.ceil(cards.length / cardsPorPagina) },
+          (_, index) => (
+            <ButtonPaginacion
+              key={index + 1}
+              page={index + 1}
+              isActive={paginaActual === index + 1}
+              onClick={paginate}
+            />
+          )
+        )}
+      </div>
+      </div>
+    </>
   );
 };
 

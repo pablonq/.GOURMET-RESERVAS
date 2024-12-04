@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
 import ImagenPerfil from "../component/ImagenPerfil/ImagenPerfil";
 import defaultAvatar from "../assets/default-avatar.jpg";
+import logoImagen from '../assets/logo-gourmet.png';
 
 export default function Layout() {
   const { user, token, setUser, setToken } = useContext(AppContext);
@@ -10,7 +11,6 @@ export default function Layout() {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
 
-  //console.log(user);
   async function handleLogout(e) {
     e.preventDefault();
 
@@ -41,9 +41,9 @@ export default function Layout() {
         <nav>
           <Link
             to="/"
-            className="nav-link font-semibold text-lg text-[#DC493A]"
+            className="font-semibold text-lg text-[#DC493A]"
           >
-            .GourmetReservas
+            <img src={logoImagen} className="h-8"/>
           </Link>
           <div className="flex  items-center  space-x-4">
             {user ? (
@@ -61,9 +61,9 @@ export default function Layout() {
                       Mis Reservas
                     </Link>
                     <Link
-                      to="panelUsuario/perfilUsuario"
+                      to="/perfilUsuario"
                       className={`px-4 ${
-                        isActive("/panelUsuario/perfilUsuario")
+                        isActive("/perfilUsuario")
                           ? "text-[#DC493A] bg-white rounded-md"
                           : "text-white"
                       } hover:text-[#B6C6B9]`}
@@ -93,9 +93,9 @@ export default function Layout() {
               <div className="space-x-4">
                 <Link
                   to="/loginRestaurante"
-                  className={`px-4 pt-2 pb-8  ${
+                  className={`px-4 py-2 ${
                     isActive("/loginRestaurante")
-                      ? "bg-white  text-[#DC493A] rounded-t-lg "
+                      ? "bg-white  text-[#DC493A] rounded-md "
                       : "text-white"
                   } hover:text-[#B6C6B9]`}
                 >
@@ -104,8 +104,8 @@ export default function Layout() {
 
                 <Link
                   to="/loginUsuario"
-                  className={`px-4 pt-2 pb-8  ${
-                    isActive("/loginUsuario") ? "bg-white text-[#DC493A] rounded-t-lg " : "text-white "
+                  className={`px-4 py-2 ${
+                    isActive("/loginUsuario") ? "bg-white text-[#DC493A] rounded-md " : "text-white "
                   }hover:text-[#B6C6B9]`}
                 >
                   Usuarios
@@ -116,13 +116,13 @@ export default function Layout() {
         </nav>
       </header>
 
-      <main className="flex-1 w-full min-h-screen">
-        <div>
+      <main className="flex-grow w-full overflow-y-auto">
+      <div className="max-h-[calc(100vh-200px)]">
           <Outlet />
         </div>
       </main>
       <footer className="bg-[#242424] text-white p-4 text-center">
-        <p>© 2024 .GourmetReservas Todos los derechos reservados.</p>
+        <p>© 2024 .GourmetReservas Todos los derechos reservados </p>
       </footer>
       </div>
     </>

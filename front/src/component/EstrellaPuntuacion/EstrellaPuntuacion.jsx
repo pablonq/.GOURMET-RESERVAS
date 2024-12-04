@@ -6,27 +6,26 @@ const EstrellaPuntuacion = ({ calificacion }) => {
     const lleno = index < entero;
     const parcial = index === entero && decimal > 0;
     return (
-      <span key={index} className="relative inline-block">
-        <span className="text-[#B6C6B9]">★</span>
-        <span
+      <div key={index} className="relative inline-block">
+        <div className="text-[#B6C6B9]">★</div>
+        <p
           className="absolute top-0 left-0 text-[#DC493A] overflow-hidden"
           style={{
             width: lleno ? "100%" : parcial ? `${decimal * 100}%` : "0%",
           }}
         >
           ★
-        </span>
-      </span>
+        </p>
+      </div>
     );
   });
-
   const calificacionString =
     String(calificacion).split(".")[0] +
     "." +
     (String(calificacion).split(".")[1] || "0").slice(0, 1);
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center ">
       {estrellas}
       <span className="ml-2 text-[#DC493A] text-sm">{calificacionString}</span>
     </div>

@@ -6,7 +6,7 @@ import IconoReloj from "../../assets/IconoReloj";
 import Mesa from "../../assets/Mesa";
 import PersonaGroup from "../../assets/PersonasGroup";
 
-const DetalleReservaCliente = ({ reserva, filtro }) => {
+const DetalleReservaCliente = ({ reserva, filtro ,  onCancel}) => {
   const [mensaje, setMensaje] = useState("");
   const [mensajeExito, setMensajeExito] = useState(false);
   const cantidadMesas = reserva.mesas.length;
@@ -43,12 +43,13 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
       if (response.ok) {
         setMensajeExito(true);
         setMensaje(
-          `La reserva del ${fechaLimpia} a las ${horaReservaString} ha sido cancelada. Por favor, no asistas ya que no aparecerá en la agenda del lugar y no serás atendido.`
+          `La reserva del ${fechaLimpia} a las ${horaReservaString} ha sido cancelada.`
         );
         setTimeout(() => {
           setMensaje("");
           setMensajeExito(false);
-        }, 5000);
+          onCancel();
+        }, 3000);
       } else {
         const errorData = await response.json();
         setMensaje(errorData.message || "Error al cancelar la reserva.");
@@ -65,13 +66,13 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
         {reserva.restaurantes.imagen_principal ? (
           <div className="relative w-72 h-52">
             <div
-              className={`absolute top-2 left-[-10px] bg-gray-800 text-white text-sm font-semibold p-2 rounded
+              className={`absolute top-2 left-[-10px] bg-[#242424]  text-white text-sm font-semibold p-2 rounded
             ${
               reserva.estado === "procesada"
                 ? "bg-green-700"
                 : reserva.estado === "cancelada"
                 ? "bg-[#DC493A] "
-                : "bg-gray-800"
+                : "bg-[#242424] "
             }`}
             >
               {reserva.estado}
@@ -87,7 +88,7 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
         )}
 
         <div className="ml-4">
-          <h3 className="text-lg font-semibold  text-[#1A2F2A]">
+          <h3 className="text-lg font-semibold  text-[#242424] ">
             Restaurante: {reserva.restaurantes.nombreRes}
           </h3>
           <div className="my-4">
@@ -133,10 +134,10 @@ const DetalleReservaCliente = ({ reserva, filtro }) => {
           )}
           {mensaje && (
             <div
-              className={`mb-4 text-center p-2 rounded ${
+              className={`mb-4 text-center p-2 rounded mt-4 ${
                 mensajeExito
-                  ? "bg-green-500 text-white"
-                  : "bg-red-500 text-white"
+                  ? "bg-[#B6C6B9] text-[#1A2F2A]"
+                  : "bg-[#DC493A] text-white"
               }`}
             >
               {mensaje}

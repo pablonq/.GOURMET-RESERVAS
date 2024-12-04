@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const Mesa2pers = ({ color = "#C19A69" }) => {
+const Mesa2pers = ({ color = "#B6C6B9" }) => {
   return (
     <svg
       width="40"
