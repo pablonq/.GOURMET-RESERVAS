@@ -88,4 +88,17 @@ class Restaurante extends Model
     {
         return $this->morphOne(Direccione::class, 'direccionable');
     }
+
+    public function calcularPromedioPuntuacion()
+    {
+        $resenias = Resenia::where('idRestaurante', $this->id)->get();
+        $totalResenias = $resenias->count();
+
+        if ($totalResenias === 0) {
+            return 0; 
+        }
+
+        $puntuacionTotal = $resenias->sum('calificacion');
+        return $puntuacionTotal / $totalResenias;
+    }
 }

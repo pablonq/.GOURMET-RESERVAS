@@ -6,7 +6,7 @@ import FlechaIzquierda from "../../assets/FlechaIzquierda";
 
 const ApartadoResenias = ({ resenias, totalResenias }) => {
   const [paginaActual, setPaginaActual] = useState(1);
-  const reseñasPorPagina = 2;
+  const reseñasPorPagina = 6;
   const totalPaginas = Math.ceil(resenias.length / reseñasPorPagina);
 
   const obtenerReseniasPagina = () => {

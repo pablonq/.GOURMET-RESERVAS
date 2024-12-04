@@ -43,16 +43,16 @@ class ReservaController extends Controller
         return response()->json($reserva, 201);
     }
 
-    public function confirmReservation($reservationId)
+    public function confirmReservation($reservationId, $idPersona)
     {
         $reserva = Reserva::find($reservationId);
         if (!$reserva) {
             return response()->json(['error' => 'Reserva no encontrada.'], 404);
         }
 
-        $idUsuario = $reserva->idUsuario;
+      //  $idUsuario = $reserva->idUsuario;
 
-        $user = Persona::find($idUsuario);
+        $user = Persona::find($idPersona);
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado.'], 404);
         }
@@ -66,9 +66,8 @@ class ReservaController extends Controller
 
     public function getReservasPorRestaurante($idRestaurante)
     {
-        $reservas = Reserva::with('mesas')
+        $reservas = Reserva::with(['mesas', 'resenias.usuario.persona'])
             ->where('idRestaurante', $idRestaurante)->get();
-
 
         if ($reservas->isEmpty()) {
             return response()->json(['message' => 'No se encontraron reservas para este restaurante.'], 404);

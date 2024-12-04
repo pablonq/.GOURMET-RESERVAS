@@ -31,7 +31,8 @@ class SendReservationReminder implements ShouldQueue
      */
     public function handle(): void
     {
-        $user = Persona::find($this->reservation->idUsuario);
+        //$user = Persona::find(122);
+        $user = Persona::where('id', 122)->first();
         if ($user) {
             $user->notify(new ReservaNotification($this->reservation, $this->notificationType));
         }

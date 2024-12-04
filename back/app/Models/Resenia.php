@@ -20,7 +20,7 @@ class Resenia extends Model
         'respuestaDuenio',
     ];
 
-    public function usuarios(): BelongsTo
+    public function usuario(): BelongsTo
     {
         return $this->belongsTo(Usuario::class, 'idUsuario');
     }

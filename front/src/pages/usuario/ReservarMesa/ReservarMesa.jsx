@@ -108,7 +108,7 @@ const ReservarMesa = () => {
           <div >
             <div className="flex justify-center border border-[#DC493A] w-2/3 rounded-sm text-center mt-4 justify-self-center">
               <p className="font-semibold font-sm text-[#1A2F2A] my-4  ">
-               <stron className="text-[#DC493A]">IMPORTANTE:</stron>  Por políticas del restaurante, las reservas están
+               <strong className="text-[#DC493A]">IMPORTANTE:</strong>  Por políticas del restaurante, las reservas están
                 disponibles dentro de los próximos 30 días. 
               </p>
             </div>
@@ -146,11 +146,13 @@ const ReservarMesa = () => {
           </div>
         )}
       </div>
+      <div className="p-4">
       <LinkVolver
           color={"[#DC493A]"}
           colorHover={"[#B6C6B9]"}
           ruta={`/detalleRestaurante/${idRestaurante }`}
         />
+        </div>
     </div>
   );
 };

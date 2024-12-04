@@ -7,7 +7,7 @@ const ListaCard = () => {
   const [cards, setCards] = useState([]);
   const [imagenes, setImagenes] = useState([]);
   const [paginaActual, setPaginaActual] = useState(1);
-  const cardsPorPagina = 10;
+  const cardsPorPagina = 12;
   const navigate = useNavigate();
 
   async function getCards() {

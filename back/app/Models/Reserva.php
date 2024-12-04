@@ -41,4 +41,8 @@ class Reserva extends Model
     {
         return $this->hasOne(Pago::class);
     }
+    public function resenias()
+    {
+        return $this->hasMany(Resenia::class, 'idReserva');
+    }
 }

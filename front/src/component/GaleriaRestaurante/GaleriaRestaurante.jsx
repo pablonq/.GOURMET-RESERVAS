@@ -14,7 +14,7 @@ const GaleriaRestaurante = ({ imagenes }) => {
       </h3>
       <div className="grid grid-cols-3 gap-2 ">
         {imagenes?.[0] && (
-          <div className="col-span-2 h-[400px]">
+          <div className="col-span-2 ">
             <img
               src={imagenes[0].imagenUrl}
               alt="Imagen principal"

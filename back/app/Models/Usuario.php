@@ -23,7 +23,7 @@ class Usuario extends Model
 
   public function persona(): BelongsTo
   {
-      return $this->belongsTo(Persona::class, 'idPersona'); // Asegúrate de especificar la clave foránea
+      return $this->belongsTo(Persona::class, 'idPersona'); 
   }
 
     public function reservas(): HasMany

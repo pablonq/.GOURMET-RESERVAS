@@ -10,6 +10,7 @@ import PersonaGroup from "../../../assets/PersonasGroup";
 import IconoReloj from "../../../assets/IconoReloj";
 import Button from "../../../component/Button/Button";
 import IconoDinero from "../../../assets/IconoDinero";
+import LinkVolver from "../../../component/LinkVolver/LinkVolver";
 
 const DetalleReserva = () => {
   const location = useLocation();
@@ -230,6 +231,11 @@ const DetalleReserva = () => {
           {preferenceId && <PagoComponent preferenceId={preferenceId} />}
         </div>
       </div>
+      <LinkVolver
+          color={"[#DC493A]"}
+          colorHover={"[#B6C6B9]"}
+          ruta={`/detalleRestaurante/${idRestaurante}`}
+        />
     </>
   );
 };

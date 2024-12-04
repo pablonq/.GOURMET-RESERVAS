@@ -253,6 +253,9 @@ class RestauranteController extends Controller
       $query->whereIn('tags.id', $tagsSeleccionados);
     })->get();
 
+    foreach ($restaurantes as $restaurante) {
+      $restaurante->promedioPuntuacion = $restaurante->calcularPromedioPuntuacion();
+  }
     return response()->json($restaurantes);
   }
 
@@ -283,6 +286,7 @@ class RestauranteController extends Controller
 
       if ($mesasDisponibles > 0) {
         $restaurante->mesas_disponibles = $mesasDisponibles;
+        $restaurante->promedioPuntuacion = $restaurante->calcularPromedioPuntuacion();
         $restaurantesConMesasDisponibles[] = $restaurante;
       }
     }
@@ -311,6 +315,7 @@ class RestauranteController extends Controller
 
     return response()->json(['promedio' => $promedio], 200);
   }
+
 
   public function obtenerDistribucionCalificaciones($idRestaurante)
   {

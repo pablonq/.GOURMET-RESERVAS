@@ -70,22 +70,28 @@ const Horarios = ({ horarios }) => {
       </div>
 
       {(mostrarTodos ? horarios : horarios.slice(0, 1)).map(
-        (atencion, index) => (
+        (atencion, index) => {
+          const estaCerrado = atencion.horarios.every(
+            (horario) => !horario.inicio.trim() || !horario.fin.trim()
+          );
+          return (
           <div
             key={index}
-            className="border-b border-gray-300 mb-4 pb-4 flex justify-evenly"
+            className="border-b border-gray-300 mb-4 pb-4 flex "
           >
-            <h3 className="font-semibold text-sm text-gray-700 text-center content-center">
+            <h3 className="font-semibold text-sm text-gray-700 text-center content-center w-1/3">
               {atencion.dia}
             </h3>
-            <div className="flex">
-              {atencion.horarios.map(
+            {estaCerrado ? ( <div className="text-[#DC493A] text-sm">Cerrado</div>
+              ) : (
+            <div className="flex w-1/3">
+              { atencion.horarios.map(
                 (horario, i) =>
-                  horario.inicio &&
-                  horario.fin && (
+                  horario.inicio.trim() &&
+                  horario.fin.trim() && (
                     <div
                       key={i}
-                      className="text-center flex flex-row mr-2  border-r"
+                      className="text-center flex flex-row mr-2 border-r "
                     >
                       <div className="bg-[#DC493A] text-white font-medium text-xs rounded-md mb-2 mx-2 p-1">
                         {horario.inicio}
@@ -97,8 +103,10 @@ const Horarios = ({ horarios }) => {
                   )
               )}
             </div>
+            )}
           </div>
-        )
+          );
+        }
       )}
       <div className="text-center">
         <button

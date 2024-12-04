@@ -6,6 +6,7 @@ import { AppContext } from "../../../Context/AppContext";
 import IconoUsuario from "../../../assets/IconoUsuario";
 import ButtonPaginacion from "../../../component/ButtonPaginacion/ButtonPaginacion";
 import LinkVolver from "../../../component/LinkVolver/LinkVolver";
+import MensajeError from "../../../component/MensajeError/MensajeError";
 
 const Reservas = () => {
   const { user } = useContext(AppContext);
@@ -20,7 +21,7 @@ const Reservas = () => {
 
   // Paginación
   const [paginaActual, setPaginaActual] = useState(1);
-  const reservasPorPagina = 4;
+  const reservasPorPagina = 10;
 
   const idRestaurante = user.id;
   const getReservaRestaurante = async (idRestaurante) => {
@@ -32,6 +33,7 @@ const Reservas = () => {
         throw new Error("Error al cargar la reserva");
       }
       const data = await reservaResponse.json();
+    //  console.log(data)
       const reservasOrdenadas = data.sort(
         (a, b) => new Date(b.fechaReserva) - new Date(a.fechaReserva)
       );
@@ -40,25 +42,6 @@ const Reservas = () => {
       setError(error.message);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const fetchResenias = async (reservas) => {
-    try {
-      const reseniaPromises = reservas.map(async (reserva) => {
-        const response = await fetch(
-          `/api/restaurantes/reseniaReserva/${reserva.id}`
-        );
-        return response.ok ? { [reserva.id]: await response.json() } : {};
-      });
-      const resenias = await Promise.all(reseniaPromises);
-      const reseniasMap = resenias.reduce((map, resenia) => {
-        return { ...map, ...resenia };
-      }, {});
-
-      setResenias(reseniasMap);
-    } catch (error) {
-      setError("Error al cargar las reseñas");
     }
   };
 
@@ -82,51 +65,16 @@ const Reservas = () => {
     });
   };
 
-  const getUsuarios = async (ids) => {
-    try {
-      const usuariosResponse = await Promise.all(
-        ids.map((id) => fetch(`/api/usuarios/traerUsuario/${id}`))
-      );
-
-      const usuariosData = await Promise.all(
-        usuariosResponse.map(async (res) => {
-          if (!res.ok) {
-            const errorData = await res.json();
-            throw new Error(errorData.message || "Error al cargar el usuario");
-          }
-          return res.json();
-        })
-      );
-
-      setUsuarios(usuariosData);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
   useEffect(() => {
     if (idRestaurante) {
       getReservaRestaurante(idRestaurante);
     }
   }, [idRestaurante]);
 
-  useEffect(() => {
-    if (reservas.length > 0) {
-      const idsUsuarios = reservas.map((reserva) => reserva.idUsuario);
-      getUsuarios(idsUsuarios);
-      fetchResenias(reservas);
-    }
-  }, [reservas]);
-
-  const usuariosPorId = usuarios.reduce((map, usuario) => {
-    map[usuario.usuario.id] = usuario;
-    return map;
-  }, {});
 
   // Filtrar reservas
   const reservasFiltradas = reservas.filter((reserva) => {
-    const usuario = usuariosPorId[reserva.idUsuario];
-    const nombreUsuario = usuario ? usuario.persona?.nombre || "" : "";
+    const nombreUsuario = reserva.resenias?.[0]?.usuario?.persona?.nombre || "";
     const fechaReserva = reserva.fechaReserva.split(" ")[0];
 
     return (
@@ -196,15 +144,15 @@ const Reservas = () => {
         </div>
       </div>
       {reservasFiltradas.length === 0 ? (
-        <p>No hay reservas disponibles.</p>
+        <MensajeError mensaje={"No hay reservas disponibles."}/>
       ) : (
         reservasActuales.map((reserva) => (
           <VistaReserva
             key={reserva.id}
             reserva={reserva}
             mesas={reserva.mesas}
-            usuario={usuariosPorId[reserva.idUsuario]}
-            reseniaExistente={resenias[reserva.id]}
+            usuario={reserva.resenias?.[0]?.usuario || { persona: { nombre: "" } }}
+            reseniaExistente={reserva.resenias || []}
             onResponse={handleResponseUpdate}
           />
         ))

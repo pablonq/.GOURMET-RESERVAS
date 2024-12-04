@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class ReseniaController extends Controller
 {
+    
     public function crearResenia(Request $request)
     {
         $validated = $request->validate([
@@ -22,15 +23,10 @@ class ReseniaController extends Controller
 
         $resenia = Resenia::create($request->only('calificacion', 'comentario', 'idRestaurante', 'idUsuario', 'idReserva'));
 
-
-        // if ($request->has('imagen')) {
         ImagenesRestaurante::create([
             'imagenUrl' =>  $validated['imagen'],
             'idRestaurante' =>  $validated['idRestaurante'],
         ]);
-        // }
-
-
         return response()->json(['message' => 'Reseña creada con éxito'], 201);
     }
 
@@ -54,6 +50,7 @@ class ReseniaController extends Controller
         $resenia = Resenia::where('idReserva', $idReserva)->first();
         return response()->json($resenia);
     }
+
 
     public function responderResenia(Request $request, $idResenia)
     {

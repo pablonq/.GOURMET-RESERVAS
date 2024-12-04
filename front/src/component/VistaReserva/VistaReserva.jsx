@@ -31,7 +31,6 @@ const VistaReserva = ({
     const [year, month, day] = fecha.split("-");
     return `${day}/${month}/${year}`;
   };
-
   const fechaLimpia = convertirFecha(reserva.fechaReserva.split(" ")[0]);
 
   const handleResponder = async () => {
@@ -48,8 +47,8 @@ const VistaReserva = ({
       alert("Respuesta guardada con éxito");
 
       if (onResponse) {
-        console.log(reseniaExistente.id)
-        console.log(respuesta)
+        //  console.log(reseniaExistente.id)
+        //console.log(respuesta)
         onResponse(reseniaExistente.id, respuesta);
       }
 
@@ -97,10 +96,10 @@ const VistaReserva = ({
             <p className="font-semibold text-sm ">Total Mesas: {totalMesas}</p>
           </div>
           <div className="flex space-x-2 item-center ">
-            <PersonaGroup width={"20"} height={"20"}/>
-          <p className="font-semibold  text-sm">
-            Total Personas: {totalPersonas}
-          </p>
+            <PersonaGroup width={"20"} height={"20"} />
+            <p className="font-semibold  text-sm">
+              Total Personas: {totalPersonas}
+            </p>
           </div>
 
           {Object.entries(conteoMesas).map(([cantidad, total]) => (
@@ -112,14 +111,19 @@ const VistaReserva = ({
 
         <div className="flex-1 text-center">
           <div className="text-sm flex space-x-2 item-center">
-            <IconoUsuario width={"20"} height={"20"}/>
+            <IconoUsuario width={"20"} height={"20"} />
             <p className="font-semibold ">Nombre: {usuario?.persona.nombre}</p>
           </div>
           <div className="font-light text-sm">
-            <p><strong>Email: </strong>{usuario?.persona.email}</p>
+            <p>
+              <strong>Email: </strong>
+              {usuario?.persona.email}
+            </p>
           </div>
           <div className="font-light  text-sm">
-            <p><strong>Telefono: </strong> {usuario?.persona.telefono}</p>
+            <p>
+              <strong>Telefono: </strong> {usuario?.persona.telefono}
+            </p>
           </div>
         </div>
       </div>
@@ -139,18 +143,18 @@ const VistaReserva = ({
                     {usuario?.persona.nombre}
                   </h4>
                   <EstrellaPuntuacion
-                    calificacion={reseniaExistente.calificacion}
+                    calificacion={reseniaExistente[0].calificacion}
                   />
                 </div>
                 <p className="my-2">
                   <strong>Comentario: </strong>
-                  {reseniaExistente.comentario}
+                  {reseniaExistente[0].comentario}
                 </p>
-                {reseniaExistente.respuestaDuenio ? (
+                {reseniaExistente[0].respuestaDuenio ? (
                   <div className="border-t-2 border-zinc-200 ">
                     <p className="p-1 text-zinc-600">
                       <strong>Respuesta: </strong>{" "}
-                      {reseniaExistente.respuestaDuenio}
+                      {reseniaExistente[0].respuestaDuenio}
                     </p>
                   </div>
                 ) : (

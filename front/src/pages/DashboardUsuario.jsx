@@ -105,6 +105,7 @@ const DashboardUsuario = () => {
           }
 
           const data = await res.json();
+         //console.log("Respuesta del backend...:", data);
           if (res.ok) {
             setCards(data);
           }
@@ -233,7 +234,7 @@ const DashboardUsuario = () => {
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full border border-[#DC493A]">
         <Mapa
           markers={markers}
           userLocation={coordenadasUsuario}

@@ -73,8 +73,16 @@ class PagoController extends Controller
         $reserva->save();
 
         // se envia notificacion ala usuario a su mail
-        $reservaController = new ReservaController();
-        $reservaController->confirmReservation($idReserva);
+        // $reservaController = new ReservaController();
+        //$reservaController->confirmReservation($idReserva);
+
+          //esto es para Enviar notificación a un usuario específico para prueba
+          $user = Usuario::find($reserva->idUsuario );
+        if ($user->idPersona === 122) { 
+            $reservaController = new ReservaController();
+            $reservaController->confirmReservation($idReserva, $user->idPersona );
+        }
+    
 
         return response()->json(['success' => true, 'message' => 'Reserva generada con éxito.']);
     }
@@ -102,7 +110,7 @@ class PagoController extends Controller
     {
         $paymentId = $request->query('preference_id');
         Log::info('Pago pendiente:', ['paymentId' => $paymentId]);
-    
+
         return redirect()->away("http://localhost:5173/confirmacionReserva?estado=pendiente&paymentId={$paymentId}");
     }
 

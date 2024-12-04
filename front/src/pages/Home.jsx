@@ -3,6 +3,7 @@ import ListaCard from "../component/ListaCard/ListaCard";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../Context/AppContext";
 import Loading from "../component/Loading/Loading";
+import Logo from "../assets/Logo.png"
 
 const Home = () => {
   const { user, loading } = useContext(AppContext);
@@ -24,11 +25,12 @@ const Home = () => {
     return (
       <div>
         <header
-          className="relative bg-cover bg-center h-64 text-white"
+          className="relative bg-cover bg-center h-80 text-white"
           style={{ backgroundImage: "url('src/assets/bg7.png')" }}
         >
-          <div className="absolute inset-0 bg-[#1A2F2A] bg-opacity-50"></div>
+          <div className="absolute inset-0 bg-[#1A2F2A] bg-opacity-40"></div>
           <div className="relative z-10 flex flex-col justify-center items-center h-full">
+            <img className="h-20 w-20" src={Logo}></img>
             <h1 className="text-4xl font-bold">
               Descubre tu próxima experiencia gastronómica
             </h1>
@@ -50,7 +52,7 @@ const Home = () => {
               className="mt-3 px-4 py-2 bg-[#DC493A] text-white rounded hover:bg-[#DC493A]"
               onClick={() => navigate("/registroRestaurante")}
             >
-              Accede como Restaurante
+              Crear una cuenta Restaurante
             </button>
           </div>
           <div className="mb-4">
@@ -65,6 +67,10 @@ const Home = () => {
               Crear Cuenta
             </button>
           </div>
+        </section>
+        <section    className="relative bg-cover bg-center h-20 text-white "
+          style={{ backgroundImage: "url('src/assets/bg7.png')" }}>
+         <div className="absolute inset-0 bg-[#1A2F2A] bg-opacity-40 flex justify-center items-center"><h2 className="text-xl font-semibold">Explora un mundo de restaurantes y vive nuevas experiencias.</h2></div>
         </section>
         <section className="p-4">
           <ListaCard />

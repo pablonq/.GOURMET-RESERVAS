@@ -55,7 +55,7 @@ const CalificacionPromedioCard = ({ idRestaurante }) => {
               "4 estrellas",
               "5 estrellas",
             ],
-            colors: ["#DC493A", "#FFC300", "#DAF7A6", "#B6C6B9", "#1A2F2A"],
+            colors: ["#d9e70e", "#e84ddd", "#4de854", "#4ddde8", "#e7530e"],
           };
 
           chartRef.current = new ApexCharts(

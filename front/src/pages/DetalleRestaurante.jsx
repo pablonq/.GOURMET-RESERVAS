@@ -204,7 +204,11 @@ const DetalleRestaurante = () => {
   const menusPorPlatos = agruparPlatosPorMenu();
 
   if (loading)
-    return <p className="text-center font-bold text-[#DC493A] "><Loading/></p>;
+    return (
+      <p className="text-center font-bold text-[#DC493A] ">
+        <Loading />
+      </p>
+    );
   if (error)
     return (
       <p className="text-center font-bold text-[#DC493A] ">Error: {error}</p>
@@ -269,7 +273,7 @@ const DetalleRestaurante = () => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 justify-items-center  border-b  border-gray-300">
               {Object.values(menusPorPlatos).length === 0 ? (
-                <MensajeError mensaje={"No hay menús disponibles"}/>
+                <MensajeError mensaje={"No hay menús disponibles"} />
               ) : (
                 Object.values(menusPorPlatos).map((menuItem) => (
                   <div key={menuItem.id} className="w-full max-w-md">
@@ -288,7 +292,8 @@ const DetalleRestaurante = () => {
                             {menuItem.platos.length > 0 ? (
                               menuItem.platos.map((plato) => (
                                 <li key={plato.id}>
-                                  {plato.nombrePlato} - ${plato.precio}
+                                  <strong>{plato.nombrePlato}</strong> - 
+                                  ${plato.precio}
                                   <p className="text-sm text-[#1A2F2A]  ml-4">
                                     {plato.descripcion}
                                   </p>
@@ -306,7 +311,9 @@ const DetalleRestaurante = () => {
               )}
             </div>
           </div>
+          <div className="p-4 animate-pulse">
           <Button onClick={handleReservar} texto={"Reservar"} />
+          </div>
         </div>
 
         {/*apartado info adicionala*/}
@@ -382,12 +389,8 @@ const DetalleRestaurante = () => {
         </div>
       </div>
       <div className="p-4">
-      <LinkVolver
-          color={"[#DC493A]"}
-          colorHover={"[#B6C6B9]"}
-          ruta={`/panelUsuario`}
-        />
-        </div>
+        <LinkVolver color={"[#DC493A]"} colorHover={"[#B6C6B9]"} ruta={`/`} />
+      </div>
     </>
   );
 };
