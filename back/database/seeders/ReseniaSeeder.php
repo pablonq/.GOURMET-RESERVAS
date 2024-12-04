@@ -53,7 +53,8 @@ class ReseniaSeeder extends Seeder
               $resenia->idReserva = $reserva->id; 
               $resenia->idUsuario = $reserva->idUsuario; 
               $resenia->idRestaurante = $reserva->idRestaurante; 
-              $resenia->calificacion = rand(3, 5); 
+              $resenia->calificacion = rand(3, 5);
+              $resenia->fechaResenia = $reserva->fechaReserva; 
               $resenia->comentario = $comentarios[array_rand($comentarios)]; 
               $resenia->respuestaDuenio = $respuestasDuenio[array_rand($respuestasDuenio)]; 
 

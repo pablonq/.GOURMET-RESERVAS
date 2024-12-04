@@ -14,15 +14,8 @@ class PersonaSeeder extends Seeder
      */
     public function run(): void
     {
-        $persona = new Persona();
-        $persona->nombre = 'Pablo';
-        $persona->apellido = 'Navarro';
-        $persona->fechaNac = '2020-12-12';
-        $persona->email = 'pablo@mail.com';
-        $persona->telefono = '123456789';
-        $persona->save();
-
-        /*Restaurante 1*/
+      
+      /*Restaurante 1*/
         $persona = new Persona();
         $persona->nombre = 'Lionel';
         $persona->apellido = 'Messi';
@@ -120,7 +113,7 @@ class PersonaSeeder extends Seeder
         $persona->email = 'alice.johnson@mail.com';
         $persona->telefono = '555123456';
         $persona->save();
-
+        
         /* Restaurante 12*/
         $persona = new Persona();
         $persona->nombre = 'Bob';
@@ -138,7 +131,7 @@ class PersonaSeeder extends Seeder
         $persona->email = 'catherine.brown@mail.com';
         $persona->telefono = '555543219';
         $persona->save();
-              
+        
         /* Restaurante 14*/
         $persona = new Persona();
         $persona->nombre = 'David';
@@ -147,7 +140,7 @@ class PersonaSeeder extends Seeder
         $persona->email = 'daniel.wilson@mail.com';
         $persona->telefono = '555321654';
         $persona->save();
-              
+        
         /* Restaurante 15*/
         $persona = new Persona();
         $persona->nombre = 'Eleanor';
@@ -202,24 +195,82 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '555987321';
         $persona->save();
         
+        /**Usuario 1 */
+        $persona = new Persona();
+        $persona->nombre = 'Pablo';
+        $persona->apellido = 'Navarro';
+        $persona->fechaNac = '2000-12-12';
+        $persona->email = 'pablo@mail.com';
+        $persona->telefono = '299456789';
+        $persona->save();
+
+        /**Usuario 2 */
+        $persona = new Persona();
+        $persona->nombre = 'Paulina';
+        $persona->apellido = 'Paredes';
+        $persona->fechaNac = '2000-12-13';
+        $persona->email = 'pau@gmail.com';
+        $persona->telefono = '2993456789';
+        $persona->save();
+        
         $personas = [
           ['nombre' => 'Jacky', 'apellido' => 'Clarky', 'fechaNac' => '1983-02-18', 'email' => 'jacky.clarky@mail.com', 'telefono' => '555987321'],
           ['nombre' => 'Emily', 'apellido' => 'Smith', 'fechaNac' => '1990-07-22', 'email' => 'emily.smith@mail.com', 'telefono' => '555123456'],
           ['nombre' => 'John', 'apellido' => 'Doe', 'fechaNac' => '1985-03-14', 'email' => 'john.doe@mail.com', 'telefono' => '555654321'],
           ['nombre' => 'Sarah', 'apellido' => 'Johnson', 'fechaNac' => '1992-11-30', 'email' => 'sarah.johnson@mail.com', 'telefono' => '555678912'],
           ['nombre' => 'Michael', 'apellido' => 'Williams', 'fechaNac' => '1978-05-25', 'email' => 'michael.williams@mail.com', 'telefono' => '555789123'],
-          
-      ];
+          ['nombre' => 'Jessica', 'apellido' => 'Brown', 'fechaNac' => '1987-09-10', 'email' => 'jessica.brown@mail.com', 'telefono' => '555234567'],
+    ['nombre' => 'David', 'apellido' => 'Miller', 'fechaNac' => '1981-12-05', 'email' => 'david.miller@mail.com', 'telefono' => '555345678'],
+    ['nombre' => 'Emma', 'apellido' => 'Wilson', 'fechaNac' => '1993-06-17', 'email' => 'emma.wilson@mail.com', 'telefono' => '555456789'],
+    ['nombre' => 'Daniel', 'apellido' => 'Taylor', 'fechaNac' => '1979-04-03', 'email' => 'daniel.taylor@mail.com', 'telefono' => '555567890'],
+    ['nombre' => 'Olivia', 'apellido' => 'Anderson', 'fechaNac' => '1988-08-22', 'email' => 'olivia.anderson@mail.com', 'telefono' => '555678901']
+];
 
-      for ($i = 6; $i <= 100; $i++) {
-          $personas[] = [
-              'nombre' => 'Persona' . $i,
-              'apellido' => 'Apellido' . $i,
-              'fechaNac' => '1980-' . str_pad(mt_rand(1, 12), 2, '0', STR_PAD_LEFT) . '-' . str_pad(mt_rand(1, 28), 2, '0', STR_PAD_LEFT),
-              'email' => 'persona' . $i . '@mail.com',
-              'telefono' => '555' . mt_rand(100000, 999999),
-          ];
-      }
+$nombres = ['Ana', 'Carlos', 'Elena', 'Luis', 'María', 'Pedro', 'Isabel', 'Jorge', 'Sofía', 'Alberto', 'Laura', 'Diego', 'Lucía', 'Javier', 'Carmen', 'Rafael', 'Patricia', 'Manuel', 'Lorena', 'Santiago','Walter', 'Armando', 'Edgardo', 'Cintia', 'Romina', 'Fabiola', 'Catalina', 'Luca', 'Vladimir', 'Valentin', 'Ema', 'Margarita', 'Daniela', 'Rosa', 'Miriam', 'Luciana', 'Jesica'];
+$apellidos = ['Tarantino','Vega','Ortega','Bascuñan','Rojas','García', 'Martínez', 'López', 'González', 'Rodríguez', 'Fernández', 'Sánchez', 'Pérez', 'Gómez', 'Díaz', 'Hernández', 'Ruiz', 'Álvarez', 'Jiménez', 'Moreno', 'Muñoz', 'Alonso', 'Romero', 'Navarro', 'Torres'];
+
+function generarEmailUnico(&$emails, $nombre, $apellido) {
+  $baseEmail = strtolower($nombre . '.' . $apellido . '@mail.com');
+  $email = $baseEmail;
+  $contador = 1;
+  
+  while (in_array($email, $emails)) {
+    $email = strtolower($nombre . '.' . $apellido . $contador . '@mail.com');
+    $contador++;
+}
+
+$emails[] = $email;
+return $email;
+}
+
+function generarFechaNacimiento() {
+  $inicio = strtotime('-60 years');
+  $fin = strtotime('-18 years');
+  $timestamp = mt_rand($inicio, $fin);
+  return date('Y-m-d', $timestamp);
+}
+
+function generarTelefono() {
+  return '299' . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+}
+
+$emailsExistentes = array_column($personas, 'email');
+
+
+for ($i = count($personas); $i < 90; $i++) {
+  $nombre = $nombres[array_rand($nombres)];
+  $apellido = $apellidos[array_rand($apellidos)];
+
+  
+  $personas[] = [
+      'nombre' => $nombre,
+      'apellido' => $apellido,
+      'fechaNac' => generarFechaNacimiento(),
+      'email' => generarEmailUnico($emailsExistentes,$nombre, $apellido),
+      'telefono' => generarTelefono()
+  ];
+}
+
 
       foreach ($personas as $datos) {
           $persona = new Persona();

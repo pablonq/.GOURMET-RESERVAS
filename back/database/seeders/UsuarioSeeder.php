@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 use App\Models\Usuario;
+use App\Models\Persona;
 
 class UsuarioSeeder extends Seeder
 {
@@ -21,82 +22,33 @@ class UsuarioSeeder extends Seeder
         $usuario->fechaRegistro = now();
         $usuario->fechaBaja = null;
         $usuario->rol = 'usuario';
-        $usuario->idPersona = 1;
+        $usuario->idPersona = 21;
         $usuario->save();
 
-        $usuarios = [
-            [
-              'nombreUsuario' => 'jacky',
-              'contrasenia' => bcrypt('1234'),
-              'avatarUrl' => NULL,
-              'fechaRegistro' => now(),
-              'fechaBaja' => NULL,
-              'rol' => 'usuario',
-              'idPersona' => 22
-            ],
+        $usuario = new Usuario();
+        $usuario->nombreUsuario = 'pau';
+        $usuario->contrasenia = bcrypt('1234');
+        $usuario->avatarUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/usuarios%2F2d4f3773-a6c7-47bc-8b64-eb92ba2c2f29?alt=media&token=78d3914b-7b57-472b-9d3a-6f123e6cc2f3';
+        $usuario->fechaRegistro = now();
+        $usuario->fechaBaja = null;
+        $usuario->rol = 'usuario';
+        $usuario->idPersona = 22;
+        $usuario->save();
 
-            [
-              'nombreUsuario' => 'emily',
-              'contrasenia' => bcrypt('1234'),
-              'avatarUrl' => NULL,
-              'fechaRegistro' => now(),
-              'fechaBaja' => NULL,
-              'rol' => 'usuario',
-              'idPersona' => 23
-            ],
 
-            [
-              'nombreUsuario' => 'john',
-              'contrasenia' => bcrypt('1234'),
-              'avatarUrl' => NULL,
-              'fechaRegistro' => now(),
-              'fechaBaja' => NULL,
-              'rol' => 'usuario',
-              'idPersona' => 24
-            ],
+        $personas = Persona::where('id', '>', 22)->get();
+          
+            
 
-            [
-              'nombreUsuario' => 'sarah',
-              'contrasenia' => bcrypt('1234'),
-              'avatarUrl' => NULL,
-              'fechaRegistro' => now(),
-              'fechaBaja' => NULL,
-              'rol' => 'usuario',
-              'idPersona' => 25
-            ],
-
-            [
-              'nombreUsuario' => 'michael',
-              'contrasenia' => bcrypt('1234'),
-              'avatarUrl' => NULL,
-              'fechaRegistro' => now(),
-              'fechaBaja' => NULL,
-              'rol' => 'usuario',
-              'idPersona' => 26
-            ],
-          ];
-
-          for ($i = 6; $i <= 100; $i++) {
-            $usuarios[] = [
-              'nombreUsuario' => 'Persona' . $i,
-              'contrasenia' => bcrypt('1234'),
-              'avatarUrl' => NULL,
-              'fechaRegistro' => now(),
-              'fechaBaja' => NULL,
-              'rol' => 'usuario',
-              'idPersona' => $i+21 ,
-            ];
-    }
-
-    foreach ($usuarios as $datos) {
+    foreach ($personas as $datos) {
       $usuario = new Usuario();
-      $usuario->nombreUsuario = $datos['nombreUsuario'];
-      $usuario->contrasenia = $datos['contrasenia'];
-      $usuario->avatarUrl = $datos['avatarUrl'];
-      $usuario->fechaRegistro = $datos['fechaRegistro'];
-      $usuario->fechaBaja = $datos['fechaBaja'];
-      $usuario->rol = $datos['rol'];
-      $usuario->idPersona = $datos['idPersona'];
+      $usuario->nombreUsuario = $datos['nombre'].'_'.$datos['apellido'];
+      $usuario->contrasenia = bcrypt('1234');
+      $usuario->avatarUrl = null;
+      $usuario->fechaRegistro = now();
+      $usuario->fechaBaja = null;
+      $usuario->rol = 'usuario';
+      $usuario->idPersona = $datos['id'];
       $usuario->save();
     }
     }

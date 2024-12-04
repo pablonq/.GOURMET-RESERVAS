@@ -24,12 +24,22 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fmorrigan.PNG?alt=media&token=038d5d89-fb70-4e7d-9190-9af6243cfeaf';
+    $imagenesRestaurante->idRestaurante = 1;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fe4326d89-5db8-48e9-9f15-a5df282550c1?alt=media&token=860bdd1f-baf0-467d-a0e2-0e55a5276584';
     $imagenesRestaurante->idRestaurante = 2;
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F247d9edd-102b-41f6-be25-b11e6c774e2e?alt=media&token=d0043772-5ab2-428a-b3ed-24a41d3950e5';
+    $imagenesRestaurante->idRestaurante = 2;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fmorgan1.PNG?alt=media&token=d90bc414-07ad-4bc9-98cd-e88a7b18c53b';
     $imagenesRestaurante->idRestaurante = 2;
     $imagenesRestaurante->save();
 
@@ -44,6 +54,12 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fjacc1.PNG?alt=media&token=fd990427-c749-479a-91e7-ce79a1a5817a';
+    $imagenesRestaurante->idRestaurante = 3;
+    $imagenesRestaurante->save();
+    
+
+    $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F94cb4a40-b199-4a85-8bef-6c1df9a93ca6?alt=media&token=9d760713-805b-4f5a-9971-042b592a0f88';
     $imagenesRestaurante->idRestaurante = 4;
     $imagenesRestaurante->save();
@@ -54,6 +70,12 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->idRestaurante = 4;
     $imagenesRestaurante->save();
 
+    $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Ftoscana1.PNG?alt=media&token=74fd1e53-5131-449e-8385-e36ff13a54e3';
+    $imagenesRestaurante->idRestaurante = 4;
+    $imagenesRestaurante->save();
+
+    
 
     $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F98fefc94-c2f8-4ebd-b743-df7a003ff9f9?alt=media&token=6e013bad-40fb-43e6-bc23-0afb6265d9d4';
@@ -62,6 +84,11 @@ class ImagenesRestaurantesSeeder extends Seeder
 
     $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2023-07-19%20(1).jpg?alt=media&token=edc4e4ff-92f2-4427-8782-bf40dd23b661';
+    $imagenesRestaurante->idRestaurante = 5;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Festacionq.PNG?alt=media&token=02434afd-6998-4529-a1b6-2087c67cb31d';
     $imagenesRestaurante->idRestaurante = 5;
     $imagenesRestaurante->save();
 
@@ -76,22 +103,41 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FbolicheAlberto.PNG?alt=media&token=3d02df98-474d-40eb-91c4-69e6d119e257';
+    $imagenesRestaurante->idRestaurante = 6;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FIMG_20191015_215736546.jpg?alt=media&token=a1d8461c-a56d-4040-b12b-ed7e8c5243c1';
     $imagenesRestaurante->idRestaurante = 7;
     $imagenesRestaurante->save();
+
     $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2024-05-17.jpg?alt=media&token=c42e078b-014a-4b63-9f00-261b92d70118';
     $imagenesRestaurante->idRestaurante = 7;
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Ffranz.PNG?alt=media&token=ec1e2bbb-7318-48ae-95c4-8ae9cf598918';
+    $imagenesRestaurante->idRestaurante = 7;
+    $imagenesRestaurante->save();
+
+
+    $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2024-11-01.jpg?alt=media&token=3af98f19-36a9-42f5-b5b2-5cfe50d039fa';
     $imagenesRestaurante->idRestaurante = 8;
     $imagenesRestaurante->save();
+
     $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2F2024-03-31.jpg?alt=media&token=0d9db22b-d39d-4b71-ac99-a4efd480be53';
     $imagenesRestaurante->idRestaurante = 8;
     $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fdorado.PNG?alt=media&token=b5de2a9b-bbf4-4a33-aa0a-ed7a3eeb4eb2';
+    $imagenesRestaurante->idRestaurante = 8;
+    $imagenesRestaurante->save();
+
 
     $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fnoble3.PNG?alt=media&token=db66ee2d-6f6f-4a3d-972e-1216f4542b0f';
@@ -141,12 +187,22 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fmarga2.PNG?alt=media&token=494a96f1-162c-4d06-a039-31d50e27dcad';
+    $imagenesRestaurante->idRestaurante = 10;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FDonato.jpg?alt=media&token=15157f18-3ad6-4a67-98a1-8fa1114345a7';
     $imagenesRestaurante->idRestaurante = 11;
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FDonato1.jpg?alt=media&token=c04f3a61-8e70-46a3-83fc-b3a0978fa27d';
+    $imagenesRestaurante->idRestaurante = 11;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FDonato2.jpg?alt=media&token=d3e3674b-f5bd-4751-99fd-cc44ee383f29';
     $imagenesRestaurante->idRestaurante = 11;
     $imagenesRestaurante->save();
 
@@ -159,6 +215,12 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FInda1.PNG?alt=media&token=7e993cca-0bd8-4234-b774-29f439c4998d';
     $imagenesRestaurante->idRestaurante = 12;
     $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FInda2.PNG?alt=media&token=720ccc76-7c03-4ef3-a092-ee2a40b02552';
+    $imagenesRestaurante->idRestaurante = 12;
+    $imagenesRestaurante->save();
+    
 
     $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FJuez.PNG?alt=media&token=7e089efd-00ac-4b0c-a574-e4b9f4ab7064';
@@ -206,6 +268,11 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fache2.PNG?alt=media&token=e321a1f0-3b5c-46da-b5c9-50517de1418b';
+    $imagenesRestaurante->idRestaurante = 14;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fmagnolia.jpg?alt=media&token=2847e6a5-a4f5-4c9d-be90-2f11c3baf656';
     $imagenesRestaurante->idRestaurante = 15;
     $imagenesRestaurante->save();
@@ -216,12 +283,22 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Fmagnolia2.jpg?alt=media&token=14b099ff-b5ea-42ad-b0c8-5faebff2c803';
+    $imagenesRestaurante->idRestaurante = 15;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Ffaraon.PNG?alt=media&token=a34a114a-c072-4432-a426-dacc0827cda1';
     $imagenesRestaurante->idRestaurante = 16;
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Ffaraon1.PNG?alt=media&token=d44a8f5b-2845-4184-ba9e-caf5676bb021';
+    $imagenesRestaurante->idRestaurante = 16;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2Ffaraon2.PNG?alt=media&token=a144a94e-7870-4e0a-aa37-df132e74dd55';
     $imagenesRestaurante->idRestaurante = 16;
     $imagenesRestaurante->save();
 
@@ -266,6 +343,11 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FNatural%20mystic2.PNG?alt=media&token=f7a22dea-b47c-42d1-8004-a5b57f81bfe5';
+    $imagenesRestaurante->idRestaurante = 18;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FBerlin.PNG?alt=media&token=ffad42b4-5b9b-4008-9255-fed7f7179a30';
     $imagenesRestaurante->idRestaurante = 19;
     $imagenesRestaurante->save();
@@ -276,12 +358,22 @@ class ImagenesRestaurantesSeeder extends Seeder
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FLopez2.PNG?alt=media&token=df9887df-8e3a-491d-94db-3db3c61d8c33';
+    $imagenesRestaurante->idRestaurante = 19;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FLopez.PNG?alt=media&token=1d9f1bb6-56de-49c4-85bc-f283b6fc2817';
     $imagenesRestaurante->idRestaurante = 20;
     $imagenesRestaurante->save();
 
     $imagenesRestaurante = new ImagenesRestaurante();
     $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FBerlin1.PNG?alt=media&token=dc2b1bd4-a02b-405f-83be-53c95a827c45';
+    $imagenesRestaurante->idRestaurante = 20;
+    $imagenesRestaurante->save();
+
+    $imagenesRestaurante = new ImagenesRestaurante();
+    $imagenesRestaurante->imagenUrl = 'https://firebasestorage.googleapis.com/v0/b/gourmet-reservas.appspot.com/o/restaurantes%2FBerlin2.PNG?alt=media&token=bc680c14-e668-4888-a02d-982609a181d7';
     $imagenesRestaurante->idRestaurante = 20;
     $imagenesRestaurante->save();
   }
