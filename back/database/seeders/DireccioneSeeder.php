@@ -27,10 +27,10 @@ class DireccioneSeeder extends Seeder
           ]);
       } */
 
-    $restaurante = Restaurante::find(1); // Suponiendo que tienes algunos restaurantes creados
+    $restaurante = Restaurante::find(1); 
     Direccione::create([
-      'direccionable_id' => $restaurante->id, // ID del restaurante
-      'direccionable_type' => Restaurante::class, // Tipo de modelo polimórfico
+      'direccionable_id' => $restaurante->id, 
+      'direccionable_type' => Restaurante::class, 
       'calle' => 'Gobernador Elordi ',
       'altura' => '39',
       'ciudad' => 'Neuquén',
@@ -43,8 +43,8 @@ class DireccioneSeeder extends Seeder
 
 
     Direccione::create([
-      'direccionable_id' => $restaurante->id, // ID del restaurante
-      'direccionable_type' => Restaurante::class, // Tipo de modelo polimórfico
+      'direccionable_id' => $restaurante->id, 
+      'direccionable_type' => Restaurante::class, 
       'calle' => 'Rio Negro',
       'altura' => '2221',
       'ciudad' => 'Neuquén',
@@ -56,8 +56,8 @@ class DireccioneSeeder extends Seeder
 
 
     Direccione::create([
-      'direccionable_id' => $restaurante->id, // ID del restaurante
-      'direccionable_type' => Restaurante::class, // Tipo de modelo polimórfico
+      'direccionable_id' => $restaurante->id, 
+      'direccionable_type' => Restaurante::class, 
       'calle' => 'Mar del Sur',
       'altura' => '45',
       'ciudad' => 'Neuquén',
@@ -143,8 +143,8 @@ class DireccioneSeeder extends Seeder
       'direccionable_id' => $restaurante->id,
       'direccionable_type' => Restaurante::class,
 
-      'calle' => 'San Luis ',
-      'altura' => '630',
+      'calle' => 'Mariano Moreno',
+      'altura' => '460',
       'ciudad' => 'Cipolletti',
       'provincia' => 'Río Negro',
       'pais' => 'Argentina',
@@ -169,8 +169,8 @@ class DireccioneSeeder extends Seeder
       'direccionable_id' => $restaurante->id,
       'direccionable_type' => Restaurante::class,
 
-      'calle' => 'Av. Belgrano',
-      'altura' => '282',
+      'calle' => 'Las Lajas',
+      'altura' => '95',
       'ciudad' => 'Plottier',
       'provincia' => 'Neuquén',
       'pais' => 'Argentina',
@@ -181,7 +181,7 @@ class DireccioneSeeder extends Seeder
       'direccionable_id' => $restaurante->id,
       'direccionable_type' => Restaurante::class,
 
-      'calle' => 'Rivadavia',
+      'calle' => 'Juan Bautista Alberdi',
       'altura' => '171',
       'ciudad' => 'Neuquén',
       'provincia' => 'Neuquén',
@@ -241,8 +241,8 @@ class DireccioneSeeder extends Seeder
       'direccionable_id' => $restaurante->id,
       'direccionable_type' => Restaurante::class,
 
-      'calle' => 'General José de San Martín',
-      'altura' => '531',
+      'calle' => 'Italia',
+      'altura' => '1710',
       'ciudad' => 'General Roca',
       'provincia' => 'Río Negro',
       'pais' => 'Argentina',
@@ -270,6 +270,19 @@ class DireccioneSeeder extends Seeder
       'ciudad' => 'General Roca',
       'provincia' => 'Río Negro',
       'pais' => 'Argentina',
+    ]);
+
+    $usuario = Usuario::find(1);
+    Direccione::create([
+      'direccionable_id' => $usuario->id,
+      'direccionable_type' => Usuario::class,
+
+      'calle' => 'Luis Beltran',
+      'altura' => '1840',
+      'ciudad' => 'Neuquén',
+      'provincia' => 'Neuquén',
+      'pais' => 'Argentina',
+
     ]);
   }
 }

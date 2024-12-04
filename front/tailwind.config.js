@@ -9,9 +9,7 @@ export default {
       fontFamily: {
         'verdana': ['Verdana', 'sans-serif'],
       },
-      backgroundImage: {
-        'gourmet-bg': "url('./assets/gourmet2.jpeg')",
-      },
+      
     },
   },
   plugins: [],

@@ -22,7 +22,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '123456789';
         $persona->save();
 
-        /*1*/
+        /*Restaurante 1*/
         $persona = new Persona();
         $persona->nombre = 'Lionel';
         $persona->apellido = 'Messi';
@@ -31,7 +31,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '123456789';
         $persona->save();
 
-        /*2*/
+        /*Restaurante 2*/
         $persona = new Persona();
         $persona->nombre = 'Diego';
         $persona->apellido = 'Maradona';
@@ -40,7 +40,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '123456789';
         $persona->save();
 
-        /*3*/
+        /* Restaurante 3*/
         $persona = new Persona();
         $persona->nombre = 'Mario';
         $persona->apellido = 'Kempes';
@@ -49,7 +49,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '123456789';
         $persona->save();
 
-        /*4*/
+        /* Restaurante 4*/
         $persona = new Persona();
         $persona->nombre = 'Marcelo';
         $persona->apellido = 'Gallardo';
@@ -58,7 +58,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '123456789';
         $persona->save();
 
-        /*5*/
+        /* Restaurante 5*/
         $persona = new Persona();
         $persona->nombre = 'Enzo';
         $persona->apellido = 'Francescoli';
@@ -67,7 +67,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '123456789';
         $persona->save();
 
-        /*6*/
+        /* Restaurante 6*/
         $persona = new Persona();
         $persona->nombre = 'David';
         $persona->apellido = 'Gilmour';
@@ -76,7 +76,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '123456789';
         $persona->save();
 
-        /*7*/
+        /* Restaurante 7*/
         $persona = new Persona();
         $persona->nombre = 'Roger';
         $persona->apellido = 'Waters';
@@ -85,7 +85,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '123456789';
         $persona->save();
 
-        /*8*/
+        /* Restaurante 8*/
         $persona = new Persona();
         $persona->nombre = 'Jimmy';
         $persona->apellido = 'Page';
@@ -94,7 +94,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '123456789';
         $persona->save();
 
-        /*9*/
+        /* Restaurante 9*/
         $persona = new Persona();
         $persona->nombre = 'Robert';
         $persona->apellido = 'Plant';
@@ -103,7 +103,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '123456789';
         $persona->save();
 
-        /*10*/
+        /* Restaurante 10*/
         $persona = new Persona();
         $persona->nombre = 'John';
         $persona->apellido = 'Lennon';
@@ -112,7 +112,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '123456789';
         $persona->save();
         
-        /*11*/
+        /* Restaurante 11*/
         $persona = new Persona();
         $persona->nombre = 'Alice';
         $persona->apellido = 'Johnson';
@@ -121,7 +121,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '555123456';
         $persona->save();
 
-        /*12*/
+        /* Restaurante 12*/
         $persona = new Persona();
         $persona->nombre = 'Bob';
         $persona->apellido = 'Smith';
@@ -130,7 +130,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '555987654';
         $persona->save();
         
-        /*13*/
+        /* Restaurante 13*/
         $persona = new Persona();
         $persona->nombre = 'Catherine';
         $persona->apellido = 'Brown';
@@ -139,7 +139,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '555543219';
         $persona->save();
               
-        /*14*/
+        /* Restaurante 14*/
         $persona = new Persona();
         $persona->nombre = 'David';
         $persona->apellido = 'Wilson';
@@ -148,7 +148,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '555321654';
         $persona->save();
               
-        /*15*/
+        /* Restaurante 15*/
         $persona = new Persona();
         $persona->nombre = 'Eleanor';
         $persona->apellido = 'Taylor';
@@ -157,7 +157,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '555654987';
         $persona->save();
               
-        /*16*/
+        /* Restaurante 16*/
         $persona = new Persona();
         $persona->nombre = 'Frank';
         $persona->apellido = 'Anderson';
@@ -166,7 +166,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '555456789';
         $persona->save();
               
-        /*17*/
+        /* Restaurante 17*/
         $persona = new Persona();
         $persona->nombre = 'Grace';
         $persona->apellido = 'Harris';
@@ -175,7 +175,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '555789123';
         $persona->save();
               
-        /*18*/
+        /* Restaurante 18*/
         $persona = new Persona();
         $persona->nombre = 'Henry';
         $persona->apellido = 'Clark';
@@ -184,7 +184,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '555987654';
         $persona->save();
         
-        /*19*/
+        /* Restaurante 19*/
         $persona = new Persona();
         $persona->nombre = 'Isabella';
         $persona->apellido = 'White';
@@ -193,7 +193,7 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '555876543';
         $persona->save();
         
-        /*20*/
+        /* Restaurante 20*/
         $persona = new Persona();
         $persona->nombre = 'Jack';
         $persona->apellido = 'Clark';
@@ -202,5 +202,33 @@ class PersonaSeeder extends Seeder
         $persona->telefono = '555987321';
         $persona->save();
         
+        $personas = [
+          ['nombre' => 'Jacky', 'apellido' => 'Clarky', 'fechaNac' => '1983-02-18', 'email' => 'jacky.clarky@mail.com', 'telefono' => '555987321'],
+          ['nombre' => 'Emily', 'apellido' => 'Smith', 'fechaNac' => '1990-07-22', 'email' => 'emily.smith@mail.com', 'telefono' => '555123456'],
+          ['nombre' => 'John', 'apellido' => 'Doe', 'fechaNac' => '1985-03-14', 'email' => 'john.doe@mail.com', 'telefono' => '555654321'],
+          ['nombre' => 'Sarah', 'apellido' => 'Johnson', 'fechaNac' => '1992-11-30', 'email' => 'sarah.johnson@mail.com', 'telefono' => '555678912'],
+          ['nombre' => 'Michael', 'apellido' => 'Williams', 'fechaNac' => '1978-05-25', 'email' => 'michael.williams@mail.com', 'telefono' => '555789123'],
+          
+      ];
+
+      for ($i = 6; $i <= 100; $i++) {
+          $personas[] = [
+              'nombre' => 'Persona' . $i,
+              'apellido' => 'Apellido' . $i,
+              'fechaNac' => '1980-' . str_pad(mt_rand(1, 12), 2, '0', STR_PAD_LEFT) . '-' . str_pad(mt_rand(1, 28), 2, '0', STR_PAD_LEFT),
+              'email' => 'persona' . $i . '@mail.com',
+              'telefono' => '555' . mt_rand(100000, 999999),
+          ];
+      }
+
+      foreach ($personas as $datos) {
+          $persona = new Persona();
+          $persona->nombre = $datos['nombre'];
+          $persona->apellido = $datos['apellido'];
+          $persona->fechaNac = $datos['fechaNac'];
+          $persona->email = $datos['email'];
+          $persona->telefono = $datos['telefono'];
+          $persona->save();
+      }
     }
 }

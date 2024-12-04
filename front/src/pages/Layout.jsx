@@ -72,7 +72,7 @@ export default function Layout() {
                     </Link>
                   </>
                 )}
-                <div className="flex items-center  mx-8 font-light text-[#B6C6B9]">
+                <div className="flex items-center justify-center mx-8 font-light text-[#B6C6B9]">
                   Bienvenido{" "}
                   {user.rol === "restaurante"
                     ? user.nombreRes
@@ -116,10 +116,10 @@ export default function Layout() {
         </nav>
       </header>
 
-      <main className="flex-1 w-full min-h-screen">
-        <div>
+      <main className="flex-1 overflow-y-auto h-full">
+        
           <Outlet />
-        </div>
+        
       </main>
       <footer className="bg-[#242424] text-white p-4 text-center">
         <p>© 2024 .GourmetReservas Todos los derechos reservados.</p>

@@ -43,7 +43,7 @@ export default function LoginRestaurante() {
   }
   return (
     <>
-      <div className="relative z-10 mt-40 flex justify-end items-center">
+      <div className="relative z-10 mt-40 mr-4 flex justify-end items-center">
         <div className="bg-[#242424] h-[450px] p-8 rounded-lg shadow-lg w-full max-w-5xl flex">
         <div class="w-1/2 text-center flex flex-col justify-center px-6 text-white">
             <h2 class="text-7xl font-verdana mb-8">Bienvenido</h2>
@@ -100,7 +100,7 @@ export default function LoginRestaurante() {
               <button className="font-verdana cursor-pointer text-[#242424] px-16 rounded-lg bg-white bg-opacity-50 hover:bg-opacity-100 w-30 h-10">Iniciar session</button>
             </form>
             <div className="flex w-1/2 mx-auto space-y-6 m-4 justify-end">
-              <a href="/registroUsuario" className="text-[#B6C6B9] font-verdana hover:text-[#DC493A] text-sm">
+              <a href="/registroRestaurante" className="text-[#B6C6B9] font-verdana hover:text-[#DC493A] text-sm">
                 {" "}
                 Registrate Aqui
               </a>

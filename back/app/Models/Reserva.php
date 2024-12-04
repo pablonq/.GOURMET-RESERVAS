@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Reserva extends Model
 {
     use HasFactory;
+    
 
     protected $fillable = [
         'idUsuario',

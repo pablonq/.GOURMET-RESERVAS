@@ -24,5 +24,80 @@ class UsuarioSeeder extends Seeder
         $usuario->idPersona = 1;
         $usuario->save();
 
+        $usuarios = [
+            [
+              'nombreUsuario' => 'jacky',
+              'contrasenia' => bcrypt('1234'),
+              'avatarUrl' => NULL,
+              'fechaRegistro' => now(),
+              'fechaBaja' => NULL,
+              'rol' => 'usuario',
+              'idPersona' => 22
+            ],
+
+            [
+              'nombreUsuario' => 'emily',
+              'contrasenia' => bcrypt('1234'),
+              'avatarUrl' => NULL,
+              'fechaRegistro' => now(),
+              'fechaBaja' => NULL,
+              'rol' => 'usuario',
+              'idPersona' => 23
+            ],
+
+            [
+              'nombreUsuario' => 'john',
+              'contrasenia' => bcrypt('1234'),
+              'avatarUrl' => NULL,
+              'fechaRegistro' => now(),
+              'fechaBaja' => NULL,
+              'rol' => 'usuario',
+              'idPersona' => 24
+            ],
+
+            [
+              'nombreUsuario' => 'sarah',
+              'contrasenia' => bcrypt('1234'),
+              'avatarUrl' => NULL,
+              'fechaRegistro' => now(),
+              'fechaBaja' => NULL,
+              'rol' => 'usuario',
+              'idPersona' => 25
+            ],
+
+            [
+              'nombreUsuario' => 'michael',
+              'contrasenia' => bcrypt('1234'),
+              'avatarUrl' => NULL,
+              'fechaRegistro' => now(),
+              'fechaBaja' => NULL,
+              'rol' => 'usuario',
+              'idPersona' => 26
+            ],
+          ];
+
+          for ($i = 6; $i <= 100; $i++) {
+            $usuarios[] = [
+              'nombreUsuario' => 'Persona' . $i,
+              'contrasenia' => bcrypt('1234'),
+              'avatarUrl' => NULL,
+              'fechaRegistro' => now(),
+              'fechaBaja' => NULL,
+              'rol' => 'usuario',
+              'idPersona' => $i+21 ,
+            ];
+    }
+
+    foreach ($usuarios as $datos) {
+      $usuario = new Usuario();
+      $usuario->nombreUsuario = $datos['nombreUsuario'];
+      $usuario->contrasenia = $datos['contrasenia'];
+      $usuario->avatarUrl = $datos['avatarUrl'];
+      $usuario->fechaRegistro = $datos['fechaRegistro'];
+      $usuario->fechaBaja = $datos['fechaBaja'];
+      $usuario->rol = $datos['rol'];
+      $usuario->idPersona = $datos['idPersona'];
+      $usuario->save();
+    }
     }
 }

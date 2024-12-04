@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('fechaReserva')->nullable();
+            $table->date('fechaReserva')->nullable();
             $table->time('horaReserva', precision: 0);
             $table->time('horaFinReserva');
             $table->string('estado');

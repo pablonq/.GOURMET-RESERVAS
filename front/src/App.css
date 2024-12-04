@@ -8,11 +8,7 @@
 
 
 @layer base {
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
+    
     body {
         font-family: "system-ui", sans-serif;
     
@@ -21,10 +17,10 @@
 
 @layer components {
     
-    input[type="email"],
+    
     
     input[type="search"],
-    input[type="tel"],
+    
     input[type="url"], textarea {
         @apply block w-full rounded-md border-0 p-2 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-500 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm bg-white;
     }
@@ -80,21 +76,28 @@
     .user-marker {
       filter: hue-rotate(140deg);
     }
-    .main1{
-      background-image: url("./assets/bg13.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      /* filter: brightness(0.5) blur(5px); */
+    .loginUsuario{
+      background-image: url("./assets/bg14.png");
+      background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
     }
-    .main2{
+    .LoginRestaurant{
       background-image: url("./assets/bg13.png");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      /* filter: brightness(0.5) blur(5px); */
+      min-height: 100vh;
+      
     }
-    .input-text, .input-password {
+    .input-text, .input-password, .input-date, .input-tel {
       @apply font-verdana text-white bg-transparent focus:outline-none border border-r-0 border-t-0 border-l-0 tracking-wide;
+    }
+    .input-provincia, .input-ciudad{
+      @apply font-verdana text-white bg-[#242424] focus:outline-none border border-r-0 border-t-0 border-l-0 tracking-wide
+    }
+    .input-file{
+      @apply font-verdana bg-[#242424] text-white
     }
 }

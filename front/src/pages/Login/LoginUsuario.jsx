@@ -44,9 +44,10 @@ export default function LoginUsuario() {
 
   return (
     <>
-      <div className="relative z-10 mt-40 flex  items-center">
+    <div className="">
+      <div className="relative z-10 mt-40 ml-4 flex justify-start  items-center">
         <div className="bg-[#242424] h-[450px] p-8 rounded-lg shadow-lg w-full max-w-5xl flex">
-          <div class="w-1/2 ml-6 pt-20">
+          <div className="w-1/2 ml-6 pt-20">
             <div className="flex justify-center mb-16">
               <img src={PerfilImagen} alt="Profile"
                 className="absolute inset-y-0 left-30 w-20 h-20 mt-14" />
@@ -118,6 +119,7 @@ export default function LoginUsuario() {
             </a>
           </div>
         </div>
+      </div>
       </div>
     </>
 
