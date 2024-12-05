@@ -284,5 +284,18 @@ class DireccioneSeeder extends Seeder
       'pais' => 'Argentina',
 
     ]);
+
+    $usuario = Usuario::find(2);
+    Direccione::create([
+      'direccionable_id' => $usuario->id,
+      'direccionable_type' => Usuario::class,
+
+      'calle' => 'Antartida Argentina',
+      'altura' => '111',
+      'ciudad' => 'Neuquén',
+      'provincia' => 'Neuquén',
+      'pais' => 'Argentina',
+
+    ]);
   }
 }
