@@ -18,6 +18,7 @@ const InfoReserva = () => {
     return await reservaResponse.json();
   };
 
+
   const getRestaurante = async () => {
     const restauranteResponse = await fetch(
       "/api/restaurantes/indexRestaurante"
@@ -49,14 +50,14 @@ const InfoReserva = () => {
   const handleCancelar = async () => {
     try {
       const response = await fetch(`/api/restaurantes/cancelarReserva/${id}`, {
-        method: "PUT", 
+        method: "PUT",
       });
-  
+
       if (response.ok) {
         setMensaje(
-          `La reserva del ${reserva.fechaReserva} a las ${reserva.horaReserva} ha sido cancelada. Por favor, no asistas ya que no aparecerá en la agenda del lugar y no serás atendido.`
+          `La reserva del ${reserva.fechaReserva} a las ${reserva.horaReserva} ha sido cancelada. `
         );
-        setReserva((prevReserva) => ({ ...prevReserva, estado: "cancelada" })); 
+        setReserva((prevReserva) => ({ ...prevReserva, estado: "cancelada" }));
         const errorData = await response.json();
         setMensaje(errorData.message || "Error al cancelar la reserva.");
       }
@@ -75,24 +76,16 @@ const InfoReserva = () => {
   return (
     <div className="max-w-xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4">Detalles de la Reserva</h1>
-      <p className="mb-2">
-        Reserva número: <strong>{reserva.id}</strong>
-      </p>
-      <p className="mb-2">
-        Fecha: <strong>{reserva.fechaReserva}</strong>
-      </p>
-      <p className="mb-4">
-        Hora: <strong>{reserva.horaReserva}</strong>
-      </p>
+      <p className="mb-2">Reserva número:{reserva.id}</p>
+      <p className="mb-2">Fecha: {reserva.fechaReserva}</p>
+      <p className="mb-4">Hora: {reserva.horaReserva}</p>
       <h2 className="text-xl font-semibold mb-2">Datos del Restaurante</h2>
-      <p className="mb-2">
-        Nombre: <strong>{restaurante.nombre}</strong>
-      </p>
-      <p className="mb-4">
-        Dirección: <strong>{restaurante.direccion}</strong>
-      </p>
+      <p className="mb-2">Nombre: {restaurante.nombre}</p>
+      <p className="mb-4">Dirección: {restaurante.direccion}</p>
 
-      {mensaje && <div className="mb-4 text-center text-green-600">{mensaje}</div>}
+      {mensaje && (
+        <div className="mb-4 text-center text-green-600">{mensaje}</div>
+      )}
 
       <div className="flex justify-between">
         <button

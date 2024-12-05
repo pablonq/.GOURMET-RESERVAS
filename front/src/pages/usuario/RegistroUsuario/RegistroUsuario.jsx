@@ -107,7 +107,8 @@ export default function RegistroUsuario() {
 
   return (
     <>
-      <div className="relative z-10 flex justify-center mt-32">
+     <div className=" flex justify-center  items-center h-screen w-full bg-cover bg-center" style={{ backgroundImage: "url('src/assets/bg13.png')" }}>
+      <div className="relative flex justify-center ">
         <div className="bg-[#242424] h-[600px] p-8 rounded-lg shadow-lg w-[650px] max-w-5xl flex">
         <div className="flex justify-center mb-16">
               <img src={PerfilImagen} alt="Profile"
@@ -180,7 +181,7 @@ export default function RegistroUsuario() {
                 />
                 <input
                 
-                  className="input-date pl-8"
+                  className="input-text pl-8"
                   type="date"
                   placeholder="Fecha de Nacimiento (DD/MM/AAAA)"
                   value={formData.fechaNac || ""}
@@ -217,7 +218,7 @@ export default function RegistroUsuario() {
                   className="absolute inset-y-0 left-0 w-5 h-5 my-auto"
                 />
                 <input
-                  className="input-tel pl-8"
+                  className="input-text pl-8"
                   type="text"
                   placeholder="Telefono"
                   value={formData.telefono || ""}
@@ -380,7 +381,7 @@ export default function RegistroUsuario() {
           </form>
         </div>
       </div>
-
+      </div>
     </>
   );
 
