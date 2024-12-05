@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
-use DB;
 use App\Http\Controllers\Controller;
 use App\Models\Persona;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use App\Models\Direccione;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UsuarioController extends Controller
 {
@@ -30,12 +30,12 @@ class UsuarioController extends Controller
     public function indexDireccionUsuario($id) {
       $direccion = Direccione::where('direccionable_type', Usuario::class)
                   ->where('direccionable_id', $id)
-                  ->first(['calle','altura', 'ciudad', 'provincia', 'pais']); // Selecciona solo los campos necesarios
+                  ->first(['calle','altura', 'ciudad', 'provincia', 'pais']);
   
       if ($direccion) {
           return response()->json($direccion);
       } else {
-          return response()->json(['message' => 'Dirección no encontrada'], 404);
+          return response()->json(['message' => 'Dirección no encontrada', 'direccion' => null],200);
       }
   }
 
@@ -91,8 +91,7 @@ class UsuarioController extends Controller
 }
 
 public function borrarUsuario($id) {
-  \Log::info('id: ' . $id);
-
+  Log::info('id: ' . $id);
     $usuario = Usuario::findOrFail($id);
     $idPersona = $usuario->idPersona;
     $persona = Persona::where('id', $idPersona)->first();

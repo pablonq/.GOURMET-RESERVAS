@@ -6,12 +6,14 @@ export default function UsuarioData() {
   const [direccionUsuario, setDireccionUsuario] = useState([]);
   const { user, token } = useContext(AppContext);
   const [usuario, setUsuario] = useState({});
+  // eslint-disable-next-line no-unused-vars
+  const [error, setError] = useState();
 
   async function getUsuario() {
     try {
       const res = await fetch(`/api/usuarios/traerUsuario/${user?.id}`, {
         headers: {
-          Authorization: `Bearer ${token}`,  // Añade el token si es necesario
+          Authorization: `Bearer ${token}`,  
           "Content-Type": "application/json"
         }
       });
@@ -23,11 +25,11 @@ export default function UsuarioData() {
         
       } else {
         console.error("Error al obtener el usuario:", data);
-        setError(data.errors || "Error desconocido");  // Guardamos el error
+        setError(data.errors || "Error desconocido");  
       }
     } catch (err) {
       console.error("Error de red:", err);
-      setError("Error de conexión");  // Manejamos errores de red
+      setError("Error de conexión");  
     }
   }
   async function getDireccionUsuario() {
@@ -42,16 +44,17 @@ export default function UsuarioData() {
     const data = await res.json();
   
     if (res.ok) {
-      
-    
       setDireccionUsuario(data);
     }
+    
   }
+  
   useEffect(() => {
     /* getCards();
     getImagenes(); */
     getDireccionUsuario();
     getUsuario();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return {
     direccionUsuario, 

@@ -44,10 +44,10 @@ export default function EditarPerfil() {
         : "",
       email: usuario.persona?.email,
       telefono: usuario.persona?.telefono,
-      calle: direccionUsuario.calle,
-      altura: direccionUsuario.altura,
-      ciudad: direccionUsuario.ciudad,
-      provincia: direccionUsuario.provincia,
+      calle: direccionUsuario?.[0]?.calle  || "",
+      altura: direccionUsuario?.[0]?.altura  || "",
+      ciudad: direccionUsuario?.[0]?.ciudad  || "",
+      provincia: direccionUsuario?.[0]?.provincia  || "",
       pais: "Argentina",
       nombreUsuario: usuario.usuario?.nombreUsuario,
       nuevaContrasenia: "",
@@ -99,6 +99,7 @@ export default function EditarPerfil() {
     const provinciaId = e.target.value;
     await cargarLocalidades(provinciaId);
   };
+
   async function handleUpdate(e) {
     e.preventDefault();
 

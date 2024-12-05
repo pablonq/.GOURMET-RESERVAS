@@ -45,7 +45,7 @@ export default function LoginUsuario() {
 
   return (
     <>
-    <div className=" flex justify-center  items-center h-screen w-full bg-cover bg-center" style={{ backgroundImage: "url('src/assets/bg7.png')" }}>
+    <div className=" flex justify-center  items-center h-screen w-full bg-cover bg-center" style={{ backgroundImage: "url('src/assets/bg13.png')" }}>
       <div className="relative -mt-16 flex justify-center w-1/2 ">
         <div className="bg-[#242424] h-[450px] p-8 rounded-lg shadow-lg w-full  flex">
           <div className="w-1/2 ml-6 pt-20">

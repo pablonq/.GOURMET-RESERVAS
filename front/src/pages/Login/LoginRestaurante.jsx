@@ -43,7 +43,7 @@ export default function LoginRestaurante() {
   }
   return (
     <>
-      <div className=" flex justify-center  items-center h-screen w-full bg-cover bg-center" style={{ backgroundImage: "url('src/assets/bg6.png')" }}>
+      <div className=" flex justify-center  items-center h-screen w-full bg-cover bg-center" style={{ backgroundImage: "url('src/assets/bg7.png')" }}>
       <div className="relative  -mt-14  flex  justify-center w-1/2">
         <div className="bg-[#242424] h-[450px] p-8 rounded-lg shadow-lg w-full max-w-5xl flex">
         <div className="w-1/2 text-center flex flex-col justify-center px-6 text-white">
