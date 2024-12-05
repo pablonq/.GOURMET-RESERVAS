@@ -78,7 +78,7 @@ class PagoController extends Controller
 
           //esto es para Enviar notificación a un usuario específico para prueba
           $user = Usuario::find($reserva->idUsuario );
-        if ($user->idPersona === 122) { 
+        if ($user->idPersona === 22) { 
             $reservaController = new ReservaController();
             $reservaController->confirmReservation($idReserva, $user->idPersona );
         }
