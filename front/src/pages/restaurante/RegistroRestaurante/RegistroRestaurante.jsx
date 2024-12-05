@@ -470,7 +470,7 @@ export default function RegistroRestaurante() {
                   <input
                     required
                     type="text"
-                    className="input-date pl-8"
+                    className="input-text pl-8"
                     placeholder="DNI"
                     value={formData.dniDuenio || ""}
                     onChange={(e) =>

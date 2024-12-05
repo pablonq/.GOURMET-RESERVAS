@@ -101,7 +101,7 @@ export default function LoginRestaurante() {
               <button className="font-verdana cursor-pointer text-[#242424] px-16 rounded-lg bg-white bg-opacity-50 hover:bg-opacity-100 w-30 h-10">Iniciar session</button>
             </form>
             <div className="flex w-2/3 mx-auto  m-4 justify-end">
-              <Link to="/registroUsuario" className="text-[#DC493A] font-verdana hover:text-[#B6C6B9]  text-xs">
+              <Link to="/registroRestaurante" className="text-[#DC493A] font-verdana hover:text-[#B6C6B9]  text-xs">
                 {" "}
                 Registrate Aqui
               </Link>
