@@ -54,7 +54,7 @@ class AtencionRestauranteSeeder extends Seeder
         $horarios->startTime1 = '08:30:00';
         $horarios->endTime1 = '14:00:00';
         $horarios->startTime2 = '17:00:00';
-        $horarios->endTime2 = '23:45:00';
+        $horarios->endTime2 = '23:30:00';
         $horarios->idRestaurante = 1;
         $horarios->save();
 
@@ -109,7 +109,7 @@ class AtencionRestauranteSeeder extends Seeder
         $horarios->startTime1 = '08:30:00';
         $horarios->endTime1 = '14:00:00';
         $horarios->startTime2 = '17:00:00';
-        $horarios->endTime2 = '23:45:00';
+        $horarios->endTime2 = '23:30:00';
         $horarios->idRestaurante = 2;
         $horarios->save();
 
@@ -118,7 +118,7 @@ class AtencionRestauranteSeeder extends Seeder
         $horarios->startTime1 = '08:30:00';
         $horarios->endTime1 = '14:00:00';
         $horarios->startTime2 = '17:00:00';
-        $horarios->endTime2 = '23:45:00';
+        $horarios->endTime2 = '23:30:00';
         $horarios->idRestaurante = 2;
         $horarios->save();
 
@@ -164,7 +164,7 @@ class AtencionRestauranteSeeder extends Seeder
         $horarios->startTime1 = '08:30:00';
         $horarios->endTime1 = '14:00:00';
         $horarios->startTime2 = '17:00:00';
-        $horarios->endTime2 = '23:45:00';
+        $horarios->endTime2 = '23:30:00';
         $horarios->idRestaurante = 3;
         $horarios->save();
 
@@ -173,7 +173,7 @@ class AtencionRestauranteSeeder extends Seeder
         $horarios->startTime1 = '08:30:00';
         $horarios->endTime1 = '14:00:00';
         $horarios->startTime2 = '17:00:00';
-        $horarios->endTime2 = '23:45:00';
+        $horarios->endTime2 = '23:30:00';
         $horarios->idRestaurante = 3;
         $horarios->save();
 
@@ -184,7 +184,7 @@ class AtencionRestauranteSeeder extends Seeder
               'startTime1' => '12:00:00',
               'endTime1' => '15:30:00',
               'startTime2' => '19:30:00',
-              'endTime2' => '00:00:00',
+              'endTime2' => '23:30:00',
               'idRestaurante' => 4,
           ],
           // Domingo
@@ -193,7 +193,7 @@ class AtencionRestauranteSeeder extends Seeder
               'startTime1' => '12:00:00',
               'endTime1' => '15:30:00',
               'startTime2' => '19:30:00',
-              'endTime2' => '00:00:00',
+              'endTime2' => '23:30:00',
               'idRestaurante' => 4,
           ],
           // Lunes
@@ -202,7 +202,7 @@ class AtencionRestauranteSeeder extends Seeder
               'startTime1' => '12:00:00',
               'endTime1' => '15:30:00',
               'startTime2' => '19:30:00',
-              'endTime2' => '00:00:00',
+              'endTime2' => '23:30:00',
               'idRestaurante' => 4,
           ],
           // Martes
@@ -211,7 +211,7 @@ class AtencionRestauranteSeeder extends Seeder
               'startTime1' => '12:00:00',
               'endTime1' => '15:30:00',
               'startTime2' => '19:30:00',
-              'endTime2' => '00:00:00',
+              'endTime2' => '23:30:00',
               'idRestaurante' => 4,
           ],
           // Miércoles
@@ -220,7 +220,7 @@ class AtencionRestauranteSeeder extends Seeder
               'startTime1' => '11:00:00',
               'endTime1' => '15:30:00',
               'startTime2' => '19:30:00',
-              'endTime2' => '00:00:00',
+              'endTime2' => '23:30:00',
               'idRestaurante' => 4,
           ],
           // Jueves
@@ -229,7 +229,7 @@ class AtencionRestauranteSeeder extends Seeder
               'startTime1' => '11:00:00',
               'endTime1' => '15:30:00',
               'startTime2' => '19:00:00',
-              'endTime2' => '00:00:00',
+              'endTime2' => '23:30:00',
               'idRestaurante' => 4,
           ],
           // Viernes
@@ -238,7 +238,7 @@ class AtencionRestauranteSeeder extends Seeder
               'startTime1' => '11:00:00',
               'endTime1' => '15:30:00',
               'startTime2' => '19:30:00',
-              'endTime2' => '00:00:00',
+              'endTime2' => '23:30:00',
               'idRestaurante' => 4,
           ],
 
@@ -312,7 +312,7 @@ class AtencionRestauranteSeeder extends Seeder
             'startTime1' => '12:30:00',
             'endTime1' => '15:00:00',
             'startTime2' => '20:30:00',
-            'endTime2' => '00:00:00',
+            'endTime2' => '23:30:00',
             'idRestaurante' => 6,
         ],
 
@@ -322,7 +322,7 @@ class AtencionRestauranteSeeder extends Seeder
             'startTime1' => '12:30:00',
             'endTime1' => '15:00:00',
             'startTime2' => '20:30:00',
-            'endTime2' => '00:00:00',
+            'endTime2' => '23:30:00',
             'idRestaurante' => 6,
         ],
 
@@ -332,7 +332,7 @@ class AtencionRestauranteSeeder extends Seeder
             'startTime1' => '12:30:00',
             'endTime1' => '15:00:00',
             'startTime2' => '20:30:00',
-            'endTime2' => '00:00:00',
+            'endTime2' => '23:30:00',
             'idRestaurante' => 6,
         ],
 
@@ -342,7 +342,7 @@ class AtencionRestauranteSeeder extends Seeder
             'startTime1' => '12:30:00',
             'endTime1' => '15:00:00',
             'startTime2' => '20:30:00',
-            'endTime2' => '00:00:00',
+            'endTime2' => '23:30:00',
             'idRestaurante' => 6,
         ],
 
@@ -352,7 +352,7 @@ class AtencionRestauranteSeeder extends Seeder
             'startTime1' => '12:30:00',
             'endTime1' => '15:00:00',
             'startTime2' => '20:30:00',
-            'endTime2' => '00:00:00',
+            'endTime2' => '23:30:00',
             'idRestaurante' => 6,
         ],
 
@@ -362,7 +362,7 @@ class AtencionRestauranteSeeder extends Seeder
             'startTime1' => '12:30:00',
             'endTime1' => '15:00:00',
             'startTime2' => '20:30:00',
-            'endTime2' => '00:00:00',
+            'endTime2' => '23:30:00',
             'idRestaurante' => 6,
         ],
 
@@ -372,7 +372,7 @@ class AtencionRestauranteSeeder extends Seeder
             'startTime1' => '12:30:00',
             'endTime1' => '15:00:00',
             'startTime2' => '20:30:00',
-            'endTime2' => '00:00:00',
+            'endTime2' => '23:30:00',
             'idRestaurante' => 6,
         ],
 
@@ -382,7 +382,7 @@ class AtencionRestauranteSeeder extends Seeder
           'startTime1' => '12:30:00',
           'endTime1' => '15:00:00',
           'startTime2' => '20:30:00',
-          'endTime2' => '00:00:00',
+          'endTime2' => '23:30:00',
           'idRestaurante' => 7,
       ],
 
@@ -392,7 +392,7 @@ class AtencionRestauranteSeeder extends Seeder
           'startTime1' => null,
           'endTime1' => null,
           'startTime2' => '20:30:00',
-          'endTime2' => '00:00:00',
+          'endTime2' => '23:30:00',
           'idRestaurante' => 7,
       ],
 
@@ -402,7 +402,7 @@ class AtencionRestauranteSeeder extends Seeder
           'startTime1' => '12:30:00',
           'endTime1' => '15:00:00',
           'startTime2' => '20:30:00',
-          'endTime2' => '00:00:00',
+          'endTime2' => '23:30:00',
           'idRestaurante' => 7,
       ],
 
@@ -412,7 +412,7 @@ class AtencionRestauranteSeeder extends Seeder
           'startTime1' => '12:30:00',
           'endTime1' => '15:00:00',
           'startTime2' => '20:30:00',
-          'endTime2' => '00:00:00',
+          'endTime2' => '23:30:00',
           'idRestaurante' => 7,
       ],
 
@@ -422,7 +422,7 @@ class AtencionRestauranteSeeder extends Seeder
           'startTime1' => '12:30:00',
           'endTime1' => '15:00:00',
           'startTime2' => '20:30:00',
-          'endTime2' => '00:00:00',
+          'endTime2' => '23:30:00',
           'idRestaurante' => 7,
       ],
 
@@ -432,7 +432,7 @@ class AtencionRestauranteSeeder extends Seeder
           'startTime1' => '12:30:00',
           'endTime1' => '15:00:00',
           'startTime2' => '20:30:00',
-          'endTime2' => '00:00:00',
+          'endTime2' => '23:30:00',
           'idRestaurante' => 7,
       ],
 
@@ -442,7 +442,7 @@ class AtencionRestauranteSeeder extends Seeder
           'startTime1' => '12:30:00',
           'endTime1' => '15:00:00',
           'startTime2' => '20:30:00',
-          'endTime2' => '00:00:00',
+          'endTime2' => '23:30:00',
           'idRestaurante' => 7,
       ],
        //Sabado
@@ -521,7 +521,7 @@ class AtencionRestauranteSeeder extends Seeder
       'startTime1' => '11:00:00',
       'endTime1' => '15:00:00',
       'startTime2' => '20:30:00',
-      'endTime2' => '01:00:00',
+      'endTime2' => '23:30:00',
       'idRestaurante' => 9,
   ],
   // Domingo
@@ -530,7 +530,7 @@ class AtencionRestauranteSeeder extends Seeder
       'startTime1' => '11:00:00',
       'endTime1' => '15:00:00',
       'startTime2' => '20:30:00',
-      'endTime2' => '01:00:00',
+      'endTime2' => '23:30:00',
       'idRestaurante' => 9,
   ],
   // Lunes (Cerrado)
@@ -548,7 +548,7 @@ class AtencionRestauranteSeeder extends Seeder
       'startTime1' => null,
       'endTime1' => null,
       'startTime2' => '20:30:00',
-      'endTime2' => '01:00:00',
+      'endTime2' => '23:30:00',
       'idRestaurante' => 9,
   ],
   // Miércoles
@@ -557,7 +557,7 @@ class AtencionRestauranteSeeder extends Seeder
       'startTime1' => '11:30:00',
       'endTime1' => '15:00:00',
       'startTime2' => '20:30:00',
-      'endTime2' => '01:00:00',
+      'endTime2' => '23:30:00',
       'idRestaurante' => 9,
   ],
   // Jueves
@@ -566,7 +566,7 @@ class AtencionRestauranteSeeder extends Seeder
       'startTime1' => '11:30:00',
       'endTime1' => '15:00:00',
       'startTime2' => '20:30:00',
-      'endTime2' => '01:00:00',
+      'endTime2' => '23:30:00',
       'idRestaurante' => 9,
   ],
   // Viernes
@@ -575,7 +575,7 @@ class AtencionRestauranteSeeder extends Seeder
       'startTime1' => '11:30:00',
       'endTime1' => '15:00:00',
       'startTime2' => '20:30:00',
-      'endTime2' => '01:00:00',
+      'endTime2' => '23:30:00',
       'idRestaurante' => 9,
   ],
 
@@ -585,7 +585,7 @@ class AtencionRestauranteSeeder extends Seeder
     'startTime1' => null,
     'endTime1' => null,
     'startTime2' => '20:30:00',
-    'endTime2' => '01:00:00',
+    'endTime2' => '23:30:00',
     'idRestaurante' => 10,
 ],
 // Domingo
@@ -647,9 +647,9 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Sábado',
   'startTime1' => '09:00:00',
-  'endTime1' => '13:00:00',
-  'startTime2' => '13:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 11,
 ],
 // Domingo
@@ -658,52 +658,52 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => null,
   'endTime1' => null,
   'startTime2' => '18:00:00',
-  'endTime2' => '00:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 11,
 ],
 // Lunes 
 [
   'dia' => 'Lunes',
   'startTime1' => '09:00:00',
-  'endTime1' => '13:00:00',
-  'startTime2' => '13:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 11,
 ],
 // Martes
 [
   'dia' => 'Martes',
   'startTime1' => '09:00:00',
-  'endTime1' => '13:00:00',
-  'startTime2' => '13:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 11,
 ],
 // Miércoles
 [
   'dia' => 'Miércoles',
   'startTime1' => '09:00:00',
-  'endTime1' => '13:00:00',
-  'startTime2' => '13:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 11,
 ],
 // Jueves
 [
   'dia' => 'Jueves',
   'startTime1' => '09:00:00',
-  'endTime1' => '13:00:00',
-  'startTime2' => '13:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 11,
 ],
 // Viernes
 [
   'dia' => 'Viernes',
   'startTime1' => '09:00:00',
-  'endTime1' => '13:00:00',
-  'startTime2' => '13:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 11,
 ],
 
@@ -713,7 +713,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => null,
   'endTime1' => null,
   'startTime2' => '20:00:00',
-  'endTime2' => '03:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 12,
 ],
 // Domingo
@@ -722,7 +722,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => null,
   'endTime1' => null,
   'startTime2' => '20:00:00',
-  'endTime2' => '01:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 12,
 ],
 // Lunes 
@@ -740,7 +740,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => null,
   'endTime1' => null,
   'startTime2' => '20:00:00',
-  'endTime2' => '01:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 12,
 ],
 // Miércoles
@@ -749,7 +749,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => null,
   'endTime1' => null,
   'startTime2' => '20:00:00',
-  'endTime2' => '01:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 12,
 ],
 // Jueves
@@ -758,7 +758,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => null,
   'endTime1' => null,
   'startTime2' => '20:00:00',
-  'endTime2' => '01:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 12,
 ],
 // Viernes
@@ -767,7 +767,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => null,
   'endTime1' => null,
   'startTime2' => '20:00:00',
-  'endTime2' => '01:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 12,
 ],
 
@@ -775,9 +775,9 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Sábado',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 13,
 ],
 // Domingo
@@ -793,45 +793,45 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Lunes',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 13,
 ],
 // Martes
 [
   'dia' => 'Martes',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 13,
 ],
 // Miércoles
 [
   'dia' => 'Miércoles',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 13,
 ],
 // Jueves
 [
   'dia' => 'Jueves',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 13,
 ],
 // Viernes
 [
   'dia' => 'Viernes',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 13,
 ],
 
@@ -839,9 +839,9 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Sábado',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 14,
 ],
 // Domingo
@@ -857,45 +857,45 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Lunes',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 14,
 ],
 // Martes
 [
   'dia' => 'Martes',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 14,
 ],
 // Miércoles
 [
   'dia' => 'Miércoles',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 14,
 ],
 // Jueves
 [
   'dia' => 'Jueves',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 14,
 ],
 // Viernes
 [
   'dia' => 'Viernes',
   'startTime1' => '08:00:00',
-  'endTime1' => '12:00:00',
-  'startTime2' => '12:01:00',
-  'endTime2' => '00:00:00',
+  'endTime1' => '23:30:00',
+  'startTime2' => null,
+  'endTime2' => null,
   'idRestaurante' => 14,
 ],
 
@@ -967,7 +967,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Sábado',
   'startTime1' => '08:00:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 16,
@@ -985,7 +985,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Lunes',
   'startTime1' => '08:00:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 16,
@@ -994,7 +994,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Martes',
   'startTime1' => '08:00:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 16,
@@ -1003,7 +1003,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Miércoles',
   'startTime1' => '08:00:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 16,
@@ -1012,7 +1012,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Jueves',
   'startTime1' => '08:00:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 16,
@@ -1021,7 +1021,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Viernes',
   'startTime1' => '08:00:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 16,
@@ -1031,7 +1031,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Sábado',
   'startTime1' => '08:00:00',
-  'endTime1' => '01:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 17,
@@ -1042,14 +1042,14 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => null,
   'endTime1' => null,
   'startTime2' => '17:00:00',
-  'endTime2' => '01:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 17,
 ],
 // Lunes 
 [
   'dia' => 'Lunes',
   'startTime1' => '08:00:00',
-  'endTime1' => '01:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 17,
@@ -1058,7 +1058,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Martes',
   'startTime1' => '08:00:00',
-  'endTime1' => '01:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 17,
@@ -1067,7 +1067,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Miércoles',
   'startTime1' => '08:00:00',
-  'endTime1' => '01:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 17,
@@ -1076,7 +1076,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Jueves',
   'startTime1' => '08:00:00',
-  'endTime1' => '01:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 17,
@@ -1085,7 +1085,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Viernes',
   'startTime1' => '08:00:00',
-  'endTime1' => '01:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 17,
@@ -1095,7 +1095,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Sábado',
   'startTime1' => '18:00:00',
-  'endTime1' => '01:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 18,
@@ -1131,7 +1131,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Miércoles',
   'startTime1' => '18:00:00',
-  'endTime1' => '01:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 18,
@@ -1140,7 +1140,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Jueves',
   'startTime1' => '18:00:00',
-  'endTime1' => '01:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 18,
@@ -1149,7 +1149,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Viernes',
   'startTime1' => '18:00:00',
-  'endTime1' => '01:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 18,
@@ -1161,7 +1161,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => '12:00:00',
   'endTime1' => '16:00:00',
   'startTime2' => '20:30:00',
-  'endTime2' => '00:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 19,
 ],
 // Domingo
@@ -1170,7 +1170,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => '12:00:00',
   'endTime1' => '16:00:00',
   'startTime2' => '20:30:00',
-  'endTime2' => '00:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 19,
 ],
 // Lunes 
@@ -1179,7 +1179,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => '12:00:00',
   'endTime1' => '16:00:00',
   'startTime2' => '20:30:00',
-  'endTime2' => '00:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 19,
 ],
 // Martes
@@ -1188,7 +1188,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => '12:00:00',
   'endTime1' => '16:00:00',
   'startTime2' => '20:30:00',
-  'endTime2' => '00:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 19,
 ],
 // Miércoles
@@ -1197,7 +1197,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => '12:00:00',
   'endTime1' => '16:00:00',
   'startTime2' => '20:30:00',
-  'endTime2' => '00:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 19,
 ],
 // Jueves
@@ -1206,7 +1206,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => '12:00:00',
   'endTime1' => '16:00:00',
   'startTime2' => '20:30:00',
-  'endTime2' => '00:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 19,
 ],
 // Viernes
@@ -1215,7 +1215,7 @@ class AtencionRestauranteSeeder extends Seeder
   'startTime1' => '12:00:00',
   'endTime1' => '16:00:00',
   'startTime2' => '20:30:00',
-  'endTime2' => '00:00:00',
+  'endTime2' => '23:30:00',
   'idRestaurante' => 19,
 ],
 
@@ -1223,7 +1223,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Sábado',
   'startTime1' => '18:30:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 20,
@@ -1232,7 +1232,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Domingo',
   'startTime1' => '18:30:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 20,
@@ -1241,7 +1241,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Lunes',
   'startTime1' => '18:30:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 20,
@@ -1250,7 +1250,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Martes',
   'startTime1' => '18:30:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 20,
@@ -1259,7 +1259,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Miércoles',
   'startTime1' => '18:30:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 20,
@@ -1268,7 +1268,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Jueves',
   'startTime1' => '18:30:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 20,
@@ -1277,7 +1277,7 @@ class AtencionRestauranteSeeder extends Seeder
 [
   'dia' => 'Viernes',
   'startTime1' => '18:30:00',
-  'endTime1' => '00:00:00',
+  'endTime1' => '23:30:00',
   'startTime2' => null,
   'endTime2' => null,
   'idRestaurante' => 20,
